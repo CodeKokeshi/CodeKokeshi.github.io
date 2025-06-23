@@ -311,12 +311,18 @@
             .project-teaser img {
                 height: 200px !important;
             }
-            
-            .dark-toggle {
+              .dark-toggle {
                 top: 15px;
                 right: 15px;
                 padding: 8px 12px;
                 font-size: 1rem;
+            }
+            
+            /* Move dark toggle below navbar on mobile to avoid hamburger overlap */
+            .dark-toggle {
+                top: 70px !important;
+                right: 15px;
+                z-index: 1040;
             }
             
             .section-title {
