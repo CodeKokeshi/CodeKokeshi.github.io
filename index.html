@@ -259,11 +259,138 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border-radius: 8px;
         }
-        
-        .dark-mode .modal-body img {
+          .dark-mode .modal-body img {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Mobile Responsiveness Fixes */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 0 40px;
+                min-height: auto;
+                text-align: center;
+            }
+            
+            .hero-section .row {
+                flex-direction: column-reverse;
+            }
+            
+            .profile-img {
+                width: 200px;
+                height: 200px;
+                margin-bottom: 2rem;
+            }
+            
+            .display-4 {
+                font-size: 2rem !important;
+            }
+            
+            .social-links {
+                justify-content: center !important;
+            }
+            
+            .social-links .d-flex {
+                justify-content: center !important;
+            }
+            
+            .project-card .row {
+                flex-direction: column;
+            }
+            
+            .project-teaser .row {
+                flex-direction: column;
+            }
+            
+            .project-teaser .col-md-8,
+            .project-teaser .col-md-4 {
+                margin-bottom: 1rem;
+            }
+            
+            .project-teaser img {
+                height: 200px !important;
+            }
+            
+            .dark-toggle {
+                top: 15px;
+                right: 15px;
+                padding: 8px 12px;
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .btn-custom, .btn-hero {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            
+            .skill-card {
+                margin-bottom: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.2rem !important;
+            }
+            
+            .contact-section .btn-outline-light {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 70px 0 30px;
+            }
+            
+            .display-4 {
+                font-size: 1.8rem !important;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .lead {
+                font-size: 1rem;
+            }
+            
+            .social-links a {
+                width: 50px;
+                height: 50px;
+                margin: 0 5px;
+                padding: 12px;
+                line-height: 26px;
+            }
+            
+            .social-links .small {
+                font-size: 0.75rem;
+            }
+            
+            .project-teaser img {
+                height: 150px !important;
+            }
+            
+            .modal-dialog {
+                margin: 1rem;
+            }
+            
+            .skill-card {
+                padding: 1rem;
+            }
+            
+            .skill-card h4 {
+                font-size: 1.2rem;
+            }
+            
+            .skill-card p {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -602,10 +729,9 @@
         <div class="container">
             <div class="row">                <div class="col-12 text-center text-white">
                     <h2 class="section-title text-white">Get In Touch</h2>
-                    <p class="lead mb-3">Interested in collaborating or have a project in mind? Let's connect!</p>
-                    <div class="mb-4">
-                        <a href="mailto:cc.markardie.dolar@cvsu.edu.ph" class="btn btn-outline-light btn-lg">
-                            <i class="bi bi-envelope me-2"></i>cc.markardie.dolar@cvsu.edu.ph
+                    <p class="lead mb-3">Interested in collaborating or have a project in mind? Let's connect!</p>                    <div class="mb-4">
+                        <a href="mailto:cc.markardie.dolar@cvsu.edu.ph" class="btn btn-outline-light btn-lg d-inline-block text-break">
+                            <i class="bi bi-envelope me-2"></i><span class="d-none d-md-inline">cc.markardie.dolar@cvsu.edu.ph</span><span class="d-md-none">Email Me</span>
                         </a>
                     </div><div class="social-links">
                         <div class="d-flex justify-content-center gap-4 flex-wrap">
