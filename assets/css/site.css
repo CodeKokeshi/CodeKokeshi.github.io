@@ -28,18 +28,18 @@
   --shadow: 0 10px 24px rgba(22, 26, 44, 0.12);
 }
 
-[data-theme="retro"] {
+[data-theme="wood"] {
   color-scheme: dark;
   --font-body: "Press Start 2P", "Courier New", monospace;
   --font-heading: "Press Start 2P", "Courier New", monospace;
-  --bg: #101820;
-  --surface: #0d1419;
-  --surface-alt: #151f26;
-  --text: #85ff9e;
-  --muted: #4ad585;
-  --accent: #6bffb3;
-  --accent-strong: #8afff0;
-  --border: rgba(133, 255, 158, 0.2);
+  --bg: #1b120a;
+  --surface: #24180d;
+  --surface-alt: #2f1c0d;
+  --text: #f1e4c7;
+  --muted: #c9b38e;
+  --accent: #ffb347;
+  --accent-strong: #ff9130;
+  --border: rgba(241, 228, 199, 0.18);
   --shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 

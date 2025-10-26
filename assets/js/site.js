@@ -1,10 +1,35 @@
 (function () {
   const storageKey = "ck-theme";
-  const themes = new Set(["dark", "light", "retro", "cyberpunk"]);
+  const themes = new Set(["dark", "light", "wood", "cyberpunk"]);
+  const aliases = new Map([
+    ["retro", "wood"],
+  ]);
+  const assetVersion = "2025-10-26";
   const root = document.documentElement;
 
+  function bustStylesheets() {
+    const cacheValue = (window.location.protocol === "file:" || window.location.hostname === "localhost")
+      ? Date.now().toString()
+      : assetVersion;
+
+    document.querySelectorAll('link[rel="stylesheet"][data-cache-bust]').forEach((link) => {
+      const href = link.getAttribute("href");
+      if (!href) return;
+      try {
+        const url = new URL(href, window.location.href);
+  url.searchParams.set("v", cacheValue);
+  link.setAttribute("href", url.href);
+      } catch (err) {
+        // Fallback for older browsers without URL support
+        const separator = href.includes("?") ? "&" : "?";
+        link.setAttribute("href", `${href}${separator}v=${cacheValue}`);
+      }
+    });
+  }
+
   function applyTheme(theme) {
-    const nextTheme = themes.has(theme) ? theme : "dark";
+    const normalized = aliases.get(theme) || theme;
+    const nextTheme = themes.has(normalized) ? normalized : "dark";
     root.setAttribute("data-theme", nextTheme);
     try {
       localStorage.setItem(storageKey, nextTheme);
@@ -13,7 +38,8 @@
     }
     const buttons = document.querySelectorAll("[data-theme-option]");
     buttons.forEach((btn) => {
-      const isActive = btn.dataset.themeOption === nextTheme;
+      const targetTheme = aliases.get(btn.dataset.themeOption) || btn.dataset.themeOption;
+      const isActive = targetTheme === nextTheme;
       btn.setAttribute("aria-pressed", isActive ? "true" : "false");
     });
     syncThemeColor();
@@ -34,12 +60,15 @@
     }
   })();
 
-  if (stored && themes.has(stored)) {
-    root.setAttribute("data-theme", stored);
+  const storedNormalized = aliases.get(stored) || stored;
+  if (storedNormalized && themes.has(storedNormalized)) {
+    root.setAttribute("data-theme", storedNormalized);
   }
 
   window.addEventListener("DOMContentLoaded", () => {
-    applyTheme(root.getAttribute("data-theme") || stored || "dark");
+    bustStylesheets();
+    const initial = root.getAttribute("data-theme") || stored || "dark";
+    applyTheme(aliases.get(initial) || initial);
     document.querySelectorAll("[data-theme-option]").forEach((btn) => {
       btn.addEventListener("click", () => applyTheme(btn.dataset.themeOption));
       btn.addEventListener("keydown", (event) => {
