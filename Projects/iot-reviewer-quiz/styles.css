@@ -1,0 +1,369 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface-alt: #1f2733;
+  --primary: #2ea043;
+  --primary-dark: #238636;
+  --danger: #f85149;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --card-width: min(640px, calc(100vw - 32px));
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(145deg, #020408, #111927);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 32px clamp(16px, 4vw, 48px);
+  background: rgba(13, 17, 23, 0.7);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #1f2937;
+}
+
+header.app-header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+header.app-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 24px clamp(16px, 4vw, 48px) 48px;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  width: min(960px, 100%);
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid #1f2937;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-group label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.control-group input,
+.control-group select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #30363d;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.stats {
+  justify-content: center;
+  font-size: 0.95rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.mode-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid #1f2937;
+  border-radius: 16px;
+  width: min(960px, 100%);
+}
+
+.mode-selector span {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.mode-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.mode-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mode-btn.active {
+  background: var(--primary);
+  color: #041906;
+}
+
+.flashcard-area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.flashcard {
+  width: var(--card-width);
+  min-height: 320px;
+  background: linear-gradient(160deg, var(--surface), var(--surface-alt));
+  border-radius: 20px;
+  border: 1px solid #1f2937;
+  box-shadow: 0 32px 60px rgba(0, 0, 0, 0.45);
+  padding: 32px;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.flashcard.flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 32px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.flashcard-face h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--primary);
+}
+
+.flashcard-face h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.flashcard-face p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.flashcard-face ul {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.5;
+}
+
+.flashcard-face mark {
+  background: rgba(46, 160, 67, 0.25);
+  color: var(--primary);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.flashcard-face.back {
+  transform: rotateY(180deg);
+}
+
+.flashcard-help {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button.primary {
+  background: var(--primary);
+  color: #041906;
+}
+
+button.primary:hover {
+  background: var(--primary-dark);
+}
+
+button.secondary {
+  background: rgba(46, 160, 67, 0.12);
+  color: var(--primary);
+}
+
+button.secondary:hover {
+  background: rgba(46, 160, 67, 0.2);
+}
+
+button.ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+button.ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+a.primary,
+a.secondary,
+a.ghost {
+  display: inline-block;
+  text-decoration: none;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+a.primary {
+  background: var(--primary);
+  color: #041906;
+}
+
+a.primary:hover {
+  background: var(--primary-dark);
+}
+
+a.secondary {
+  background: rgba(46, 160, 67, 0.12);
+  color: var(--primary);
+}
+
+a.secondary:hover {
+  background: rgba(46, 160, 67, 0.2);
+}
+
+a.ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+a.ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.confidence {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.confidence-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.confidence-buttons button {
+  min-width: 120px;
+}
+
+.confidence-buttons .again {
+  background: rgba(248, 81, 73, 0.18);
+  color: var(--danger);
+}
+
+.confidence-buttons .again:hover {
+  background: rgba(248, 81, 73, 0.28);
+}
+
+.confidence-buttons .good {
+  background: rgba(46, 160, 67, 0.18);
+  color: var(--primary);
+}
+
+.confidence-buttons .good:hover {
+  background: rgba(46, 160, 67, 0.28);
+}
+
+.confidence-buttons .easy {
+  background: rgba(46, 160, 67, 0.08);
+  color: var(--text);
+}
+
+footer {
+  padding: 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  header.app-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .flashcard {
+    padding: 24px;
+    min-height: 280px;
+  }
+
+  .flashcard-face {
+    inset: 24px;
+  }
+}
