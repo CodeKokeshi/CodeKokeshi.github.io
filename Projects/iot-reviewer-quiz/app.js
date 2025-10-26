@@ -407,7 +407,15 @@ function filterDeck() {
   });
 
   if (!activeDeck.length) {
-    flashcardEl.innerHTML = "<div class=\"flashcard-face\"><p>No cards match the current filters. Try broadening your search.</p></div>";
+    flashcardEl.innerHTML = `
+      <div class="flashcard-inner">
+        <div class="flashcard-face front no-results">
+          <h2>No cards found</h2>
+          <p>Try broadening your search or clearing filters.</p>
+        </div>
+      </div>
+    `;
+    flashcardEl.classList.remove("flipped");
     progressStatsEl.textContent = "0 cards filtered.";
     return;
   }
@@ -433,13 +441,15 @@ function renderFlashcard() {
   }
   
   flashcardEl.innerHTML = `
-    <div class="flashcard-face front">
-      <h3>${card.topic}</h3>
-      <h2>${card.question}</h2>
-    </div>
-    <div class="flashcard-face back">
-      <h3>${card.topic}</h3>
-      ${answer}
+    <div class="flashcard-inner">
+      <div class="flashcard-face front" aria-hidden="${isFlipped}">
+        <h3>${card.topic}</h3>
+        <h2>${card.question}</h2>
+      </div>
+      <div class="flashcard-face back" aria-hidden="${!isFlipped}">
+        <h3>${card.topic}</h3>
+        ${answer}
+      </div>
     </div>
   `;
   flashcardEl.dataset.cardId = card.id;
