@@ -20,224 +20,318 @@
     <style>
       :root {
         color-scheme: dark;
-        --bg: #05060a;
-        --fg: #f4f5f6;
-        --accent: #8c52ff;
-        --accent-alt: #22d3ee;
+        --bg: #090a0f;
+        --surface: #11121a;
+        --surface-soft: #161823;
+        --text: #f5f7fa;
+        --muted: rgba(245, 247, 250, 0.58);
+        --accent: #6e6bff;
       }
       * {
-        margin: 0;
-        padding: 0;
         box-sizing: border-box;
       }
       body {
-        font-family: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
-        background: radial-gradient(circle at top left, rgba(34, 211, 238, 0.15), transparent 45%),
-          radial-gradient(circle at 70% 20%, rgba(140, 82, 255, 0.2), transparent 60%),
+        margin: 0;
+        font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at top right, rgba(110, 107, 255, 0.12), transparent 48%),
+          radial-gradient(circle at bottom, rgba(32, 173, 229, 0.12), transparent 52%),
           var(--bg);
-        color: var(--fg);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
       }
       .page {
-        width: min(1200px, 90vw);
+        width: min(1100px, 90vw);
         margin: 0 auto;
-        padding: clamp(1.5rem, 3vw, 3rem) 0 clamp(3rem, 6vw, 5rem);
+        padding: clamp(1.5rem, 4vw, 3.5rem) 0 clamp(3rem, 6vw, 4.5rem);
         display: flex;
         flex-direction: column;
-        gap: clamp(3rem, 6vw, 5rem);
+        gap: clamp(2.5rem, 5vw, 4rem);
       }
-      header {
+      .site-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 1.5rem;
-        position: sticky;
-        top: clamp(0.75rem, 2vw, 1.5rem);
-        padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 2vw, 1.5rem);
-        border-radius: 999px;
-        background: rgba(5, 6, 10, 0.65);
-        backdrop-filter: blur(18px);
+        gap: 1rem;
+        padding: clamp(0.9rem, 2vw, 1.2rem) clamp(1.2rem, 3vw, 2rem);
+        border-radius: 1.25rem;
+        background: rgba(17, 18, 26, 0.7);
         border: 1px solid rgba(255, 255, 255, 0.08);
-        z-index: 10;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
       }
-      header .brand-title {
-        font-size: clamp(1.4rem, 2.2vw, 1.75rem);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+      .brand-mark {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
         font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-size: clamp(1.05rem, 2vw, 1.2rem);
+      }
+      .brand-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 18px rgba(110, 107, 255, 0.7);
       }
       a.button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 0.75rem 1.75rem;
+        padding: 0.7rem clamp(1.4rem, 3vw, 1.9rem);
         border-radius: 999px;
         text-decoration: none;
         color: var(--bg);
+        background: linear-gradient(135deg, var(--accent), #4cc9f0);
         font-weight: 600;
-        letter-spacing: 0.04em;
-        background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-        box-shadow: 0 18px 32px rgba(140, 82, 255, 0.35);
+        letter-spacing: 0.05em;
+        box-shadow: 0 16px 28px rgba(78, 102, 255, 0.42);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
       a.button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 24px 42px rgba(140, 82, 255, 0.45);
+        box-shadow: 0 22px 40px rgba(78, 102, 255, 0.55);
       }
       main {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: clamp(2.5rem, 5vw, 4rem);
-        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(3rem, 6vw, 5rem);
       }
-      .hero-text h1 {
-        font-size: clamp(3rem, 7vw, 6rem);
+      .hero {
+        position: relative;
+        padding: clamp(3rem, 7vw, 5rem) clamp(2.2rem, 6vw, 4rem);
+        background: linear-gradient(135deg, rgba(17, 18, 26, 0.92), rgba(22, 24, 35, 0.78));
+        border-radius: clamp(2rem, 4vw, 3rem);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        overflow: hidden;
+        animation: fadeUp 0.8s ease forwards;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: -30% -20% auto auto;
+        width: clamp(220px, 40vw, 360px);
+        height: clamp(220px, 40vw, 360px);
+        background: radial-gradient(circle, rgba(110, 107, 255, 0.24), transparent 70%);
+        filter: blur(4px);
+        opacity: 0.8;
+      }
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.35em;
+        font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+        color: var(--muted);
+        margin-bottom: clamp(1rem, 2vw, 1.5rem);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .eyebrow::before {
+        content: "";
+        display: inline-block;
+        width: 38px;
+        height: 1px;
+        background: rgba(245, 247, 250, 0.32);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(3.5rem, 10vw, 6rem);
         font-weight: 900;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
         line-height: 0.95;
       }
-      .hero-text p {
-        margin-top: 1rem;
-        font-size: clamp(1rem, 2.2vw, 1.35rem);
-        color: rgba(244, 245, 246, 0.75);
-        max-width: 32ch;
-        line-height: 1.6;
+      .hero p {
+        margin: clamp(1.25rem, 2.5vw, 2rem) 0 0;
+        font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+        color: var(--muted);
+        max-width: 50ch;
       }
-      .hero-tagline {
-        display: inline-block;
-        margin-top: clamp(1rem, 3vw, 2rem);
-        padding: 0.6rem 1.5rem;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(255, 255, 255, 0.05);
-        font-size: clamp(0.85rem, 1.8vw, 1rem);
-        letter-spacing: 0.09em;
+      .art-section {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(1.75rem, 4vw, 2.5rem);
+      }
+      .section-heading {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .section-heading h2 {
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        font-weight: 800;
+        letter-spacing: 0.06em;
         text-transform: uppercase;
       }
-      .gallery {
+      .section-heading p {
+        color: var(--muted);
+        max-width: 48ch;
+      }
+      .art-grid {
         display: grid;
-        gap: clamp(1.25rem, 3vw, 2rem);
+        gap: clamp(1rem, 2.5vw, 1.8rem);
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       }
       .art-card {
         position: relative;
-        overflow: hidden;
         border-radius: 1.5rem;
-        aspect-ratio: 4 / 5;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(255, 255, 255, 0.03);
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-        animation: float 8s ease-in-out infinite;
-      }
-      .art-card:nth-child(2n) {
-        animation-delay: 1.5s;
-      }
-      .art-card:nth-child(3n) {
-        animation-delay: 3s;
+        overflow: hidden;
+        background: var(--surface);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        aspect-ratio: 3 / 4;
+        animation: fadeUp 0.9s ease forwards;
+        animation-delay: calc(var(--i) * 90ms);
+        opacity: 0;
       }
       .art-card img {
-        width: 110%;
-        height: 110%;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        filter: saturate(1.05) contrast(1.05);
-        transition: transform 0.6s ease;
+        transition: transform 0.5s ease;
       }
       .art-card::after {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, transparent 65%, rgba(5, 6, 10, 0.55));
+        background: linear-gradient(180deg, transparent 65%, rgba(9, 10, 15, 0.6));
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.35s ease;
       }
       .art-card:hover img {
-        transform: scale(1.05);
+        transform: scale(1.04);
       }
       .art-card:hover::after {
         opacity: 1;
       }
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px) rotate(-1deg);
-        }
-        50% {
-          transform: translateY(-10px) rotate(1deg);
-        }
-      }
       footer {
-        margin-top: auto;
-        padding: 2rem 0 1rem;
         text-align: center;
         font-size: 0.85rem;
-        color: rgba(244, 245, 246, 0.45);
+        color: rgba(245, 247, 250, 0.38);
+        padding-top: 2.5rem;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
       }
       @media (max-width: 768px) {
-        header {
+        body {
+          background: linear-gradient(160deg, rgba(32, 173, 229, 0.12), rgba(110, 107, 255, 0.12)), var(--bg);
+        }
+        .page {
+          gap: 2.5rem;
+        }
+        .site-header {
           flex-direction: column;
           align-items: stretch;
+          position: static;
         }
-        header .brand-title {
-          text-align: center;
+        .brand-mark {
+          justify-content: center;
         }
         a.button {
           justify-content: center;
         }
+        .hero {
+          padding: 2.5rem clamp(1.4rem, 5vw, 2rem);
+        }
+        h1 {
+          font-size: clamp(2.6rem, 12vw, 3.3rem);
+          letter-spacing: 0.08em;
+          text-align: center;
+          word-spacing: 0.15em;
+        }
+        .hero p {
+          text-align: center;
+          font-size: clamp(1rem, 4vw, 1.15rem);
+        }
+        .hero {
+          text-align: center;
+        }
+        .art-grid {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 1rem;
+        }
         .art-card {
-          aspect-ratio: 3 / 4;
+          border-radius: 1rem;
+          aspect-ratio: 1 / 1;
+        }
+        .section-heading {
+          text-align: center;
         }
       }
     </style>
   </head>
   <body>
     <div class="page">
-      <header>
-        <div class="brand-title">CodeKokeshi</div>
+      <header class="site-header">
+        <span class="brand-mark">
+          <span class="brand-dot" aria-hidden="true"></span>
+          Code Kokeshi
+        </span>
         <a class="button" href="Projects/">View Projects</a>
       </header>
       <main>
-        <section class="hero-text">
-          <span class="hero-tagline">Creative technologist</span>
-          <h1>CodeKokeshi</h1>
+        <section class="hero">
+          <span class="eyebrow">Game dev · artist · engineer</span>
+          <h1>Code Kokeshi</h1>
           <p>
-            I'm a game developer with thousands of hours in Godot, digital artist,
-            pixel artist, animator, web developer, backend developer, software engineer.
+            I'm a game developer with thousands of hours in Godot, digital artist, pixel artist,
+            animator, web developer, backend developer, software engineer.
           </p>
         </section>
-        <section class="gallery">
-          <figure class="art-card">
-            <img src="DigitalArtPortfolio/104943736-f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg" alt="Digital artwork 1 by CodeKokeshi" />
-          </figure>
-          <figure class="art-card">
-            <img src="DigitalArtPortfolio/117313274_p0_master1200.jpg" alt="Digital artwork 2 by CodeKokeshi" />
-          </figure>
-          <figure class="art-card">
-            <img src="DigitalArtPortfolio/Angela.jpg" alt="Angela illustration by CodeKokeshi" />
-          </figure>
-          <figure class="art-card">
-            <img src="DigitalArtPortfolio/Gaomon.jpg" alt="Gaomon digital artwork" />
-          </figure>
-          <figure class="art-card">
-            <img src="DigitalArtPortfolio/Mahiro1.jpg" alt="Mahiro concept art" />
-          </figure>
-          <figure class="art-card">
-            <img src="DigitalArtPortfolio/Mahiro2.jpg" alt="Mahiro portrait" />
-          </figure>
-          <figure class="art-card">
-            <img src="DigitalArtPortfolio/Mahiro3.jpg" alt="Mahiro artwork" />
-          </figure>
-          <figure class="art-card">
-            <img src="DigitalArtPortfolio/Marnie.jpg" alt="Marnie fan art" />
-          </figure>
+        <section class="art-section" aria-label="Digital art portfolio">
+          <div class="section-heading">
+            <h2>Digital art</h2>
+            <p>
+              A curated glimpse into the illustrations, experiments, and character studies that shape my visual style.
+            </p>
+          </div>
+          <div class="art-grid">
+            <figure class="art-card" style="--i: 0">
+              <img src="DigitalArtPortfolio/104943736-f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg" alt="Illustration by CodeKokeshi" />
+            </figure>
+            <figure class="art-card" style="--i: 1">
+              <img src="DigitalArtPortfolio/117313274_p0_master1200.jpg" alt="Illustration by CodeKokeshi" />
+            </figure>
+            <figure class="art-card" style="--i: 2">
+              <img src="DigitalArtPortfolio/Angela.jpg" alt="Angela illustration by CodeKokeshi" />
+            </figure>
+            <figure class="art-card" style="--i: 3">
+              <img src="DigitalArtPortfolio/Gaomon.jpg" alt="Gaomon artwork by CodeKokeshi" />
+            </figure>
+            <figure class="art-card" style="--i: 4">
+              <img src="DigitalArtPortfolio/Mahiro1.jpg" alt="Mahiro illustration by CodeKokeshi" />
+            </figure>
+            <figure class="art-card" style="--i: 5">
+              <img src="DigitalArtPortfolio/Mahiro2.jpg" alt="Mahiro illustration by CodeKokeshi" />
+            </figure>
+            <figure class="art-card" style="--i: 6">
+              <img src="DigitalArtPortfolio/Mahiro3.jpg" alt="Mahiro illustration by CodeKokeshi" />
+            </figure>
+            <figure class="art-card" style="--i: 7">
+              <img src="DigitalArtPortfolio/Marnie.jpg" alt="Marnie illustration by CodeKokeshi" />
+            </figure>
+          </div>
         </section>
       </main>
-      <footer>© <span id="year"></span> CodeKokeshi. Crafted with love and shaders.</footer>
+      <footer>© <span id="year"></span> CodeKokeshi · Crafted with intention.</footer>
     </div>
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
