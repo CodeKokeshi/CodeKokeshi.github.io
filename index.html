@@ -20,9 +20,28 @@
         letter-spacing: 0.1em;
         text-transform: uppercase;
       }
+      a.button {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 0.75rem 2rem;
+        background: #f1f1f1;
+        color: #121212;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 999px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      }
+      a.button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+      }
     </style>
   </head>
   <body>
-    <h1>This is my website</h1>
+    <div>
+      <h1>This is my website</h1>
+      <a class="button" href="projects/">View Projects</a>
+    </div>
   </body>
 </html>
