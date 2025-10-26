@@ -156,6 +156,7 @@ button.large {
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 1rem;
+  color: var(--text);
 }
 
 .mc-option ul,
@@ -175,16 +176,19 @@ button.large {
 .mc-option.selected {
   background: rgba(139, 92, 246, 0.22);
   border-color: var(--primary);
+  color: var(--text);
 }
 
 .mc-option.correct {
   background: rgba(34, 211, 238, 0.22);
   border-color: var(--accent);
+  color: var(--text);
 }
 
 .mc-option.incorrect {
   background: rgba(249, 115, 96, 0.25);
   border-color: var(--danger);
+  color: var(--text);
 }
 
 .mc-option.disabled {
@@ -313,6 +317,7 @@ button.large {
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 500;
+  color: var(--text);
 }
 
 .word-chip:hover {
@@ -332,6 +337,7 @@ button.large {
   border-color: var(--accent);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(34, 211, 238, 0.25);
+  color: var(--text);
 }
 
 .question-actions {
