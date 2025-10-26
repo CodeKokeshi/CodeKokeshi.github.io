@@ -265,6 +265,7 @@ button {
   font-size: 0.95rem;
   cursor: pointer;
   transition: transform 0.15s ease, background 0.2s ease;
+  color: var(--text);
 }
 
 button:active {
