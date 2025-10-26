@@ -556,25 +556,40 @@ a {
 @media (max-width: 520px) {
   .page-shell {
     width: calc(100vw - 32px);
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .portfolio-card {
     padding: 1.25rem;
   }
 
+  .page-section {
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
   .video-gallery {
     display: block;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .video-card {
     display: none;
     width: 100%;
+    margin: 0;
   }
 
   .video-card.carousel-active {
     display: block;
+  }
+
+  .locked-video {
+    width: 100%;
+    height: auto;
   }
 
   .video-card--xl,
@@ -586,12 +601,21 @@ a {
   .gallery-grid {
     display: block;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .gallery-card {
     display: none;
     width: 100%;
+    margin: 0;
+  }
+
+  .gallery-card img {
+    width: 100%;
+    height: auto;
   }
 
   .gallery-card.carousel-active {
