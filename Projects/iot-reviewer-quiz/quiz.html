@@ -14,7 +14,7 @@
   <header class="app-header">
     <div>
       <h1>IoT Quiz Mode</h1>
-      <p>Test your knowledge with multiple choice and fill-in-the-blank questions.</p>
+      <p>Mix multiple choice, multi-select, and fill-in-the-blank prompts pulled from the IoT flashcards.</p>
     </div>
     <div class="header-actions">
       <a href="index.html" class="secondary">Back to Flashcards</a>
@@ -45,6 +45,10 @@
             <label>
               <input type="checkbox" id="includeFillBlank" checked>
               Fill in the Blanks
+            </label>
+            <label>
+              <input type="checkbox" id="includeMultiSelect" checked>
+              Multi-Select Questions
             </label>
           </div>
         </div>
@@ -108,6 +112,10 @@
           <div class="breakdown-item">
             <span class="breakdown-label">Fill in Blanks</span>
             <span class="breakdown-value" id="fibCorrect">0/0</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="breakdown-label">Multi-Select</span>
+            <span class="breakdown-value" id="msCorrect">0/0</span>
           </div>
         </div>
 

@@ -615,12 +615,36 @@ const questionOverrides = {
   }
 };
 
+function buildExplanationMarkup(card, type) {
+  const override = questionOverrides[card.id];
+
+  let source = "";
+  if (type === "ms" && override?.multiSelect?.explanation) {
+    source = override.multiSelect.explanation;
+  } else if (type === "fib" && override?.fillBlank?.explanation) {
+    source = override.fillBlank.explanation;
+  } else if (override?.explanation) {
+    source = override.explanation;
+  } else if (card.full) {
+    source = card.full;
+  } else {
+    source = card.simple || "";
+  }
+
+  const stripped = stripHTML(source);
+  if (!stripped) {
+    return "";
+  }
+  return formatListMarkup(stripped);
+}
+
 // Quiz state
 let quizConfig = {
   topic: "all",
   questionCount: 10,
   includeMultipleChoice: true,
-  includeFillBlank: true
+  includeFillBlank: true,
+  includeMultiSelect: true
 };
 
 let currentQuiz = [];
@@ -636,6 +660,7 @@ const topicSelect = document.getElementById("topicSelect");
 const questionCountInput = document.getElementById("questionCount");
 const includeMCCheckbox = document.getElementById("includeMultipleChoice");
 const includeFIBCheckbox = document.getElementById("includeFillBlank");
+const includeMSCheckbox = document.getElementById("includeMultiSelect");
 const startQuizBtn = document.getElementById("startQuizBtn");
 const restartQuizBtn = document.getElementById("restartQuizBtn");
 const progressFill = document.getElementById("progressFill");
@@ -657,6 +682,7 @@ const correctCountEl = document.getElementById("correctCount");
 const incorrectCountEl = document.getElementById("incorrectCount");
 const mcCorrectEl = document.getElementById("mcCorrect");
 const fibCorrectEl = document.getElementById("fibCorrect");
+const msCorrectEl = document.getElementById("msCorrect");
 const reviewQuizBtn = document.getElementById("reviewQuizBtn");
 const newQuizBtn = document.getElementById("newQuizBtn");
 const reviewSection = document.getElementById("reviewSection");
@@ -700,8 +726,9 @@ function startQuiz() {
   quizConfig.questionCount = parseInt(questionCountInput.value);
   quizConfig.includeMultipleChoice = includeMCCheckbox.checked;
   quizConfig.includeFillBlank = includeFIBCheckbox.checked;
+  quizConfig.includeMultiSelect = includeMSCheckbox.checked;
 
-  if (!quizConfig.includeMultipleChoice && !quizConfig.includeFillBlank) {
+  if (!quizConfig.includeMultipleChoice && !quizConfig.includeFillBlank && !quizConfig.includeMultiSelect) {
     alert("Please select at least one question type!");
     return;
   }
@@ -767,7 +794,7 @@ function getAllowedQuestionTypes(card) {
       return quizConfig.includeFillBlank && (hasTemplate || !override?.types);
     }
     if (type === "ms") {
-      return quizConfig.includeMultipleChoice && !!override?.multiSelect;
+      return quizConfig.includeMultiSelect && !!override?.multiSelect;
     }
     return false;
   });
@@ -814,6 +841,7 @@ function generateMultipleChoice(card) {
     question: card.question,
     options,
     correctAnswer: correctValue,
+    explanation: buildExplanationMarkup(card, "mc"),
     userAnswer: null,
     isCorrect: false
   };
@@ -842,6 +870,7 @@ function generateMultiSelect(card) {
     options,
     correctAnswers,
     minSelections: override.minSelections || correctAnswers.length,
+    explanation: buildExplanationMarkup(card, "ms"),
     userAnswer: new Set(),
     isCorrect: false
   };
@@ -867,6 +896,7 @@ function generateConfiguredFillBlank(card, config) {
     sentenceWithBlanks,
     blankedWords,
     allWords,
+    explanation: buildExplanationMarkup(card, "fib"),
     userAnswer: new Array(blankedWords.length).fill(null),
     isCorrect: false
   };
@@ -939,6 +969,7 @@ function generateFillBlank(card) {
     sentenceWithBlanks: wrapListItems(linesWithBlanks, "list"),
     blankedWords,
     allWords,
+    explanation: buildExplanationMarkup(card, "fib"),
     userAnswer: new Array(blankedWords.length).fill(null),
     isCorrect: false
   };
@@ -1297,21 +1328,30 @@ function submitAnswer() {
     score++;
   }
 
-  let feedbackDetails = "";
-  if (!q.isCorrect) {
-    if (q.type === "mc") {
-      feedbackDetails = `<div class="feedback-answer">Correct answer: ${formatListMarkup(q.correctAnswer)}</div>`;
-    } else if (q.type === "ms") {
-      feedbackDetails = `<div class="feedback-answer">Correct answers: ${formatListMarkup(q.correctAnswers.join("\n"))}</div>`;
-    } else {
-      const fibList = wrapListItems(q.blankedWords.map(word => escapeHtml(word)), "list");
-      feedbackDetails = `<div class="feedback-answer">Correct answers: ${fibList}</div>`;
-    }
+  const answerLabel = q.isCorrect ? "Answer" : "Correct answer";
+  let answerMarkup = "";
+  if (q.type === "mc") {
+    answerMarkup = formatListMarkup(q.correctAnswer);
+  } else if (q.type === "ms") {
+    answerMarkup = formatListMarkup(q.correctAnswers.join("\n"));
+  } else {
+    answerMarkup = wrapListItems(q.blankedWords.map(word => escapeHtml(word)), "list");
   }
+
+  const answerSection = answerMarkup
+    ? `<div class="feedback-answer"><strong>${answerLabel}:</strong> ${answerMarkup}</div>`
+    : "";
+  const explanationSection = q.explanation
+    ? `<div class="feedback-explanation">${q.explanation}</div>`
+    : "";
 
   feedback.style.display = "block";
   feedback.className = `feedback ${q.isCorrect ? "correct" : "incorrect"}`;
-  feedback.innerHTML = q.isCorrect ? "✓ Correct!" : `✗ Incorrect.${feedbackDetails}`;
+  feedback.innerHTML = `
+    <div class="feedback-summary">${q.isCorrect ? "✓ Correct!" : "✗ Incorrect."}</div>
+    ${answerSection}
+    ${explanationSection}
+  `.trim();
 
   submitAnswerBtn.style.display = "none";
   nextQuestionBtn.style.display = "inline-block";
@@ -1331,9 +1371,11 @@ function showResults() {
   quizResults.style.display = "flex";
   reviewSection.style.display = "none";
 
-  const mcQuestions = currentQuiz.filter(q => q.type === "mc" || q.type === "ms");
+  const mcQuestions = currentQuiz.filter(q => q.type === "mc");
+  const msQuestions = currentQuiz.filter(q => q.type === "ms");
   const fibQuestions = currentQuiz.filter(q => q.type === "fib");
   const mcCorrect = mcQuestions.filter(q => q.isCorrect).length;
+  const msCorrect = msQuestions.filter(q => q.isCorrect).length;
   const fibCorrect = fibQuestions.filter(q => q.isCorrect).length;
   const incorrect = currentQuiz.length - score;
   const percentage = currentQuiz.length ? Math.round((score / currentQuiz.length) * 100) : 0;
@@ -1345,6 +1387,7 @@ function showResults() {
   incorrectCountEl.textContent = incorrect;
   mcCorrectEl.textContent = `${mcCorrect}/${mcQuestions.length || 0}`;
   fibCorrectEl.textContent = `${fibCorrect}/${fibQuestions.length || 0}`;
+  msCorrectEl.textContent = `${msCorrect}/${msQuestions.length || 0}`;
 }
 
 function showReview() {
@@ -1380,11 +1423,16 @@ function showReview() {
       `;
     }
     
+    const explanationHTML = q.explanation
+      ? `<div class="review-explanation"><span class="review-label">Why:</span><div class="review-value">${q.explanation}</div></div>`
+      : "";
+
     div.innerHTML = `
-      <div class="review-question">Q${idx + 1}: ${q.question}</div>
+      <div class="review-question">Q${idx + 1}: ${escapeHtml(q.question)}</div>
       <div class="review-details">
         ${answerHTML}
-        <div><span class="review-label">Topic:</span>${q.card.topic}</div>
+        <div><span class="review-label">Topic:</span><span class="review-value">${escapeHtml(q.card.topic)}</span></div>
+        ${explanationHTML}
       </div>
     `;
     reviewList.appendChild(div);

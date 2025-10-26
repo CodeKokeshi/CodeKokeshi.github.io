@@ -365,6 +365,11 @@ button.large {
   border: 1px solid var(--danger);
 }
 
+.feedback-summary {
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+
 .feedback-answer {
   margin-top: 8px;
   font-weight: 400;
@@ -375,6 +380,21 @@ button.large {
 .feedback-answer ol {
   margin-top: 8px;
   padding-left: 1.5rem;
+}
+
+.feedback-explanation {
+  margin-top: 12px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.feedback-explanation ul,
+.feedback-explanation ol {
+  margin-top: 8px;
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .quiz-results {
@@ -545,6 +565,13 @@ button.large {
   gap: 8px;
 }
 
+.review-details .review-explanation {
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 4px;
+  gap: 6px;
+}
+
 .review-label {
   font-weight: 600;
   min-width: 100px;
@@ -556,6 +583,24 @@ button.large {
 
 .review-value.incorrect {
   color: var(--danger);
+}
+
+.review-explanation .review-label {
+  min-width: 0;
+}
+
+.review-explanation .review-value {
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.review-explanation .review-value ul,
+.review-explanation .review-value ol {
+  margin: 4px 0 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 @media (max-width: 768px) {
