@@ -269,7 +269,7 @@ const flashcards = [
     topic: "IoT Scalability, Energy & Security",
     question: "Give two techniques for energy efficiency in sensor nodes.",
     full: "<ul><li><mark>Duty cycling radios and CPUs</mark> using MAC protocols like TSCH.</li><li><mark>Adaptive sampling</mark> and <mark>in-network aggregation</mark> to reduce transmissions.</li></ul>",
-    simple: "<ul><li>Duty-cycle radios</li><li>Adaptive sampling</li><li>In-network aggregation</li></ul>",
+  simple: "<ul><li>Duty-cycle radios</li><li>Adaptive sampling &amp; in-network aggregation</li></ul>",
     keywords: ["energy", "TSCH", "sampling"]
   },
   {
@@ -412,6 +412,209 @@ const flashcards = [
   }
 ];
 
+const questionOverrides = {
+  "standard-orgs-3": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "", answer: "Global", after: " service layer spec" },
+        { before: "Backed by ", answer: "SDO", after: " partnership" },
+        { before: "Targets cross-", answer: "vertical", after: " reuse" }
+      ],
+      distractors: ["Regional", "Vendor", "Platform", "Device", "Edge"]
+    }
+  },
+  "standards-protocols-1": {
+    types: ["mc"]
+  },
+  "standards-protocols-2": {
+    types: ["ms", "mc"],
+    multiSelect: {
+      options: [
+        { text: "Compresses IPv6 headers", value: "Compresses IPv6 headers", correct: true },
+        { text: "Fragments packets for IEEE 802.15.4 frames", value: "Fragments packets for IEEE 802.15.4 frames", correct: true },
+        { text: "Brings IP to low-power radios", value: "Brings IP to low-power radios", correct: true },
+        { text: "Requires high-bandwidth backbones", value: "Requires high-bandwidth backbones", correct: false },
+        { text: "Guarantees end-to-end QoS", value: "Guarantees end-to-end QoS", correct: false }
+      ],
+      minSelections: 3
+    }
+  },
+  "discovery-3": {
+    types: ["ms", "mc"],
+    multiSelect: {
+      options: [
+        { text: "Directory/catalog services", value: "Directory/catalog services", correct: true },
+        { text: "Broker topic registries", value: "Broker topic registries", correct: true },
+        { text: "Semantic search (SPARQL)", value: "Semantic search (SPARQL)", correct: true },
+        { text: "World Wide Web Consortium", value: "World Wide Web Consortium", correct: false },
+        { text: "Manual device pairing", value: "Manual device pairing", correct: false },
+        { text: "Single perimeter firewall", value: "Single perimeter firewall", correct: false }
+      ],
+      minSelections: 3
+    }
+  },
+  "scalability-2": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "", answer: "Duty-cycle radios", after: "" },
+        { before: "", answer: "Adaptive sampling & in-network aggregation", after: "" }
+      ],
+      distractors: [
+        "Always-on radios",
+        "Static sampling",
+        "Manual configuration",
+        "Polling loops"
+      ]
+    }
+  },
+  "scalability-3": {
+    types: ["ms", "mc"],
+    multiSelect: {
+      options: [
+        { text: "Strong device identity", value: "Strong device identity", correct: true },
+        { text: "Least-privilege zones", value: "Least-privilege zones", correct: true },
+        { text: "Continuous anomaly watch", value: "Continuous anomaly watch", correct: true },
+        { text: "Implicit trust inside LAN", value: "Implicit trust inside LAN", correct: false },
+        { text: "Perimeter-only firewalls", value: "Perimeter-only firewalls", correct: false },
+        { text: "Shared guest credentials", value: "Shared guest credentials", correct: false }
+      ],
+      minSelections: 3
+    }
+  },
+  "abbrev-1": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "I - ", answer: "Internet", after: "" },
+        { before: "E - ", answer: "Engineering", after: "" },
+        { before: "T - ", answer: "Task", after: "" },
+        { before: "F - ", answer: "Force", after: "" }
+      ],
+      distractors: ["Institute", "Framework", "Federation", "Technology", "Alliance"]
+    }
+  },
+  "abbrev-2": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "N - ", answer: "National", after: "" },
+        { before: "I - ", answer: "Institute", after: "" },
+        { before: "S - ", answer: "Standards", after: "" },
+        { before: "T - ", answer: "Technology", after: "" }
+      ],
+      distractors: ["International", "Systems", "Services", "Telecommunications", "Framework"]
+    }
+  },
+  "abbrev-3": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "I - ", answer: "Institute", after: "" },
+        { before: "E - ", answer: "Electrical", after: "" },
+        { before: "E - ", answer: "Electronics", after: "" },
+        { before: "E - ", answer: "Engineers", after: "" }
+      ],
+      distractors: ["Industry", "Energy", "Equipment", "Enterprise", "Researchers"]
+    }
+  },
+  "abbrev-4": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "W - ", answer: "World", after: "" },
+        { before: "W - ", answer: "Wide", after: "" },
+        { before: "W - ", answer: "Web", after: "" },
+        { before: "C - ", answer: "Consortium", after: "" }
+      ],
+      distractors: ["Wideband", "Council", "Community", "Computing", "Organization"]
+    }
+  },
+  "abbrev-5": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "M - ", answer: "Message", after: "" },
+        { before: "Q - ", answer: "Queuing", after: "" },
+        { before: "T - ", answer: "Telemetry", after: "" },
+        { before: "T - ", answer: "Transport", after: "" }
+      ],
+      distractors: ["Monitoring", "Queries", "Tactical", "Transfer", "Technology"]
+    }
+  },
+  "abbrev-6": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "C - ", answer: "Constrained", after: "" },
+        { before: "A - ", answer: "Application", after: "" },
+        { before: "P - ", answer: "Protocol", after: "" }
+      ],
+      distractors: ["Compact", "Agent", "Platform", "Process", "Channel"]
+    }
+  },
+  "abbrev-7": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "A - ", answer: "Advanced", after: "" },
+        { before: "M - ", answer: "Message", after: "" },
+        { before: "Q - ", answer: "Queuing", after: "" },
+        { before: "P - ", answer: "Protocol", after: "" }
+      ],
+      distractors: ["Automated", "Messaging", "Queuer", "Platform", "Program"]
+    }
+  },
+  "abbrev-8": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "W - ", answer: "Wireless", after: "" },
+        { before: "S - ", answer: "Sensor", after: "" },
+        { before: "N - ", answer: "Network", after: "" }
+      ],
+      distractors: ["Wide", "Signal", "Node", "Service", "Net"]
+    }
+  },
+  "abbrev-9": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "S - ", answer: "Spontaneous", after: "" },
+        { before: "P - ", answer: "Personal", after: "" },
+        { before: "A - ", answer: "Area", after: "" },
+        { before: "N - ", answer: "Network", after: "" }
+      ],
+      distractors: ["Sensor", "Private", "Access", "Node", "Net"]
+    }
+  },
+  "abbrev-10": {
+    types: ["fib", "mc"],
+    fillBlank: {
+      layout: "list",
+      items: [
+        { before: "", answer: "Vehicular", after: "" },
+        { before: "", answer: "Ad", after: "" },
+        { before: "", answer: "Hoc", after: "" },
+        { before: "", answer: "Network", after: "" }
+      ],
+      distractors: ["Vehicle", "Adaptive", "Hybrid", "Node", "Net"]
+    }
+  }
+};
+
 // Quiz state
 let quizConfig = {
   topic: "all",
@@ -504,6 +707,10 @@ function startQuiz() {
   }
 
   generateQuiz();
+  if (currentQuiz.length === 0) {
+    alert("Couldn't build a quiz with the chosen settings. Try including another topic or question type.");
+    return;
+  }
   quizSetup.style.display = "none";
   quizContainer.style.display = "flex";
   renderQuestion();
@@ -515,115 +722,224 @@ function generateQuiz() {
     pool = pool.filter(c => c.topic === quizConfig.topic);
   }
 
-  // Shuffle pool
-  pool.sort(() => Math.random() - 0.5);
+  pool = shuffleArray(pool);
 
-  const questionTypes = [];
-  if (quizConfig.includeMultipleChoice) questionTypes.push("mc");
-  if (quizConfig.includeFillBlank) questionTypes.push("fib");
-
+  const targetCount = Math.min(quizConfig.questionCount, pool.length);
   currentQuiz = [];
-  for (let i = 0; i < Math.min(quizConfig.questionCount, pool.length); i++) {
-    const card = pool[i];
-    const type = questionTypes[Math.floor(Math.random() * questionTypes.length)];
-    
-    if (type === "mc") {
-      currentQuiz.push(generateMultipleChoice(card));
-    } else {
-      currentQuiz.push(generateFillBlank(card));
+
+  for (const card of pool) {
+    if (currentQuiz.length >= targetCount) break;
+    const question = createQuestionForCard(card);
+    if (question) {
+      currentQuiz.push(question);
     }
   }
 }
 
-function generateMultipleChoice(card) {
-  const correctAnswer = stripHTML(card.simple);
-  
-  // Get wrong answers from DIFFERENT topics to avoid confusion
-  const wrongAnswers = flashcards
-    .filter(c => c.id !== card.id && c.topic !== card.topic)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 3)
-    .map(c => stripHTML(c.simple));
+function createQuestionForCard(card) {
+  const allowedTypes = getAllowedQuestionTypes(card);
+  if (!allowedTypes.length) {
+    return null;
+  }
+  const type = allowedTypes[Math.floor(Math.random() * allowedTypes.length)];
+  if (type === "mc") {
+    return generateMultipleChoice(card);
+  }
+  if (type === "fib") {
+    return generateFillBlank(card);
+  }
+  if (type === "ms") {
+    return generateMultiSelect(card);
+  }
+  return null;
+}
 
-  const options = [correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5);
+function getAllowedQuestionTypes(card) {
+  const override = questionOverrides[card.id];
+  let types = override?.types ? [...override.types] : ["mc"];
+
+  return types.filter(type => {
+    if (type === "mc") {
+      return quizConfig.includeMultipleChoice;
+    }
+    if (type === "fib") {
+      const hasTemplate = !!override?.fillBlank;
+      return quizConfig.includeFillBlank && (hasTemplate || !override?.types);
+    }
+    if (type === "ms") {
+      return quizConfig.includeMultipleChoice && !!override?.multiSelect;
+    }
+    return false;
+  });
+}
+
+function generateMultipleChoice(card) {
+  const correctValue = stripHTML(card.simple);
+
+  const wrongPool = flashcards.filter(c => c.id !== card.id);
+  const crossTopicPool = wrongPool.filter(c => c.topic !== card.topic);
+  const wrongAnswers = [];
+
+  shuffleArray(crossTopicPool).some(candidate => {
+    if (wrongAnswers.length >= 3) return true;
+    const value = stripHTML(candidate.simple);
+    if (!wrongAnswers.includes(value)) {
+      wrongAnswers.push(value);
+    }
+    return false;
+  });
+
+  if (wrongAnswers.length < 3) {
+    shuffleArray(wrongPool).forEach(candidate => {
+      if (wrongAnswers.length >= 3) return;
+      const value = stripHTML(candidate.simple);
+      if (!wrongAnswers.includes(value)) {
+        wrongAnswers.push(value);
+      }
+    });
+  }
+
+  const options = shuffleArray([
+    { value: correctValue, label: formatListMarkup(correctValue), isCorrect: true },
+    ...wrongAnswers.slice(0, 3).map(value => ({
+      value,
+      label: formatListMarkup(value),
+      isCorrect: false
+    }))
+  ]);
 
   return {
     type: "mc",
     card,
     question: card.question,
     options,
-    correctAnswer,
+    correctAnswer: correctValue,
     userAnswer: null,
     isCorrect: false
   };
 }
 
-function generateFillBlank(card) {
-  const text = stripHTML(card.simple);
-  const words = splitIntoWords(text);
-  
-  // Filter out words that appear in the question to avoid confusion
-  const questionWords = splitIntoWords(card.question.toLowerCase());
-  const questionWordSet = new Set(questionWords);
-  
-  // Also add common filler words to exclude
-  const fillerWords = new Set(['data', 'service', 'centric', 'iot', 'devices', 'network', 'system']);
-  
-  // Filter for meaningful words (longer than 5 chars, not in question, not filler)
-  const meaningfulWords = words.filter(w => {
-    const lowerW = w.toLowerCase();
-    return w.length > 5 && 
-           !questionWordSet.has(lowerW) && 
-           !fillerWords.has(lowerW);
-  });
-  
-  // If we don't have enough meaningful words, relax length requirement
-  const candidateWords = meaningfulWords.length >= 2 
-    ? meaningfulWords 
-    : words.filter(w => {
-        const lowerW = w.toLowerCase();
-        return w.length > 4 && 
-               !questionWordSet.has(lowerW) && 
-               !fillerWords.has(lowerW);
-      });
-  
-  // Pick 2-3 words to blank out
-  const numBlanks = Math.min(Math.max(2, Math.floor(candidateWords.length * 0.4)), 3);
-  const blankedWords = [];
-  const shuffledWords = [...candidateWords].sort(() => Math.random() - 0.5);
-  
-  for (let i = 0; i < numBlanks && i < shuffledWords.length; i++) {
-    blankedWords.push(shuffledWords[i]);
+function generateMultiSelect(card) {
+  const override = questionOverrides[card.id]?.multiSelect;
+  if (!override) {
+    return null;
   }
 
-  let sentenceWithBlanks = text;
-  blankedWords.forEach((word, idx) => {
-    // Case-insensitive replacement, replace first occurrence only
-    const regex = new RegExp(`\\b${escapeRegex(word)}\\b`, 'i');
-    sentenceWithBlanks = sentenceWithBlanks.replace(
-      regex,
-      `<span class="blank-slot" data-index="${idx}">___</span>`
-    );
+  const options = shuffleArray(
+    override.options.map(option => ({
+      value: option.value,
+      label: formatListMarkup(option.text || option.value),
+      isCorrect: !!option.correct
+    }))
+  );
+
+  const correctAnswers = options.filter(opt => opt.isCorrect).map(opt => opt.value);
+
+  return {
+    type: "ms",
+    card,
+    question: card.question,
+    options,
+    correctAnswers,
+    minSelections: override.minSelections || correctAnswers.length,
+    userAnswer: new Set(),
+    isCorrect: false
+  };
+}
+
+function generateConfiguredFillBlank(card, config) {
+  const blankedWords = config.items.map(item => item.answer);
+  const itemsHtml = config.items.map((item, idx) => {
+    const before = item.before ? escapeHtml(item.before) : "";
+    const after = item.after ? escapeHtml(item.after) : "";
+    return `${before}<span class="blank-slot" data-index="${idx}">___</span>${after}`;
   });
 
-  // Add distractor words - use the new clean split function
+  const sentenceWithBlanks = wrapListItems(itemsHtml, config.layout || "list");
+
+  const distractorPool = (config.distractors || []).filter(word => !blankedWords.includes(word));
+  const allWords = shuffleArray([...blankedWords, ...distractorPool]);
+
+  return {
+    type: "fib",
+    card,
+    question: config.prompt || card.question,
+    sentenceWithBlanks,
+    blankedWords,
+    allWords,
+    userAnswer: new Array(blankedWords.length).fill(null),
+    isCorrect: false
+  };
+}
+
+function generateFillBlank(card) {
+  const override = questionOverrides[card.id];
+  if (override?.fillBlank) {
+    return generateConfiguredFillBlank(card, override.fillBlank);
+  }
+
+  const text = stripHTML(card.simple);
+  if (!text) return null;
+
+  const words = splitIntoWords(text);
+  const questionWords = splitIntoWords(card.question.toLowerCase());
+  const questionWordSet = new Set(questionWords);
+  const fillerWords = new Set(["data", "service", "centric", "iot", "devices", "network", "system"]);
+
+  const meaningfulWords = words.filter(w => {
+    const lowerW = w.toLowerCase();
+    return w.length > 5 && !questionWordSet.has(lowerW) && !fillerWords.has(lowerW);
+  });
+
+  const candidateWords = meaningfulWords.length >= 2
+    ? meaningfulWords
+    : words.filter(w => {
+        const lowerW = w.toLowerCase();
+        return w.length > 4 && !questionWordSet.has(lowerW) && !fillerWords.has(lowerW);
+      });
+
+  if (!candidateWords.length) return null;
+
+  const selection = shuffleArray(candidateWords);
+  const numBlanks = Math.min(Math.max(2, Math.floor(candidateWords.length * 0.4)), 3);
+  const blankedWords = selection.slice(0, numBlanks);
+
+  const lines = text.split(/\n+/).map(line => line.trim()).filter(Boolean);
+  const replacementsUsed = new Array(blankedWords.length).fill(false);
+
+  const linesWithBlanks = lines.map(line => {
+    let lineHtml = escapeHtml(line);
+    for (let idx = 0; idx < blankedWords.length; idx++) {
+      if (replacementsUsed[idx]) continue;
+      const word = blankedWords[idx];
+      const regex = new RegExp(`\\b${escapeRegex(word)}\\b`, "i");
+      if (regex.test(lineHtml)) {
+        replacementsUsed[idx] = true;
+        lineHtml = lineHtml.replace(regex, `<span class="blank-slot" data-index="${idx}">___</span>`);
+      }
+    }
+    return lineHtml;
+  });
+
+  if (!replacementsUsed.every(Boolean)) {
+    return null;
+  }
+
   const distractors = flashcards
     .filter(c => c.id !== card.id)
     .flatMap(c => splitIntoWords(stripHTML(c.simple)))
-    .filter(w => w.length > 3 && !blankedWords.includes(w))
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 3);
+    .filter(w => w.length > 3 && !blankedWords.includes(w));
 
-  const allWords = [...blankedWords, ...distractors].sort(() => Math.random() - 0.5);
+  const allWords = shuffleArray([...blankedWords, ...distractors.slice(0, 3)]);
 
   return {
     type: "fib",
     card,
     question: card.question,
-    sentenceWithBlanks,
+    sentenceWithBlanks: wrapListItems(linesWithBlanks, "list"),
     blankedWords,
     allWords,
-    userAnswer: [],
+    userAnswer: new Array(blankedWords.length).fill(null),
     isCorrect: false
   };
 }
@@ -632,19 +948,20 @@ function stripHTML(html) {
   const temp = document.createElement("div");
   temp.innerHTML = html;
   
-  // Replace each <li> with a newline before extracting text
+  // Add line breaks before list items for better separation
   temp.querySelectorAll("li").forEach(li => {
     li.insertAdjacentText("beforebegin", "\n");
   });
-  
+
   let text = temp.textContent || temp.innerText || "";
-  
-  // Replace line breaks with pipe separators for better readability
-  text = text.replace(/\n+/g, " | ").replace(/\s*\|\s*\|+\s*/g, " | ").trim();
-  if (text.startsWith("| ")) text = text.substring(2);
-  if (text.endsWith(" |")) text = text.slice(0, -2);
-  
-  return text;
+  text = text.replace(/\r/g, "");
+
+  const lines = text
+    .split("\n")
+    .map(line => line.trim())
+    .filter(line => line.length > 0);
+
+  return lines.join("\n");
 }
 
 function cleanWord(word) {
@@ -661,7 +978,47 @@ function splitIntoWords(text) {
 }
 
 function escapeRegex(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function formatListMarkup(text) {
+  if (!text) return "";
+  const segments = text
+    .split(/\n+/)
+    .map(segment => segment.trim())
+    .filter(Boolean);
+
+  if (segments.length <= 1) {
+    return `<span>${escapeHtml(segments[0] || text)}</span>`;
+  }
+
+  const items = segments.map(segment => `<li>${escapeHtml(segment.replace(/^[-*•]\s*/, ""))}</li>`);
+  return `<ul>${items.join("")}</ul>`;
+}
+
+function wrapListItems(items, layout = "list") {
+  if (layout === "list") {
+    return `<ul>${items.map(item => `<li>${item}</li>`).join("")}</ul>`;
+  }
+  return items.join(" ");
+}
+
+function shuffleArray(array) {
+  const copy = [...array];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
 }
 
 function renderQuestion() {
@@ -669,8 +1026,14 @@ function renderQuestion() {
   
   progressFill.style.width = `${((currentQuestionIndex + 1) / currentQuiz.length) * 100}%`;
   progressText.textContent = `Question ${currentQuestionIndex + 1} of ${currentQuiz.length}`;
-  
-  questionTypeBadge.textContent = q.type === "mc" ? "Multiple Choice" : "Fill in the Blanks";
+
+  const typeLabels = {
+    mc: "Multiple Choice",
+    fib: "Fill in the Blanks",
+    ms: "Multi-Select"
+  };
+
+  questionTypeBadge.textContent = typeLabels[q.type] || "Quiz";
   questionTopic.textContent = q.card.topic;
   questionText.textContent = q.question;
   
@@ -681,6 +1044,8 @@ function renderQuestion() {
 
   if (q.type === "mc") {
     renderMultipleChoice(q);
+  } else if (q.type === "ms") {
+    renderMultiSelect(q);
   } else {
     renderFillBlank(q);
   }
@@ -694,8 +1059,9 @@ function renderMultipleChoice(q) {
   q.options.forEach((opt, idx) => {
     const div = document.createElement("div");
     div.className = "mc-option";
-    div.textContent = opt;
+    div.innerHTML = opt.label;
     div.dataset.index = idx;
+    div.dataset.option = opt.value;
     div.addEventListener("click", () => selectMCOption(idx));
     mcOptionsContainer.appendChild(div);
   });
@@ -703,12 +1069,69 @@ function renderMultipleChoice(q) {
 
 function selectMCOption(idx) {
   const q = currentQuiz[currentQuestionIndex];
-  q.userAnswer = q.options[idx];
-  
+  q.userAnswer = q.options[idx].value;
+
   document.querySelectorAll(".mc-option").forEach(opt => opt.classList.remove("selected"));
-  document.querySelector(`.mc-option[data-index="${idx}"]`).classList.add("selected");
-  
+  const selectedOption = document.querySelector(`.mc-option[data-index="${idx}"]`);
+  if (selectedOption) {
+    selectedOption.classList.add("selected");
+  }
+
   submitAnswerBtn.disabled = false;
+}
+
+function renderMultiSelect(q) {
+  mcOptionsContainer.style.display = "flex";
+  fibContainer.style.display = "none";
+  mcOptionsContainer.innerHTML = "";
+
+  if (!(q.userAnswer instanceof Set)) {
+    q.userAnswer = new Set(q.userAnswer || []);
+  }
+
+  q.options.forEach((opt, idx) => {
+    const div = document.createElement("div");
+    div.className = "mc-option multi";
+    div.innerHTML = opt.label;
+    div.dataset.index = idx;
+    div.dataset.option = opt.value;
+    if (q.userAnswer.has(opt.value)) {
+      div.classList.add("selected");
+    }
+    div.addEventListener("click", () => toggleMultiSelectOption(idx));
+    mcOptionsContainer.appendChild(div);
+  });
+
+  updateMultiSelectState();
+}
+
+function toggleMultiSelectOption(idx) {
+  const q = currentQuiz[currentQuestionIndex];
+  const option = q.options[idx];
+  if (!option) return;
+
+  if (!(q.userAnswer instanceof Set)) {
+    q.userAnswer = new Set();
+  }
+
+  if (q.userAnswer.has(option.value)) {
+    q.userAnswer.delete(option.value);
+  } else {
+    q.userAnswer.add(option.value);
+  }
+
+  const optionElement = document.querySelector(`.mc-option[data-index="${idx}"]`);
+  if (optionElement) {
+    optionElement.classList.toggle("selected", q.userAnswer.has(option.value));
+  }
+
+  updateMultiSelectState();
+}
+
+function updateMultiSelectState() {
+  const q = currentQuiz[currentQuestionIndex];
+  const selectedCount = q.userAnswer instanceof Set ? q.userAnswer.size : 0;
+  submitAnswerBtn.disabled = selectedCount < (q.minSelections || 1);
 }
 
 function renderFillBlank(q) {
@@ -719,7 +1142,10 @@ function renderFillBlank(q) {
   wordBank.innerHTML = "";
   
   q.userAnswer = new Array(q.blankedWords.length).fill(null);
-  
+  selectedFIBWord = null;
+  selectedFIBChip = null;
+  selectedBlankSlot = null;
+
   q.allWords.forEach(word => {
     const chip = document.createElement("div");
     chip.className = "word-chip";
@@ -740,7 +1166,13 @@ function renderFillBlank(q) {
         q.userAnswer[idx] = null;
         slot.textContent = "___";
         slot.classList.remove("filled");
-        document.querySelector(`.word-chip[data-word="${word}"]`).classList.remove("used");
+        slot.classList.remove("correct", "incorrect", "active");
+
+        const chip = Array.from(wordBank.querySelectorAll(".word-chip"))
+          .find(c => c.dataset.word === word && c.classList.contains("used"));
+        if (chip) {
+          chip.classList.remove("used");
+        }
         checkFIBComplete();
       } else {
         // Select this blank to fill
@@ -810,36 +1242,52 @@ function checkFIBComplete() {
 
 function submitAnswer() {
   const q = currentQuiz[currentQuestionIndex];
-  
+
   if (q.type === "mc") {
     q.isCorrect = q.userAnswer === q.correctAnswer;
-    
+
     document.querySelectorAll(".mc-option").forEach(opt => {
       opt.classList.add("disabled");
-      if (opt.textContent === q.correctAnswer) {
+      const value = opt.dataset.option;
+      if (value === q.correctAnswer) {
         opt.classList.add("correct");
       }
-      if (opt.textContent === q.userAnswer && !q.isCorrect) {
+      if (value === q.userAnswer && value !== q.correctAnswer) {
+        opt.classList.add("incorrect");
+      }
+    });
+  } else if (q.type === "ms") {
+    const selectedValues = Array.from(q.userAnswer instanceof Set ? q.userAnswer : new Set());
+    const correctSet = new Set(q.correctAnswers);
+    q.isCorrect = selectedValues.length === correctSet.size && selectedValues.every(value => correctSet.has(value));
+
+    document.querySelectorAll(".mc-option").forEach(opt => {
+      opt.classList.add("disabled");
+      const value = opt.dataset.option;
+      if (correctSet.has(value)) {
+        opt.classList.add("correct");
+      }
+      if (selectedValues.includes(value) && !correctSet.has(value)) {
         opt.classList.add("incorrect");
       }
     });
   } else {
     q.isCorrect = q.userAnswer.every((word, idx) => {
-      const normalized = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
-      return normalized(word) === normalized(q.blankedWords[idx]);
+      const normalize = (w) => (w || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+      return normalize(word) === normalize(q.blankedWords[idx]);
     });
-    
+
     document.querySelectorAll(".blank-slot").forEach((slot, idx) => {
       if (q.userAnswer[idx]) {
-        const normalized = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
-        if (normalized(q.userAnswer[idx]) === normalized(q.blankedWords[idx])) {
+        const normalize = (w) => (w || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+        if (normalize(q.userAnswer[idx]) === normalize(q.blankedWords[idx])) {
           slot.classList.add("correct");
         } else {
           slot.classList.add("incorrect");
         }
       }
     });
-    
+
     document.querySelectorAll(".word-chip").forEach(chip => {
       chip.style.pointerEvents = "none";
     });
@@ -849,12 +1297,22 @@ function submitAnswer() {
     score++;
   }
 
+  let feedbackDetails = "";
+  if (!q.isCorrect) {
+    if (q.type === "mc") {
+      feedbackDetails = `<div class="feedback-answer">Correct answer: ${formatListMarkup(q.correctAnswer)}</div>`;
+    } else if (q.type === "ms") {
+      feedbackDetails = `<div class="feedback-answer">Correct answers: ${formatListMarkup(q.correctAnswers.join("\n"))}</div>`;
+    } else {
+      const fibList = wrapListItems(q.blankedWords.map(word => escapeHtml(word)), "list");
+      feedbackDetails = `<div class="feedback-answer">Correct answers: ${fibList}</div>`;
+    }
+  }
+
   feedback.style.display = "block";
   feedback.className = `feedback ${q.isCorrect ? "correct" : "incorrect"}`;
-  feedback.innerHTML = q.isCorrect 
-    ? "✓ Correct!" 
-    : `✗ Incorrect. <div class="feedback-answer">Correct answer: ${q.type === "mc" ? q.correctAnswer : q.blankedWords.join(", ")}</div>`;
-  
+  feedback.innerHTML = q.isCorrect ? "✓ Correct!" : `✗ Incorrect.${feedbackDetails}`;
+
   submitAnswerBtn.style.display = "none";
   nextQuestionBtn.style.display = "inline-block";
 }
@@ -873,20 +1331,20 @@ function showResults() {
   quizResults.style.display = "flex";
   reviewSection.style.display = "none";
 
-  const mcQuestions = currentQuiz.filter(q => q.type === "mc");
+  const mcQuestions = currentQuiz.filter(q => q.type === "mc" || q.type === "ms");
   const fibQuestions = currentQuiz.filter(q => q.type === "fib");
   const mcCorrect = mcQuestions.filter(q => q.isCorrect).length;
   const fibCorrect = fibQuestions.filter(q => q.isCorrect).length;
   const incorrect = currentQuiz.length - score;
-  const percentage = Math.round((score / currentQuiz.length) * 100);
+  const percentage = currentQuiz.length ? Math.round((score / currentQuiz.length) * 100) : 0;
 
   finalScoreEl.textContent = score;
   totalQuestionsEl.textContent = currentQuiz.length;
   scorePercentageEl.textContent = `${percentage}%`;
   correctCountEl.textContent = score;
   incorrectCountEl.textContent = incorrect;
-  mcCorrectEl.textContent = `${mcCorrect}/${mcQuestions.length}`;
-  fibCorrectEl.textContent = `${fibCorrect}/${fibQuestions.length}`;
+  mcCorrectEl.textContent = `${mcCorrect}/${mcQuestions.length || 0}`;
+  fibCorrectEl.textContent = `${fibCorrect}/${fibQuestions.length || 0}`;
 }
 
 function showReview() {
@@ -899,14 +1357,26 @@ function showReview() {
     
     let answerHTML = "";
     if (q.type === "mc") {
+      const userMarkup = q.userAnswer ? formatListMarkup(q.userAnswer) : "<span>Not answered</span>";
+      const correctMarkup = formatListMarkup(q.correctAnswer);
       answerHTML = `
-        <div><span class="review-label">Your answer:</span><span class="review-value ${q.isCorrect ? "correct" : "incorrect"}">${q.userAnswer || "Not answered"}</span></div>
-        ${!q.isCorrect ? `<div><span class="review-label">Correct:</span><span class="review-value correct">${q.correctAnswer}</span></div>` : ""}
+        <div><span class="review-label">Your answer:</span><span class="review-value ${q.isCorrect ? "correct" : "incorrect"}">${userMarkup}</span></div>
+        ${!q.isCorrect ? `<div><span class="review-label">Correct:</span><span class="review-value correct">${correctMarkup}</span></div>` : ""}
+      `;
+    } else if (q.type === "ms") {
+      const selections = Array.from(q.userAnswer instanceof Set ? q.userAnswer : q.userAnswer || []);
+      const userMarkup = selections.length ? formatListMarkup(selections.join("\n")) : "<span>Not answered</span>";
+      const correctMarkup = formatListMarkup(q.correctAnswers.join("\n"));
+      answerHTML = `
+        <div><span class="review-label">Your answer:</span><span class="review-value ${q.isCorrect ? "correct" : "incorrect"}">${userMarkup}</span></div>
+        ${!q.isCorrect ? `<div><span class="review-label">Correct:</span><span class="review-value correct">${correctMarkup}</span></div>` : ""}
       `;
     } else {
+      const userMarkup = q.userAnswer.length ? wrapListItems(q.userAnswer.map(word => escapeHtml(word || "")), "list") : "<span>Not answered</span>";
+      const correctMarkup = wrapListItems(q.blankedWords.map(word => escapeHtml(word)), "list");
       answerHTML = `
-        <div><span class="review-label">Your answer:</span><span class="review-value ${q.isCorrect ? "correct" : "incorrect"}">${q.userAnswer.join(", ")}</span></div>
-        ${!q.isCorrect ? `<div><span class="review-label">Correct:</span><span class="review-value correct">${q.blankedWords.join(", ")}</span></div>` : ""}
+        <div><span class="review-label">Your answer:</span><span class="review-value ${q.isCorrect ? "correct" : "incorrect"}">${userMarkup}</span></div>
+        ${!q.isCorrect ? `<div><span class="review-label">Correct:</span><span class="review-value correct">${correctMarkup}</span></div>` : ""}
       `;
     }
     

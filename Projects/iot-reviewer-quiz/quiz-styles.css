@@ -158,6 +158,15 @@ button.large {
   font-size: 1rem;
 }
 
+.mc-option ul,
+.mc-option ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .mc-option:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: #484f58;
@@ -181,6 +190,42 @@ button.large {
 .mc-option.disabled {
   cursor: not-allowed;
   opacity: 0.6;
+  pointer-events: none;
+}
+
+.mc-option.multi {
+  position: relative;
+  padding-left: 56px;
+}
+
+.mc-option.multi::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #30363d;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+.mc-option.multi.selected::before {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(46, 160, 67, 0.3);
+}
+
+.mc-option.multi.correct::before {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.mc-option.multi.incorrect::before {
+  background: rgba(248, 81, 73, 0.35);
+  border-color: var(--danger);
 }
 
 .fill-blank-container {
@@ -194,6 +239,15 @@ button.large {
   padding: 20px;
   background: rgba(255, 255, 255, 0.04);
   border-radius: 12px;
+}
+
+.blank-sentence ul,
+.blank-sentence ol {
+  margin: 0;
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .blank-slot {
@@ -315,6 +369,12 @@ button.large {
   margin-top: 8px;
   font-weight: 400;
   opacity: 0.9;
+}
+
+.feedback-answer ul,
+.feedback-answer ol {
+  margin-top: 8px;
+  padding-left: 1.5rem;
 }
 
 .quiz-results {
@@ -462,6 +522,15 @@ button.large {
 .review-question {
   font-weight: 600;
   margin-bottom: 12px;
+}
+
+.review-value ul,
+.review-value ol {
+  margin: 4px 0 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .review-details {
