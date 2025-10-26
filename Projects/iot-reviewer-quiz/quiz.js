@@ -862,6 +862,7 @@ function generateMultiSelect(card) {
   );
 
   const correctAnswers = options.filter(opt => opt.isCorrect).map(opt => opt.value);
+  const requiredSelections = correctAnswers.length;
 
   return {
     type: "ms",
@@ -869,7 +870,8 @@ function generateMultiSelect(card) {
     question: card.question,
     options,
     correctAnswers,
-    minSelections: override.minSelections || correctAnswers.length,
+    requiredSelections,
+    minSelections: 1,
     explanation: buildExplanationMarkup(card, "ms"),
     userAnswer: new Set(),
     isCorrect: false
@@ -1066,7 +1068,12 @@ function renderQuestion() {
 
   questionTypeBadge.textContent = typeLabels[q.type] || "Quiz";
   questionTopic.textContent = q.card.topic;
-  questionText.textContent = q.question;
+  
+  if (q.type === "ms" && q.requiredSelections) {
+    questionText.textContent = `${q.question} (Select ${q.requiredSelections} answers)`;
+  } else {
+    questionText.textContent = q.question;
+  }
   
   feedback.style.display = "none";
   submitAnswerBtn.disabled = true;

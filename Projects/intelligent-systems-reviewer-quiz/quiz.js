@@ -170,7 +170,12 @@ function renderQuestion() {
 
   questionTypeBadge.textContent = questionTypeLabels[question.type] || "Question";
   questionTopic.textContent = question.topic;
-  questionText.textContent = question.prompt || question.question;
+  
+  if (question.type === "multi-select" && question.requiredSelections) {
+    questionText.textContent = `${question.prompt || question.question} (Select ${question.requiredSelections} answers)`;
+  } else {
+    questionText.textContent = question.prompt || question.question;
+  }
 
   if (question.type === "multiple") {
     renderMultipleChoice(question);
@@ -207,7 +212,8 @@ function renderMultipleChoice(question) {
 
 function renderMultiSelect(question) {
   multipleChoiceOptions.style.display = "flex";
-  const required = question.minSelections || question.answers.length;
+  const required = question.answers.length;
+  question.requiredSelections = required;
   question.options.forEach(option => {
     const button = document.createElement("button");
     button.type = "button";
@@ -225,7 +231,7 @@ function renderMultiSelect(question) {
         selectedOptions.add(option.value);
         button.classList.add("selected");
       }
-      submitAnswerBtn.disabled = selectedOptions.size < required;
+      submitAnswerBtn.disabled = selectedOptions.size < 1;
     });
     multipleChoiceOptions.appendChild(button);
   });
