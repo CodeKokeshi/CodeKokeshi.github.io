@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intelligent Systems Flashcards</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>Intelligent Systems Reviewer</h1>
+      <p>Review AI foundations, machine learning workflows, ethics, and emerging trends with a curated flashcard deck.</p>
+    </div>
+    <div class="header-actions">
+      <a href="quiz.html" class="primary">Take Quiz</a>
+      <button id="shuffleBtn" class="secondary">Shuffle Deck</button>
+      <button id="resetProgressBtn" class="ghost">Reset Progress</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="controls">
+      <div class="control-group">
+        <label for="topicFilter">Focus topic</label>
+        <select id="topicFilter"></select>
+      </div>
+      <div class="control-group">
+        <label for="searchInput">Quick search</label>
+        <input id="searchInput" type="search" placeholder="Filter by keyword" autocomplete="off">
+      </div>
+      <div class="control-group stats" id="progressStats"></div>
+    </section>
+
+    <section class="mode-selector">
+      <span>Display mode:</span>
+      <div class="mode-buttons">
+        <button id="modeSimpleBtn" class="mode-btn active">Simple</button>
+        <button id="modeFullBtn" class="mode-btn">Full</button>
+        <button id="modeHighlightBtn" class="mode-btn">Highlighted</button>
+      </div>
+    </section>
+
+    <section class="flashcard-area">
+      <div class="flashcard" id="flashcard" tabindex="0" aria-live="polite"></div>
+      <div class="flashcard-help">Click, tap, or press space to flip the card.</div>
+    </section>
+
+    <section class="actions">
+      <button id="prevBtn" class="ghost">Previous</button>
+      <button id="flipBtn" class="primary">Flip</button>
+      <button id="nextBtn" class="ghost">Next</button>
+    </section>
+
+    <section class="confidence">
+      <span>How well did you recall it?</span>
+      <div class="confidence-buttons">
+        <button id="againBtn" data-score="again" class="again">Review Again</button>
+        <button id="goodBtn" data-score="good" class="good">Good</button>
+        <button id="easyBtn" data-score="easy" class="easy">Easy</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Sourced from Intelligent Systems notes: definitions, ML lifecycles, ethical guardrails, and emerging AI trends.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
