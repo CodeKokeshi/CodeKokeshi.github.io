@@ -4,7 +4,7 @@
   const aliases = new Map([
     ["retro", "wood"],
   ]);
-  const assetVersion = "2025-10-26";
+  const assetVersion = "v2";
   const root = document.documentElement;
 
   function bustStylesheets() {
