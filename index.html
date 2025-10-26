@@ -2,337 +2,89 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CodeKokeshi | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CodeKokeshi | Developer &amp; Artist</title>
+    <meta name="description" content="CodeKokeshi — game developer, RPG Maker plugin maker, digital artist, and Godot shader writer." />
+    <meta name="theme-color" content="#0f1116" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-    />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        color-scheme: dark;
-        --bg: #090a0f;
-        --surface: #11121a;
-        --surface-soft: #161823;
-        --text: #f5f7fa;
-        --muted: rgba(245, 247, 250, 0.58);
-        --accent: #6e6bff;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-        color: var(--text);
-        background: radial-gradient(circle at top right, rgba(110, 107, 255, 0.12), transparent 48%),
-          radial-gradient(circle at bottom, rgba(32, 173, 229, 0.12), transparent 52%),
-          var(--bg);
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
-      }
-      .page {
-        width: min(1100px, 90vw);
-        margin: 0 auto;
-        padding: clamp(1.5rem, 4vw, 3.5rem) 0 clamp(3rem, 6vw, 4.5rem);
-        display: flex;
-        flex-direction: column;
-        gap: clamp(2.5rem, 5vw, 4rem);
-      }
-      .site-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 1rem;
-        padding: clamp(0.9rem, 2vw, 1.2rem) clamp(1.2rem, 3vw, 2rem);
-        border-radius: 1.25rem;
-        background: rgba(17, 18, 26, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
-      }
-      .brand-mark {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        font-size: clamp(1.05rem, 2vw, 1.2rem);
-      }
-      .brand-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 999px;
-        background: var(--accent);
-        box-shadow: 0 0 18px rgba(110, 107, 255, 0.7);
-      }
-      a.button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.7rem clamp(1.4rem, 3vw, 1.9rem);
-        border-radius: 999px;
-        text-decoration: none;
-        color: var(--bg);
-        background: linear-gradient(135deg, var(--accent), #4cc9f0);
-        font-weight: 600;
-        letter-spacing: 0.05em;
-        box-shadow: 0 16px 28px rgba(78, 102, 255, 0.42);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-      a.button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 22px 40px rgba(78, 102, 255, 0.55);
-      }
-      main {
-        display: flex;
-        flex-direction: column;
-        gap: clamp(3rem, 6vw, 5rem);
-      }
-      .hero {
-        position: relative;
-        padding: clamp(3rem, 7vw, 5rem) clamp(2.2rem, 6vw, 4rem);
-        background: linear-gradient(135deg, rgba(17, 18, 26, 0.92), rgba(22, 24, 35, 0.78));
-        border-radius: clamp(2rem, 4vw, 3rem);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        overflow: hidden;
-        animation: fadeUp 0.8s ease forwards;
-      }
-      .hero::after {
-        content: "";
-        position: absolute;
-        inset: -30% -20% auto auto;
-        width: clamp(220px, 40vw, 360px);
-        height: clamp(220px, 40vw, 360px);
-        background: radial-gradient(circle, rgba(110, 107, 255, 0.24), transparent 70%);
-        filter: blur(4px);
-        opacity: 0.8;
-      }
-      .eyebrow {
-        text-transform: uppercase;
-        letter-spacing: 0.35em;
-        font-size: clamp(0.75rem, 1.8vw, 0.95rem);
-        color: var(--muted);
-        margin-bottom: clamp(1rem, 2vw, 1.5rem);
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-      }
-      .eyebrow::before {
-        content: "";
-        display: inline-block;
-        width: 38px;
-        height: 1px;
-        background: rgba(245, 247, 250, 0.32);
-      }
-      h1 {
-        margin: 0;
-        font-size: clamp(3.5rem, 10vw, 6rem);
-        font-weight: 900;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        line-height: 0.95;
-      }
-      .hero p {
-        margin: clamp(1.25rem, 2.5vw, 2rem) 0 0;
-        font-size: clamp(1.05rem, 2.4vw, 1.4rem);
-        color: var(--muted);
-        max-width: 50ch;
-      }
-      .art-section {
-        display: flex;
-        flex-direction: column;
-        gap: clamp(1.75rem, 4vw, 2.5rem);
-      }
-      .section-heading {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-      .section-heading h2 {
-        font-size: clamp(2rem, 5vw, 2.8rem);
-        font-weight: 800;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-      }
-      .section-heading p {
-        color: var(--muted);
-        max-width: 48ch;
-      }
-      .art-grid {
-        display: grid;
-        gap: clamp(1rem, 2.5vw, 1.8rem);
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      }
-      .art-card {
-        position: relative;
-        border-radius: 1.5rem;
-        overflow: hidden;
-        background: var(--surface);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        aspect-ratio: 3 / 4;
-        animation: fadeUp 0.9s ease forwards;
-        animation-delay: calc(var(--i) * 90ms);
-        opacity: 0;
-      }
-      .art-card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-      }
-      .art-card::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, transparent 65%, rgba(9, 10, 15, 0.6));
-        opacity: 0;
-        transition: opacity 0.35s ease;
-      }
-      .art-card:hover img {
-        transform: scale(1.04);
-      }
-      .art-card:hover::after {
-        opacity: 1;
-      }
-      footer {
-        text-align: center;
-        font-size: 0.85rem;
-        color: rgba(245, 247, 250, 0.38);
-        padding-top: 2.5rem;
-      }
-      @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(18px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-          scroll-behavior: auto !important;
-        }
-      }
-      @media (max-width: 768px) {
-        body {
-          background: linear-gradient(160deg, rgba(32, 173, 229, 0.12), rgba(110, 107, 255, 0.12)), var(--bg);
-        }
-        .page {
-          gap: 2.5rem;
-        }
-        .site-header {
-          flex-direction: column;
-          align-items: stretch;
-          position: static;
-        }
-        .brand-mark {
-          justify-content: center;
-        }
-        a.button {
-          justify-content: center;
-        }
-        .hero {
-          padding: 2.5rem clamp(1.4rem, 5vw, 2rem);
-        }
-        h1 {
-          font-size: clamp(2.6rem, 12vw, 3.3rem);
-          letter-spacing: 0.08em;
-          text-align: center;
-          word-spacing: 0.15em;
-        }
-        .hero p {
-          text-align: center;
-          font-size: clamp(1rem, 4vw, 1.15rem);
-        }
-        .hero {
-          text-align: center;
-        }
-        .art-grid {
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-          gap: 1rem;
-        }
-        .art-card {
-          border-radius: 1rem;
-          aspect-ratio: 1 / 1;
-        }
-        .section-heading {
-          text-align: center;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="assets/css/site.css" />
   </head>
   <body>
-    <div class="page">
-      <header class="site-header">
-        <span class="brand-mark">
-          <span class="brand-dot" aria-hidden="true"></span>
-          Code Kokeshi
-        </span>
-        <a class="button" href="Projects/">View Projects</a>
+    <div class="page-shell">
+      <header class="top-bar">
+        <a class="brand" href="index.html">Code Kokeshi</a>
+        <nav class="nav-links" aria-label="Site">
+          <a class="nav-link" href="gamedev.html">Game Dev</a>
+          <a class="nav-link" href="art.html">Art</a>
+          <a class="nav-link" href="projects.html">Projects</a>
+        </nav>
+        <div class="theme-switcher" role="group" aria-label="Theme selector">
+          <span class="theme-label">Theme</span>
+          <button type="button" class="theme-button" data-theme-option="dark" aria-pressed="false">Dark</button>
+          <button type="button" class="theme-button" data-theme-option="light" aria-pressed="false">Light</button>
+          <button type="button" class="theme-button" data-theme-option="retro" aria-pressed="false">Retro</button>
+          <button type="button" class="theme-button" data-theme-option="cyberpunk" aria-pressed="false">Cyberpunk</button>
+        </div>
       </header>
+
       <main>
-        <section class="hero">
-          <span class="eyebrow">Game dev · artist · engineer</span>
-          <h1>Code Kokeshi</h1>
-          <p>
-            I'm a game developer with thousands of hours in Godot, digital artist, pixel artist,
-            animator, web developer, backend developer, software engineer.
-          </p>
-        </section>
-        <section class="art-section" aria-label="Digital art portfolio">
-          <div class="section-heading">
-            <h2>Digital art</h2>
-            <p>
-              A curated glimpse into the illustrations, experiments, and character studies that shape my visual style.
+        <section class="profile-card">
+          <img src="Profile.png" alt="Portrait of CodeKokeshi" class="avatar" />
+          <div>
+            <p class="tagline">Game dev · digital artist · engineer</p>
+            <h1 class="name">Code Kokeshi</h1>
+            <p class="bio">
+              I'm a game developer, RPG Maker plugin maker, Godot shader writer, and toolsmith focused on crafting responsive
+              experiences across desktop and web. I blend storytelling with technical design—from custom engines and shaders to
+              web-based review tools—while keeping workflows accessible for collaborators and players alike.
             </p>
+            <ul class="badge-list" aria-label="Competencies">
+              <li class="badge">RPG Maker plugin maker</li>
+              <li class="badge">Godot shader writer</li>
+              <li class="badge">Full-stack &amp; tooling dev</li>
+            </ul>
+            <div class="link-row">
+              <a class="btn" href="https://github.com/CodeKokeshi" target="_blank" rel="noopener">GitHub</a>
+              <a class="btn outline" href="https://codekokeshi.itch.io/" target="_blank" rel="noopener">Itch.io</a>
+            </div>
           </div>
-          <div class="art-grid">
-            <figure class="art-card" style="--i: 0">
-              <img src="DigitalArtPortfolio/104943736-f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg" alt="Illustration by CodeKokeshi" />
-            </figure>
-            <figure class="art-card" style="--i: 1">
-              <img src="DigitalArtPortfolio/117313274_p0_master1200.jpg" alt="Illustration by CodeKokeshi" />
-            </figure>
-            <figure class="art-card" style="--i: 2">
-              <img src="DigitalArtPortfolio/Angela.jpg" alt="Angela illustration by CodeKokeshi" />
-            </figure>
-            <figure class="art-card" style="--i: 3">
-              <img src="DigitalArtPortfolio/Gaomon.jpg" alt="Gaomon artwork by CodeKokeshi" />
-            </figure>
-            <figure class="art-card" style="--i: 4">
-              <img src="DigitalArtPortfolio/Mahiro1.jpg" alt="Mahiro illustration by CodeKokeshi" />
-            </figure>
-            <figure class="art-card" style="--i: 5">
-              <img src="DigitalArtPortfolio/Mahiro2.jpg" alt="Mahiro illustration by CodeKokeshi" />
-            </figure>
-            <figure class="art-card" style="--i: 6">
-              <img src="DigitalArtPortfolio/Mahiro3.jpg" alt="Mahiro illustration by CodeKokeshi" />
-            </figure>
-            <figure class="art-card" style="--i: 7">
-              <img src="DigitalArtPortfolio/Marnie.jpg" alt="Marnie illustration by CodeKokeshi" />
-            </figure>
+        </section>
+
+        <section class="page-section">
+          <h2 class="section-title">Portfolios</h2>
+          <p class="lead">Choose a focus area to explore dedicated showcases of my work.</p>
+          <div class="portfolio-grid">
+            <a class="portfolio-card" href="gamedev.html">
+              <span class="portfolio-card__icon" aria-hidden="true">🎮</span>
+              <h3 class="portfolio-card__title">Game Dev</h3>
+              <p class="portfolio-card__excerpt">Playable experiments, shaders, and jam projects brought to life in RPG Maker and Godot.</p>
+              <span class="portfolio-card__cta">View</span>
+            </a>
+            <a class="portfolio-card" href="art.html">
+              <span class="portfolio-card__icon" aria-hidden="true">🎨</span>
+              <h3 class="portfolio-card__title">Art</h3>
+              <p class="portfolio-card__excerpt">Illustrations, pixel art, and character studies with links to my DeviantArt and Pixiv galleries.</p>
+              <span class="portfolio-card__cta">View</span>
+            </a>
+            <a class="portfolio-card" href="projects.html">
+              <span class="portfolio-card__icon" aria-hidden="true">🛠️</span>
+              <h3 class="portfolio-card__title">Projects</h3>
+              <p class="portfolio-card__excerpt">Web tools, study helpers, and experiments built for coursework and the community.</p>
+              <span class="portfolio-card__cta">View</span>
+            </a>
           </div>
         </section>
       </main>
-      <footer>© <span id="year"></span> CodeKokeshi · Crafted with intention.</footer>
+
+      <footer class="site-footer">© <span id="year"></span> CodeKokeshi. Built with intention.</footer>
     </div>
+
+    <script defer src="assets/js/site.js"></script>
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>

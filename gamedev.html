@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Game Dev Portfolio | CodeKokeshi</title>
+    <meta name="description" content="Game development showcase by CodeKokeshi featuring RPG Maker plugins, Godot shaders, and prototype footage." />
+    <meta name="theme-color" content="#0f1116" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/site.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="top-bar">
+        <a class="brand" href="index.html">Code Kokeshi</a>
+        <nav class="nav-links" aria-label="Pages">
+          <a class="nav-link" href="gamedev.html" aria-current="page">Game Dev</a>
+          <a class="nav-link" href="art.html">Art</a>
+          <a class="nav-link" href="projects.html">Projects</a>
+        </nav>
+        <div class="theme-switcher" role="group" aria-label="Theme selector">
+          <span class="theme-label">Theme</span>
+          <button type="button" class="theme-button" data-theme-option="dark" aria-pressed="false">Dark</button>
+          <button type="button" class="theme-button" data-theme-option="light" aria-pressed="false">Light</button>
+          <button type="button" class="theme-button" data-theme-option="retro" aria-pressed="false">Retro</button>
+          <button type="button" class="theme-button" data-theme-option="cyberpunk" aria-pressed="false">Cyberpunk</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="page-section hero-simple">
+          <h1 class="section-title">Game Dev Portfolio</h1>
+          <p class="lead">
+            Snapshots from prototypes, jams, and shader experiments. I build tools and experiences across RPG Maker, Godot, and
+            custom workflows—focusing on responsive feel, punchy visuals, and re-usable systems.
+          </p>
+          <div class="link-row">
+            <a class="btn" href="https://codekokeshi.itch.io/" target="_blank" rel="noopener">Visit my Itch.io</a>
+            <a class="btn outline" href="https://github.com/CodeKokeshi" target="_blank" rel="noopener">View source on GitHub</a>
+          </div>
+          <p class="notice">Clips autoplay and are intentionally non-interactive—just press play and take in the vibes.</p>
+        </section>
+
+        <section class="page-section">
+          <h2 class="section-title">Playable Moments</h2>
+          <p class="lead">Each loop highlights different mechanics, shader tests, or moment-to-moment polish.</p>
+          <div class="video-gallery">
+            <figure class="video-card">
+              <video
+                class="locked-video"
+                src="GameDevPortfolios/Trapped in a Nightmare Gameplay.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                aria-hidden="true"
+              ></video>
+              <figcaption>Trapped in a Nightmare — atmospheric exploration with layered post-processing.</figcaption>
+            </figure>
+            <figure class="video-card">
+              <video
+                class="locked-video"
+                src="GameDevPortfolios/The 4th game I made - Chrono Plasmorph.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                aria-hidden="true"
+              ></video>
+              <figcaption>Chrono Plasmorph — time-shift dungeons with scripted RPG Maker battle plugins.</figcaption>
+            </figure>
+            <figure class="video-card">
+              <video
+                class="locked-video"
+                src="GameDevPortfolios/The 6th Game I made - Flabby Firth.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                aria-hidden="true"
+              ></video>
+              <figcaption>Flabby Firth — physics-driven jam entry focused on tactile character motion.</figcaption>
+            </figure>
+            <figure class="video-card">
+              <video
+                class="locked-video"
+                src="GameDevPortfolios/The 7th game I made - 2D Platformer Prototype # 2.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                aria-hidden="true"
+              ></video>
+              <figcaption>2D Platformer Prototype — shader-based lighting and movement iteration.</figcaption>
+            </figure>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">© <span id="year"></span> CodeKokeshi.</footer>
+    </div>
+
+    <script defer src="assets/js/site.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
