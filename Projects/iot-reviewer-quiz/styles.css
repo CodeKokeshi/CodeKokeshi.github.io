@@ -151,8 +151,6 @@ main {
 .flashcard {
   width: var(--card-width);
   min-height: 320px;
-  max-height: 70vh;
-  overflow-y: auto;
   background: linear-gradient(160deg, var(--surface), var(--surface-alt));
   border-radius: 20px;
   border: 1px solid #1f2937;
@@ -363,11 +361,9 @@ footer {
   .flashcard {
     padding: 24px;
     min-height: 280px;
-    max-height: 60vh;
   }
 
   .flashcard-face {
     inset: 24px;
-    overflow-y: auto;
   }
 }

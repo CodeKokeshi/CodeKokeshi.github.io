@@ -32,8 +32,6 @@
   color-scheme: dark;
   --font-body: "Press Start 2P", "Courier New", monospace;
   --font-heading: "Press Start 2P", "Courier New", monospace;
-  --font-size-body: clamp(0.6rem, 1.5vw, 0.85rem);
-  --font-size-heading: clamp(0.75rem, 2vw, 1rem);
   --bg: #1b120a;
   --surface: #24180d;
   --surface-alt: #2f1c0d;
@@ -65,14 +63,12 @@
 body {
   margin: 0;
   font-family: var(--font-body);
-  font-size: var(--font-size-body, 1rem);
   background-color: var(--bg);
   color: var(--text);
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
   transition: background-color var(--transition), color var(--transition);
-  overflow-x: hidden;
 }
 
 img {
@@ -104,13 +100,12 @@ a {
 
 .brand {
   font-family: var(--font-heading);
-  font-size: var(--font-size-heading, clamp(1.25rem, 3vw, 1.5rem));
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   color: inherit;
-  word-break: break-word;
 }
 
 .nav-links {
@@ -562,82 +557,12 @@ a {
     padding: 1.25rem;
   }
 
-  .video-gallery {
-    display: block;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .video-card {
-    display: none;
-    width: 100%;
-  }
-
-  .video-card.carousel-active {
-    display: block;
-  }
-
   .video-card--xl,
-  .video-card--lg {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-
-  .gallery-grid {
-    display: block;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .gallery-card {
-    display: none;
-    width: 100%;
-  }
-
-  .gallery-card.carousel-active {
-    display: block;
-  }
-
+  .video-card--lg,
   .gallery-card--wide,
   .gallery-card--tall,
   .gallery-card--xl {
     grid-column: span 1;
     grid-row: span 1;
-  }
-
-  .carousel-controls {
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 1rem;
-  }
-
-  .carousel-btn {
-    appearance: none;
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.6rem 1.2rem;
-    border-radius: 0.75rem;
-    font-family: inherit;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-  }
-
-  .carousel-btn:active {
-    transform: scale(0.95);
-  }
-
-  .carousel-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-
-  .carousel-indicator {
-    text-align: center;
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--muted);
   }
 }
