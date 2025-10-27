@@ -76,15 +76,7 @@ function filterDeck() {
   });
 
   if (activeDeck.length === 0) {
-      flashcardEl.innerHTML = `
-        <div class="flashcard-inner">
-          <div class="flashcard-face front no-results">
-            <h2>No cards found</h2>
-            <p>Try adjusting your topic or search filters.</p>
-          </div>
-        </div>
-      `;
-      flashcardEl.classList.remove("flipped");
+    flashcardEl.innerHTML = "<div class=\"flashcard-face\"><h2>No cards found</h2><p>Try adjusting your topic or search filters.</p></div>";
     progressStatsEl.textContent = "";
     currentIndex = 0;
     return;
