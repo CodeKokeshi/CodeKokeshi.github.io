@@ -104,28 +104,23 @@ function renderCurrentCard() {
   const highlights = card.full.replace(/<mark>(.*?)<\/mark>/g, "<span class=\"highlight\">$1</span>");
 
   const frontContent = `
-      <div class="flashcard-face front" aria-hidden="${isFlipped}">
-        <h3>${card.topic}</h3>
-        <h2>${card.question}</h2>
-        <p class="progress-tag">Last score: ${progressEntry.lastScore || "―"}</p>
-      </div>
+    <div class="flashcard-face front" aria-hidden="${isFlipped}">
+      <h3>${card.topic}</h3>
+      <h2>${card.question}</h2>
+      <p class="progress-tag">Last score: ${progressEntry.lastScore || "―"}</p>
+    </div>
   `;
 
   const bodyContent = displayMode === "full" ? card.full : displayMode === "highlighted" ? highlights : card.simple;
 
   const backContent = `
-      <div class="flashcard-face back" aria-hidden="${!isFlipped}">
-        <h3>${card.topic}</h3>
-        <div class="answer-body">${bodyContent}</div>
-      </div>
-  `;
-
-  flashcardEl.innerHTML = `
-    <div class="flashcard-inner">
-${frontContent}
-${backContent}
+    <div class="flashcard-face back" aria-hidden="${!isFlipped}">
+      <h3>${card.topic}</h3>
+      <div class="answer-body">${bodyContent}</div>
     </div>
   `;
+
+  flashcardEl.innerHTML = frontContent + backContent;
   flashcardEl.classList.toggle("flipped", isFlipped);
 }
 
