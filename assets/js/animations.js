@@ -13,6 +13,7 @@ class ParticleBackground {
     this.particles = [];
     this.particleCount = 50;
     this.mouse = { x: null, y: null, radius: 100 };
+    this.currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
     
     this.init();
   }
@@ -28,6 +29,20 @@ class ParticleBackground {
       this.mouse.x = e.x;
       this.mouse.y = e.y;
     });
+
+    // Watch for theme changes
+    const observer = new MutationObserver(() => {
+      const newTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      if (newTheme !== this.currentTheme) {
+        this.currentTheme = newTheme;
+        this.createParticles(); // Recreate particles for new theme
+      }
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
   }
   
   resize() {
@@ -37,15 +52,139 @@ class ParticleBackground {
   
   createParticles() {
     this.particles = [];
-    for (let i = 0; i < this.particleCount; i++) {
-      this.particles.push({
-        x: Math.random() * this.canvas.width,
-        y: Math.random() * this.canvas.height,
-        size: Math.random() * 3 + 1,
-        speedX: Math.random() * 0.5 - 0.25,
-        speedY: Math.random() * 0.5 - 0.25,
-        opacity: Math.random() * 0.5 + 0.2
-      });
+    
+    // Different particle styles for different themes
+    if (this.currentTheme === 'wood') {
+      // Retro: Square/rectangular pixels
+      this.particleCount = 30;
+      for (let i = 0; i < this.particleCount; i++) {
+        this.particles.push({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          size: Math.random() * 6 + 4, // Bigger pixels
+          speedX: Math.random() * 0.3 - 0.15,
+          speedY: Math.random() * 0.3 - 0.15,
+          opacity: Math.random() * 0.4 + 0.3,
+          shape: Math.random() > 0.5 ? 'square' : 'rect',
+          rotation: Math.random() * Math.PI * 2
+        });
+      }
+    } else if (this.currentTheme === 'cyberpunk') {
+      // Cyberpunk: Glowing triangles and hexagons
+      this.particleCount = 40;
+      for (let i = 0; i < this.particleCount; i++) {
+        this.particles.push({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          size: Math.random() * 8 + 3,
+          speedX: Math.random() * 0.6 - 0.3,
+          speedY: Math.random() * 0.6 - 0.3,
+          opacity: Math.random() * 0.6 + 0.3,
+          shape: Math.random() > 0.5 ? 'triangle' : 'hexagon',
+          rotation: Math.random() * Math.PI * 2,
+          rotationSpeed: (Math.random() - 0.5) * 0.02,
+          glowIntensity: Math.random() * 10 + 5
+        });
+      }
+    } else {
+      // Default (dark/light): Circles with connections
+      this.particleCount = 50;
+      for (let i = 0; i < this.particleCount; i++) {
+        this.particles.push({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          size: Math.random() * 3 + 1,
+          speedX: Math.random() * 0.5 - 0.25,
+          speedY: Math.random() * 0.5 - 0.25,
+          opacity: Math.random() * 0.5 + 0.2,
+          shape: 'circle'
+        });
+      }
+    }
+  }
+  
+  drawShape(particle, accentColor) {
+    this.ctx.fillStyle = accentColor;
+    this.ctx.globalAlpha = particle.opacity;
+    
+    switch (particle.shape) {
+      case 'square':
+        // Pixel square
+        this.ctx.fillRect(
+          particle.x - particle.size / 2,
+          particle.y - particle.size / 2,
+          particle.size,
+          particle.size
+        );
+        break;
+        
+      case 'rect':
+        // Pixel rectangle
+        this.ctx.save();
+        this.ctx.translate(particle.x, particle.y);
+        this.ctx.rotate(particle.rotation);
+        this.ctx.fillRect(
+          -particle.size / 2,
+          -particle.size / 3,
+          particle.size,
+          particle.size / 1.5
+        );
+        this.ctx.restore();
+        break;
+        
+      case 'triangle':
+        // Cyberpunk triangle
+        this.ctx.save();
+        this.ctx.translate(particle.x, particle.y);
+        this.ctx.rotate(particle.rotation);
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, -particle.size);
+        this.ctx.lineTo(particle.size, particle.size);
+        this.ctx.lineTo(-particle.size, particle.size);
+        this.ctx.closePath();
+        
+        // Glow effect
+        if (this.currentTheme === 'cyberpunk') {
+          this.ctx.shadowBlur = particle.glowIntensity;
+          this.ctx.shadowColor = accentColor;
+        }
+        this.ctx.fill();
+        this.ctx.shadowBlur = 0;
+        this.ctx.restore();
+        break;
+        
+      case 'hexagon':
+        // Cyberpunk hexagon
+        this.ctx.save();
+        this.ctx.translate(particle.x, particle.y);
+        this.ctx.rotate(particle.rotation);
+        this.ctx.beginPath();
+        for (let i = 0; i < 6; i++) {
+          const angle = (Math.PI / 3) * i;
+          const x = particle.size * Math.cos(angle);
+          const y = particle.size * Math.sin(angle);
+          if (i === 0) this.ctx.moveTo(x, y);
+          else this.ctx.lineTo(x, y);
+        }
+        this.ctx.closePath();
+        
+        // Glow effect
+        if (this.currentTheme === 'cyberpunk') {
+          this.ctx.shadowBlur = particle.glowIntensity;
+          this.ctx.shadowColor = accentColor;
+        }
+        this.ctx.fill();
+        this.ctx.shadowBlur = 0;
+        this.ctx.restore();
+        break;
+        
+      case 'circle':
+      default:
+        // Default circle
+        this.ctx.beginPath();
+        this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        this.ctx.fill();
+        break;
     }
   }
   
@@ -60,6 +199,11 @@ class ParticleBackground {
       // Update position
       particle.x += particle.speedX;
       particle.y += particle.speedY;
+      
+      // Update rotation for shaped particles
+      if (particle.rotationSpeed) {
+        particle.rotation += particle.rotationSpeed;
+      }
       
       // Wrap around edges
       if (particle.x > this.canvas.width) particle.x = 0;
@@ -79,27 +223,25 @@ class ParticleBackground {
       }
       
       // Draw particle
-      this.ctx.fillStyle = accentColor;
-      this.ctx.globalAlpha = particle.opacity;
-      this.ctx.beginPath();
-      this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-      this.ctx.fill();
+      this.drawShape(particle, accentColor);
       
-      // Draw connections
-      for (let j = index + 1; j < this.particles.length; j++) {
-        const other = this.particles[j];
-        const dx = particle.x - other.x;
-        const dy = particle.y - other.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < 100) {
-          this.ctx.strokeStyle = accentColor;
-          this.ctx.globalAlpha = (1 - distance / 100) * 0.2;
-          this.ctx.lineWidth = 1;
-          this.ctx.beginPath();
-          this.ctx.moveTo(particle.x, particle.y);
-          this.ctx.lineTo(other.x, other.y);
-          this.ctx.stroke();
+      // Draw connections (only for default circular particles)
+      if (particle.shape === 'circle') {
+        for (let j = index + 1; j < this.particles.length; j++) {
+          const other = this.particles[j];
+          const dx = particle.x - other.x;
+          const dy = particle.y - other.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 100) {
+            this.ctx.strokeStyle = accentColor;
+            this.ctx.globalAlpha = (1 - distance / 100) * 0.2;
+            this.ctx.lineWidth = 1;
+            this.ctx.beginPath();
+            this.ctx.moveTo(particle.x, particle.y);
+            this.ctx.lineTo(other.x, other.y);
+            this.ctx.stroke();
+          }
         }
       }
     });
