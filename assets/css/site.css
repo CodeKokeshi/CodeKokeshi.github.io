@@ -85,6 +85,8 @@
 
 [data-theme="cyberpunk"] {
   color-scheme: dark;
+  --font-body: "Orbitron", "Rajdhani", "Exo 2", system-ui, sans-serif;
+  --font-heading: "Orbitron", "Rajdhani", system-ui, sans-serif;
   --bg: #07030f;
   --surface: #0b0716;
   --surface-alt: #130d25;
