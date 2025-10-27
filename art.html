@@ -46,7 +46,80 @@
 
         <section class="page-section">
           <h2 class="section-title">Recent Highlights</h2>
-          <div id="art-image-slideshow" class="video-slideshow-container"></div>
+          <div class="gallery-grid has-carousel">
+            <figure class="gallery-card gallery-card--xl">
+              <img src="DigitalArtPortfolio/Mahiro1.jpg" alt="Mahiro illustration 1" loading="lazy" />
+            </figure>
+            <figure class="gallery-card gallery-card--wide">
+              <img src="DigitalArtPortfolio/Mahiro2.jpg" alt="Mahiro illustration 2" loading="lazy" />
+            </figure>
+            <figure class="gallery-card">
+              <img src="DigitalArtPortfolio/Mahiro3.jpg" alt="Mahiro illustration 3" loading="lazy" />
+            </figure>
+            <figure class="gallery-card gallery-card--tall">
+              <img src="DigitalArtPortfolio/Angela.jpg" alt="Angela illustration" loading="lazy" />
+            </figure>
+            <figure class="gallery-card gallery-card--wide">
+              <img src="DigitalArtPortfolio/Marnie.jpg" alt="Marnie illustration" loading="lazy" />
+            </figure>
+            <figure class="gallery-card">
+              <img src="DigitalArtPortfolio/Gaomon.jpg" alt="Gaomon illustration" loading="lazy" />
+            </figure>
+            <figure class="gallery-card">
+              <img src="DigitalArtPortfolio/117313274_p0_master1200.jpg" alt="117313274 artwork" loading="lazy" />
+            </figure>
+            <figure class="gallery-card gallery-card--tall">
+              <img src="DigitalArtPortfolio/104943736-f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg" alt="104943736 artwork" loading="lazy" />
+            </figure>
+          </div>
+          
+          <!-- Mobile Carousel -->
+          <div id="artCarousel" class="carousel slide mobile-carousel" data-bs-ride="false">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="0" class="active"></button>
+              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="1"></button>
+              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="2"></button>
+              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="3"></button>
+              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="4"></button>
+              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="5"></button>
+              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="6"></button>
+              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="7"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="DigitalArtPortfolio/Mahiro1.jpg" alt="Mahiro illustration 1" class="d-block w-100">
+              </div>
+              <div class="carousel-item">
+                <img src="DigitalArtPortfolio/Mahiro2.jpg" alt="Mahiro illustration 2" class="d-block w-100">
+              </div>
+              <div class="carousel-item">
+                <img src="DigitalArtPortfolio/Mahiro3.jpg" alt="Mahiro illustration 3" class="d-block w-100">
+              </div>
+              <div class="carousel-item">
+                <img src="DigitalArtPortfolio/Angela.jpg" alt="Angela illustration" class="d-block w-100">
+              </div>
+              <div class="carousel-item">
+                <img src="DigitalArtPortfolio/Marnie.jpg" alt="Marnie illustration" class="d-block w-100">
+              </div>
+              <div class="carousel-item">
+                <img src="DigitalArtPortfolio/Gaomon.jpg" alt="Gaomon illustration" class="d-block w-100">
+              </div>
+              <div class="carousel-item">
+                <img src="DigitalArtPortfolio/117313274_p0_master1200.jpg" alt="117313274 artwork" class="d-block w-100">
+              </div>
+              <div class="carousel-item">
+                <img src="DigitalArtPortfolio/104943736-f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg" alt="104943736 artwork" class="d-block w-100">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#artCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#artCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
         </section>
       </main>
 
@@ -57,7 +130,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script defer src="assets/js/animations.js"></script>
     <script defer src="assets/js/site.js"></script>
-    <script defer src="assets/js/video-slideshow.js"></script>
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>

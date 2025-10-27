@@ -411,6 +411,7 @@ a {
   border-radius: 1.25rem;
   border: 1px solid var(--border);
   background-color: var(--surface-alt);
+  cursor: pointer;
 }
 
 .gallery-card img {
@@ -418,6 +419,8 @@ a {
   height: 100%;
   display: block;
   object-fit: cover;
+  transition: transform 0.4s ease;
+  will-change: transform;
 }
 
 .gallery-card--wide {

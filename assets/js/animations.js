@@ -134,7 +134,7 @@ function initScrollAnimations() {
 
 // 3D Tilt effect on cards
 function init3DTilt() {
-  const cards = document.querySelectorAll('.portfolio-card, .video-card, .gallery-card');
+  const cards = document.querySelectorAll('.portfolio-card, .gallery-card');
   
   cards.forEach(card => {
     card.addEventListener('mouseenter', function() {
@@ -149,15 +149,19 @@ function init3DTilt() {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       
-      const rotateX = (y - centerY) / 10;
-      const rotateY = (centerX - x) / 10;
+      const rotateX = (y - centerY) / 15;
+      const rotateY = (centerX - x) / 15;
       
-      this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+      this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+      
+      // Add subtle glow effect
+      this.style.boxShadow = `0 20px 50px rgba(0, 0, 0, 0.3), 0 0 20px rgba(${Math.abs(rotateY) * 2}, ${Math.abs(rotateX) * 2}, 255, 0.2)`;
     });
     
     card.addEventListener('mouseleave', function() {
-      this.style.transition = 'transform 0.5s ease';
-      this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+      this.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease';
+      this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+      this.style.boxShadow = '';
     });
   });
 }
@@ -197,18 +201,53 @@ function enhanceThemeTransitions() {
 
 // Staggered animations for lists and grids
 function animatePortfolioGrid() {
-  const grids = document.querySelectorAll('.portfolio-grid, .video-gallery, .gallery-grid');
+  const grids = document.querySelectorAll('.portfolio-grid, .gallery-grid');
   
   grids.forEach(grid => {
-    const items = grid.children;
+    const items = Array.from(grid.children);
+    
+    // Add a subtle pulse/zoom effect on each card as they appear
+    items.forEach((item, index) => {
+      item.style.opacity = '0';
+      item.style.transform = 'scale(0.8) translateY(30px)';
+    });
     
     anime({
       targets: items,
       opacity: [0, 1],
+      scale: [0.8, 1],
       translateY: [30, 0],
-      delay: anime.stagger(100),
+      delay: anime.stagger(80, {start: 200}),
       duration: 600,
-      easing: 'easeOutQuad'
+      easing: 'easeOutExpo'
+    });
+  });
+}
+
+// Enhanced gallery image hover effects
+function enhanceGalleryImages() {
+  const galleryCards = document.querySelectorAll('.gallery-card');
+  
+  galleryCards.forEach(card => {
+    const img = card.querySelector('img');
+    if (!img) return;
+    
+    card.addEventListener('mouseenter', function() {
+      anime({
+        targets: img,
+        scale: 1.1,
+        duration: 400,
+        easing: 'easeOutQuad'
+      });
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      anime({
+        targets: img,
+        scale: 1,
+        duration: 400,
+        easing: 'easeOutQuad'
+      });
     });
   });
 }
@@ -310,6 +349,12 @@ function initAnimations() {
   
   // Enhance button hovers
   enhanceButtonHovers();
+  
+  // Animate portfolio grids on load
+  animatePortfolioGrid();
+  
+  // Enhance gallery image hovers
+  enhanceGalleryImages();
   
   // Initial page load animation
   anime({

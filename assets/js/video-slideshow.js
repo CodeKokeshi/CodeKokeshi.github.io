@@ -271,23 +271,4 @@ function initVideoSlideshows() {
     ];
     new VideoSlideshow('#game-video-slideshow', gameDevVideos, { intervalDuration: 20000 });
   }
-  
-  // Art page images
-  const artContainer = document.querySelector('#art-image-slideshow');
-  if (artContainer) {
-    console.log('Found art container, initializing ImageSlideshow');
-    const artImages = [
-      'DigitalArtPortfolio/Mahiro1.jpg',
-      'DigitalArtPortfolio/Mahiro2.jpg',
-      'DigitalArtPortfolio/Mahiro3.jpg',
-      'DigitalArtPortfolio/Angela.jpg',
-      'DigitalArtPortfolio/Marnie.jpg',
-      'DigitalArtPortfolio/Gaomon.jpg',
-      'DigitalArtPortfolio/117313274_p0_master1200.jpg',
-      'DigitalArtPortfolio/104943736-f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg'
-    ];
-    new ImageSlideshow('#art-image-slideshow', artImages, { intervalDuration: 20000 });
-  } else {
-    console.log('Art container not found');
-  }
 }
