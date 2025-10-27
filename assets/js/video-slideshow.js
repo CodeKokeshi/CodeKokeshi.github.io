@@ -203,6 +203,7 @@ class ImageSlideshow {
     this.imageElement = document.createElement('img');
     this.imageElement.className = 'slideshow-image';
     this.imageElement.loading = 'eager';
+    this.imageElement.alt = 'Artwork';
     
     // Replace container content with single image
     this.container.innerHTML = '';
@@ -233,7 +234,15 @@ class ImageSlideshow {
     this.currentIndex = index;
     const src = this.imageSources[index];
     
-    // Add fade effect
+    // Load image immediately without fade on first load
+    if (index === 0 && !this.imageElement.src) {
+      this.imageElement.src = src;
+      this.imageElement.alt = `Artwork ${index + 1}`;
+      this.imageElement.style.opacity = '1';
+      return;
+    }
+    
+    // Add fade effect for subsequent images
     this.imageElement.style.opacity = '0';
     
     setTimeout(() => {

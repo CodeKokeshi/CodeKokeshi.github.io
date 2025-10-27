@@ -690,6 +690,8 @@ a {
   object-fit: contain;
   transition: opacity 0.3s ease-in-out;
   max-height: 800px;
+  min-height: 300px;
+  background: var(--surface);
 }
 
 @media (max-width: 860px) {
@@ -699,12 +701,14 @@ a {
   
   .slideshow-image {
     max-height: 600px;
+    min-height: 250px;
   }
 }
 
 @media (max-width: 520px) {
   .slideshow-image {
     max-height: 400px;
+    min-height: 200px;
   }
 }
 
