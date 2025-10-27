@@ -546,6 +546,46 @@ a {
   .nav-links {
     justify-content: center;
   }
+  
+  /* Reduce pixel font sizes on mobile */
+  [data-theme="wood"] {
+    --font-body: "Press Start 2P", "Courier New", monospace;
+    --font-heading: "Press Start 2P", "Courier New", monospace;
+  }
+  
+  [data-theme="wood"] .brand {
+    font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+  }
+  
+  [data-theme="wood"] .name {
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+  }
+  
+  [data-theme="wood"] .section-title {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+  }
+  
+  [data-theme="wood"] .portfolio-card__title {
+    font-size: 0.9rem;
+  }
+  
+  [data-theme="wood"] .fact-list {
+    font-size: 0.75rem;
+    line-height: 1.6;
+  }
+  
+  [data-theme="wood"] .tagline,
+  [data-theme="wood"] .nav-link,
+  [data-theme="wood"] .btn,
+  [data-theme="wood"] .theme-button,
+  [data-theme="wood"] .badge,
+  [data-theme="wood"] .portfolio-card__excerpt {
+    font-size: 0.7rem;
+  }
+  
+  [data-theme="wood"] .theme-label {
+    font-size: 0.65rem;
+  }
 }
 
 @media (max-width: 520px) {
@@ -565,4 +605,63 @@ a {
     grid-column: span 1;
     grid-row: span 1;
   }
+  
+  /* Hide grid and show carousel on very small screens */
+  .video-gallery.has-carousel {
+    display: none;
+  }
+  
+  .gallery-grid.has-carousel {
+    display: none;
+  }
+  
+  .mobile-carousel {
+    display: block;
+  }
+  
+  /* Further reduce pixel fonts on very small screens */
+  [data-theme="wood"] .brand {
+    font-size: 0.85rem;
+  }
+  
+  [data-theme="wood"] .name {
+    font-size: 1.2rem;
+  }
+  
+  [data-theme="wood"] .section-title {
+    font-size: 1.1rem;
+  }
+  
+  [data-theme="wood"] .fact-list {
+    font-size: 0.65rem;
+  }
+}
+
+/* Mobile carousel styles */
+.mobile-carousel {
+  display: none;
+  margin-top: 2rem;
+}
+
+.carousel-item video,
+.carousel-item img {
+  width: 100%;
+  border-radius: 1.25rem;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 45px;
+  opacity: 0.8;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
+}
+
+.carousel-indicators button {
+  background-color: var(--accent);
 }

@@ -18,6 +18,28 @@ let quizState = {
 };
 
 // ===========================
+// THEME MANAGEMENT
+// ===========================
+function initTheme() {
+    const savedTheme = localStorage.getItem('selectedTheme') || 'dark';
+    document.body.setAttribute('data-theme', savedTheme);
+    updateThemeButtons(savedTheme);
+}
+
+function updateThemeButtons(activeTheme) {
+    document.querySelectorAll('.theme-button').forEach(btn => {
+        const isActive = btn.dataset.themeOption === activeTheme;
+        btn.setAttribute('aria-pressed', isActive);
+    });
+}
+
+function switchTheme(themeName) {
+    document.body.setAttribute('data-theme', themeName);
+    localStorage.setItem('selectedTheme', themeName);
+    updateThemeButtons(themeName);
+}
+
+// ===========================
 // LOCAL STORAGE FUNCTIONS
 // ===========================
 function saveStats() {
@@ -513,7 +535,16 @@ function formatTime(seconds) {
 // INITIALIZATION
 // ===========================
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     loadStats();
     displayFlashcard();
     updateStatsDisplay();
+    
+    // Theme switcher event listeners
+    document.querySelectorAll('.theme-button').forEach(button => {
+        button.addEventListener('click', () => {
+            switchTheme(button.dataset.themeOption);
+        });
+    });
 });
+
