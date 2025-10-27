@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="assets/css/site.css" data-cache-bust="true" />
   </head>
   <body>
+    <canvas id="particle-canvas"></canvas>
     <div class="page-shell">
       <header class="top-bar">
         <a class="brand" href="index.html">Code Kokeshi</a>
@@ -81,9 +82,12 @@
       <footer class="site-footer">© <span id="year"></span> CodeKokeshi. Built with intention.</footer>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script defer src="assets/js/animations.js"></script>
     <script defer src="assets/js/site.js"></script>
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>
   </body>
 </html>
+
