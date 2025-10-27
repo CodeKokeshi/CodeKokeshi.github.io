@@ -144,43 +144,6 @@ class VideoSlideshow {
   }
 }
 
-// Auto-initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initVideoSlideshows);
-} else {
-  initVideoSlideshows();
-}
-
-function initVideoSlideshows() {
-  // Game Dev page videos
-  const gameDevContainer = document.querySelector('#game-video-slideshow');
-  if (gameDevContainer) {
-    const gameDevVideos = [
-      'GameDevPortfolios/Trapped in a Nightmare.mp4',
-      'GameDevPortfolios/Chrono Plasmorph.mp4',
-      'GameDevPortfolios/Flabby Firth.mp4',
-      'GameDevPortfolios/2D Platformer Template.mp4'
-    ];
-    new VideoSlideshow('#game-video-slideshow', gameDevVideos, { intervalDuration: 20000 });
-  }
-  
-  // Art page images
-  const artContainer = document.querySelector('#art-image-slideshow');
-  if (artContainer) {
-    const artImages = [
-      'DigitalArtPortfolio/Mahiro1.jpg',
-      'DigitalArtPortfolio/Mahiro2.jpg',
-      'DigitalArtPortfolio/Mahiro3.jpg',
-      'DigitalArtPortfolio/Angela.jpg',
-      'DigitalArtPortfolio/Marnie.jpg',
-      'DigitalArtPortfolio/Gaomon.jpg',
-      'DigitalArtPortfolio/117313274_p0_master1200.jpg',
-      'DigitalArtPortfolio/104943736-f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg'
-    ];
-    new ImageSlideshow('#art-image-slideshow', artImages, { intervalDuration: 20000 });
-  }
-}
-
 /**
  * Image Slideshow System
  * Similar to video slideshow but for images
@@ -188,13 +151,17 @@ function initVideoSlideshows() {
 class ImageSlideshow {
   constructor(containerSelector, imageSources, options = {}) {
     this.container = document.querySelector(containerSelector);
-    if (!this.container) return;
+    if (!this.container) {
+      console.error('ImageSlideshow: Container not found:', containerSelector);
+      return;
+    }
     
     this.imageSources = imageSources;
     this.currentIndex = 0;
     this.intervalDuration = options.intervalDuration || 20000;
     this.intervalId = null;
     
+    console.log('ImageSlideshow initialized with', imageSources.length, 'images');
     this.init();
   }
   
@@ -233,6 +200,8 @@ class ImageSlideshow {
   loadImage(index) {
     this.currentIndex = index;
     const src = this.imageSources[index];
+    
+    console.log('Loading image:', src);
     
     // Load image immediately without fade on first load
     if (index === 0 && !this.imageElement.src) {
@@ -277,5 +246,48 @@ class ImageSlideshow {
     if (this.imageElement) {
       this.imageElement.src = '';
     }
+  }
+}
+
+// Auto-initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initVideoSlideshows);
+} else {
+  initVideoSlideshows();
+}
+
+function initVideoSlideshows() {
+  console.log('Initializing video slideshows...');
+  
+  // Game Dev page videos
+  const gameDevContainer = document.querySelector('#game-video-slideshow');
+  if (gameDevContainer) {
+    console.log('Found game dev container');
+    const gameDevVideos = [
+      'GameDevPortfolios/Trapped in a Nightmare.mp4',
+      'GameDevPortfolios/Chrono Plasmorph.mp4',
+      'GameDevPortfolios/Flabby Firth.mp4',
+      'GameDevPortfolios/2D Platformer Template.mp4'
+    ];
+    new VideoSlideshow('#game-video-slideshow', gameDevVideos, { intervalDuration: 20000 });
+  }
+  
+  // Art page images
+  const artContainer = document.querySelector('#art-image-slideshow');
+  if (artContainer) {
+    console.log('Found art container, initializing ImageSlideshow');
+    const artImages = [
+      'DigitalArtPortfolio/Mahiro1.jpg',
+      'DigitalArtPortfolio/Mahiro2.jpg',
+      'DigitalArtPortfolio/Mahiro3.jpg',
+      'DigitalArtPortfolio/Angela.jpg',
+      'DigitalArtPortfolio/Marnie.jpg',
+      'DigitalArtPortfolio/Gaomon.jpg',
+      'DigitalArtPortfolio/117313274_p0_master1200.jpg',
+      'DigitalArtPortfolio/104943736-f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg'
+    ];
+    new ImageSlideshow('#art-image-slideshow', artImages, { intervalDuration: 20000 });
+  } else {
+    console.log('Art container not found');
   }
 }
