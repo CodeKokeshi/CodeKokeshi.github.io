@@ -433,6 +433,93 @@ body {
     outline: none;
 }
 
+/* Quiz Container and Cards */
+#quiz-container .card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    color: var(--text);
+}
+
+#quiz-container .card-body {
+    background: var(--surface);
+    color: var(--text);
+}
+
+#quiz-question {
+    color: var(--text);
+}
+
+/* Quiz Buttons */
+#submit-answer,
+#next-question,
+.btn-primary {
+    background: var(--accent);
+    border: 2px solid var(--accent);
+    color: white;
+}
+
+#submit-answer:hover,
+#next-question:hover,
+.btn-primary:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    opacity: 0.9;
+}
+
+.btn-secondary {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    color: var(--text);
+}
+
+.btn-secondary:hover {
+    background: var(--surface-alt);
+    border-color: var(--accent);
+    color: var(--text);
+}
+
+.btn-outline-primary {
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+}
+
+.btn-outline-primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+}
+
+.btn-outline-secondary {
+    background: transparent;
+    border: 2px solid var(--border);
+    color: var(--text);
+}
+
+.btn-outline-secondary:hover {
+    background: var(--surface);
+    border-color: var(--accent);
+    color: var(--text);
+}
+
+/* Quiz Feedback Alert */
+#quiz-feedback {
+    background: var(--surface-alt);
+    border: 2px solid var(--accent);
+    color: var(--text);
+}
+
+/* Question Type Badge */
+.question-type-badge .badge {
+    background: var(--accent) !important;
+    color: white;
+}
+
+/* Text Muted */
+.text-muted {
+    color: var(--muted) !important;
+}
+
 /* Quiz Results */
 .result-score {
     display: flex;
@@ -491,6 +578,12 @@ body {
     color: var(--text);
 }
 
+.review-item h5,
+.review-item p,
+.review-item strong {
+    color: var(--text);
+}
+
 .review-item.correct {
     border-color: var(--success-color);
     background-color: var(--surface);
@@ -499,6 +592,23 @@ body {
 .review-item.incorrect {
     border-color: var(--error-color);
     background-color: var(--surface);
+}
+
+/* Results Card */
+#quiz-results .card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    color: var(--text);
+}
+
+#quiz-results .card-body {
+    background: var(--surface);
+    color: var(--text);
+}
+
+#quiz-results h2,
+#quiz-results h4 {
+    color: var(--text);
 }
 
 .review-item h5 {
@@ -542,11 +652,15 @@ body {
 /* Progress Bar */
 .progress {
     border-radius: 10px;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
 }
 
 .progress-bar {
     transition: width 0.5s ease;
     font-weight: bold;
+    background-color: var(--accent);
+    color: white;
 }
 
 /* Responsive */
