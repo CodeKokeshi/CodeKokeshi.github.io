@@ -99,6 +99,15 @@
         color: var(--accent-strong);
       }
 
+      @media (max-width: 980px) {
+        .game-embed iframe {
+          width: 100% !important;
+          height: auto !important;
+          aspect-ratio: 16 / 9;
+          min-height: 400px;
+        }
+      }
+
       @media (max-width: 620px) {
         .game-embed {
           padding: 1rem;
@@ -106,7 +115,7 @@
 
         .game-embed iframe {
           width: 100% !important;
-          height: 200px !important;
+          min-height: 300px;
         }
       }
 
@@ -167,8 +176,8 @@
           </div>
 
           <div class="game-embed">
-            <iframe height="167" frameborder="0" src="https://itch.io/embed/3482915" width="552">
-              <a href="https://codekokeshi.itch.io/trapped-in-a-nightmare">Trapped in a Nightmare by CodeKokeshi</a>
+            <iframe frameborder="0" src="https://itch.io/embed-upload/15368666?color=333333" allowfullscreen="" width="960" height="560">
+              <a href="https://codekokeshi.itch.io/trapped-in-a-nightmare">Play Trapped in a Nightmare on itch.io</a>
             </iframe>
           </div>
 

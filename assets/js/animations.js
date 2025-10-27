@@ -125,10 +125,13 @@ function initScrollAnimations() {
     });
   }, observerOptions);
   
-  // Observe elements
+  // Observe elements (skip .no-animations containers)
   document.querySelectorAll('.portfolio-card, .video-card, .gallery-card, .page-section, .fact-list li').forEach(el => {
-    el.classList.add('animate-on-scroll');
-    observer.observe(el);
+    // Skip if parent has no-animations class
+    if (!el.closest('.no-animations')) {
+      el.classList.add('animate-on-scroll');
+      observer.observe(el);
+    }
   });
 }
 
@@ -137,6 +140,11 @@ function init3DTilt() {
   const cards = document.querySelectorAll('.portfolio-card, .gallery-card');
   
   cards.forEach(card => {
+    // Skip if parent has no-animations class
+    if (card.closest('.no-animations')) {
+      return;
+    }
+    
     card.addEventListener('mouseenter', function() {
       this.style.transition = 'transform 0.1s ease';
     });
