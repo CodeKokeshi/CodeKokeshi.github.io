@@ -607,16 +607,13 @@ a {
   }
   
   /* Hide grid and show carousel on very small screens */
-  .video-gallery.has-carousel {
-    display: none;
-  }
-  
+  .video-gallery.has-carousel,
   .gallery-grid.has-carousel {
-    display: none;
+    display: none !important;
   }
   
   .mobile-carousel {
-    display: block;
+    display: block !important;
   }
   
   /* Further reduce pixel fonts on very small screens */
