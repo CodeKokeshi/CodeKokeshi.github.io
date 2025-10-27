@@ -535,14 +535,30 @@ a {
 }
 
 .card-links a {
-  color: var(--accent);
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  background: var(--accent);
+  color: var(--bg);
   text-decoration: none;
   letter-spacing: 0.05em;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid var(--accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .card-links a:hover,
 .card-links a:focus-visible {
-  text-decoration: underline;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.card-links a:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .notice {
