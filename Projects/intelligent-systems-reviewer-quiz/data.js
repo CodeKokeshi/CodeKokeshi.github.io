@@ -1,472 +1,670 @@
-const flashcards = [
-  {
-    id: "ai-foundations-1",
-    topic: "Definition, History & Branches",
-    question: "What is Artificial Intelligence?",
-    full: "<p>Artificial Intelligence (AI) is the discipline of building <mark>systems that perceive, reason, learn, and act</mark> to achieve goals across varying environments.</p>",
-    simple: "<ul><li>Goal-directed systems</li><li>Sense, reason, learn, and act</li><li>Automate cognitive tasks</li></ul>",
-    keywords: ["AI", "definition", "intelligence"],
-    quiz: {
-      type: "multiple",
-      prompt: "Which description best captures Artificial Intelligence?",
-      options: [
-        { label: "Computers executing strictly predefined scripts without adaptation", value: "scripts" },
-        { label: "Systems that perceive, reason, learn, and act toward goals", value: "ai" },
-        { label: "Mechanical automation with no data processing involved", value: "mechanical" },
-        { label: "Any software that stores data in databases", value: "database" }
-      ],
-      answer: "ai",
-      explanation: "AI focuses on goal-directed systems that can sense, reason, learn, and act within their environment."
+// Flashcards Data
+const flashcardsData = [
+    // AI Definition and Basics
+    {
+        question: "What is Artificial Intelligence (AI)?",
+        answer: "The simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. It encompasses any machine that exhibits traits associated with a human mind, such as learning and problem-solving."
+    },
+    {
+        question: "What are the three core traits of AI systems?",
+        answer: "1. Simulation of human intelligence\n2. Ability to think like humans\n3. Capacity for learning and problem-solving"
+    },
+    {
+        question: "What is Machine Learning (ML)?",
+        answer: "Algorithms that allow systems to learn from data, identify patterns, and make decisions with minimal human intervention."
+    },
+    {
+        question: "What is Deep Learning (DL)?",
+        answer: "A subset of ML that uses neural networks with many layers (layered neural networks) to learn complex patterns from large amounts of data, such as images and speech."
+    },
+    {
+        question: "What is Natural Language Processing (NLP)?",
+        answer: "Enables computers to understand, interpret, and generate human language. Powers chatbots, translation, and sentiment analysis."
+    },
+    {
+        question: "What is Computer Vision (CV)?",
+        answer: "Allows computers to 'see' and interpret visual information from images and videos, used in facial recognition and autonomous navigation."
+    },
+    {
+        question: "What are Expert Systems?",
+        answer: "Systems that mimic human decision-making using extensive knowledge bases and predefined rules to solve complex problems, often used for diagnostics."
+    },
+    {
+        question: "What is Generative AI?",
+        answer: "A branch of AI focused on creating novel, original content (e.g., text, images, audio) rather than just analyzing existing data."
+    },
+    
+    // ML Types
+    {
+        question: "What is Supervised Learning?",
+        answer: "The algorithm learns from labeled data, which includes both the input and the desired output (an 'answer key'). Used for classification and regression tasks."
+    },
+    {
+        question: "What is Unsupervised Learning?",
+        answer: "The algorithm explores unlabeled data to discover hidden patterns or structures without prior guidance. Used for clustering and anomaly detection."
+    },
+    {
+        question: "What is Reinforcement Learning?",
+        answer: "An 'agent' learns to make decisions by performing actions in an environment and receiving rewards or penalties (learning by 'trial and error'). Common in robotics and game-playing AI."
+    },
+    
+    // ML Pipeline
+    {
+        question: "What are the 5 key stages of an ML Pipeline?",
+        answer: "1. Problem Definition\n2. Data Collection & Preparation\n3. Feature Engineering\n4. Model Training & Evaluation\n5. Deployment & Monitoring"
+    },
+    {
+        question: "What is Feature Engineering?",
+        answer: "Transforming raw data into valuable, relevant features (inputs) that better represent the underlying problem, thereby improving model performance."
+    },
+    {
+        question: "What is the purpose of the Problem Definition stage?",
+        answer: "Clearly defining the business goal and the success metrics for the model."
+    },
+    {
+        question: "What happens in the Deployment & Monitoring stage?",
+        answer: "Launching the model into a production environment and tracking its health and accuracy over time (e.g., for 'model drift')."
+    },
+    
+    // Model Training
+    {
+        question: "What is Model Training?",
+        answer: "The process of teaching an algorithm to recognize patterns by iteratively adjusting its internal parameters (weights) to minimize predictive errors."
+    },
+    {
+        question: "What are the three data sets used in ML?",
+        answer: "1. Training Set - builds the model\n2. Validation Set - tunes the model\n3. Test Set - gives an unbiased final performance check"
+    },
+    {
+        question: "What is Overfitting?",
+        answer: "When the model learns the training data's noise and details too closely, leading to poor generalization on new, unseen data."
+    },
+    {
+        question: "What is Underfitting?",
+        answer: "When the model is too simple to capture the underlying data patterns."
+    },
+    {
+        question: "What is Cross-Validation?",
+        answer: "A systematic resampling technique (e.g., K-fold) used to reliably estimate model performance and stability."
+    },
+    {
+        question: "What is Regularization?",
+        answer: "Adds a penalty to complex models (e.g., L1, L2), constraining parameters to prevent overfitting."
+    },
+    {
+        question: "What is Transfer Learning?",
+        answer: "Using a pre-trained model (trained on a massive dataset) as a starting point and fine-tuning it on a smaller, specific dataset."
+    },
+    {
+        question: "What is Hyperparameter Tuning?",
+        answer: "Optimizing the model's external configuration settings (e.g., learning rate) using methods like Grid Search or Random Search."
+    },
+    
+    // Feature Engineering Details
+    {
+        question: "What are the three main Feature Selection methods?",
+        answer: "1. Filter Methods - based on statistical measures before training\n2. Wrapper Methods - use a model to wrap the selection process\n3. Embedded Methods - integrated within model training"
+    },
+    {
+        question: "What is Normalization & Scaling in feature transformation?",
+        answer: "Adjusting the range of features (e.g., Min-Max scaling to 0-1) to improve model learning."
+    },
+    {
+        question: "What is Encoding in feature transformation?",
+        answer: "Converting categorical data to numerical form (e.g., One-Hot Encoding)."
+    },
+    {
+        question: "What is Feature Extraction?",
+        answer: "Reducing dimensionality while preserving important information (e.g., using PCA - Principal Component Analysis)."
+    },
+    
+    // Applications
+    {
+        question: "Name 4 applications of ML in Healthcare.",
+        answer: "1. Disease diagnosis\n2. Drug discovery\n3. Personalized treatment plans\n4. Medical image analysis (X-rays, MRIs)"
+    },
+    {
+        question: "Name 3 applications of ML in Finance.",
+        answer: "1. Fraud detection\n2. Algorithmic trading\n3. Credit scoring"
+    },
+    {
+        question: "Name 3 applications of ML in Retail.",
+        answer: "1. Recommendation engines\n2. Inventory management\n3. Customer behavior prediction"
+    },
+    {
+        question: "What AI technologies power self-driving cars?",
+        answer: "Machine Learning and Computer Vision for autonomous navigation and predictive maintenance."
+    },
+    
+    // Business Use Cases
+    {
+        question: "How does AI improve Customer Service in business?",
+        answer: "AI-powered chatbots and conversational AI handle inquiries 24/7, reducing wait times and operational costs."
+    },
+    {
+        question: "How does AI help with Fraud Detection?",
+        answer: "AI analyzes vast datasets in real-time to detect suspicious patterns, combat fraud, and prevent cyber attacks."
+    },
+    {
+        question: "What is Predictive Maintenance?",
+        answer: "AI analyzes sensor data from machinery to predict equipment failures before they happen, preventing costly breakdowns."
+    },
+    {
+        question: "How does AI enable Personalized Marketing?",
+        answer: "AI analyzes user behavior to deliver customized content and product recommendations, boosting engagement."
+    },
+    
+    // Healthcare Use Cases
+    {
+        question: "How does AI assist in Medical Image Analysis?",
+        answer: "AI algorithms analyze medical images (X-rays, MRIs) to detect subtle anomalies like early-stage cancer, often with high precision."
+    },
+    {
+        question: "How does AI accelerate Drug Discovery?",
+        answer: "AI rapidly sifts through vast datasets of chemical compounds to identify potential drug candidates, accelerating research."
+    },
+    {
+        question: "What is Robotic Surgery and its benefits?",
+        answer: "AI-assisted systems (e.g., da Vinci) enhance surgical precision, reduce invasiveness, and can lead to faster patient recovery."
+    },
+    
+    // Logistics Use Cases
+    {
+        question: "How does AI improve warehouse operations?",
+        answer: "AI-powered robots automate order fulfillment (picking and packing), operating 24/7 with high speed and accuracy."
+    },
+    {
+        question: "How does AI help with Inventory Management?",
+        answer: "AI and IoT devices provide precise inventory tracking, enabling sophisticated demand forecasting and preventing stockouts."
+    },
+    {
+        question: "What is Dynamic Shipment Prioritization?",
+        answer: "AI optimizes shipping by consolidating orders, maximizing truck space, and cutting logistic costs."
+    },
+    
+    // Ethics
+    {
+        question: "What is Bias in AI systems?",
+        answer: "AI systems can learn, perpetuate, and even amplify existing human biases present in their training data, leading to unfair or discriminatory outcomes."
+    },
+    {
+        question: "What are the Privacy concerns in AI?",
+        answer: "AI often requires extensive data collection, raising significant concerns about individual privacy, data misuse, and security breaches."
+    },
+    {
+        question: "What is the Accountability challenge in AI?",
+        answer: "Determining who is responsible when an AI makes a mistake (accountability) is a major challenge in AI ethics."
+    },
+    {
+        question: "What is Transparency in AI?",
+        answer: "Understanding how a complex 'black box' model arrived at its decision. It's crucial for trust and debugging."
+    },
+    {
+        question: "What are AI Hallucinations?",
+        answer: "AI models, especially generative ones, can produce 'hallucinations' – plausible but factually incorrect or nonsensical outputs. This necessitates human oversight."
+    },
+    
+    // History
+    {
+        question: "Who proposed the Turing Test and when?",
+        answer: "Alan Turing in the 1950s with his paper 'Computing Machinery and Intelligence'."
+    },
+    {
+        question: "What happened during the AI Winter?",
+        answer: "In the 1960s-70s, initial optimism faded due to limitations, leading to reduced funding for AI research."
+    },
+    {
+        question: "What characterized AI in the 1980s?",
+        answer: "Rise of rule-based Expert Systems for specific problem-solving."
+    },
+    {
+        question: "What shift occurred in AI during 1990s-2000s?",
+        answer: "Focus shifted to statistical, data-driven approaches with Machine Learning becoming prominent."
+    },
+    {
+        question: "What defines the 2010s-Present AI era?",
+        answer: "Deep Learning Boom - advances in neural networks, big data, and computational power fuel rapid progress."
+    },
+    
+    // Trends
+    {
+        question: "What is AutoML?",
+        answer: "Automated Machine Learning - tools and platforms that automate the end-to-end process of applying machine learning, making ML more accessible to non-experts."
+    },
+    {
+        question: "Name 4 types of content Generative AI can create.",
+        answer: "1. Text (e.g., GPT-4)\n2. Images (e.g., DALL-E)\n3. Audio and Music\n4. Synthetic Data (to train other AI models)"
+    },
+    
+    // Pipeline Challenges
+    {
+        question: "What are the 3 core challenges in ML Pipelines?",
+        answer: "1. Complexity & Scale - handling massive data volumes\n2. Lack of Modularity - bundled workflows hinder collaboration\n3. Manual Processes - slow iteration, errors, and poor reproducibility"
+    },
+    {
+        question: "Why is an ML Pipeline important?",
+        answer: "It's an automated sequence of steps that takes data from collection to deployment, ensuring efficiency, reproducibility, and scalability."
     }
-  },
-  {
-    id: "ai-foundations-2",
-    topic: "Definition, History & Branches",
-    question: "Which milestones trace AI's early history?",
-    full: "<ul><li><strong>1956 Dartmouth workshop</strong> coined AI as a field.</li><li><strong>1960s symbolic programs</strong> like ELIZA and SHRDLU.</li><li><strong>1980s expert systems boom</strong> in industry.</li><li><strong>2012 deep learning surge</strong> with ImageNet breakthroughs.</li></ul>",
-    simple: "<ul><li>1956 Dartmouth launch</li><li>Symbolic pioneers</li><li>Expert systems era</li><li>Deep learning revival</li></ul>",
-    keywords: ["history", "Dartmouth", "milestones"],
-    quiz: {
-      type: "fill",
-      prompt: "Complete the statement about AI history.",
-      sentence: "The 1956 Dartmouth workshop is often cited as the formal birth of ___ as a research field.",
-      answer: "artificial intelligence",
-      wordBank: ["artificial intelligence", "data science", "cybernetics", "robotics"],
-      explanation: "Researchers at Dartmouth popularised the term \"Artificial Intelligence\" and framed it as a discipline."
-    }
-  },
-  {
-    id: "ai-foundations-3",
-    topic: "Definition, History & Branches",
-    question: "What are core branches of AI research?",
-    full: "<ul><li><strong>Symbolic AI:</strong> Logic, planning, expert systems.</li><li><strong>Statistical & machine learning:</strong> Data-driven models.</li><li><strong>Evolutionary & swarm methods:</strong> Population-based search.</li><li><strong>Perception & robotics:</strong> Vision, speech, embodied agents.</li></ul>",
-    simple: "<ul><li>Symbolic reasoning</li><li>Machine learning</li><li>Evolutionary computation</li><li>Perception & robotics</li></ul>",
-    keywords: ["branches", "symbolic", "machine learning"],
-    quiz: {
-      type: "multi-select",
-      prompt: "Which items are recognised branches of AI research?",
-      options: [
-        { label: "Symbolic reasoning and knowledge representation", value: "symbolic" },
-        { label: "Machine learning and statistical patterning", value: "ml" },
-        { label: "Evolutionary computation and swarm intelligence", value: "evo" },
-        { label: "Relational database indexing strategies", value: "db" }
-      ],
-      answers: ["symbolic", "ml", "evo"],
-      minSelections: 2,
-      explanation: "Symbolic AI, machine learning, and evolutionary approaches are core branches. Database indexing is supporting infrastructure, not an AI branch."
-    }
-  },
-  {
-    id: "ml-types-1",
-    topic: "Machine Learning Types & Applications",
-    question: "What defines supervised learning?",
-    full: "<ul><li>Uses <mark>labelled datasets</mark> pairing inputs with target outputs.</li><li>Trains models to <mark>generalise from examples</mark>.</li><li>Evaluates with metrics like accuracy, recall, or RMSE.</li></ul>",
-    simple: "<ul><li>Labeled examples</li><li>Predict targets</li><li>Measure accuracy</li></ul>",
-    keywords: ["supervised", "labels", "prediction"],
-    quiz: {
-      type: "fill",
-      prompt: "Complete the sentence about supervised learning.",
-      sentence: "Supervised learning trains models on ___ datasets with known outcomes.",
-      answer: "labelled",
-      wordBank: ["labelled", "anonymous", "randomised", "unstructured"],
-      explanation: "Supervised algorithms rely on labelled datasets where each input has an associated target."
-    }
-  },
-  {
-    id: "ml-types-2",
-    topic: "Machine Learning Types & Applications",
-    question: "How does unsupervised learning operate?",
-    full: "<ul><li>Explores <mark>unlabelled data</mark> to uncover structure.</li><li>Finds clusters, associations, or reduced dimensions.</li><li>Supports anomaly detection and feature learning.</li></ul>",
-    simple: "<ul><li>No target labels</li><li>Discovers structure</li><li>Enables clustering</li></ul>",
-    keywords: ["unsupervised", "clustering", "structure"],
-    quiz: {
-      type: "multiple",
-      prompt: "Which statement describes unsupervised learning?",
-      options: [
-        { label: "Discovering latent structure in data without target labels", value: "unsupervised" },
-        { label: "Learning a policy purely from reward signals", value: "reinforcement" },
-        { label: "Mapping labelled inputs to outputs", value: "supervised" },
-        { label: "Executing hard-coded decision rules", value: "rules" }
-      ],
-      answer: "unsupervised",
-      explanation: "Unsupervised methods mine unlabelled data for structure such as clusters or embeddings."
-    }
-  },
-  {
-    id: "ml-types-3",
-    topic: "Machine Learning Types & Applications",
-    question: "What is reinforcement learning?",
-    full: "<ul><li>An <mark>agent interacts</mark> with an environment.</li><li>Receives <mark>rewards and penalties</mark>.</li><li>Learns policies that maximise cumulative reward.</li></ul>",
-    simple: "<ul><li>Agent + environment</li><li>Reward feedback</li><li>Policy optimisation</li></ul>",
-    keywords: ["reinforcement", "agent", "reward"],
-    quiz: {
-      type: "multiple",
-      prompt: "Reinforcement learning focuses on what objective?",
-      options: [
-        { label: "Maximising cumulative reward through interaction", value: "reward" },
-        { label: "Inferring clusters from unlabelled samples", value: "cluster" },
-        { label: "Encoding logic rules manually", value: "logic" },
-        { label: "Storing records efficiently in a database", value: "storage" }
-      ],
-      answer: "reward",
-      explanation: "Reinforcement learning agents optimise behaviour by maximising cumulative reward signals."
-    }
-  },
-  {
-    id: "ml-types-4",
-    topic: "Machine Learning Types & Applications",
-    question: "Which scenarios align with ML paradigms?",
-    full: "<ul><li><strong>Supervised:</strong> Predict claims fraud from labelled cases.</li><li><strong>Unsupervised:</strong> Cluster customers by behaviour.</li><li><strong>Reinforcement:</strong> Train robots via rewards.</li></ul>",
-    simple: "<ul><li>Fraud prediction</li><li>Customer clustering</li><li>Reward-driven robotics</li></ul>",
-    keywords: ["use cases", "supervised", "unsupervised", "reinforcement"],
-    quiz: {
-      type: "multi-select",
-      prompt: "Select scenarios that exemplify core machine learning paradigms.",
-      options: [
-        { label: "Labelling tumors as benign or malignant using historical diagnoses", value: "supervised" },
-        { label: "Grouping customers into segments without predefined labels", value: "unsupervised" },
-        { label: "Training a robot through reward signals to stay balanced", value: "reinforcement" },
-        { label: "Producing quarterly reports purely with manual SQL queries", value: "manual" }
-      ],
-      answers: ["supervised", "unsupervised", "reinforcement"],
-      explanation: "The first three options mirror supervised, unsupervised, and reinforcement learning respectively; manual SQL reporting is not an ML paradigm."
-    }
-  },
-  {
-    id: "use-cases-1",
-    topic: "AI Use Cases in Industry",
-    question: "How does AI support business operations?",
-    full: "<ul><li><mark>Predictive analytics</mark> for churn, demand, and pricing.</li><li><mark>Intelligent automation</mark> for invoices and service tickets.</li><li><mark>Augmented decision-making</mark> in marketing and finance.</li></ul>",
-    simple: "<ul><li>Predict churn & demand</li><li>Automate back office</li><li>Assist strategic decisions</li></ul>",
-    keywords: ["business", "operations", "analytics"],
-    quiz: {
-      type: "multi-select",
-      prompt: "Which business applications commonly leverage AI?",
-      options: [
-        { label: "Customer churn prediction dashboards", value: "churn" },
-        { label: "Dynamic pricing that reacts to market signals", value: "pricing" },
-        { label: "Invoice classification with natural language processing", value: "invoices" },
-        { label: "Manual spreadsheet macros maintained by hand", value: "macros" }
-      ],
-      answers: ["churn", "pricing", "invoices"],
-      explanation: "Churn prediction, dynamic pricing, and invoice classification are AI-enabled workflows; hand-maintained macros are not."
-    }
-  },
-  {
-    id: "use-cases-2",
-    topic: "AI Use Cases in Industry",
-    question: "How is AI transforming healthcare?",
-    full: "<ul><li><mark>Computer vision diagnostics</mark> triage medical imaging.</li><li><mark>Predictive models</mark> flag deteriorating patients.</li><li><mark>NLP summarisation</mark> accelerates clinical documentation.</li></ul>",
-    simple: "<ul><li>Image-based triage</li><li>Risk prediction</li><li>Clinical NLP</li></ul>",
-    keywords: ["healthcare", "diagnostics", "clinical"],
-    quiz: {
-      type: "multiple",
-      prompt: "Which healthcare use case relies heavily on computer vision?",
-      options: [
-        { label: "Radiology image triage for prioritising scans", value: "radiology" },
-        { label: "Automating insurance claim approvals", value: "claims" },
-        { label: "Scheduling operating rooms", value: "scheduling" },
-        { label: "Maintaining inventory labels", value: "inventory" }
-      ],
-      answer: "radiology",
-      explanation: "Radiology triage applies computer vision to medical images, while the other tasks lean on different techniques."
-    }
-  },
-  {
-    id: "use-cases-3",
-    topic: "AI Use Cases in Industry",
-    question: "How does AI optimise logistics?",
-    full: "<ul><li><mark>Predictive demand forecasting</mark> informs inventory and staffing.</li><li><mark>Route optimisation</mark> reduces fuel burn and delivery delays.</li><li><mark>Computer vision</mark> tracks packages and quality.</li></ul>",
-    simple: "<ul><li>Forecast demand</li><li>Optimise routing</li><li>Track goods visually</li></ul>",
-    keywords: ["logistics", "routing", "forecasting"],
-    quiz: {
-      type: "fill",
-      prompt: "Finish the statement about logistics AI.",
-      sentence: "AI-driven demand forecasting helps reduce unexpected ___ and overstocks in supply chains.",
-      answer: "stockouts",
-      wordBank: ["stockouts", "warehouses", "budgets", "suppliers"],
-      explanation: "Forecasting models aim to cut unexpected stockouts while also minimising overstocking."
-    }
-  },
-  {
-    id: "pipeline-1",
-    topic: "ML Pipeline & Challenges",
-    question: "What stages form an ML pipeline?",
-    full: "<ul><li><mark>Ingest</mark> data and define scope.</li><li><mark>Prepare</mark>: clean, label, and engineer features.</li><li><mark>Model</mark>: train and validate.</li><li><mark>Deploy</mark> to production.</li><li><mark>Monitor</mark> & iterate.</li></ul>",
-    simple: "<ul><li>Ingest</li><li>Prepare</li><li>Model</li><li>Deploy</li><li>Monitor</li></ul>",
-    keywords: ["pipeline", "stages", "lifecycle"],
-    quiz: {
-      type: "multi-select",
-      prompt: "Which steps are essential in a modern ML pipeline?",
-      options: [
-        { label: "Data ingestion and understanding", value: "ingest" },
-        { label: "Feature engineering and data preparation", value: "prepare" },
-        { label: "Model training and validation", value: "model" },
-        { label: "Manual PDF printing of reports", value: "print" },
-        { label: "Deployment with ongoing monitoring", value: "deploy" }
-      ],
-      answers: ["ingest", "prepare", "model", "deploy"],
-      explanation: "Pipelines iterate through ingest, prepare, model, and deploy/monitor phases; manual printing is unrelated."
-    }
-  },
-  {
-    id: "pipeline-2",
-    topic: "ML Pipeline & Challenges",
-    question: "What challenges threaten data quality?",
-    full: "<ul><li><mark>Missing or imbalanced labels</mark>.</li><li><mark>Concept drift</mark> when distributions shift.</li><li><mark>Data silos and governance</mark> constraints.</li></ul>",
-    simple: "<ul><li>Missing labels</li><li>Concept drift</li><li>Siloed datasets</li></ul>",
-    keywords: ["data quality", "drift", "imbalance"],
-    quiz: {
-      type: "multiple",
-      prompt: "Which issue is a common data quality risk in ML pipelines?",
-      options: [
-        { label: "Concept drift changing feature distributions", value: "drift" },
-        { label: "Having too many well-labelled samples", value: "abundance" },
-        { label: "Perfectly balanced datasets forever", value: "perfect" },
-        { label: "Immutable business processes", value: "process" }
-      ],
-      answer: "drift",
-      explanation: "Concept drift erodes model performance as data distributions evolve."
-    }
-  },
-  {
-    id: "pipeline-3",
-    topic: "ML Pipeline & Challenges",
-    question: "Why is production monitoring critical?",
-    full: "<ul><li><mark>Detects drift</mark> and data anomalies early.</li><li><mark>Tracks performance</mark> vs. business KPIs.</li><li><mark>Supports governance</mark> with audit trails.</li></ul>",
-    simple: "<ul><li>Catch drift</li><li>Track KPIs</li><li>Provide auditability</li></ul>",
-    keywords: ["monitoring", "production", "governance"],
-    quiz: {
-      type: "fill",
-      prompt: "Complete the thought on monitoring.",
-      sentence: "Production monitoring surfaces data drift and model ___ before they harm outcomes.",
-      answer: "degradation",
-      wordBank: ["degradation", "creation", "duplication", "advertising"],
-      explanation: "Monitoring spots degradation so teams can retrain or recalibrate models."
-    }
-  },
-  {
-    id: "training-1",
-    topic: "Model Training & Optimisation",
-    question: "What loop drives model training?",
-    full: "<ul><li><mark>Initialise</mark> parameters.</li><li><mark>Forward propagate</mark> to compute loss.</li><li><mark>Backpropagate gradients</mark>.</li><li><mark>Update weights</mark> via optimiser.</li><li>Repeat until convergence.</li></ul>",
-    simple: "<ul><li>Initialise weights</li><li>Forward + loss</li><li>Backprop + update</li></ul>",
-    keywords: ["training", "backprop", "optimiser"],
-    quiz: {
-      type: "fill",
-      prompt: "Fill in the blank about training loops.",
-      sentence: "Gradient-based training repeatedly updates model weights using computed ___ steps.",
-      answer: "gradient",
-      wordBank: ["gradient", "inventory", "marketing", "static"],
-      explanation: "Gradients drive the parameter updates that minimise loss."
-    }
-  },
-  {
-    id: "training-2",
-    topic: "Model Training & Optimisation",
-    question: "How does regularisation help?",
-    full: "<ul><li>Penalises <mark>overly complex models</mark>.</li><li>Improves <mark>generalisation</mark>.</li><li>Includes L1, L2, dropout, and early stopping.</li></ul>",
-    simple: "<ul><li>Controls complexity</li><li>Boosts generalisation</li><li>L1/L2/dropout</li></ul>",
-    keywords: ["regularisation", "generalisation", "overfitting"],
-    quiz: {
-      type: "multiple",
-      prompt: "What is the purpose of regularisation techniques?",
-      options: [
-        { label: "Reduce overfitting by penalising complexity", value: "overfit" },
-        { label: "Increase training loss without reason", value: "increase" },
-        { label: "Ensure data is always linearly separable", value: "linear" },
-        { label: "Replace validation datasets", value: "validation" }
-      ],
-      answer: "overfit",
-      explanation: "Regularisation constrains models to prevent overfitting and improve generalisation."
-    }
-  },
-  {
-    id: "training-3",
-    topic: "Model Training & Optimisation",
-    question: "What strategies tune hyperparameters?",
-    full: "<ul><li><mark>Grid and random search</mark> explore combinations.</li><li><mark>Bayesian optimisation</mark> models the search space.</li><li><mark>Hyperband</mark> and early stopping prune poor trials.</li></ul>",
-    simple: "<ul><li>Grid/random search</li><li>Bayesian optimisation</li><li>Hyperband pruning</li></ul>",
-    keywords: ["hyperparameters", "tuning", "optimisation"],
-    quiz: {
-      type: "multi-select",
-      prompt: "Select recognised hyperparameter optimisation strategies.",
-      options: [
-        { label: "Random search over parameter ranges", value: "random" },
-        { label: "Bayesian optimisation with surrogate models", value: "bayes" },
-        { label: "Hyperband with early-stopping brackets", value: "hyperband" },
-        { label: "Copying parameters from unrelated projects without testing", value: "copy" }
-      ],
-      answers: ["random", "bayes", "hyperband"],
-      explanation: "Random search, Bayesian optimisation, and Hyperband are established tuning strategies; blind copying is risky."
-    }
-  },
-  {
-    id: "feature-1",
-    topic: "Feature Engineering & Selection",
-    question: "What activities compose feature engineering?",
-    full: "<ul><li><mark>Transform raw data</mark> into informative signals.</li><li><mark>Encode</mark> categorical variables.</li><li><mark>Create interaction terms</mark> or aggregates.</li></ul>",
-    simple: "<ul><li>Transform raw signals</li><li>Encode categories</li><li>Create interactions</li></ul>",
-    keywords: ["feature engineering", "encoding", "transforms"],
-    quiz: {
-      type: "multiple",
-      prompt: "Which task is part of feature engineering?",
-      options: [
-        { label: "Converting timestamps into day-of-week indicators", value: "timestamps" },
-        { label: "Choosing quarterly revenue targets", value: "targets" },
-        { label: "Negotiating software licenses", value: "licenses" },
-        { label: "Designing office layouts", value: "layouts" }
-      ],
-      answer: "timestamps",
-      explanation: "Transforming timestamps into signals is a classic feature engineering step."
-    }
-  },
-  {
-    id: "feature-2",
-    topic: "Feature Engineering & Selection",
-    question: "How can we select informative features?",
-    full: "<ul><li><mark>Filter methods</mark> (mutual information, chi-square).</li><li><mark>Wrapper methods</mark> (recursive elimination).</li><li><mark>Embedded methods</mark> (LASSO, tree importance).</li></ul>",
-    simple: "<ul><li>Filter scores</li><li>Wrapper search</li><li>Embedded penalties</li></ul>",
-    keywords: ["feature selection", "filter", "embedded"],
-    quiz: {
-      type: "multi-select",
-      prompt: "Which techniques perform feature selection?",
-      options: [
-        { label: "Mutual information scoring", value: "mutual" },
-        { label: "Recursive feature elimination", value: "rfe" },
-        { label: "L1-penalised linear models", value: "l1" },
-        { label: "Randomly duplicating columns", value: "duplicate" }
-      ],
-      answers: ["mutual", "rfe", "l1"],
-      explanation: "Filter, wrapper, and embedded methods all support feature selection; random duplication does not."
-    }
-  },
-  {
-    id: "feature-3",
-    topic: "Feature Engineering & Selection",
-    question: "Why use dimensionality reduction?",
-    full: "<ul><li><mark>Compresses high-dimensional data</mark> into informative components.</li><li><mark>Improves model efficiency</mark> and visualisation.</li><li>Examples include PCA and autoencoders.</li></ul>",
-    simple: "<ul><li>Reduce dimensionality</li><li>Speed training</li><li>Reveal structure</li></ul>",
-    keywords: ["dimensionality", "PCA", "compression"],
-    quiz: {
-      type: "fill",
-      prompt: "Complete the sentence on dimensionality reduction.",
-      sentence: "Principal Component Analysis projects data into fewer ___ while preserving variance.",
-      answer: "dimensions",
-      wordBank: ["dimensions", "servers", "budgets", "dashboards"],
-      explanation: "PCA finds orthogonal dimensions that capture maximal variance."
-    }
-  },
-  {
-    id: "ethics-1",
-    topic: "AI Ethics & Governance",
-    question: "Which principles guide responsible AI?",
-    full: "<ul><li><mark>Fairness</mark> and inclusivity.</li><li><mark>Transparency</mark> and explainability.</li><li><mark>Accountability</mark> with human oversight.</li><li><mark>Privacy</mark> and data protection.</li></ul>",
-    simple: "<ul><li>Fair</li><li>Transparent</li><li>Accountable</li><li>Privacy-aware</li></ul>",
-    keywords: ["ethics", "fairness", "transparency"],
-    quiz: {
-      type: "multi-select",
-      prompt: "Select principles that underpin responsible AI programs.",
-      options: [
-        { label: "Fairness and non-discrimination", value: "fairness" },
-        { label: "Human accountability and oversight", value: "accountability" },
-        { label: "Transparency and explainability", value: "transparency" },
-        { label: "Ignoring privacy regulations for speed", value: "ignore" }
-      ],
-      answers: ["fairness", "accountability", "transparency"],
-      explanation: "Responsible AI emphasises fairness, accountability, and transparency while respecting privacy."
-    }
-  },
-  {
-    id: "ethics-2",
-    topic: "AI Ethics & Governance",
-    question: "How can we mitigate bias?",
-    full: "<ul><li><mark>Diverse data collection</mark> and audits.</li><li><mark>Fairness constraints</mark> or reweighing methods.</li><li><mark>Human review</mark> of critical decisions.</li></ul>",
-    simple: "<ul><li>Diverse data</li><li>Fairness-aware training</li><li>Human oversight</li></ul>",
-    keywords: ["bias", "fairness", "mitigation"],
-    quiz: {
-      type: "multiple",
-      prompt: "Which practice helps mitigate algorithmic bias?",
-      options: [
-        { label: "Auditing models with demographic performance slices", value: "audit" },
-        { label: "Removing all evaluation processes", value: "remove" },
-        { label: "Training only on majority-class examples", value: "majority" },
-        { label: "Hiding model behaviour from stakeholders", value: "hide" }
-      ],
-      answer: "audit",
-      explanation: "Bias mitigation requires auditing and acting on disparate performance across groups."
-    }
-  },
-  {
-    id: "ethics-3",
-    topic: "AI Ethics & Governance",
-    question: "What supports AI governance?",
-    full: "<ul><li><mark>Policies and risk assessments</mark>.</li><li><mark>Model documentation</mark> and lineage tracking.</li><li><mark>Cross-functional review boards</mark>.</li></ul>",
-    simple: "<ul><li>Policies & risk reviews</li><li>Documentation</li><li>Governance councils</li></ul>",
-    keywords: ["governance", "policies", "documentation"],
-    quiz: {
-      type: "fill",
-      prompt: "Fill in the governance statement.",
-      sentence: "AI governance frameworks rely on documented model lineage and clear ___ ownership.",
-      answer: "accountability",
-      wordBank: ["accountability", "advertising", "hardware", "parking"],
-      explanation: "Governance assigns accountability for decisions and maintains documentation."
-    }
-  },
-  {
-    id: "trends-1",
-    topic: "Emerging Trends & Future",
-    question: "What is AutoML?",
-    full: "<ul><li><mark>Automates</mark> parts of the ML lifecycle.</li><li>Searches feature pipelines and model architectures.</li><li>Helps teams prototype faster with guardrails.</li></ul>",
-    simple: "<ul><li>Automated ML workflow</li><li>Searches models/pipelines</li><li>Accelerates experimentation</li></ul>",
-    keywords: ["AutoML", "automation", "workflow"],
-    quiz: {
-      type: "multiple",
-      prompt: "AutoML platforms primarily aim to do what?",
-      options: [
-        { label: "Automate model and pipeline search to accelerate development", value: "automate" },
-        { label: "Eliminate the need for data altogether", value: "no-data" },
-        { label: "Replace all human experts permanently", value: "replace" },
-        { label: "Operate only on handwritten rule sets", value: "rules" }
-      ],
-      answer: "automate",
-      explanation: "AutoML automates model and pipeline exploration so teams can iterate faster with oversight."
-    }
-  },
-  {
-    id: "trends-2",
-    topic: "Emerging Trends & Future",
-    question: "What defines generative AI?",
-    full: "<ul><li><mark>Models that create new content</mark> such as text, images, or code.</li><li>Learn <mark>probability distributions</mark> over training data.</li><li>Include transformers, diffusion, and GANs.</li></ul>",
-    simple: "<ul><li>Create novel content</li><li>Model data distributions</li><li>Transformers, diffusion, GANs</li></ul>",
-    keywords: ["generative AI", "transformers", "GAN"],
-    quiz: {
-      type: "fill",
-      prompt: "Complete the statement on generative AI.",
-      sentence: "Generative AI models learn data distributions so they can synthesize new ___ that resemble the training set.",
-      answer: "content",
-      wordBank: ["content", "hardware", "passwords", "warehouses"],
-      explanation: "Generative models produce new content—text, images, audio—that mirrors learned distributions."
-    }
-  },
-  {
-    id: "trends-3",
-    topic: "Emerging Trends & Future",
-    question: "Which AI trends are emerging?",
-    full: "<ul><li><mark>Foundation models</mark> adapted via prompt engineering.</li><li><mark>Responsible AI tooling</mark> for monitoring and compliance.</li><li><mark>Edge AI</mark> for on-device intelligence.</li></ul>",
-    simple: "<ul><li>Foundation models</li><li>Responsible AI ops</li><li>Edge deployment</li></ul>",
-    keywords: ["trends", "foundation models", "edge"],
-    quiz: {
-      type: "multi-select",
-      prompt: "Identify emerging trends in the AI ecosystem.",
-      options: [
-        { label: "Adoption of foundation models with prompt tuning", value: "foundation" },
-        { label: "Responsible AI monitoring platforms", value: "responsible" },
-        { label: "On-device edge inference acceleration", value: "edge" },
-        { label: "Exclusive reliance on manual rule-based systems", value: "manual" }
-      ],
-      answers: ["foundation", "responsible", "edge"],
-      explanation: "Foundation models, responsible AI tooling, and edge inference are accelerating; manual-only systems are declining."
-    }
-  }
 ];
+
+// Quiz Questions Data
+const quizQuestions = {
+    multipleChoice: [
+        {
+            question: "What is the primary purpose of Supervised Learning?",
+            options: [
+                "To discover hidden patterns in unlabeled data",
+                "To learn from labeled data with known outputs",
+                "To make decisions through trial and error",
+                "To generate new content"
+            ],
+            correct: 1,
+            explanation: "Supervised Learning uses labeled data (with known outputs) to train algorithms for classification and regression tasks."
+        },
+        {
+            question: "Which AI branch focuses on understanding and generating human language?",
+            options: [
+                "Computer Vision",
+                "Robotics",
+                "Natural Language Processing",
+                "Expert Systems"
+            ],
+            correct: 2,
+            explanation: "Natural Language Processing (NLP) enables computers to understand, interpret, and generate human language."
+        },
+        {
+            question: "What decade saw the rise of Deep Learning?",
+            options: [
+                "1950s",
+                "1980s",
+                "1990s-2000s",
+                "2010s-Present"
+            ],
+            correct: 3,
+            explanation: "The 2010s-Present era is characterized by the Deep Learning Boom, with advances in neural networks and big data."
+        },
+        {
+            question: "Which stage comes FIRST in an ML Pipeline?",
+            options: [
+                "Model Training",
+                "Feature Engineering",
+                "Problem Definition",
+                "Deployment & Monitoring"
+            ],
+            correct: 2,
+            explanation: "Problem Definition is the first stage, where you clearly define the business goal and success metrics."
+        },
+        {
+            question: "What is the main characteristic of Unsupervised Learning?",
+            options: [
+                "Uses labeled data",
+                "Learns through rewards and penalties",
+                "Discovers patterns in unlabeled data",
+                "Requires human supervision at every step"
+            ],
+            correct: 2,
+            explanation: "Unsupervised Learning explores unlabeled data to discover hidden patterns without prior guidance."
+        },
+        {
+            question: "Which problem occurs when a model is too simple?",
+            options: [
+                "Overfitting",
+                "Underfitting",
+                "Regularization",
+                "Cross-validation"
+            ],
+            correct: 1,
+            explanation: "Underfitting occurs when the model is too simple to capture the underlying data patterns."
+        },
+        {
+            question: "What does Transfer Learning involve?",
+            options: [
+                "Training a model from scratch",
+                "Using a pre-trained model and fine-tuning it",
+                "Transferring data between databases",
+                "Moving models to production"
+            ],
+            correct: 1,
+            explanation: "Transfer Learning uses a pre-trained model as a starting point and fine-tunes it on a smaller, specific dataset."
+        },
+        {
+            question: "Which technique helps prevent overfitting by adding penalties?",
+            options: [
+                "Feature Engineering",
+                "Regularization",
+                "Data Collection",
+                "Model Deployment"
+            ],
+            correct: 1,
+            explanation: "Regularization (e.g., L1, L2) adds a penalty to complex models to prevent overfitting."
+        },
+        {
+            question: "What is the purpose of the Test Set in ML?",
+            options: [
+                "To build the model",
+                "To tune hyperparameters",
+                "To give an unbiased final performance check",
+                "To collect more data"
+            ],
+            correct: 2,
+            explanation: "The Test Set provides an unbiased final performance check on unseen data."
+        },
+        {
+            question: "Which AI application is most relevant for self-driving cars?",
+            options: [
+                "Natural Language Processing",
+                "Computer Vision",
+                "Expert Systems",
+                "Sentiment Analysis"
+            ],
+            correct: 1,
+            explanation: "Computer Vision allows cars to 'see' and interpret their environment for autonomous navigation."
+        },
+        {
+            question: "What does AutoML stand for?",
+            options: [
+                "Automatic Mobile Learning",
+                "Automated Machine Learning",
+                "Advanced Model Library",
+                "Artificial Model Logic"
+            ],
+            correct: 1,
+            explanation: "AutoML stands for Automated Machine Learning, which automates the end-to-end ML process."
+        },
+        {
+            question: "Who proposed the famous Turing Test?",
+            options: [
+                "John McCarthy",
+                "Marvin Minsky",
+                "Alan Turing",
+                "Geoffrey Hinton"
+            ],
+            correct: 2,
+            explanation: "Alan Turing proposed the Turing Test in his 1950 paper 'Computing Machinery and Intelligence'."
+        },
+        {
+            question: "What is the main focus of Generative AI?",
+            options: [
+                "Analyzing existing data",
+                "Creating novel, original content",
+                "Detecting anomalies",
+                "Optimizing algorithms"
+            ],
+            correct: 1,
+            explanation: "Generative AI focuses on creating novel, original content like text, images, and audio."
+        },
+        {
+            question: "Which feature selection method is integrated within model training?",
+            options: [
+                "Filter Methods",
+                "Wrapper Methods",
+                "Embedded Methods",
+                "Manual Selection"
+            ],
+            correct: 2,
+            explanation: "Embedded Methods integrate feature selection within the model training process itself."
+        },
+        {
+            question: "What is 'model drift'?",
+            options: [
+                "When a model moves to production",
+                "When model accuracy degrades over time",
+                "When a model is overfitting",
+                "When features are extracted"
+            ],
+            correct: 1,
+            explanation: "Model drift refers to the degradation of model accuracy over time, which is monitored during deployment."
+        }
+    ],
+    
+    multiSelect: [
+        {
+            question: "Which of the following are types of Machine Learning? (Select all that apply)",
+            options: [
+                "Supervised Learning",
+                "Unsupervised Learning",
+                "Reinforcement Learning",
+                "Distributed Learning"
+            ],
+            correct: [0, 1, 2],
+            explanation: "The three core types of ML are Supervised, Unsupervised, and Reinforcement Learning."
+        },
+        {
+            question: "Which are valid stages of an ML Pipeline? (Select all that apply)",
+            options: [
+                "Problem Definition",
+                "Feature Engineering",
+                "Social Media Marketing",
+                "Model Training & Evaluation"
+            ],
+            correct: [0, 1, 3],
+            explanation: "Problem Definition, Feature Engineering, and Model Training & Evaluation are all key stages of an ML Pipeline."
+        },
+        {
+            question: "Which of these are applications of ML in Healthcare? (Select all that apply)",
+            options: [
+                "Disease diagnosis",
+                "Drug discovery",
+                "Video game design",
+                "Personalized treatment plans"
+            ],
+            correct: [0, 1, 3],
+            explanation: "ML in Healthcare is used for disease diagnosis, drug discovery, and personalized treatment plans."
+        },
+        {
+            question: "Which are ethical concerns in AI? (Select all that apply)",
+            options: [
+                "Bias and Fairness",
+                "Privacy and Data Security",
+                "Hardware costs",
+                "Accountability and Transparency"
+            ],
+            correct: [0, 1, 3],
+            explanation: "Key ethical concerns include Bias, Privacy, and Accountability in AI systems."
+        },
+        {
+            question: "Which techniques help optimize model training? (Select all that apply)",
+            options: [
+                "Cross-Validation",
+                "Regularization",
+                "Data deletion",
+                "Hyperparameter Tuning"
+            ],
+            correct: [0, 1, 3],
+            explanation: "Cross-Validation, Regularization, and Hyperparameter Tuning all help optimize model training."
+        },
+        {
+            question: "Which are branches of AI? (Select all that apply)",
+            options: [
+                "Machine Learning",
+                "Deep Learning",
+                "Quantum Computing",
+                "Natural Language Processing"
+            ],
+            correct: [0, 1, 3],
+            explanation: "ML, Deep Learning, and NLP are all branches of AI. Quantum Computing is a different field."
+        },
+        {
+            question: "What can Generative AI create? (Select all that apply)",
+            options: [
+                "Text",
+                "Images",
+                "Hardware components",
+                "Audio and Music"
+            ],
+            correct: [0, 1, 3],
+            explanation: "Generative AI can create text, images, audio, and synthetic data, but not physical hardware."
+        },
+        {
+            question: "Which are feature transformation techniques? (Select all that apply)",
+            options: [
+                "Normalization & Scaling",
+                "Encoding",
+                "Model deployment",
+                "Binning"
+            ],
+            correct: [0, 1, 3],
+            explanation: "Normalization, Encoding, and Binning are all feature transformation techniques."
+        },
+        {
+            question: "Which are challenges in ML Pipelines? (Select all that apply)",
+            options: [
+                "Complexity & Scale",
+                "Lack of Modularity",
+                "Too much automation",
+                "Manual Processes"
+            ],
+            correct: [0, 1, 3],
+            explanation: "Complexity, Lack of Modularity, and Manual Processes are core challenges in ML Pipelines."
+        },
+        {
+            question: "Which datasets are used in model training? (Select all that apply)",
+            options: [
+                "Training Set",
+                "Validation Set",
+                "Production Set",
+                "Test Set"
+            ],
+            correct: [0, 1, 3],
+            explanation: "The three datasets used are Training, Validation, and Test sets."
+        }
+    ],
+    
+    fillInTheBlank: [
+        {
+            question: "AI is the _____ of human intelligence in machines.",
+            answer: "simulation",
+            caseSensitive: false,
+            explanation: "AI refers to the simulation of human intelligence in machines."
+        },
+        {
+            question: "Deep Learning uses neural networks with many _____ to learn complex patterns.",
+            answer: "layers",
+            caseSensitive: false,
+            explanation: "Deep Learning uses layered neural networks (many layers) to process complex data."
+        },
+        {
+            question: "In Supervised Learning, the algorithm learns from _____ data.",
+            answer: "labeled",
+            caseSensitive: false,
+            explanation: "Supervised Learning requires labeled data with known outputs."
+        },
+        {
+            question: "Reinforcement Learning involves learning through _____ and error.",
+            answer: "trial",
+            caseSensitive: false,
+            explanation: "Reinforcement Learning is based on trial and error with rewards/penalties."
+        },
+        {
+            question: "_____ occurs when a model learns training data too closely and doesn't generalize well.",
+            answer: "overfitting",
+            caseSensitive: false,
+            explanation: "Overfitting happens when the model learns noise instead of patterns."
+        },
+        {
+            question: "The _____ Test was proposed by Alan Turing to measure machine intelligence.",
+            answer: "turing",
+            caseSensitive: false,
+            explanation: "The Turing Test evaluates a machine's ability to exhibit intelligent behavior."
+        },
+        {
+            question: "Feature _____ is the process of transforming raw data into meaningful features.",
+            answer: "engineering",
+            caseSensitive: false,
+            explanation: "Feature Engineering creates valuable inputs for ML models."
+        },
+        {
+            question: "_____ Learning uses a pre-trained model as a starting point.",
+            answer: "transfer",
+            caseSensitive: false,
+            explanation: "Transfer Learning leverages existing trained models for new tasks."
+        },
+        {
+            question: "AI hallucinations are plausible but factually _____ outputs.",
+            answer: "incorrect",
+            caseSensitive: false,
+            alternativeAnswers: ["wrong", "false"],
+            explanation: "AI hallucinations produce incorrect or nonsensical information."
+        },
+        {
+            question: "Computer Vision allows computers to _____ and interpret visual information.",
+            answer: "see",
+            caseSensitive: false,
+            explanation: "Computer Vision enables machines to 'see' like humans do."
+        },
+        {
+            question: "_____ AI focuses on creating novel, original content.",
+            answer: "generative",
+            caseSensitive: false,
+            explanation: "Generative AI creates new content rather than analyzing existing data."
+        },
+        {
+            question: "Regularization adds a _____ to complex models to prevent overfitting.",
+            answer: "penalty",
+            caseSensitive: false,
+            explanation: "Regularization penalizes model complexity to improve generalization."
+        },
+        {
+            question: "The 2010s-Present era is known as the Deep Learning _____.",
+            answer: "boom",
+            caseSensitive: false,
+            explanation: "Recent years have seen explosive growth in Deep Learning capabilities."
+        },
+        {
+            question: "AutoML automates the _____-to-_____ process of machine learning.",
+            answer: "end",
+            caseSensitive: false,
+            alternativeAnswers: ["start", "beginning"],
+            explanation: "AutoML automates the entire ML process from start to finish."
+        },
+        {
+            question: "Expert Systems use extensive _____ bases and predefined rules.",
+            answer: "knowledge",
+            caseSensitive: false,
+            explanation: "Expert Systems rely on knowledge bases to make decisions."
+        }
+    ],
+    
+    abbreviations: [
+        {
+            question: "AI",
+            answer: "Artificial Intelligence",
+            explanation: "AI stands for Artificial Intelligence - the simulation of human intelligence in machines."
+        },
+        {
+            question: "ML",
+            answer: "Machine Learning",
+            explanation: "ML stands for Machine Learning - algorithms that learn from data."
+        },
+        {
+            question: "DL",
+            answer: "Deep Learning",
+            explanation: "DL stands for Deep Learning - neural networks with many layers."
+        },
+        {
+            question: "NLP",
+            answer: "Natural Language Processing",
+            explanation: "NLP stands for Natural Language Processing - understanding and generating human language."
+        },
+        {
+            question: "CV",
+            answer: "Computer Vision",
+            explanation: "CV stands for Computer Vision - interpreting visual information."
+        },
+        {
+            question: "AutoML",
+            answer: "Automated Machine Learning",
+            explanation: "AutoML stands for Automated Machine Learning - automating the ML process."
+        },
+        {
+            question: "PCA",
+            answer: "Principal Component Analysis",
+            explanation: "PCA stands for Principal Component Analysis - a dimensionality reduction technique."
+        },
+        {
+            question: "IoT",
+            answer: "Internet of Things",
+            explanation: "IoT stands for Internet of Things - connected devices sharing data."
+        }
+    ]
+};

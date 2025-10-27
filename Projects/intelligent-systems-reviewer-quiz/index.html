@@ -1,75 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intelligent Systems Flashcards</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Systems Reviewer & Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="app-header">
-    <div>
-      <h1>Intelligent Systems Reviewer</h1>
-      <p>Review AI foundations, machine learning workflows, ethics, and emerging trends with a curated flashcard deck.</p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-brain"></i> Intelligent Systems Reviewer
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-section="flashcards">
+                            <i class="bi bi-card-text"></i> Flashcards
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="quiz">
+                            <i class="bi bi-question-circle"></i> Quiz
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="stats">
+                            <i class="bi bi-bar-chart"></i> Stats
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <!-- Flashcards Section -->
+        <section id="flashcards-section" class="content-section active">
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <h2><i class="bi bi-card-text"></i> Flashcard Reviewer</h2>
+                    <p class="text-muted">Click cards to flip. Rate your recall to track progress.</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-outline-primary" id="shuffle-btn">
+                            <i class="bi bi-shuffle"></i> Shuffle
+                        </button>
+                        <button class="btn btn-outline-secondary" id="reset-flashcards">
+                            <i class="bi bi-arrow-clockwise"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress mb-4" style="height: 25px;">
+                <div class="progress-bar bg-success" id="flashcard-progress" role="progressbar" style="width: 0%">
+                    <span id="progress-text">0 / 0</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="flashcard-container">
+                        <div class="flashcard" id="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <div class="card-number" id="card-number"></div>
+                                    <div class="flashcard-content" id="flashcard-question"></div>
+                                    <div class="flip-hint">
+                                        <i class="bi bi-arrow-repeat"></i> Click to flip
+                                    </div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <div class="card-number" id="card-number-back"></div>
+                                    <div class="flashcard-content" id="flashcard-answer"></div>
+                                    <div class="flip-hint">
+                                        <i class="bi bi-arrow-repeat"></i> Click to flip back
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rating-buttons mt-4">
+                        <button class="btn btn-lg btn-danger" id="not-recalled">
+                            <i class="bi bi-x-circle"></i> Not Recalled
+                        </button>
+                        <button class="btn btn-lg btn-success" id="recalled">
+                            <i class="bi bi-check-circle"></i> Recalled
+                        </button>
+                    </div>
+
+                    <div class="navigation-buttons mt-3">
+                        <button class="btn btn-outline-secondary" id="prev-card">
+                            <i class="bi bi-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn btn-outline-secondary" id="next-card">
+                            Next <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz-section" class="content-section">
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <h2><i class="bi bi-question-circle"></i> Quiz Time</h2>
+                    <p class="text-muted">Test your knowledge with various question types.</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <button class="btn btn-outline-primary" id="start-quiz">
+                        <i class="bi bi-play-circle"></i> Start Quiz
+                    </button>
+                </div>
+            </div>
+
+            <div id="quiz-setup" class="card">
+                <div class="card-body">
+                    <h4>Quiz Settings</h4>
+                    <div class="mb-3">
+                        <label class="form-label">Select Question Types:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="include-mcq" checked>
+                            <label class="form-check-label" for="include-mcq">
+                                Multiple Choice Questions
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="include-multiselect" checked>
+                            <label class="form-check-label" for="include-multiselect">
+                                Multi-Select Questions
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="include-fillblank" checked>
+                            <label class="form-check-label" for="include-fillblank">
+                                Fill in the Blanks
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="include-abbreviation" checked>
+                            <label class="form-check-label" for="include-abbreviation">
+                                Abbreviation Definitions
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="num-questions" class="form-label">Number of Questions:</label>
+                        <input type="number" class="form-control" id="num-questions" value="20" min="5" max="50">
+                    </div>
+                    <button class="btn btn-primary" id="begin-quiz">
+                        <i class="bi bi-play-fill"></i> Begin Quiz
+                    </button>
+                </div>
+            </div>
+
+            <div id="quiz-container" class="d-none">
+                <div class="progress mb-4" style="height: 25px;">
+                    <div class="progress-bar" id="quiz-progress" role="progressbar" style="width: 0%">
+                        <span id="quiz-progress-text">Question 0 / 0</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="question-type-badge mb-3">
+                            <span class="badge bg-info" id="question-type-badge"></span>
+                        </div>
+                        <h4 id="quiz-question"></h4>
+                        <div id="quiz-options" class="mt-4"></div>
+                        <div class="alert alert-info mt-3 d-none" id="quiz-feedback"></div>
+                        <div class="mt-4">
+                            <button class="btn btn-primary" id="submit-answer">Submit Answer</button>
+                            <button class="btn btn-secondary d-none" id="next-question">Next Question</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quiz-results" class="d-none">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2><i class="bi bi-trophy"></i> Quiz Complete!</h2>
+                        <div class="result-score my-4">
+                            <div class="score-circle">
+                                <span id="final-score">0%</span>
+                            </div>
+                        </div>
+                        <h4>Your Score: <span id="score-fraction"></span></h4>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <div class="stat-box">
+                                    <i class="bi bi-check-circle text-success"></i>
+                                    <h5>Correct</h5>
+                                    <p id="correct-count">0</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-box">
+                                    <i class="bi bi-x-circle text-danger"></i>
+                                    <h5>Incorrect</h5>
+                                    <p id="incorrect-count">0</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-box">
+                                    <i class="bi bi-clock"></i>
+                                    <h5>Time Taken</h5>
+                                    <p id="time-taken">0:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button class="btn btn-primary" id="retake-quiz">
+                                <i class="bi bi-arrow-repeat"></i> Retake Quiz
+                            </button>
+                            <button class="btn btn-secondary" id="review-answers">
+                                <i class="bi bi-eye"></i> Review Answers
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="answer-review" class="mt-4 d-none">
+                    <h3>Answer Review</h3>
+                    <div id="review-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section id="stats-section" class="content-section">
+            <h2><i class="bi bi-bar-chart"></i> Your Progress</h2>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Flashcard Statistics</h4>
+                            <div class="stat-item">
+                                <span>Total Cards Reviewed:</span>
+                                <strong id="total-reviewed">0</strong>
+                            </div>
+                            <div class="stat-item">
+                                <span>Cards Recalled:</span>
+                                <strong id="total-recalled" class="text-success">0</strong>
+                            </div>
+                            <div class="stat-item">
+                                <span>Cards Not Recalled:</span>
+                                <strong id="total-not-recalled" class="text-danger">0</strong>
+                            </div>
+                            <div class="stat-item">
+                                <span>Recall Rate:</span>
+                                <strong id="recall-rate">0%</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Quiz Statistics</h4>
+                            <div class="stat-item">
+                                <span>Quizzes Taken:</span>
+                                <strong id="quizzes-taken">0</strong>
+                            </div>
+                            <div class="stat-item">
+                                <span>Average Score:</span>
+                                <strong id="average-score">0%</strong>
+                            </div>
+                            <div class="stat-item">
+                                <span>Best Score:</span>
+                                <strong id="best-score">0%</strong>
+                            </div>
+                            <div class="stat-item">
+                                <span>Total Questions Answered:</span>
+                                <strong id="total-questions">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-danger" id="reset-stats">
+                    <i class="bi bi-trash"></i> Reset All Statistics
+                </button>
+            </div>
+        </section>
     </div>
-    <div class="header-actions">
-      <a href="quiz.html" class="primary">Take Quiz</a>
-      <button id="shuffleBtn" class="secondary">Shuffle Deck</button>
-      <button id="resetProgressBtn" class="ghost">Reset Progress</button>
-    </div>
-  </header>
 
-  <main>
-    <section class="controls">
-      <div class="control-group">
-        <label for="topicFilter">Focus topic</label>
-        <select id="topicFilter"></select>
-      </div>
-      <div class="control-group">
-        <label for="searchInput">Quick search</label>
-        <input id="searchInput" type="search" placeholder="Filter by keyword" autocomplete="off">
-      </div>
-      <div class="control-group stats" id="progressStats"></div>
-    </section>
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2025 Intelligent Systems Reviewer | AI & Machine Learning</p>
+    </footer>
 
-    <section class="mode-selector">
-      <span>Display mode:</span>
-      <div class="mode-buttons">
-        <button id="modeSimpleBtn" class="mode-btn active">Simple</button>
-        <button id="modeFullBtn" class="mode-btn">Full</button>
-        <button id="modeHighlightBtn" class="mode-btn">Highlighted</button>
-      </div>
-    </section>
-
-    <section class="flashcard-area">
-      <div class="flashcard" id="flashcard" tabindex="0" aria-live="polite"></div>
-      <div class="flashcard-help">Click, tap, or press space to flip the card.</div>
-    </section>
-
-    <section class="actions">
-      <button id="prevBtn" class="ghost">Previous</button>
-      <button id="flipBtn" class="primary">Flip</button>
-      <button id="nextBtn" class="ghost">Next</button>
-    </section>
-
-    <section class="confidence">
-      <span>How well did you recall it?</span>
-      <div class="confidence-buttons">
-        <button id="againBtn" data-score="again" class="again">Review Again</button>
-        <button id="goodBtn" data-score="good" class="good">Good</button>
-        <button id="easyBtn" data-score="easy" class="easy">Easy</button>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>Sourced from Intelligent Systems notes: definitions, ML lifecycles, ethical guardrails, and emerging AI trends.</p>
-  </footer>
-
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
