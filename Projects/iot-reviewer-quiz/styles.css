@@ -162,6 +162,19 @@ body {
 }
 
 /* Quiz Styles */
+#quiz-setup {
+    background: white;
+}
+
+#quiz-setup .card-body {
+    color: var(--dark-color);
+}
+
+#quiz-setup .form-label,
+#quiz-setup .form-check-label {
+    color: var(--dark-color);
+}
+
 .question-type-badge {
     text-align: center;
 }
