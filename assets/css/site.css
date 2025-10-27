@@ -43,6 +43,46 @@
   --shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
+/* Desktop wood theme font reductions */
+[data-theme="wood"] .brand {
+  font-size: clamp(0.85rem, 2vw, 1rem);
+}
+
+[data-theme="wood"] .nav-link {
+  font-size: 0.65rem;
+  padding: 0.45rem 0.75rem;
+}
+
+[data-theme="wood"] .theme-button {
+  font-size: 0.65rem;
+  padding: 0.4rem 0.75rem;
+}
+
+[data-theme="wood"] .theme-label {
+  font-size: 0.6rem;
+}
+
+[data-theme="wood"] .btn {
+  font-size: 0.7rem;
+  padding: 0.5rem 1rem;
+}
+
+[data-theme="wood"] .section-title {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+}
+
+[data-theme="wood"] .lead {
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+[data-theme="wood"] body,
+[data-theme="wood"] p,
+[data-theme="wood"] .portfolio-card__excerpt {
+  font-size: 0.7rem;
+  line-height: 1.65;
+}
+
 [data-theme="cyberpunk"] {
   color-scheme: dark;
   --bg: #07030f;
