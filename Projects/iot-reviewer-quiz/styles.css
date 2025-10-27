@@ -169,38 +169,13 @@ main {
 }
 
 .flashcard-face {
+  position: absolute;
+  inset: 32px;
   backface-visibility: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 16px;
-  min-height: 256px;
-}
-
-.flashcard-face.front {
-  transform: rotateY(0deg);
-}
-
-.flashcard-face.back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 32px;
-  transform: rotateY(180deg);
-  overflow-y: auto;
-}
-
-.flashcard-face.back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 32px;
-  transform: rotateY(180deg);
-  overflow-y: auto;
 }
 
 .flashcard-face h2 {
@@ -234,6 +209,10 @@ main {
   color: var(--primary);
   padding: 2px 4px;
   border-radius: 3px;
+}
+
+.flashcard-face.back {
+  transform: rotateY(180deg);
 }
 
 .flashcard-help {
@@ -388,10 +367,7 @@ footer {
   }
 
   .flashcard-face {
-    min-height: 200px;
-  }
-
-  .flashcard-face.back {
-    padding: 24px;
+    inset: 24px;
+    overflow-y: auto;
   }
 }
