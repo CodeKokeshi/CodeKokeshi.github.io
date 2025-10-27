@@ -179,12 +179,17 @@ main {
   min-height: 256px;
 }
 
+.flashcard-face.front {
+  transform: rotateY(0deg);
+}
+
 .flashcard-face.back {
   position: absolute;
-  top: 32px;
-  left: 32px;
-  right: 32px;
-  bottom: 32px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 32px;
   transform: rotateY(180deg);
   overflow-y: auto;
 }
