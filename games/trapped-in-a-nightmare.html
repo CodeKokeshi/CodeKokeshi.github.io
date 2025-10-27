@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trapped in a Nightmare | CodeKokeshi</title>
+    <meta name="description" content="Play Trapped in a Nightmare - A horror adventure game by CodeKokeshi made in Godot." />
+    <meta name="theme-color" content="#0f1116" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/site.css" data-cache-bust="true" />
+    <style>
+      .game-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem 0;
+      }
+
+      .game-embed {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: var(--surface);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .game-embed iframe {
+        display: block;
+        margin: 0 auto;
+        border: none;
+        border-radius: 8px;
+        background: var(--bg);
+      }
+
+      .game-info {
+        background: var(--surface);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .game-info h2 {
+        color: var(--text);
+        font-family: var(--font-heading);
+        margin-bottom: 1rem;
+      }
+
+      .game-info p {
+        color: var(--text);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+      }
+
+      .game-meta {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 1.5rem;
+      }
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--surface-alt);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+
+      .meta-item strong {
+        color: var(--accent);
+      }
+
+      .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .back-button:hover {
+        transform: translateX(-4px);
+        color: var(--accent-strong);
+      }
+
+      @media (max-width: 620px) {
+        .game-embed {
+          padding: 1rem;
+        }
+
+        .game-embed iframe {
+          width: 100% !important;
+          height: 200px !important;
+        }
+      }
+
+      [data-theme="wood"] .game-info h2 {
+        font-size: 1rem;
+      }
+
+      [data-theme="wood"] .game-info p,
+      [data-theme="wood"] .meta-item {
+        font-size: 0.7rem;
+      }
+
+      [data-theme="wood"] .back-button {
+        font-size: 0.7rem;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="particle-canvas"></canvas>
+    <div class="page-shell">
+      <header class="top-bar">
+        <a class="brand" href="../index.html">Code Kokeshi</a>
+        <nav class="nav-links" aria-label="Pages">
+          <a class="nav-link" href="../gamedev.html">Game Dev</a>
+          <a class="nav-link" href="../art.html">Art</a>
+          <a class="nav-link" href="../projects.html">Projects</a>
+        </nav>
+        <div class="theme-switcher" role="group" aria-label="Theme selector">
+          <span class="theme-label">Theme</span>
+          <button type="button" class="theme-button" data-theme-option="dark" aria-pressed="false">Dark</button>
+          <button type="button" class="theme-button" data-theme-option="light" aria-pressed="false">Light</button>
+          <button type="button" class="theme-button" data-theme-option="wood" aria-pressed="false">Retro</button>
+          <button type="button" class="theme-button" data-theme-option="cyberpunk" aria-pressed="false">Cyberpunk</button>
+        </div>
+      </header>
+
+      <main>
+        <div class="game-container">
+          <a href="../gamedev.html" class="back-button">
+            ← Back to Game Dev
+          </a>
+
+          <div class="game-info">
+            <h2>Trapped in a Nightmare</h2>
+            <p>A horror adventure game where you navigate through nightmarish scenarios. Experience the suspense and challenge as you try to escape from a world of terror.</p>
+            
+            <div class="game-meta">
+              <div class="meta-item">
+                <strong>Engine:</strong> Godot
+              </div>
+              <div class="meta-item">
+                <strong>Genre:</strong> Horror / Adventure
+              </div>
+              <div class="meta-item">
+                <strong>Platform:</strong> Web Browser
+              </div>
+            </div>
+          </div>
+
+          <div class="game-embed">
+            <iframe height="167" frameborder="0" src="https://itch.io/embed/3482915" width="552">
+              <a href="https://codekokeshi.itch.io/trapped-in-a-nightmare">Trapped in a Nightmare by CodeKokeshi</a>
+            </iframe>
+          </div>
+
+          <div class="game-info">
+            <h2>About the Game</h2>
+            <p>Trapped in a Nightmare is a horror adventure game developed using the Godot Engine. Navigate through eerie environments, solve puzzles, and survive the nightmare.</p>
+            <p>For the full experience and more details, visit the game page on itch.io.</p>
+            <div class="link-row">
+              <a class="btn" href="https://codekokeshi.itch.io/trapped-in-a-nightmare" target="_blank" rel="noopener">View Full Page on itch.io</a>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="site-footer">© <span id="year"></span> CodeKokeshi.</footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script defer src="../assets/js/animations.js"></script>
+    <script defer src="../assets/js/site.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
