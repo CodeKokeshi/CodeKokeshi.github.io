@@ -1,0 +1,364 @@
+/* General Styles */
+:root {
+    --primary-color: #0d6efd;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --dark-color: #212529;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+}
+
+/* Content Sections */
+.content-section {
+    display: none;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.content-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Flashcard Styles */
+.flashcard-container {
+    perspective: 1000px;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flashcard {
+    width: 100%;
+    height: 400px;
+    cursor: pointer;
+    position: relative;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.flashcard-front {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.flashcard-back {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.card-number {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    font-weight: bold;
+}
+
+.flashcard-content {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.flashcard-back .flashcard-content {
+    font-size: 1.3rem;
+}
+
+.flip-hint {
+    position: absolute;
+    bottom: 15px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Rating Buttons */
+.rating-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.rating-buttons .btn {
+    flex: 1;
+    max-width: 200px;
+    font-size: 1.1rem;
+    padding: 0.75rem;
+}
+
+.navigation-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.navigation-buttons .btn {
+    min-width: 120px;
+}
+
+/* Quiz Styles */
+.question-type-badge {
+    text-align: center;
+}
+
+.question-type-badge .badge {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+
+#quiz-options .form-check {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+#quiz-options .form-check:hover {
+    border-color: var(--primary-color);
+    background-color: #f8f9fa;
+}
+
+#quiz-options .form-check-input:checked + .form-check-label {
+    font-weight: bold;
+}
+
+#quiz-options input[type="text"] {
+    font-size: 1.1rem;
+    padding: 0.75rem;
+}
+
+/* Quiz Results */
+.result-score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.score-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.stat-box {
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 10px;
+    background: #f8f9fa;
+    margin: 0.5rem 0;
+}
+
+.stat-box i {
+    font-size: 2.5rem;
+}
+
+.stat-box h5 {
+    margin-top: 0.5rem;
+    color: #6c757d;
+}
+
+.stat-box p {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Review Section */
+.review-item {
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+}
+
+.review-item.correct {
+    border-color: var(--success-color);
+    background-color: rgba(25, 135, 84, 0.05);
+}
+
+.review-item.incorrect {
+    border-color: var(--danger-color);
+    background-color: rgba(220, 53, 69, 0.05);
+}
+
+.review-item h5 {
+    color: var(--dark-color);
+}
+
+.review-answer {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.review-answer.user {
+    background-color: #fff3cd;
+}
+
+.review-answer.correct-answer {
+    background-color: #d1e7dd;
+}
+
+/* Stats Section */
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-item span {
+    color: #6c757d;
+}
+
+.stat-item strong {
+    font-size: 1.2rem;
+}
+
+/* Progress Bar */
+.progress {
+    border-radius: 10px;
+}
+
+.progress-bar {
+    transition: width 0.5s ease;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .flashcard {
+        height: 350px;
+    }
+
+    .flashcard-content {
+        font-size: 1.2rem;
+    }
+
+    .flashcard-back .flashcard-content {
+        font-size: 1rem;
+    }
+
+    .rating-buttons .btn {
+        font-size: 0.9rem;
+    }
+
+    .score-circle {
+        width: 150px;
+        height: 150px;
+        font-size: 2rem;
+    }
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-slide {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Custom Scrollbar */
+.flashcard-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.flashcard-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.flashcard-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.flashcard-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
