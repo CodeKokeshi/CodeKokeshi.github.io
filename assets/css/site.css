@@ -662,3 +662,48 @@ a {
 .carousel-indicators button {
   background-color: var(--accent);
 }
+
+/* Video Slideshow Styles */
+.video-slideshow-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  background: var(--surface);
+  position: relative;
+}
+
+.slideshow-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.slideshow-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  transition: opacity 0.3s ease-in-out;
+  max-height: 800px;
+}
+
+@media (max-width: 860px) {
+  .video-slideshow-container {
+    max-width: 100%;
+  }
+  
+  .slideshow-image {
+    max-height: 600px;
+  }
+}
+
+@media (max-width: 520px) {
+  .slideshow-image {
+    max-height: 400px;
+  }
+}
