@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HCI Reviewer | Human-Computer Interaction Flashcards & Quiz</title>
+  <link rel="stylesheet" href="../../assets/css/site.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="top-bar">
+      <a class="brand" href="../../index.html">Code Kokeshi</a>
+      <nav class="nav-links">
+        <a class="nav-link" href="../../projects.html">Projects</a>
+        <a class="nav-link" href="../iot-reviewer-quiz/index.html">IoT Reviewer</a>
+        <a class="nav-link" href="../intelligent-systems-reviewer-quiz/index.html">IS Reviewer</a>
+      </nav>
+      <div class="theme-switcher" role="group" aria-label="Theme selector">
+        <span class="theme-label">Theme</span>
+        <button type="button" class="theme-button" data-theme-option="dark">Dark</button>
+        <button type="button" class="theme-button" data-theme-option="light">Light</button>
+        <button type="button" class="theme-button" data-theme-option="wood">Retro</button>
+        <button type="button" class="theme-button" data-theme-option="cyberpunk">Cyberpunk</button>
+      </div>
+    </header>
+    <main>
+      <section id="flashcards" class="page-section">
+        <h2 class="section-title">HCI Flashcards</h2>
+        <div id="flashcard-container"></div>
+        <div class="flashcard-controls">
+          <button id="prev-flashcard" class="btn">Previous</button>
+          <button id="next-flashcard" class="btn">Next</button>
+        </div>
+      </section>
+      <section id="quiz" class="page-section">
+        <h2 class="section-title">HCI Quiz</h2>
+        <div id="quiz-setup"></div>
+        <div id="quiz-container"></div>
+        <div id="quiz-results"></div>
+      </section>
+    </main>
+  </div>
+  <script src="../../assets/js/site.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

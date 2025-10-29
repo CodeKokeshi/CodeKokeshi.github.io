@@ -1,0 +1,87 @@
+/* HCI Reviewer Theme Integration */
+:root {
+  --hci-accent: #20f6ff;
+  --hci-bg: #07030f;
+}
+
+#flashcard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.flashcard {
+  background: var(--surface);
+  color: var(--text);
+  border: 2px solid var(--accent);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  padding: 2rem 1.5rem;
+  margin-bottom: 1rem;
+  max-width: 600px;
+  width: 100%;
+  font-size: 1.1rem;
+  transition: box-shadow 0.3s;
+}
+.flashcard-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Quiz Styles */
+#quiz-setup, #quiz-container, #quiz-results {
+  margin-top: 2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.quiz-question {
+  background: var(--surface-alt);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.quiz-options {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.quiz-btn {
+  margin-top: 1.5rem;
+}
+.quiz-result {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+}
+
+/* Drag & Match UI for advanced types */
+.categorization-sorter, .attribution-matching, .definition-matching {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.bucket, .match-column {
+  background: var(--surface);
+  border: 2px dashed var(--accent);
+  border-radius: 0.75rem;
+  min-width: 180px;
+  min-height: 80px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.draggable-term {
+  background: var(--surface-alt);
+  border: 1px solid var(--accent);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  cursor: grab;
+  display: inline-block;
+}
