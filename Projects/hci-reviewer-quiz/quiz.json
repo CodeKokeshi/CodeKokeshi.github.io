@@ -313,5 +313,112 @@
     "question": "Which design principle involves 'designing interfaces to have similar operations and use similar elements for achieving similar tasks'?",
     "answer": "Consistency"
   }
+  ,
+  {
+    "type": "multi-select",
+    "question": "Desirable UX — Group A: Which of the following are desirable aspects? (Select all that apply)",
+    "options": [
+      "satisfying",
+      "helpful",
+      "fun",
+      "enjoyable",
+      "motivating",
+      "provocative",
+      "boring",
+      "frustrating"
+    ],
+    "answer": [
+      "satisfying",
+      "helpful",
+      "fun",
+      "enjoyable",
+      "motivating",
+      "provocative"
+    ]
+  },
+  {
+    "type": "multi-select",
+    "question": "Desirable UX — Group B: Which of the following are desirable aspects? (Select all that apply)",
+    "options": [
+      "engaging",
+      "challenging",
+      "surprising",
+      "pleasurable",
+      "enhancing sociability",
+      "rewarding",
+      "patronizing",
+      "annoying"
+    ],
+    "answer": [
+      "engaging",
+      "challenging",
+      "surprising",
+      "pleasurable",
+      "enhancing sociability",
+      "rewarding"
+    ]
+  },
+  {
+    "type": "multi-select",
+    "question": "Desirable UX — Group C: Which of the following are desirable aspects? (Select all that apply)",
+    "options": [
+      "exciting",
+      "supporting creativity",
+      "emotionally fulfilling",
+      "entertaining",
+      "cognitively stimulating",
+      "experiencing flow",
+      "gimmicky",
+      "childish"
+    ],
+    "answer": [
+      "exciting",
+      "supporting creativity",
+      "emotionally fulfilling",
+      "entertaining",
+      "cognitively stimulating",
+      "experiencing flow"
+    ]
+  },
+  {
+    "type": "multi-select",
+    "question": "Undesirable UX — Group A: Which of the following are undesirable aspects? (Select all that apply)",
+    "options": [
+      "Boring",
+      "frustrating",
+      "unpleasant",
+      "patronizing",
+      "making one feel guilty",
+      "satisfying",
+      "engaging"
+    ],
+    "answer": [
+      "Boring",
+      "frustrating",
+      "unpleasant",
+      "patronizing",
+      "making one feel guilty"
+    ]
+  },
+  {
+    "type": "multi-select",
+    "question": "Undesirable UX — Group B: Which of the following are undesirable aspects? (Select all that apply)",
+    "options": [
+      "making one feel stupid",
+      "annoying",
+      "cutesy",
+      "childish",
+      "gimmicky",
+      "rewarding",
+      "exciting"
+    ],
+    "answer": [
+      "making one feel stupid",
+      "annoying",
+      "cutesy",
+      "childish",
+      "gimmicky"
+    ]
+  }
 ]
 
