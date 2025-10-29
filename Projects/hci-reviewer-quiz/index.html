@@ -95,12 +95,35 @@
             font-size: 1.05rem;
             padding-top: 2px;
             cursor: pointer;
+            margin-left: 0; /* spacing handled by flex gap on .form-check */
         }
 
         .form-check {
             margin-bottom: 0.75rem;
-            padding-left: 2.25em;
+            /* Use flex layout to ensure consistent spacing between the input and label */
+            display: flex;
+            align-items: center;
+            gap: 0.6rem; /* horizontal gap between radio/checkbox and label */
+            padding-left: 0; /* remove legacy padding-based layout */
         }
+        
+            /* Special layout for long multiple-choice options: make each option a full-width block
+               with wrapped text so long answers don't sit on the same line as the radio. */
+            .form-check-long {
+                display: block; /* override flex */
+                padding: 0.6rem;
+                border: 1px solid #495057;
+                border-radius: 0.5rem;
+                margin-bottom: 0.75rem;
+                background-color: rgba(255,255,255,0.02);
+            }
+            .form-check-long .form-check-label {
+                display: block;
+                margin-left: 0;
+                white-space: normal;
+                text-transform: none; /* keep original casing for readability */
+                padding-left: 0.25rem;
+            }
         
         .form-check-input {
             margin-top: 0.2em;
@@ -271,6 +294,10 @@
             background-color: #dc3545;
             text-decoration: line-through;
         }
+        .draggable-item.correct-placement { /* Added for correct categorization */
+            background-color: #198754;
+            border-color: #198754;
+        }
 
         /* Responsive layout for categorization */
         @media (min-width: 768px) {
@@ -427,6 +454,9 @@
                     throw new Error("Quiz data is empty or invalid.");
                 }
 
+                // --- EDITED: Shuffle the question list ---
+                shuffleArray(allQuestions);
+
                 // Build the dynamic answer pools
                 mcqAnswerPool = allQuestions
                     .filter(q => q.type === 'multiple-choice')
@@ -457,6 +487,9 @@
             userAnswers.fill(null);
             scores.fill(0);
             isAnswerChecked = false;
+            
+            // --- EDITED: Re-shuffle questions on restart ---
+            shuffleArray(allQuestions);
             
             loadQuestion(currentQuestionIndex);
             updateNavButtons();
@@ -534,9 +567,13 @@
             const distractors = getUniqueRandomItems(mcqAnswerPool, 3, question.answer);
             const options = shuffleArray([...distractors, question.answer]);
 
+            // If any option is very long, render options using the 'long' layout
+            const LONG_OPTION_THRESHOLD = 40;
+            const useLongLayout = options.some(opt => (opt || '').length > LONG_OPTION_THRESHOLD);
+
             options.forEach(option => {
                 const div = document.createElement('div');
-                div.className = 'form-check';
+                div.className = useLongLayout ? 'form-check form-check-long' : 'form-check';
                 
                 const input = document.createElement('input');
                 input.type = 'radio';
@@ -550,7 +587,8 @@
                 const label = document.createElement('label');
                 label.className = 'form-check-label';
                 label.htmlFor = input.id;
-                label.textContent = option.toUpperCase(); // <-- EDITED: Display in ALL CAPS
+                // For long-layout questions keep original casing and wrapping; otherwise show uppercase for visual consistency
+                label.textContent = useLongLayout ? option : option.toUpperCase();
 
                 div.appendChild(input);
                 div.appendChild(label);
@@ -564,9 +602,12 @@
         function renderMultiSelect(question, index) {
             renderQuestionHeader(question, index);
             
+            const LONG_OPTION_THRESHOLD_MS = 40;
+            const useLongLayoutMS = question.options.some(opt => (opt || '').length > LONG_OPTION_THRESHOLD_MS);
+
             question.options.forEach(option => {
                 const div = document.createElement('div');
-                div.className = 'form-check';
+                div.className = useLongLayoutMS ? 'form-check form-check-long' : 'form-check';
 
                 const input = document.createElement('input');
                 input.type = 'checkbox';
@@ -579,7 +620,7 @@
                 const label = document.createElement('label');
                 label.className = 'form-check-label';
                 label.htmlFor = input.id;
-                label.textContent = option.toUpperCase(); // <-- EDITED: Display in ALL CAPS
+                label.textContent = useLongLayoutMS ? option : option.toUpperCase(); // Keep original casing for long options
 
                 div.appendChild(input);
                 div.appendChild(label);
@@ -593,9 +634,12 @@
         function renderBinaryChoice(question, index) {
             renderQuestionHeader(question, index);
             
+            const LONG_OPTION_THRESHOLD_BIN = 40;
+            const useLongLayoutBin = question.options.some(opt => (opt || '').length > LONG_OPTION_THRESHOLD_BIN);
+
             question.options.forEach(option => {
                 const div = document.createElement('div');
-                div.className = 'form-check';
+                div.className = useLongLayoutBin ? 'form-check form-check-long' : 'form-check';
                 
                 const input = document.createElement('input');
                 input.type = 'radio';
@@ -608,7 +652,7 @@
                 const label = document.createElement('label');
                 label.className = 'form-check-label';
                 label.htmlFor = input.id;
-                label.textContent = option;
+                label.textContent = useLongLayoutBin ? option : option.toUpperCase();
 
                 div.appendChild(input);
                 div.appendChild(label);
@@ -1070,30 +1114,45 @@
                     break;
                 }
                 case 'categorization-sorter': {
-                    question.items.forEach(item => {
-                        const itemEl = quizArea.querySelector(`.draggable-item[data-text="${item.text}"]`);
-                        if (!itemEl) return;
+                    // --- EDITED: New feedback logic for categorization ---
+                    if (isCorrect) {
+                        // All items are correct, make everything green
+                        quizArea.querySelectorAll('.draggable-item').forEach(itemEl => {
+                            itemEl.classList.add('correct-placement');
+                        });
+                        quizArea.querySelectorAll('.drop-bucket').forEach(bucket => {
+                            bucket.classList.add('correct');
+                        });
+                    } else {
+                        // Run the incorrect-finding logic
+                        question.items.forEach(item => {
+                            const itemEl = quizArea.querySelector(`.draggable-item[data-text="${item.text}"]`);
+                            if (!itemEl) return;
+                            
+                            const parentContainer = itemEl.parentElement;
+                            const correctCategory = item.category;
+                            
+                            let isCorrectlyPlaced = false;
+                            if (parentContainer.classList.contains('drop-bucket') && parentContainer.dataset.category === correctCategory) {
+                               isCorrectlyPlaced = true;
+                               itemEl.classList.add('correct-placement'); // Mark correct items even on a wrong answer
+                            } else {
+                                itemEl.classList.add('incorrect-placement');
+                                const correctBucket = quizArea.querySelector(`.drop-bucket[data-category="${correctCategory}"]`);
+                                if(correctBucket) correctBucket.classList.add('correct'); // Highlight where it should go
+                            }
+                        });
                         
-                        const parentContainer = itemEl.parentElement;
-                        const correctCategory = item.category;
-                        
-                        let isCorrectlyPlaced = false;
-                        if (parentContainer.classList.contains('drop-bucket') && parentContainer.dataset.category === correctCategory) {
-                           isCorrectlyPlaced = true;
-                        }
-
-                        if (!isCorrectlyPlaced) {
-                            itemEl.classList.add('incorrect-placement');
-                            const correctBucket = quizArea.querySelector(`.drop-bucket[data-category="${correctCategory}"]`);
-                            if(correctBucket) correctBucket.classList.add('correct');
-                        }
-                    });
-                    
-                    quizArea.querySelectorAll('.drop-bucket').forEach(bucket => {
-                        if (bucket.querySelector('.incorrect-placement')) {
-                            bucket.classList.add('incorrect');
-                        }
-                    });
+                        quizArea.querySelectorAll('.drop-bucket').forEach(bucket => {
+                            if (bucket.querySelector('.incorrect-placement')) {
+                                bucket.classList.add('incorrect');
+                            } else if (bucket.querySelectorAll('.draggable-item.correct-placement').length > 0) {
+                                // Bucket only contains correct items, but the whole answer was wrong
+                                // (e.g., an item was left in the pool or another bucket is wrong)
+                                bucket.classList.add('correct');
+                            }
+                        });
+                    }
                     break;
                 }
             }
