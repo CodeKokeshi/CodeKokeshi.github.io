@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Theme Switcher — Hello World</title>
+
+    <!-- Google Fonts: 10 distinct fonts (sans, serif, mono, display, script, etc.) -->
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inconsolata:wght@400;700&family=Josefin+Sans:wght@300;600&family=Lora:wght@400;700&family=Merriweather:wght@300;700&family=Montserrat:wght@400;700&family=Noto+Serif:wght@400;700&family=Oswald:wght@300;700&family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic layout */
+        :root{
+            --bg: #ffffff;
+            --text: #111111;
+            --accent: #0066ff;
+            --muted: #888888;
+            --radius: 10px;
+        }
+        html,body{
+            height:100%;
+            margin:0;
+            font-family: 'Roboto', system-ui, -apple-system, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 320ms ease, color 320ms ease;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+        }
+
+        /* Top toolbar for theme buttons */
+        .toolbar{
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+            padding:12px;
+            position:fixed;
+            left:12px;
+            top:12px;
+            z-index:50;
+            background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+            backdrop-filter: blur(6px);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+        /* theme button */
+        .theme-btn{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            padding:8px 10px;
+            border-radius:8px;
+            border:1px solid rgba(0,0,0,0.06);
+            background:var(--button-bg, #fff);
+            color:var(--button-fg, #111);
+            font-weight:600;
+            font-size:13px;
+            cursor:pointer;
+            transition:transform 160ms ease, box-shadow 160ms ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+        .theme-btn:active{ transform:translateY(1px) }
+        .theme-btn[aria-pressed="true"]{
+            outline:3px solid color-mix(in srgb, var(--accent) 40%, transparent);
+        }
+        .swatches{
+            display:inline-grid;
+            grid-auto-flow:column;
+            gap:3px;
+            width:38px;
+        }
+        .swatch{
+            width:10px;
+            height:10px;
+            border-radius:2px;
+            border:1px solid rgba(0,0,0,0.06);
+        }
+
+        /* Center content */
+        .center{
+            min-height:100vh;
+            display:grid;
+            place-items:center;
+            text-align:center;
+            padding:40px;
+        }
+        .card{
+            padding:48px 64px;
+            border-radius:var(--radius);
+            background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+            box-shadow: 0 18px 50px rgba(2,6,23,0.12);
+            transform: translateZ(0);
+        }
+        h1{
+            margin:0 0 8px;
+            font-size:48px;
+            line-height:1;
+            font-weight:700;
+            color:var(--text);
+            font-family: var(--heading-font, 'Roboto'), system-ui, sans-serif;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.12);
+        }
+        p.lead{
+            margin:0;
+            color:var(--muted);
+            font-size:16px;
+            font-weight:500;
+        }
+
+        /* Theme-specific variable sets (10 distinct themes) */
+        /* 1. Modern Light — Roboto */
+        .theme-roboto{
+            --bg:#f6f8fb;
+            --text:#0f1722;
+            --accent:#0066ff;
+            --muted:#6b7280;
+            --heading-font: 'Roboto', system-ui, sans-serif;
+            font-family: 'Roboto', system-ui, sans-serif;
+        }
+
+        /* 2. Classic Book — Merriweather (serif, warm) */
+        .theme-merriweather{
+            --bg:#fffaf0;
+            --text:#2b2b2b;
+            --accent:#8b0000;
+            --muted:#a67c52;
+            --heading-font: 'Merriweather', serif;
+            font-family: 'Merriweather', serif;
+        }
+
+        /* 3. Terminal — Inconsolata (mono, high-contrast) */
+        .theme-inconsolata{
+            --bg:#0b1220;
+            --text:#cbd5e1;
+            --accent:#00ff99;
+            --muted:#334155;
+            --heading-font: 'Inconsolata', monospace;
+            font-family: 'Inconsolata', monospace;
+        }
+
+        /* 4. Playful — Pacifico (script) */
+        .theme-pacifico{
+            --bg:#fff0f6;
+            --text:#3b185f;
+            --accent:#ff6b6b;
+            --muted:#ffd6e0;
+            --heading-font: 'Pacifico', cursive;
+            font-family: 'Pacifico', cursive;
+        }
+
+        /* 5. Bold Magazine — Oswald (condensed) */
+        .theme-oswald{
+            --bg:#f7fff0;
+            --text:#003300;
+            --accent:#ff8c00;
+            --muted:#bfe4c7;
+            --heading-font: 'Oswald', sans-serif;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        /* 6. Warm Serif — Lora */
+        .theme-lora{
+            --bg:#fff7ed;
+            --text:#3a2f20;
+            --accent:#b5651d;
+            --muted:#e8d7c0;
+            --heading-font: 'Lora', serif;
+            font-family: 'Lora', serif;
+        }
+
+        /* 7. Urban Night — Montserrat (dark, neon accent) */
+        .theme-montserrat{
+            --bg:#0f1724;
+            --text:#e6f0ff;
+            --accent:#ff3b30;
+            --muted:#1e293b;
+            --heading-font: 'Montserrat', sans-serif;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* 8. Dramatic Display — Abril Fatface (display) */
+        .theme-abril{
+            --bg:#fffef8;
+            --text:#111827;
+            --accent:#6b21a8;
+            --muted:#f1e9fb;
+            --heading-font: 'Abril Fatface', serif;
+            font-family: 'Abril Fatface', serif;
+        }
+
+        /* 9. Scandinavian — Josefin Sans (airy, pale) */
+        .theme-josefin{
+            --bg:#f7fbff;
+            --text:#0f172a;
+            --accent:#0077b6;
+            --muted:#dbeafe;
+            --heading-font: 'Josefin Sans', sans-serif;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        /* 10. Earthy — Noto Serif */
+        .theme-notoserif{
+            --bg:#fbf9f6;
+            --text:#2b2b2b;
+            --accent:#6a8a3f;
+            --muted:#dfe8d6;
+            --heading-font: 'Noto Serif', serif;
+            font-family: 'Noto Serif', serif;
+        }
+
+        /* Use theme variables for subtle accents in UI */
+        .toolbar{
+            border:1px solid color-mix(in srgb, var(--accent) 12%, transparent);
+            background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 95%, #ffffff 5%), rgba(255,255,255,0.4));
+        }
+        .card{
+            background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 94%, #fff 6%), color-mix(in srgb, var(--bg) 88%, #fff 12%));
+            box-shadow: 0 10px 40px color-mix(in srgb, var(--accent) 12%, #000 0%);
+            border:1px solid color-mix(in srgb, var(--accent) 9%, transparent);
+        }
+        .theme-btn{
+            background: color-mix(in srgb, var(--bg) 40%, #fff 60%);
+            color: var(--text);
+        }
+        /* small responsive tweaks */
+        @media (max-width:640px){
+            .card{ padding:28px 22px }
+            h1{ font-size:36px }
+            .toolbar{ left:8px; right:8px; padding:8px; justify-content:center }
+        }
+    </style>
+</head>
+<body class="theme-roboto">
+    <div class="toolbar" role="toolbar" aria-label="Theme chooser">
+        <!-- Each button has data-theme matching CSS class and inline swatches for preview -->
+        <button class="theme-btn" data-theme="roboto" aria-pressed="true" title="Modern Light — Roboto">
+            <span class="swatches" aria-hidden="true">
+                <i class="swatch" style="background:#f6f8fb"></i>
+                <i class="swatch" style="background:#0f1722"></i>
+                <i class="swatch" style="background:#0066ff"></i>
+            </span>
+            Roboto
+        </button>
+
+        <button class="theme-btn" data-theme="merriweather" aria-pressed="false" title="Classic Book — Merriweather">
+            <span class="swatches" aria-hidden="true">
+                <i class="swatch" style="background:#fffaf0"></i>
+                <i class="swatch" style="background:#2b2b2b"></i>
+                <i class="swatch" style="background:#8b0000"></i>
+            </span>
+            Merriweather
+        </button>
+
+        <button class="theme-btn" data-theme="inconsolata" aria-pressed="false" title="Terminal — Inconsolata">
+            <span class="swatches" aria-hidden="true">
+                <i class="swatch" style="background:#0b1220"></i>
+                <i class="swatch" style="background:#cbd5e1"></i>
+                <i class="swatch" style="background:#00ff99"></i>
+            </span>
+            Inconsolata
+        </button>
+
+        <button class="theme-btn" data-theme="pacifico" aria-pressed="false" title="Playful — Pacifico">
+            <span class="swatches" aria-hidden="true">
+                <i class="swatch" style="background:#fff0f6"></i>
+                <i class="swatch" style="background:#3b185f"></i>
+                <i class="swatch" style="background:#ff6b6b"></i>
+            </span>
+            Pacifico
+        </button>
+
+        <button class="theme-btn" data-theme="oswald" aria-pressed="false" title="Bold Magazine — Oswald">
+            <span class="swatches" aria-hidden="true">
+                <i class="swatch" style="background:#f7fff0"></i>
+                <i class="swatch" style="background:#003300"></i>
+                <i class="swatch" style="background:#ff8c00"></i>
+            </span>
+            Oswald
+        </button>
+
+        <button class="theme-btn" data-theme="lora" aria-pressed="false" title="Warm Serif — Lora">
+            <span class="swatches" aria-hidden="true">
+                <i class="swatch" style="background:#fff7ed"></i>
+                <i class="swatch" style="background:#3a2f20"></i>
+                <i class="swatch" style="background:#b5651d"></i>
+            </span>
+            Lora
+        </button>
+
+        <button class="theme-btn" data-theme="montserrat" aria-pressed="false" title="Urban Night — Montserrat">
+            <span class="swatches" aria-hidden="true">
+                <i class="swatch" style="background:#0f1724"></i>
+                <i class="swatch" style="background:#e6f0ff"></i>
+                <i class="swatch" style="background:#ff3b30"></i>
+            </span>
+            Montserrat
+        </button>
+
+        <button class="theme-btn" data-theme="abril" aria-pressed="false" title="Dramatic Display — Abril Fatface">
+            <span class="swatches" aria-hidden="true">
+                <i class="swatch" style="background:#fffef8"></i>
+                <i class="swatch" style="background:#111827"></i>
+                <i class="swatch" style="background:#6b21a8"></i>
+            </span>
+            Abril
+        </button>
+
+        <button class="theme-btn" data-theme="josefin" aria-pressed="false" title="Scandinavian — Josefin Sans">
+            <span class="swatches" aria-hidden="true">
+                <i class="swatch" style="background:#f7fbff"></i>
+                <i class="swatch" style="background:#0f172a"></i>
+                <i class="swatch" style="background:#0077b6"></i>
+            </span>
+            Josefin
+        </button>
+
+        <button class="theme-btn" data-theme="notoserif" aria-pressed="false" title="Earthy — Noto Serif">
+            <span class="swatches" aria-hidden="true">
+                <i class="swatch" style="background:#fbf9f6"></i>
+                <i class="swatch" style="background:#2b2b2b"></i>
+                <i class="swatch" style="background:#6a8a3f"></i>
+            </span>
+            Noto Serif
+        </button>
+    </div>
+
+    <main class="center" id="main">
+        <div class="card" role="main" aria-live="polite">
+            <h1>Hello World</h1>
+            <p class="lead">Click a theme button (top-left) to change fonts and colors. The choice is saved for your next visit.</p>
+        </div>
+    </main>
+
+    <script>
+        // Theme switching logic
+        (function(){
+            const buttons = Array.from(document.querySelectorAll('.theme-btn'));
+            const storageKey = 'selected-theme';
+            const body = document.body;
+
+            function applyTheme(name){
+                // remove previous theme classes that start with "theme-"
+                body.className = body.className
+                    .split(/\s+/)
+                    .filter(c => !c.startsWith('theme-'))
+                    .join(' ')
+                ;
+                body.classList.add('theme-' + name);
+
+                // update aria-pressed
+                buttons.forEach(b => b.setAttribute('aria-pressed', b.dataset.theme === name ? 'true' : 'false'));
+
+                // save
+                try { localStorage.setItem(storageKey, name); } catch(e){}
+            }
+
+            // attach handlers
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
+                btn.addEventListener('keydown', e => {
+                    if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+                });
+            });
+
+            // restore last theme or keep default
+            const saved = (function(){
+                try{ return localStorage.getItem(storageKey); } catch(e){ return null; }
+            })();
+            if(saved){
+                const exists = buttons.some(b => b.dataset.theme === saved);
+                if(exists) applyTheme(saved);
+            } else {
+                // ensure the initial active button is in sync
+                const initial = buttons.find(b => b.getAttribute('aria-pressed') === 'true');
+                if(initial) applyTheme(initial.dataset.theme);
+            }
+        })();
+    </script>
+</body>
+</html>
