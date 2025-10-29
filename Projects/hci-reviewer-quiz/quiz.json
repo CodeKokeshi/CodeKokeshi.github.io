@@ -1,0 +1,317 @@
+[
+  {
+    "type": "multiple-choice",
+    "question": "Which field is defined as 'Designing interactive products to support the way people communicate and interact in their everyday and working lives.'?",
+    "answer": "Interaction Design"
+  },
+  {
+    "type": "fill-in-the-blank",
+    "question": "Interaction Design asks the key question: 'How do you [BLANK] the users' interactions with a system... so that they support the users' activities in effective, useful, usable and pleasurable ways?'",
+    "answer": "optimize"
+  },
+  {
+    "type": "categorization-sorter",
+    "question": "Part 1: Drag each term from Section 1.2 into its correct category.",
+    "categories": [
+      "Academic Disciplines",
+      "Design Practices",
+      "Interdisciplinary Fields"
+    ],
+    "items": [
+      {
+        "text": "Ergonomics",
+        "category": "Academic Disciplines"
+      },
+      {
+        "text": "Graphic Design",
+        "category": "Design Practices"
+      },
+      {
+        "text": "Human-Computer Interaction (HCI)",
+        "category": "Interdisciplinary Fields"
+      },
+      {
+        "text": "Psychology/Cognitive Science",
+        "category": "Academic Disciplines"
+      },
+      {
+        "text": "Product Design",
+        "category": "Design Practices"
+      },
+      {
+        "text": "Computer-Supported Cooperative Work (CSCW)",
+        "category": "Interdisciplinary Fields"
+      }
+    ]
+  },
+  {
+    "type": "categorization-sorter",
+    "question": "Part 2: Drag each term from Section 1.2 into its correct category.",
+    "categories": [
+      "Academic Disciplines",
+      "Design Practices",
+      "Interdisciplinary Fields"
+    ],
+    "items": [
+      {
+        "text": "Design",
+        "category": "Academic Disciplines"
+      },
+      {
+        "text": "Artist-Design",
+        "category": "Design Practices"
+      },
+      {
+        "text": "Human Factors (HF)",
+        "category": "Interdisciplinary Fields"
+      },
+      {
+        "text": "Informatics",
+        "category": "Academic Disciplines"
+      },
+      {
+        "text": "Industrial Design",
+        "category": "Design Practices"
+      },
+      {
+        "text": "Information Systems",
+        "category": "Interdisciplinary Fields"
+      }
+    ]
+  },
+  {
+    "type": "categorization-sorter",
+    "question": "Part 3: Drag each term from Section 1.2 into its correct category.",
+    "categories": [
+      "Academic Disciplines",
+      "Design Practices",
+      "Interdisciplinary Fields"
+    ],
+    "items": [
+      {
+        "text": "Engineering",
+        "category": "Academic Disciplines"
+      },
+      {
+        "text": "Film Industry",
+        "category": "Design Practices"
+      },
+      {
+        "text": "Cognitive Engineering",
+        "category": "Interdisciplinary Fields"
+      },
+      {
+        "text": "Computer Science/Software Engineering",
+        "category": "Academic Disciplines"
+      },
+      {
+        "text": "Social Sciences",
+        "category": "Academic Disciplines"
+      },
+      {
+        "text": "Ubiquitous Computing",
+        "category": "Interdisciplinary Fields"
+      }
+    ]
+  },
+  {
+    "type": "binary-choice",
+    "question": "From Section 1.3 ('Who is Involved?'), is the following statement a BENEFIT or a DOWNSIDE of multidisciplinary teams?",
+    "statement": "Leads to more ideas being generated and more creative, original designs.",
+    "options": [
+      "Benefit",
+      "Downside"
+    ],
+    "answer": "Benefit"
+  },
+  {
+    "type": "binary-choice",
+    "question": "From Section 1.3 ('Who is Involved?'), is the following statement a BENEFIT or a DOWNSIDE of multidisciplinary teams?",
+    "statement": "Can be costly and lead to communication difficulties, as people from different backgrounds have different perspectives and terminology.",
+    "options": [
+      "Benefit",
+      "Downside"
+    ],
+    "answer": "Downside"
+  },
+  {
+    "type": "multi-select",
+    "question": "According to Section 1.3, multidisciplinary teams draw upon the skill sets of which of the following? (Select all that apply)",
+    "options": [
+      "Engineers",
+      "Marketing experts",
+      "Psychologists",
+      "Anthropologists",
+      "Financial analysts"
+    ],
+    "answer": [
+      "Engineers",
+      "Psychologists",
+      "Anthropologists"
+    ]
+  },
+  {
+    "type": "matching",
+    "question": "Match the expert to their key concept or quote (Section 1.4 & 2.4).",
+    "stems": [
+      "Jakob Nielsen & Don Norman (2014)",
+      "Jesse Garrett",
+      "Don Norman (2004)",
+      "Don Norman (1988)"
+    ],
+    "matches": [
+      "Encompassed 'all aspects of the end user's interaction...'",
+      "Stated that 'Every product that is used by someone has a user experience...'",
+      "Stated we must 'build joy and excitement, pleasure and fun... into products.'",
+      "Used car controls to explain the 'Visibility' principle."
+    ],
+    "answer": {
+      "Jakob Nielsen & Don Norman (2014)": "Encompassed 'all aspects of the end user's interaction...'",
+      "Jesse Garrett": "Stated that 'Every product that is used by someone has a user experience...'",
+      "Don Norman (2004)": "Stated we must 'build joy and excitement, pleasure and fun... into products.'",
+      "Don Norman (1988)": "Used car controls to explain the 'Visibility' principle."
+    }
+  },
+  {
+    "type": "fill-in-the-blank",
+    "question": "Jesse Garrett notes that 'Every product that is used by someone has a [BLANK]: newspapers, ketchup bottles, reclining armchairs...'",
+    "answer": "user experience"
+  },
+  {
+    "type": "multiple-choice",
+    "question": "What is the Core Principle of UX according to Section 1.4?",
+    "answer": "One cannot design a user experience, only design for a user experience."
+  },
+  {
+    "type": "multi-select",
+    "question": "What are the three CATEGORIES of impairment mentioned in Section 2.1? (Select all that apply)",
+    "options": [
+      "Sensory",
+      "Permanent",
+      "Situational",
+      "Cognitive",
+      "Temporary",
+      "Physical"
+    ],
+    "answer": [
+      "Permanent",
+      "Temporary",
+      "Situational"
+    ]
+  },
+  {
+    "type": "multi-select",
+    "question": "What are the three main TYPES of impairment mentioned in Section 2.1? (Select all that apply)",
+    "options": [
+      "Sensory",
+      "Permanent",
+      "Situational",
+      "Cognitive",
+      "Temporary",
+      "Physical"
+    ],
+    "answer": [
+      "Sensory",
+      "Physical",
+      "Cognitive"
+    ]
+  },
+  {
+    "type": "multiple-choice",
+    "question": "How is 'Disability' viewed in HCI according to Section 2.1?",
+    "answer": "As the result of poor interaction design between a user and the technology."
+  },
+  {
+    "type": "matching",
+    "question": "Match the Usability Goal (Section 2.2) to its correct definition.",
+    "stems": [
+      "Effectiveness",
+      "Efficiency",
+      "Safety",
+      "Learnability",
+      "Memorability"
+    ],
+    "matches": [
+      "How good a product is at doing what it is supposed to do.",
+      "The way a product supports users in carrying out their tasks.",
+      "Protecting the user from dangerous conditions and undesirable situations.",
+      "How easy a system is to learn to use.",
+      "How easy a product is to remember how to use, once learned."
+    ],
+    "answer": {
+      "Effectiveness": "How good a product is at doing what it is supposed to do.",
+      "Efficiency": "The way a product supports users in carrying out their tasks.",
+      "Safety": "Protecting the user from dangerous conditions and undesirable situations.",
+      "Learnability": "How easy a system is to learn to use.",
+      "Memorability": "How easy a product is to remember how to use, once learned."
+    }
+  },
+  {
+    "type": "multiple-choice",
+    "question": "Which Usability Goal refers to 'how easy a system is to learn to use'?",
+    "answer": "Learnability"
+  },
+  {
+    "type": "multiple-choice",
+    "question": "Which Usability Goal refers to 'protecting the user from dangerous conditions and undesirable situations,' such as by providing an 'undo' function?",
+    "answer": "Safety"
+  },
+  {
+    "type": "multiple-choice",
+    "question": "Amazon's 'one-click option' is a classic example of which Usability Goal?",
+    "answer": "Efficiency"
+  },
+  {
+    "type": "multiple-choice",
+    "question": "Which Usability Goal refers to 'the extent to which the product provides the right kind of functionality'?",
+    "answer": "Utility"
+  },
+  {
+    "type": "binary-choice",
+    "question": "Classify the following UX Goal from Section 2.3 as 'Desirable' or 'Undesirable'.",
+    "term": "Engaging",
+    "options": [
+      "Desirable",
+      "Undesirable"
+    ],
+    "answer": "Desirable"
+  },
+  {
+    "type": "binary-choice",
+    "question": "Classify the following UX Goal from Section 2.3 as 'Desirable' or 'Undesirable'.",
+    "term": "Frustrating",
+    "options": [
+      "Desirable",
+      "Undesirable"
+    ],
+    "answer": "Undesirable"
+  },
+  {
+    "type": "matching",
+    "question": "Match the Design Principle (Section 2.4) to its correct definition.",
+    "stems": [
+      "Visibility",
+      "Feedback",
+      "Constraint",
+      "Affordance"
+    ],
+    "matches": [
+      "The more visible functions are, the more likely users will know what to do.",
+      "Sending back information about what action has been done.",
+      "Restricting the kinds of user interaction that can take place.",
+      "An attribute of an object that allows people to know how to use it."
+    ],
+    "answer": {
+      "Visibility": "The more visible functions are, the more likely users will know what to do.",
+      "Feedback": "Sending back information about what action has been done.",
+      "Constraint": "Restricting the kinds of user interaction that can take place.",
+      "Affordance": "An attribute of an object that allows people to know how to use it."
+    }
+  },
+  {
+    "type": "fill-in-the-blank",
+    "question": "Which design principle involves 'designing interfaces to have similar operations and use similar elements for achieving similar tasks'?",
+    "answer": "Consistency"
+  }
+]
+
