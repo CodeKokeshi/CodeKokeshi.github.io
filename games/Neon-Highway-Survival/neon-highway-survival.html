@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Neon Highway Survival | CodeKokeshi</title>
+    <meta name="description" content="Play Neon Highway Survival - A top-down action shooter survival game by CodeKokeshi." />
+    <meta name="theme-color" content="#0f1116" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../assets/css/site.css" data-cache-bust="true" />
+    <style>
+      .game-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 0;
+      }
+
+      .game-embed {
+        position: relative;
+        width: 100%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: var(--surface);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .game-embed iframe {
+        display: block;
+        width: 100%;
+        height: 700px;
+        margin: 0 auto;
+        border: none;
+        border-radius: 8px;
+        background: var(--bg);
+      }
+
+      .mobile-warning {
+        display: none;
+        padding: 2rem;
+        background: var(--surface);
+        border: 2px solid var(--accent);
+        border-radius: 12px;
+        text-align: center;
+        margin: 2rem auto;
+      }
+
+      .mobile-warning h3 {
+        color: var(--accent);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+
+      .mobile-warning p {
+        color: var(--text);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+      }
+
+      .mobile-warning .icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .game-info {
+        background: var(--surface);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .game-info h2 {
+        color: var(--text);
+        font-family: var(--font-heading);
+        margin-bottom: 1rem;
+      }
+
+      .game-info p {
+        color: var(--text);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+      }
+
+      .game-meta {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 1.5rem;
+      }
+
+      .meta-item {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background: var(--surface-alt);
+        border-radius: 8px;
+        border: 1px solid var(--border);
+      }
+
+      .meta-item strong {
+        color: var(--accent);
+      }
+
+      .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--surface);
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+      }
+
+      .back-button:hover {
+        background: var(--surface-alt);
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: translateX(-4px);
+      }
+
+      .link-row {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background: var(--accent);
+        color: var(--bg);
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 2px solid var(--accent);
+      }
+
+      .btn:hover {
+        background: transparent;
+        color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .controls-list {
+        background: var(--surface-alt);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+      }
+
+      .controls-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .controls-list li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .controls-list li:last-child {
+        border-bottom: none;
+      }
+
+      .controls-list strong {
+        color: var(--accent);
+        display: inline-block;
+        min-width: 150px;
+      }
+
+      @media (max-width: 768px) {
+        .game-embed {
+          display: none;
+        }
+        .mobile-warning {
+          display: block;
+        }
+      }
+
+      /* Wood theme adjustments */
+      [data-theme="wood"] .game-info h2 {
+        font-size: 1rem;
+      }
+
+      [data-theme="wood"] .game-info p,
+      [data-theme="wood"] .meta-item {
+        font-size: 0.7rem;
+      }
+
+      [data-theme="wood"] .back-button {
+        font-size: 0.7rem;
+      }
+
+      [data-theme="wood"] .mobile-warning h3 {
+        font-size: 0.9rem;
+      }
+
+      [data-theme="wood"] .mobile-warning p {
+        font-size: 0.7rem;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="particle-canvas"></canvas>
+    <div class="page-shell">
+      <header class="top-bar">
+        <a class="brand" href="../../index.html">Code Kokeshi</a>
+        <nav class="nav-links" aria-label="Pages">
+          <a class="nav-link" href="../../gamedev.html">Game Dev</a>
+          <a class="nav-link" href="../../art.html">Art</a>
+          <a class="nav-link" href="../../projects.html">Projects</a>
+        </nav>
+        <div class="theme-switcher" role="group" aria-label="Theme selector">
+          <span class="theme-label">Theme</span>
+          <button type="button" class="theme-button" data-theme-option="dark" aria-pressed="false">Dark</button>
+          <button type="button" class="theme-button" data-theme-option="light" aria-pressed="false">Light</button>
+          <button type="button" class="theme-button" data-theme-option="wood" aria-pressed="false">Retro</button>
+          <button type="button" class="theme-button" data-theme-option="cyberpunk" aria-pressed="false">Cyberpunk</button>
+        </div>
+      </header>
+
+      <main>
+        <div class="game-container">
+          <a href="../../gamedev.html" class="back-button">
+            ← Back to Game Dev
+          </a>
+
+          <div class="game-info">
+            <h2>Neon Highway Survival</h2>
+            <p>A top-down action survival shooter with neon aesthetics. Drive vehicles, shoot enemies, and survive as long as possible!</p>
+            
+            <div class="alert alert-info" style="background: var(--surface-alt); border: 2px solid var(--accent); border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+              <strong style="color: var(--accent);">💡 Tip:</strong>
+              <span style="color: var(--text);"> Click on the game canvas below to start playing. The game will capture your keyboard and mouse input.</span>
+            </div>
+            
+            <div class="game-meta">
+              <div class="meta-item">
+                <strong>Engine:</strong> HTML5 Canvas
+              </div>
+              <div class="meta-item">
+                <strong>Genre:</strong> Action / Survival Shooter
+              </div>
+              <div class="meta-item">
+                <strong>Platform:</strong> Web Browser
+              </div>
+            </div>
+
+            <div class="controls-list">
+              <h3 style="color: var(--accent); margin-bottom: 1rem;">Controls</h3>
+              <ul>
+                <li><strong>Move:</strong> WASD / Arrow Keys</li>
+                <li><strong>Aim:</strong> Mouse</li>
+                <li><strong>Shoot:</strong> Hold Left Mouse Button</li>
+                <li><strong>Enter/Exit Vehicle:</strong> E</li>
+                <li><strong>Restart:</strong> R</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="game-embed" id="game-embed">
+            <iframe src="index.html" allowfullscreen></iframe>
+          </div>
+
+          <div class="mobile-warning" id="mobile-warning">
+            <div class="icon">🎮⚠️</div>
+            <h3>Desktop Only</h3>
+            <p>This game requires a keyboard and mouse to play and is only available on desktop devices.</p>
+            <p>Please visit this page on a computer to play the game.</p>
+          </div>
+
+          <div class="game-info">
+            <h2>About the Game</h2>
+            <p><strong>Neon Highway Survival</strong> is a fast-paced top-down shooter where you must survive waves of enemies in a neon-lit dystopian world.</p>
+            
+            <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Gameplay Features</h3>
+            <ul style="line-height: 2; margin-left: 1.5rem;">
+              <li>Drive and commandeer vehicles for extra speed, protection, and firepower</li>
+              <li>Face increasingly difficult waves of enemies</li>
+              <li>Level up and choose from powerful upgrades including the Arc Spitter Array (multishot) and Sentinel Drone (auto-targeting companion)</li>
+              <li>Pick timed "flash card" boosts every 30 seconds for temporary buffs with trade-offs</li>
+              <li>Navigate around obstacles and use terrain strategically</li>
+              <li>Survive as long as possible and beat your high score</li>
+            </ul>
+
+            <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Strategy Tips</h3>
+            <ul style="line-height: 2; margin-left: 1.5rem;">
+              <li>Vehicles provide significant advantages but can be destroyed</li>
+              <li>Eliminating enemies awards XP for permanent upgrades</li>
+              <li>Choose upgrades that complement your playstyle</li>
+              <li>Use obstacles to block enemy fire and create chokepoints</li>
+              <li>Some upgrades grant piercing shots that can hit multiple enemies</li>
+            </ul>
+          </div>
+        </div>
+      </main>
+
+      <footer class="site-footer">© <span id="year"></span> CodeKokeshi.</footer>
+    </div>
+
+    <script src="../../assets/js/site.js"></script>
+    <script src="../../assets/js/animations.js"></script>
+    <script>
+      // Set current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Detect mobile and show warning
+      function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+      }
+
+      if (isMobile()) {
+        document.getElementById('game-embed').style.display = 'none';
+        document.getElementById('mobile-warning').style.display = 'block';
+      }
+    </script>
+  </body>
+</html>

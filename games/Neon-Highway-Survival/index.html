@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Neon Highway Survival</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="game" tabindex="0"></canvas>
+
+    <div id="start-menu" class="start-menu">
+      <div class="start-menu-content">
+        <h1 class="game-title">Neon Highway Survival</h1>
+        <p class="game-subtitle">Top-Down Action Survival Shooter</p>
+        
+        <div class="controls-preview">
+          <h3>Controls</h3>
+          <div class="controls-grid">
+            <div><strong>Move:</strong> WASD / Arrows</div>
+            <div><strong>Aim:</strong> Mouse</div>
+            <div><strong>Shoot:</strong> Left Click</div>
+            <div><strong>Vehicle:</strong> E</div>
+            <div><strong>Restart:</strong> R</div>
+          </div>
+        </div>
+
+        <button id="start-button" class="start-button">
+          <span>START GAME</span>
+        </button>
+
+        <p class="hint-text">Survive waves of enemies, drive vehicles, and upgrade your arsenal!</p>
+      </div>
+    </div>
+
+    <aside id="overlay">
+      <section class="panel">
+        <h1>Neon Highway Survival</h1>
+        <p class="hint">Click the canvas to capture controls.</p>
+        <ul>
+          <li><strong>Move</strong>: WASD / Arrow Keys</li>
+          <li><strong>Aim</strong>: Mouse</li>
+          <li><strong>Shoot</strong>: Left Click</li>
+          <li><strong>Enter/Exit Vehicle</strong>: E</li>
+          <li><strong>Restart</strong>: R</li>
+          <li><strong>Upgrades</strong>: Pick when the card menu appears</li>
+        </ul>
+      </section>
+      <section class="panel right">
+        <div id="hud-info"></div>
+      </section>
+    </aside>
+
+    <section id="upgrade-layer" class="hidden">
+      <header class="upgrade-head">
+        <h2 id="upgrade-title">Choose an Upgrade</h2>
+        <p id="upgrade-subtitle"></p>
+      </header>
+      <div id="upgrade-container"></div>
+    </section>
+
+    <script src="game.js"></script>
+  </body>
+</html>
