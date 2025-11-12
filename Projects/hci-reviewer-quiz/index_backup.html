@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCI Reviewer & Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <style>
+        /* Theme Variables */
+        :root {
+            --primary-color: #0d6efd;
+            --success-color: #198754;
+            --danger-color: #dc3545;
+            --bg: #0f1116;
+            --text: #e4e4e7;
+            --accent: #8b5cf6;
+            --surface: #1a1b23;
+            --surface-alt: #1d212d;
+            --muted: #b6bbc9;
+            --border: rgba(255, 255, 255, 0.08);
+            --navbar-bg: #1a1b23;
+            --card-bg: #0f1116;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f1116;
+            --text: #e4e4e7;
+            --accent: #8b5cf6;
+            --surface: #1a1b23;
+            --surface-alt: #1d212d;
+            --primary-color: #8b5cf6;
+            --navbar-bg: #1a1b23;
+            --card-bg: #0f1116;
+            --muted: #b6bbc9;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --text: #18181b;
+            --accent: #7c3aed;
+            --surface: #f4f4f5;
+            --surface-alt: #f0f1f7;
+            --primary-color: #7c3aed;
+            --navbar-bg: #7c3aed;
+            --card-bg: #ffffff;
+            --muted: #5f6579;
+            --border: rgba(17, 23, 36, 0.08);
+        }
+
+        [data-theme="wood"] {
+            --bg: #2d1b00;
+            --text: #ffcc80;
+            --accent: #8b4513;
+            --surface: #3e2723;
+            --surface-alt: #2f1c0d;
+            --primary-color: #8b4513;
+            --navbar-bg: #4a2511;
+            --card-bg: #5d4037;
+            --muted: #c9b38e;
+            --border: rgba(241, 228, 199, 0.18);
+        }
+
+        [data-theme="cyberpunk"] {
+            --bg: #0a0e27;
+            --text: #00ff9f;
+            --accent: #ff006e;
+            --surface: #1a1f3a;
+            --surface-alt: #130d25;
+            --primary-color: #ff006e;
+            --navbar-bg: #1a1f3a;
+            --card-bg: #0f1219;
+            --muted: #b69df5;
+            --border: rgba(248, 245, 255, 0.12);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        [data-theme="wood"] body {
+            font-family: 'Press Start 2P', monospace;
+        }
+
+        /* Navigation */
+        .custom-navbar {
+            background: var(--navbar-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="light"] .custom-navbar {
+            color: white;
+        }
+
+        [data-theme="light"] .custom-navbar .navbar-brand,
+        [data-theme="light"] .custom-navbar .nav-link {
+            color: white !important;
+        }
+
+        .custom-navbar .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        [data-theme="wood"] .custom-navbar .navbar-brand {
+            font-size: 0.9rem;
+        }
+
+        /* Theme Switcher */
+        .theme-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .theme-button {
+            padding: 0.4rem 0.8rem;
+            border: 2px solid var(--accent);
+            background: var(--surface);
+            color: var(--text);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        [data-theme="wood"] .theme-button {
+            font-size: 0.65rem;
+            padding: 0.5rem 0.6rem;
+        }
+
+        .theme-button:hover {
+            background: var(--accent);
+            color: var(--bg);
+            transform: translateY(-2px);
+        }
+
+        .theme-button[aria-pressed="true"] {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        /* Modal styling */
+        .modal-content .btn-close {
+            background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+            opacity: 0.8;
+        }
+        .modal-content .btn-close:hover {
+            opacity: 1;
+        }
+
+        .content-container {
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            color: var(--text);
+        }
+
+        .quiz-container {
+            max-width: 900px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            border: none;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            background: var(--card-bg);
+            color: var(--text);
+        }
+
+        .card-header {
+            background: var(--surface-alt) !important;
+            color: var(--text) !important;
+            border-bottom: 2px solid var(--border) !important;
+        }
+
+        .card-body {
+            background: var(--card-bg);
+        }
+
+        .progress-bar {
+            border-radius: 0.25rem;
+        }
+
+        .card-header h5 {
+            margin-bottom: 0;
+        }
+
+        #quiz-area {
+            min-height: 300px;
+            padding: 1.5rem;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        
+        .fill-in-blank-text {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .fill-in-blank-span {
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 2px solid #0d6efd;
+            color: #fff;
+            background-color: #343a40;
+            min-height: 1.5em;
+            vertical-align: middle;
+            border-radius: 0.25rem 0.25rem 0 0;
+        }
+        .fill-in-blank-span.correct {
+             border-color: #198754;
+             color: #198754;
+        }
+        .fill-in-blank-span.incorrect {
+             border-color: #dc3545;
+             color: #dc3545;
+        }
+
+        .statement-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Form Controls */
+        .form-check-input:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .form-check-label {
+            font-size: 1.05rem;
+            padding-top: 2px;
+            cursor: pointer;
+            margin-left: 0; /* spacing handled by flex gap on .form-check */
+        }
+
+        .form-check {
+            margin-bottom: 0.75rem;
+            /* Use flex layout to ensure consistent spacing between the input and label */
+            display: flex;
+            align-items: center;
+            gap: 0.6rem; /* horizontal gap between radio/checkbox and label */
+            padding-left: 0; /* remove legacy padding-based layout */
+        }
+        
+            /* Special layout for long multiple-choice options: make each option a full-width block
+               with wrapped text so long answers don't sit on the same line as the radio. */
+            .form-check-long {
+                display: block; /* override flex */
+                padding: 0.6rem;
+                border: 1px solid #495057;
+                border-radius: 0.5rem;
+                margin-bottom: 0.75rem;
+                background-color: rgba(255,255,255,0.02);
+            }
+            .form-check-long .form-check-label {
+                display: block;
+                margin-left: 0;
+                white-space: normal;
+                text-transform: none; /* keep original casing for readability */
+                padding-left: 0.25rem;
+            }
+        
+        .form-check-input {
+            margin-top: 0.2em;
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        /* Fill-in-the-Blank Choice Pool */
+        .choice-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            border-top: 1px solid #495057;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .choice-pool-btn {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .choice-pool-btn.selected {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: #fff;
+        }
+        .choice-pool-btn.correct {
+            background-color: #198754 !important;
+            border-color: #198754 !important;
+            color: #fff !important;
+        }
+        .choice-pool-btn.incorrect {
+            background-color: #dc3545 !important;
+            border-color: #dc3545 !important;
+            color: #fff !important;
+            text-decoration: line-through;
+        }
+
+
+        /* Matching */
+        .matching-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #495057;
+            padding-bottom: 1rem;
+        }
+        .matching-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .matching-stem {
+            flex-basis: 45%;
+            padding-right: 1rem;
+        }
+        .matching-select {
+            flex-basis: 55%;
+        }
+
+        /* Categorization Sorter */
+        .categorization-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .draggable-items-pool {
+            border: 2px dashed #495057;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            min-height: 80px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-content: flex-start;
+        }
+
+        .drop-bucket {
+            border: 2px solid #495057;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            min-height: 120px;
+        }
+
+        .drop-bucket h6 {
+            font-weight: bold;
+            color: #0d6efd;
+            border-bottom: 1px solid #495057;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .draggable-item {
+            background-color: #0d6efd;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: move;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .draggable-item:hover {
+            opacity: 0.8;
+        }
+        
+        .draggable-item.dragging {
+            opacity: 0.5;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .drop-bucket.drag-over {
+            background-color: #343a40;
+            border-color: #0d6efd;
+        }
+        
+        /* Post-Submission Feedback */
+        .form-check.correct .form-check-label {
+            color: #198754;
+            font-weight: bold;
+        }
+        .form-check.incorrect .form-check-label {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .form-check.correct .form-check-input:checked {
+            background-color: #198754;
+            border-color: #198754;
+        }
+        .form-check.incorrect .form-check-input:checked {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        
+        .matching-select.correct {
+            border-color: #198754;
+            background-image: none; /* Hide default dropdown arrow */
+            padding-right: 0.75rem; /* Adjust padding */
+        }
+         .matching-select.correct:focus {
+            box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.5);
+         }
+        
+        .matching-select.incorrect {
+            border-color: #dc3545;
+            background-image: none;
+            padding-right: 0.75rem;
+        }
+        .matching-select.incorrect:focus {
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.5);
+         }
+         
+        .matching-feedback {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-left: 1rem;
+        }
+        .text-correct { color: #198754; }
+        .text-incorrect { color: #dc3545; }
+         
+        .drop-bucket.correct {
+             border-color: #198754;
+        }
+        .drop-bucket.incorrect {
+             border-color: #dc3545;
+        }
+        .draggable-item.incorrect-placement {
+            background-color: #dc3545;
+            text-decoration: line-through;
+        }
+        .draggable-item.correct-placement { /* Added for correct categorization */
+            background-color: #198754;
+            border-color: #198754;
+        }
+
+        /* Responsive layout for categorization */
+        @media (min-width: 768px) {
+            .categorization-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .draggable-items-pool {
+                grid-column: 1 / -1; /* Span all columns */
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-ui-checks"></i> HCI Reviewer
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <span class="nav-link active">
+                            <i class="bi bi-question-circle"></i> Interactive Quiz
+                        </span>
+                    </li>
+                </ul>
+                <div class="theme-switcher ms-3" role="group" aria-label="Theme selector">
+                    <button type="button" class="theme-button" data-theme-option="dark" aria-pressed="true">Dark</button>
+                    <button type="button" class="theme-button" data-theme-option="light" aria-pressed="false">Light</button>
+                    <button type="button" class="theme-button" data-theme-option="wood" aria-pressed="false">Retro</button>
+                    <button type="button" class="theme-button" data-theme-option="cyberpunk" aria-pressed="false">Cyberpunk</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container content-container my-5">
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h2><i class="bi bi-question-circle"></i> HCI Principles Quiz</h2>
+                <p class="text-muted">Test your knowledge with interactive question types including drag-and-drop, matching, and more.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Quiz Progress</h5>
+                    <span id="question-counter" class="badge bg-primary rounded-pill fs-6"></span>
+                </div>
+            </div>
+            
+            <div class="pt-3 px-4">
+                <div class="progress" role="progressbar" aria-label="Quiz progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+                    <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div id="quiz-area" class="card-body">
+                <!-- 
+                  This area will be populated by JavaScript.
+                  It will show a loading spinner first, then
+                  load questions from 'quiz.json'.
+                -->
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <span class="ms-3 fs-5">Loading Quiz...</span>
+                </div>
+            </div>
+
+            <div class="card-footer border-top">
+                <div class="d-flex justify-content-end">
+                    <button id="next-btn" class="btn btn-primary px-4" disabled>Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: var(--card-bg); color: var(--text); border: 2px solid var(--border);">
+                <div class="modal-header" style="border-bottom: 2px solid var(--border);">
+                    <h5 class="modal-title" id="resultsModalLabel">Quiz Results</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3 class="mb-3">Your Score:</h3>
+                    <h1 id="score-text" class="display-3 fw-bold" style="color: var(--accent);">0 / 0</h1>
+                    <p id="score-percentage" class="fs-4"></p>
+                    <p class="mt-4" style="color: var(--muted);">You can restart the quiz at any time.</p>
+                </div>
+                <div class="modal-footer" style="border-top: 2px solid var(--border);">
+                    <button type="button" id="restart-btn" class="btn btn-primary">
+                        <i class="bi bi-arrow-clockwise"></i> Restart Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        // --- DOM Elements ---
+        const quizArea = document.getElementById('quiz-area');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const questionCounter = document.getElementById('question-counter');
+        const progressBar = document.getElementById('progress-bar');
+        const resultsModal = new bootstrap.Modal(document.getElementById('resultsModal'));
+        const scoreText = document.getElementById('score-text');
+        const scorePercentage = document.getElementById('score-percentage');
+
+        // --- State ---
+        let allQuestions = []; // All questions from JSON
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let scores = [];
+        let isAnswerChecked = false; // New state to track if current question is checked
+        let draggedItem = null; // For drag-and-drop
+        
+        // --- Dynamic Answer Pools ---
+        let mcqAnswerPool = [];
+        let fillAnswerPool = [];
+
+        // --- Utility Functions ---
+        
+        /**
+         * Shuffles an array in place
+         * @param {Array} array
+         */
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        /**
+         * Gets N unique items from an array, excluding a specific item
+         * @param {Array} arr - The source array
+         * @param {number} n - The number of items to get
+         * @param {*} exclude - The item to exclude from the result
+         */
+        function getUniqueRandomItems(arr, n, exclude) {
+            const filtered = arr.filter(item => item !== exclude);
+            shuffleArray(filtered);
+            return filtered.slice(0, n);
+        }
+        
+        /**
+         * Cleans a string for loose comparison (for fill-in-the-blank)
+         * @param {string} str
+         */
+        function normalizeString(str) {
+            if (typeof str !== 'string') return '';
+            return str.trim().toLowerCase().replace(/[^a-z0-9]/gi, '');
+        }
+
+        // --- Quiz Initialization ---
+
+        /**
+         * Fetches and prepares the quiz data
+         */
+        async function setupQuiz() {
+            try {
+                // This is the correct implementation: fetch the external JSON file.
+                // It assumes 'quiz.json' is in the same directory as this HTML file.
+                const response = await fetch('quiz.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}. Make sure 'quiz.json' is available.`);
+                }
+                
+                const jsonContent = await response.text();
+                allQuestions = JSON.parse(jsonContent);
+                
+                if (!allQuestions || allQuestions.length === 0) {
+                    throw new Error("Quiz data is empty or invalid.");
+                }
+
+                // --- EDITED: Shuffle the question list ---
+                shuffleArray(allQuestions);
+
+                // Build the dynamic answer pools
+                mcqAnswerPool = allQuestions
+                    .filter(q => q.type === 'multiple-choice')
+                    .map(q => q.answer);
+                    
+                fillAnswerPool = allQuestions
+                    .filter(q => q.type === 'fill-in-the-blank')
+                    .map(q => q.answer.toUpperCase()); // Pool is always uppercase
+
+                // Initialize state arrays based on data length
+                userAnswers = new Array(allQuestions.length).fill(null);
+                scores = new Array(allQuestions.length).fill(0);
+                
+                initQuiz();
+                
+            } catch (e) {
+                console.error("Failed to load quiz data:", e);
+                quizArea.innerHTML = `<p class="text-danger fs-5 text-center">Error: Could not load quiz questions. Please make sure 'quiz.json' is in the same directory and is formatted correctly.</p>`;
+                nextBtn.disabled = true; // Disable nav if quiz fails to load
+            }
+        }
+        
+        /**
+         * Initializes or re-initializes the quiz
+         */
+        function initQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers.fill(null);
+            scores.fill(0);
+            isAnswerChecked = false;
+            
+            // --- EDITED: Re-shuffle questions on restart ---
+            shuffleArray(allQuestions);
+            
+            loadQuestion(currentQuestionIndex);
+            updateNavButtons();
+            updateProgressBar();
+            
+            nextBtn.disabled = false;
+        }
+
+        // --- Question Rendering ---
+
+        /**
+         * Loads a question onto the page
+         * @param {number} index - The index of the question to load
+         */
+        function loadQuestion(index) {
+            const question = allQuestions[index];
+            quizArea.innerHTML = ''; // Clear previous question
+
+            // Use a switch to render the correct question type
+            switch (question.type) {
+                case 'multiple-choice':
+                    renderMultipleChoice(question, index);
+                    break;
+                case 'multi-select':
+                    renderMultiSelect(question, index);
+                    break;
+                case 'binary-choice':
+                    renderBinaryChoice(question, index);
+                    break;
+                case 'fill-in-the-blank':
+                    renderFillInBlank(question, index);
+                    break;
+                case 'matching':
+                    renderMatching(question, index);
+                    break;
+                case 'categorization-sorter':
+                    renderCategorization(question, index);
+                    break;
+                default:
+                    quizArea.innerHTML = `<p class="text-danger">Error: Unknown question type '${question.type}' at index ${index}.</p>`;
+            }
+        }
+        
+        /**
+         * Renders the question text and optional statement/term
+         */
+        function renderQuestionHeader(question, index) {
+            const questionTextEl = document.createElement('p');
+            questionTextEl.className = 'question-text';
+            questionTextEl.textContent = `Q${index + 1}: ${question.question}`;
+            quizArea.appendChild(questionTextEl);
+
+            if (question.statement) {
+                const statementEl = document.createElement('p');
+                statementEl.className = 'statement-text';
+                statementEl.textContent = `Statement: "${question.statement}"`;
+                quizArea.appendChild(statementEl);
+            }
+            
+             if (question.term) {
+                const termEl = document.createElement('p');
+                termEl.className = 'statement-text text-center fs-4 fw-bold';
+                termEl.textContent = question.term;
+                quizArea.appendChild(termEl);
+            }
+        }
+
+        /**
+         * Renders Dynamic Multiple Choice
+         */
+        function renderMultipleChoice(question, index) {
+            renderQuestionHeader(question, index);
+            
+            // Get 3 distractors
+            const distractors = getUniqueRandomItems(mcqAnswerPool, 3, question.answer);
+            const options = shuffleArray([...distractors, question.answer]);
+
+            // If any option is very long, render options using the 'long' layout
+            const LONG_OPTION_THRESHOLD = 40;
+            const useLongLayout = options.some(opt => (opt || '').length > LONG_OPTION_THRESHOLD);
+
+            options.forEach(option => {
+                const div = document.createElement('div');
+                div.className = useLongLayout ? 'form-check form-check-long' : 'form-check';
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.className = 'form-check-input';
+                input.name = `question-${index}`;
+                input.value = option;
+                // Create a more robust ID
+                input.id = `q${index}-option-${normalizeString(option)}`;
+                input.addEventListener('change', () => saveAnswer(index));
+
+                const label = document.createElement('label');
+                label.className = 'form-check-label';
+                label.htmlFor = input.id;
+                // For long-layout questions keep original casing and wrapping; otherwise show uppercase for visual consistency
+                label.textContent = useLongLayout ? option : option.toUpperCase();
+
+                div.appendChild(input);
+                div.appendChild(label);
+                quizArea.appendChild(div);
+            });
+        }
+        
+        /**
+         * Renders standard Multi-Select
+         */
+        function renderMultiSelect(question, index) {
+            renderQuestionHeader(question, index);
+            
+            const LONG_OPTION_THRESHOLD_MS = 40;
+            const useLongLayoutMS = question.options.some(opt => (opt || '').length > LONG_OPTION_THRESHOLD_MS);
+
+            question.options.forEach(option => {
+                const div = document.createElement('div');
+                div.className = useLongLayoutMS ? 'form-check form-check-long' : 'form-check';
+
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.className = 'form-check-input';
+                input.name = `question-${index}`;
+                input.value = option;
+                input.id = `q${index}-option-${normalizeString(option)}`;
+                input.addEventListener('change', () => saveAnswer(index));
+
+                const label = document.createElement('label');
+                label.className = 'form-check-label';
+                label.htmlFor = input.id;
+                label.textContent = useLongLayoutMS ? option : option.toUpperCase(); // Keep original casing for long options
+
+                div.appendChild(input);
+                div.appendChild(label);
+                quizArea.appendChild(div);
+            });
+        }
+        
+        /**
+         * Renders Binary Choice
+         */
+        function renderBinaryChoice(question, index) {
+            renderQuestionHeader(question, index);
+            
+            const LONG_OPTION_THRESHOLD_BIN = 40;
+            const useLongLayoutBin = question.options.some(opt => (opt || '').length > LONG_OPTION_THRESHOLD_BIN);
+
+            question.options.forEach(option => {
+                const div = document.createElement('div');
+                div.className = useLongLayoutBin ? 'form-check form-check-long' : 'form-check';
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.className = 'form-check-input';
+                input.name = `question-${index}`;
+                input.value = option;
+                input.id = `q${index}-option-${normalizeString(option)}`;
+                input.addEventListener('change', () => saveAnswer(index));
+
+                const label = document.createElement('label');
+                label.className = 'form-check-label';
+                label.htmlFor = input.id;
+                label.textContent = useLongLayoutBin ? option : option.toUpperCase();
+
+                div.appendChild(input);
+                div.appendChild(label);
+                quizArea.appendChild(div);
+            });
+        }
+
+        /**
+         * Renders Dynamic Fill-in-the-Blank with choice pool
+         */
+        function renderFillInBlank(question, index) {
+            // Render question text with a visual blank
+            const questionHtml = question.question.replace(
+                '[BLANK]', 
+                `<span id="q${index}-fill-in" class="fill-in-blank-span">&nbsp;</span>`
+            );
+            
+            const questionTextEl = document.createElement('p');
+            questionTextEl.className = 'fill-in-blank-text';
+            questionTextEl.innerHTML = `Q${index + 1}: ${questionHtml}`;
+            quizArea.appendChild(questionTextEl);
+            
+            // Create choice pool
+            const correctAnswer = question.answer.toUpperCase();
+            const distractors = getUniqueRandomItems(fillAnswerPool, 3, correctAnswer);
+            const options = shuffleArray([...distractors, correctAnswer]);
+
+            const poolEl = document.createElement('div');
+            poolEl.className = 'choice-pool';
+            poolEl.id = `q${index}-choice-pool`;
+            
+            options.forEach(option => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'btn btn-outline-secondary choice-pool-btn';
+                btn.textContent = option;
+                btn.dataset.value = option;
+                
+                btn.addEventListener('click', () => {
+                    // Handle selection
+                    const blankSpan = document.getElementById(`q${index}-fill-in`);
+                    blankSpan.textContent = option;
+                    
+                    // Remove 'selected' from siblings
+                    poolEl.querySelectorAll('.choice-pool-btn').forEach(b => b.classList.remove('selected'));
+                    // Add 'selected' to this one
+                    btn.classList.add('selected');
+                    
+                    saveAnswer(index);
+                });
+                
+                poolEl.appendChild(btn);
+            });
+            
+            quizArea.appendChild(poolEl);
+        }
+        
+        /**
+         * Renders Matching questions
+         */
+        function renderMatching(question, index) {
+            renderQuestionHeader(question, index);
+             
+            const shuffledMatches = shuffleArray([...question.matches]);
+
+            question.stems.forEach((stem, i) => {
+                const row = document.createElement('div');
+                row.className = 'matching-row';
+                
+                const stemEl = document.createElement('div');
+                stemEl.className = 'matching-stem';
+                stemEl.textContent = stem;
+                
+                const selectWrapper = document.createElement('div');
+                selectWrapper.className = 'matching-select';
+                
+                const select = document.createElement('select');
+                select.className = 'form-select';
+                select.id = `q${index}-stem-${i}`;
+                select.dataset.stem = stem;
+                
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "Select a match...";
+                select.appendChild(defaultOption);
+                
+                shuffledMatches.forEach(match => {
+                    const option = document.createElement('option');
+                    option.value = match;
+                    option.textContent = match;
+                    select.appendChild(option);
+                });
+
+                select.addEventListener('change', () => saveAnswer(index));
+                
+                selectWrapper.appendChild(select);
+                row.appendChild(stemEl);
+                row.appendChild(selectWrapper);
+                quizArea.appendChild(row);
+            });
+        }
+        
+        /**
+         * Renders Categorization Sorter questions
+         */
+        function renderCategorization(question, index) {
+            renderQuestionHeader(question, index);
+            
+            const itemsPoolContainer = document.createElement('div');
+            itemsPoolContainer.id = `q${index}-items-pool-container`;
+            itemsPoolContainer.innerHTML = `<h6>Items to sort:</h6>`;
+            
+            const itemsPool = document.createElement('div');
+            itemsPool.className = 'draggable-items-pool';
+            itemsPool.id = `q${index}-items-pool`;
+            
+            const shuffledItems = shuffleArray([...question.items]);
+            
+            shuffledItems.forEach((item, i) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'draggable-item';
+                itemEl.textContent = item.text;
+                itemEl.id = `q${index}-item-${i}`;
+                itemEl.dataset.text = item.text;
+                itemEl.draggable = true;
+                
+                itemEl.addEventListener('dragstart', e => {
+                    draggedItem = e.target;
+                    setTimeout(() => e.target.classList.add('dragging'), 0);
+                });
+                
+                itemEl.addEventListener('dragend', e => {
+                    e.target.classList.remove('dragging');
+                    draggedItem = null;
+                    saveAnswer(index);
+                });
+                
+                itemsPool.appendChild(itemEl);
+            });
+            
+            itemsPoolContainer.appendChild(itemsPool);
+            quizArea.appendChild(itemsPoolContainer);
+            
+            const bucketsContainer = document.createElement('div');
+            bucketsContainer.className = 'categorization-container';
+            bucketsContainer.id = `q${index}-buckets`;
+            
+            question.categories.forEach(category => {
+                const bucket = document.createElement('div');
+                bucket.className = 'drop-bucket';
+                bucket.dataset.category = category;
+                
+                bucket.innerHTML = `<h6>${category}</h6>`;
+                
+                bucket.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    e.target.closest('.drop-bucket').classList.add('drag-over');
+                });
+                
+                bucket.addEventListener('dragenter', e => {
+                    e.preventDefault();
+                    e.target.closest('.drop-bucket').classList.add('drag-over');
+                });
+                
+                bucket.addEventListener('dragleave', e => {
+                    if (!e.target.closest('.drop-bucket').contains(e.relatedTarget)) {
+                        e.target.closest('.drop-bucket').classList.remove('drag-over');
+                    }
+                });
+                
+                bucket.addEventListener('drop', e => {
+                    e.preventDefault();
+                    const targetBucket = e.target.closest('.drop-bucket');
+                    targetBucket.classList.remove('drag-over');
+                    if (draggedItem) {
+                        targetBucket.appendChild(draggedItem);
+                    }
+                });
+                
+                bucketsContainer.appendChild(bucket);
+            });
+            
+            quizArea.appendChild(bucketsContainer);
+
+            // Add drop listener to the items pool
+            itemsPool.addEventListener('dragover', e => {
+                e.preventDefault();
+                itemsPool.classList.add('drag-over');
+            });
+            itemsPool.addEventListener('dragenter', e => {
+                e.preventDefault();
+                itemsPool.classList.add('drag-over');
+            });
+            itemsPool.addEventListener('dragleave', e => {
+                if (!itemsPool.contains(e.relatedTarget)) {
+                    itemsPool.classList.remove('drag-over');
+                }
+            });
+            itemsPool.addEventListener('drop', e => {
+                e.preventDefault();
+                itemsPool.classList.remove('drag-over');
+                if (draggedItem) {
+                    itemsPool.appendChild(draggedItem);
+                }
+            });
+        }
+
+        // --- Answer Handling ---
+
+        /**
+         * Saves the user's answer for the current question
+         * @param {number} index - The index of the question to save
+         */
+        function saveAnswer(index) {
+            if (isAnswerChecked) return;
+
+            const question = allQuestions[index];
+            
+            switch (question.type) {
+                case 'multiple-choice':
+                case 'binary-choice': {
+                    const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+                    userAnswers[index] = selected ? selected.value : null;
+                    break;
+                }
+                case 'multi-select': {
+                    const selected = document.querySelectorAll(`input[name="question-${index}"]:checked`);
+                    userAnswers[index] = Array.from(selected).map(el => el.value);
+                    break;
+                }
+                case 'fill-in-the-blank': {
+                    const selectedBtn = document.querySelector(`#q${index}-choice-pool .choice-pool-btn.selected`);
+                    userAnswers[index] = selectedBtn ? selectedBtn.dataset.value : null;
+                    break;
+                }
+                case 'matching': {
+                    const selects = document.querySelectorAll(`select[id^="q${index}-stem-"]`);
+                    const answer = {};
+                    selects.forEach(select => {
+                        answer[select.dataset.stem] = select.value;
+                    });
+                    userAnswers[index] = answer;
+                    break;
+                }
+                case 'categorization-sorter': {
+                    const answer = {};
+                    const buckets = document.querySelectorAll(`#q${index}-buckets .drop-bucket`);
+                    buckets.forEach(bucket => {
+                        const category = bucket.dataset.category;
+                        const items = bucket.querySelectorAll('.draggable-item');
+                        answer[category] = Array.from(items).map(item => item.dataset.text);
+                    });
+                    
+                    const pool = document.getElementById(`q${index}-items-pool`);
+                    const poolItems = pool.querySelectorAll('.draggable-item');
+                    answer['unsorted'] = Array.from(poolItems).map(item => item.dataset.text);
+                    
+                    userAnswers[index] = answer;
+                    break;
+                }
+            }
+        }
+        
+        /**
+         * Checks the answer for the current question and returns true/false
+         */
+        function checkCurrentAnswer() {
+            const index = currentQuestionIndex;
+            const question = allQuestions[index];
+            const userAnswer = userAnswers[index];
+            const correctAnswer = question.answer;
+
+            switch (question.type) {
+                case 'multiple-choice':
+                case 'binary-choice':
+                    return userAnswer === correctAnswer;
+                case 'fill-in-the-blank':
+                    // Normalize both for comparison (ignore case, symbols, and spaces)
+                    return normalizeString(userAnswer) === normalizeString(correctAnswer);
+                case 'multi-select':
+                    // Check for null/undefined userAnswer
+                    if (!userAnswer) return false;
+                    
+                    // Check if length is different
+                    if (userAnswer.length !== correctAnswer.length) return false;
+                    
+                    // Check if all user answers are in the correct answer array
+                    // and all correct answers are in the user answer array.
+                    const userSet = new Set(userAnswer);
+                    const correctSet = new Set(correctAnswer);
+                    
+                    return userSet.size === correctSet.size && 
+                           userAnswer.every(val => correctSet.has(val));
+                case 'matching': {
+                    let correctMatches = 0;
+                    const totalMatches = Object.keys(correctAnswer).length;
+                    if (userAnswer) {
+                        for (const stem in correctAnswer) {
+                            if (userAnswer[stem] === correctAnswer[stem]) {
+                                correctMatches++;
+                            }
+                        }
+                    }
+                    return correctMatches === totalMatches;
+                }
+                case 'categorization-sorter': {
+                    const totalItems = question.items.length;
+                    let correctPlacements = 0;
+                    
+                    if (userAnswer) {
+                         question.items.forEach(item => {
+                            const correctCategory = item.category;
+                            // Check if user placed it in the correct category
+                            if(userAnswer[correctCategory] && userAnswer[correctCategory].includes(item.text)) {
+                                correctPlacements++;
+                            }
+                         });
+                    }
+                    // Check if all items are placed correctly and none are left unsorted
+                    const unsortedItems = (userAnswer && userAnswer['unsorted']) ? userAnswer['unsorted'] : [];
+                    return correctPlacements === totalItems && unsortedItems.length === 0;
+                }
+            }
+            return false;
+        }
+
+        // --- UI & Navigation ---
+
+        /**
+         * Updates the navigation buttons
+         */
+        function updateNavButtons() {
+            if (isAnswerChecked) {
+                if (currentQuestionIndex === allQuestions.length - 1) {
+                    nextBtn.textContent = "Finish Quiz";
+                } else {
+                    nextBtn.textContent = "Continue";
+                }
+            } else {
+                nextBtn.textContent = "Check Answer";
+            }
+            nextBtn.disabled = false;
+        }
+
+        /**
+         * Updates the progress bar and question counter
+         */
+        function updateProgressBar() {
+            // Avoid division by zero if quiz.json is empty
+            if (allQuestions.length === 0) {
+                progressBar.style.width = '0%';
+                questionCounter.textContent = 'No Questions Loaded';
+                return;
+            }
+            const percentage = ((currentQuestionIndex + 1) / allQuestions.length) * 100;
+            progressBar.style.width = `${percentage}%`;
+            progressBar.setAttribute('aria-valuenow', percentage);
+            questionCounter.textContent = `Question ${currentQuestionIndex + 1} / ${allQuestions.length}`;
+        }
+        
+        /**
+         * Calculates the final score and displays it
+         */
+        function calculateScore() {
+            const totalScore = scores.reduce((acc, val) => acc + val, 0);
+            
+            scoreText.textContent = `${totalScore} / ${allQuestions.length}`;
+            const percentage = Math.round((totalScore / allQuestions.length) * 100);
+            scorePercentage.textContent = `${percentage}%`;
+            resultsModal.show();
+            
+            nextBtn.disabled = true;
+        }
+
+        /**
+         * Displays feedback for the current question
+         */
+        function showImmediateFeedback(index, isCorrect) {
+            const question = allQuestions[index];
+            const userAnswer = userAnswers[index];
+            const correctAnswer = question.answer;
+
+            // Disable all inputs
+            quizArea.querySelectorAll('input, select, .draggable-item, .choice-pool-btn').forEach(el => {
+                el.disabled = true;
+                if(el.classList.contains('draggable-item')) {
+                    el.draggable = false;
+                    el.style.cursor = 'default';
+                }
+                if(el.classList.contains('choice-pool-btn')) {
+                    el.style.cursor = 'default';
+                }
+            });
+
+            switch (question.type) {
+                case 'multiple-choice':
+                case 'binary-choice': {
+                    const options = quizArea.querySelectorAll('.form-check');
+                    options.forEach(opt => {
+                        const input = opt.querySelector('input');
+                        if (input.value === correctAnswer) {
+                            opt.classList.add('correct');
+                        } else if (input.checked) {
+                            opt.classList.add('incorrect');
+                        }
+                    });
+                    break;
+                }
+                case 'multi-select': {
+                    const options = quizArea.querySelectorAll('.form-check');
+                    options.forEach(opt => {
+                        const input = opt.querySelector('input');
+                        if (correctAnswer.includes(input.value)) {
+                            opt.classList.add('correct');
+                        } else if (input.checked) {
+                            opt.classList.add('incorrect');
+                        }
+                    });
+                    break;
+                }
+                case 'fill-in-the-blank': {
+                    const blankSpan = document.getElementById(`q${index}-fill-in`);
+                    const selectedBtn = document.querySelector(`#q${index}-choice-pool .choice-pool-btn.selected`);
+                    const correctBtn = document.querySelector(`#q${index}-choice-pool .choice-pool-btn[data-value="${correctAnswer.toUpperCase()}"]`);
+
+                    if (isCorrect) {
+                        if(selectedBtn) selectedBtn.classList.add('correct');
+                        if(blankSpan) blankSpan.classList.add('correct');
+                    } else {
+                        if(selectedBtn) selectedBtn.classList.add('incorrect');
+                        if(correctBtn) correctBtn.classList.add('correct');
+                        if(blankSpan) {
+                            blankSpan.classList.add('incorrect');
+                            blankSpan.textContent = userAnswer || "Empty";
+                            
+                            const feedback = document.createElement('p');
+                            feedback.className = 'text-correct mt-2 text-center';
+                            feedback.textContent = `Correct answer: ${correctAnswer.toUpperCase()}`;
+                            quizArea.appendChild(feedback);
+                        }
+                    }
+                    break;
+                }
+                case 'matching': {
+                    const selects = quizArea.querySelectorAll('select[data-stem]');
+                    selects.forEach(select => {
+                        const stem = select.dataset.stem;
+                        if (select.value === correctAnswer[stem]) {
+                            select.classList.add('correct');
+                        } else {
+                            select.classList.add('incorrect');
+                            const row = select.closest('.matching-row');
+                            const feedback = document.createElement('span');
+                            feedback.className = 'matching-feedback text-correct';
+                            feedback.textContent = `Correct: ${correctAnswer[stem]}`;
+                            row.appendChild(feedback);
+                        }
+                    });
+                    break;
+                }
+                case 'categorization-sorter': {
+                    // --- EDITED: New feedback logic for categorization ---
+                    if (isCorrect) {
+                        // All items are correct, make everything green
+                        quizArea.querySelectorAll('.draggable-item').forEach(itemEl => {
+                            itemEl.classList.add('correct-placement');
+                        });
+                        quizArea.querySelectorAll('.drop-bucket').forEach(bucket => {
+                            bucket.classList.add('correct');
+                        });
+                    } else {
+                        // Run the incorrect-finding logic
+                        question.items.forEach(item => {
+                            const itemEl = quizArea.querySelector(`.draggable-item[data-text="${item.text}"]`);
+                            if (!itemEl) return;
+                            
+                            const parentContainer = itemEl.parentElement;
+                            const correctCategory = item.category;
+                            
+                            let isCorrectlyPlaced = false;
+                            if (parentContainer.classList.contains('drop-bucket') && parentContainer.dataset.category === correctCategory) {
+                               isCorrectlyPlaced = true;
+                               itemEl.classList.add('correct-placement'); // Mark correct items even on a wrong answer
+                            } else {
+                                itemEl.classList.add('incorrect-placement');
+                                const correctBucket = quizArea.querySelector(`.drop-bucket[data-category="${correctCategory}"]`);
+                                if(correctBucket) correctBucket.classList.add('correct'); // Highlight where it should go
+                            }
+                        });
+                        
+                        quizArea.querySelectorAll('.drop-bucket').forEach(bucket => {
+                            if (bucket.querySelector('.incorrect-placement')) {
+                                bucket.classList.add('incorrect');
+                            } else if (bucket.querySelectorAll('.draggable-item.correct-placement').length > 0) {
+                                // Bucket only contains correct items, but the whole answer was wrong
+                                // (e.g., an item was left in the pool or another bucket is wrong)
+                                bucket.classList.add('correct');
+                            }
+                        });
+                    }
+                    break;
+                }
+            }
+        }
+        
+        // --- Event Listeners ---
+        
+        nextBtn.addEventListener('click', () => {
+            if (isAnswerChecked) {
+                // User clicked "Continue" or "Finish"
+                isAnswerChecked = false;
+                
+                if (currentQuestionIndex === allQuestions.length - 1) {
+                    calculateScore();
+                } else {
+                    currentQuestionIndex++;
+                    loadQuestion(currentQuestionIndex);
+                    updateProgressBar();
+                    updateNavButtons();
+                }
+            } else {
+                // User clicked "Check Answer"
+                saveAnswer(currentQuestionIndex);
+                const isCorrect = checkCurrentAnswer();
+                scores[currentQuestionIndex] = isCorrect ? 1 : 0;
+                
+                showImmediateFeedback(currentQuestionIndex, isCorrect);
+                
+                isAnswerChecked = true;
+                updateNavButtons();
+            }
+        });
+
+        restartBtn.addEventListener('click', () => {
+            resultsModal.hide();
+            // We re-initialize the state, but don't need to re-fetch the data
+            initQuiz();
+        });
+
+        // --- Initial Load ---
+        // This is the correct way: call setupQuiz() on load.
+        document.addEventListener('DOMContentLoaded', setupQuiz);
+        
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <!-- Theme Switcher Script -->
+    <script>
+        // Theme switcher functionality
+        const themeButtons = document.querySelectorAll('.theme-button');
+        const htmlElement = document.documentElement;
+
+        // Load saved theme or default to 'dark'
+        const savedTheme = localStorage.getItem('hci-quiz-theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        updateThemeButtons(savedTheme);
+
+        themeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const theme = button.getAttribute('data-theme-option');
+                htmlElement.setAttribute('data-theme', theme);
+                localStorage.setItem('hci-quiz-theme', theme);
+                updateThemeButtons(theme);
+            });
+        });
+
+        function updateThemeButtons(activeTheme) {
+            themeButtons.forEach(btn => {
+                const isActive = btn.getAttribute('data-theme-option') === activeTheme;
+                btn.setAttribute('aria-pressed', isActive);
+            });
+        }
+    </script>
+
+</body>
+</html>
+
