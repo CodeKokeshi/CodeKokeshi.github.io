@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thesis Section | CodeKokeshi</title>
+    <meta name="description" content="CodeKokeshi thesis documents and supporting write-ups." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/site.css" />
+    <style>
+      .thesis-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 1.5rem;
+      }
+
+      .thesis-list li {
+        margin-bottom: 0.75rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+      }
+
+      .thesis-list a {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px solid currentColor;
+      }
+
+      .thesis-list a:hover,
+      .thesis-list a:focus {
+        opacity: 0.75;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="top-bar">
+        <a class="brand" href="../index.html">Code Kokeshi</a>
+        <nav class="nav-links" aria-label="Site">
+          <a class="nav-link" href="../gamedev.html">Game Dev</a>
+          <a class="nav-link" href="../art.html">Art</a>
+          <a class="nav-link" href="../projects.html">Projects</a>
+          <a class="nav-link active" href="index.html">Thesis</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="page-section">
+          <h1 class="section-title">Thesis Documents</h1>
+          <p class="lead">Text-only references for current write-ups. New entries will be added as drafts are published.</p>
+          <ul class="thesis-list">
+            <li><a href="metersnap_scrum.html">MeterSnap Development Methodology</a></li>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="site-footer">© <span id="year"></span> CodeKokeshi. Built with intention.</footer>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

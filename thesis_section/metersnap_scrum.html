@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeterSnap - Development Methodology</title>
+    <!-- Load Tailwind CSS for professional styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Simple style for the document body for readability */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        h1, h2, h3 {
+            font-family: Arial, sans-serif;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 leading-relaxed">
+    <div class="max-w-4xl mx-auto p-8 lg:p-12 bg-white shadow-lg my-10">
+
+        <!-- Header -->
+        <header class="text-center border-b pb-4 mb-8">
+            <h1 class="text-4xl font-bold text-gray-900">MeterSnap: A Justification of Development Methodology</h1>
+            <p class="text-lg text-gray-600 mt-2">Prepared for Proposal Defense</p>
+        </header>
+
+        <!-- Abstract -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">Abstract</h2>
+            <p>This document outlines the selection and justification of the **Agile Scrum** methodology for the development of the MeterSnap mobile application. The project's unique characteristics, specifically the integration of high-uncertainty Machine Learning (ML) and Computer Vision (CV) components, necessitated a flexible and adaptive process. This paper argues that while traditional models like Waterfall or pure Incremental would have failed, Scrum provided the necessary framework to manage risk, pivot development priorities, and deliver a functional Minimum Viable Product (MVP) by decoupling the core application logic from the complex AI experimentation. The specific project events that validate this choice—namely the strategic pivot to a 'Manual Input' feature and the late-stage addition of an emergent 'Torch' feature—are analyzed as practical evidence of Scrum's efficacy.</p>
+        </section>
+
+        <!-- Main Content Sections -->
+        <div class="space-y-12">
+            
+            <!-- 1.0 Selection of Methodology -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">1.0 Selection of Methodology: Agile Scrum</h2>
+                <p class="mb-4">The MeterSnap project was developed using the **Agile Scrum** framework. Agile is a project management philosophy that prioritizes flexibility, collaboration, and adaptive planning in response to change, rather than strict adherence to an initial plan (Manzoor et al., 2024). Scrum is a specific, prescriptive *methodology* within the Agile philosophy that structures development into iterative cycles called "Sprints," as defined in its foundational guide (Schwaber & Sutherland, 2020).</p>
+                <p>We selected Scrum for two primary reasons:</p>
+                <ol class="list-decimal list-inside ml-4 space-y-2">
+                    <li><strong>It manages high-uncertainty:</strong> The core of the project, a custom-trained CNN model for digit recognition, is a task of high technical uncertainty. Its success is not guaranteed and is dependent on data collection and experimentation.</li>
+                    <li><strong>It delivers incremental value:</strong> Scrum forces the team to produce a "Potentially Shippable Product Increment" at the end of each Sprint. This ensured we would have a working application to demonstrate, even if the AI module was not yet complete.</li>
+                </ol>
+            </section>
+
+            <!-- 2.0 Justification for Scrum -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">2.0 Justification for Scrum in MeterSnap</h2>
+                <p class="mb-4">The MeterSnap development cycle provides concrete evidence validating the choice of Scrum. The project's actual flow was not a failure to follow a plan, but a successful application of Agile principles.</p>
+
+                <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-2">2.1 The "Roadmap Pivot": Decoupling for Risk Mitigation</h3>
+                <p class="mb-4">The most critical decision in this project was the pivot from the original, high-risk plan to a robust, phased approach. </p>
+                <ul class="list-disc list-inside ml-4 space-y-2">
+                    <li><strong>Original Plan:</strong> [Camera → CNN Scanning → Bill Calculation]</li>
+                    <li><strong>Identified Risk:</strong> This plan creates a hard dependency. If the "CNN Scanning" (a research-heavy task) fails or is delayed, the *entire project* fails.</li>
+                    <li><strong>The Agile Pivot:</strong> Using Scrum, we re-prioritized the "Product Backlog." The "Manual Input" feature was identified as a high-value, low-risk story. It was pulled into an early Sprint.</li>
+                    <li><strong>Actual Plan:</strong> [Camera → Manual Input → Bill Calculation → (Future Sprints: Data Collection, Training, CNN Implementation)]</li>
+                </ul>
+                <p class="mt-4 p-4 bg-gray-50 border-l-4 border-blue-600">
+                    <strong>Justification:</strong> This pivot, enabled by Scrum, is the project's single greatest strength. It allowed us to decouple the application framework from the ML experimentation. We successfully built a stable, testable **Minimum Viable Product (MVP)**—a functional bill calculator—while isolating the high-risk AI component as a future, bolt-on enhancement. Recent MLOps research (Barros et al., 2024) strongly advocates for such "decoupled" approaches to prevent experimental AI from halting development.
+                </p>
+
+                <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-2">2.2 The "Emergent Feature": Responding to Discovery</h3>
+                <p class="mb-4">During a later Sprint focused on UI polish, an emergent requirement was discovered: the app would be unusable in dark environments (e.g., poorly lit utility closets). In a rigid model, this feature would be "out of scope."</p>
+                <p>In Scrum, this is a new "User Story" (`As a user, I want to read my meter in the dark...`). The "Torch" feature was identified as high-value and low-effort. The framework allowed us to add this story to the Sprint, integrate it, and release a better product. This is a classic example of "responding to change over following a plan."</p>
+            </section>
+
+            <!-- 3.0 Rejection of Alternatives -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">3.0 Rejection of Alternative Methodologies</h2>
+                <p class="mb-4">The selection of Scrum is further solidified by analyzing the guaranteed failure points of alternative models if applied to MeterSnap.</p>
+
+                <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-2">3.1 Why Not Pure Incremental? (The "Puzzle" Method)</h3>
+                <p class="mb-4">A pure Incremental model is like building a puzzle. You finish one piece perfectly (e.g., the Camera module), then the next (the CNN module). This model *still* requires a fixed, upfront plan.</p>
+                <p>
+                    <strong>Point of Failure:</strong> We would have started the "CNN Module" (Increment 2) and become permanently stuck. We would have no product, no calculator, and no progress to show. The model cannot handle a pivot. It does not allow you to change the order of the puzzle pieces.
+                </D>
+
+                <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-2">3.2 Why Not Pure Iterative? (The "Sketch" Method)</h3>
+                <p class="mb-4">A pure Iterative model is like painting the Mona Lisa by sketching the whole painting, then adding base colors, then adding detail. You are refining the *entire* product at once.</p>
+                <p>
+                    <strong>Point of Failure:</strong> This model assumes the entire system exists from the start, just in a low-fidelity state. It would have forced us to build a "dummy" CNN in Iteration 1. We would be spending all our time refining a non-functional AI, rather than building the parts of the app that *did* work (Settings, Manual Input).
+                </p>
+                
+                <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-2">3.3 The Fusion: Why Scrum is the Correct Hybrid</h3>
+                <p class="mb-4 p-4 bg-gray-50 border-l-4 border-green-600">
+                    Scrum is the correct hybrid of both. It is **Incremental** (we delivered finished modules like "Settings" and "Manual Input") and **Iterative** (we revisited modules to add polish and fix bugs). But critically, it adds the **Agile** layer of *adaptive planning* that allowed us to change the plan (the pivot) and add new features (the torch) based on real-time discoveries.
+                </p>
+            </section>
+
+            <!-- 4.0 Visual Model -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">4.0 Visualizing the MeterSnap Process</h2>
+                <p class="mb-4">The following diagram illustrates the adapted Scrum-based process model used for the MeterSnap project. It visualizes the re-prioritization of the Product Backlog and the incremental delivery of a shippable product.</p>
+
+                <div class="mt-6 border-2 border-gray-300 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-center mb-4">Figure 1: The MeterSnap Scrum-Based Process Model</h3>
+                    <div class="flex flex-col space-y-4">
+                        <!-- Product Backlog -->
+                        <div class="flex items-start">
+                            <div class="w-1/4 font-bold text-right pr-4">Product Backlog<br>(Prioritized)</div>
+                            <div class="w-3/4 border-2 border-gray-400 p-3 rounded-md bg-gray-50">
+                                <p class="font-semibold">User Stories:</p>
+                                <ul class="list-disc list-inside text-sm">
+                                    <li class="font-bold">1. As a user, I want to calculate my bill manually. (Promoted)</li>
+                                    <li class="font-bold">2. As a user, I want to configure settings (CWD).</li>
+                                    <li>3. As a user, I want to use my camera.</li>
+                                    <li>4. As a user, I want UI/icons.</li>
+                                    <li>5. As a user, I want to use a torch. (Added later)</li>
+                                    <li class="text-gray-500 line-through">...</li>
+                                    <li class="text-gray-500">99. As a user, I want the app to read my meter. (Demoted)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Arrow -->
+                        <div class="text-center text-2xl font-bold">↓</div>
+
+                        <!-- Sprint 1 -->
+                        <div class="flex items-center">
+                            <div class="w-1/4 font-bold text-right pr-4">Sprint 1</div>
+                            <div class="w-3/4 flex items-center">
+                                <div class="border-2 border-blue-500 p-3 rounded-md w-1/2 bg-blue-50">Settings Module</div>
+                                <div class="w-1/2 pl-4 text-sm">→ <strong class="text-blue-600">Increment 1:</strong> App Shell + Settings</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Arrow -->
+                        <div class="text-center text-2xl font-bold">↓</div>
+
+                        <!-- Sprint 2 (The Pivot) -->
+                        <div class="flex items-center">
+                            <div class="w-1/4 font-bold text-right pr-4">Sprint 2 (The Pivot)</div>
+                            <div class="w-3/4 flex items-center">
+                                <div class="border-2 border-green-500 p-3 rounded-md w-1/2 bg-green-50">Manual Input + Bill Logic</div>
+                                <div class="w-1/2 pl-4 text-sm">→ <strong class="text-green-600">Increment 2: MVP Complete</strong></div>
+                            </div>
+                        </div>
+
+                        <!-- Arrow -->
+                        <div class="text-center text-2xl font-bold">↓</div>
+
+                        <!-- Sprint 3 -->
+                        <div class="flex items-center">
+                            <div class="w-1/4 font-bold text-right pr-4">Sprint 3</div>
+                            <div class="w-3/4 flex items-center">
+                                <div class="border-2 border-purple-500 p-3 rounded-md w-1/2 bg-purple-50">UI Polish, Icons, Torch</div>
+                                <div class="w-1/2 pl-4 text-sm">→ <strong class="text-purple-600">Increment 3: Alpha Release</strong></div>
+                            </div>
+                        </div>
+
+                        <!-- Arrow -->
+                        <div class="text-center text-2xl font-bold">↓</div>
+
+                        <!-- Future Sprints -->
+                        <div class="flex items-center">
+                            <div class="w-1/4 font-bold text-right pr-4">Future Sprints</div>
+                            <div class="w-3/4 flex items-center">
+                                <div class="border-2 border-gray-500 border-dashed p-3 rounded-md w-1/2 bg-gray-100">AI/CNN Module (Data, Train, Deploy)</div>
+                                <div class="w-1/2 pl-4 text-sm">→ <strong class="text-gray-600">Final Enhancement</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5.0 Anticipated Questions -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">5.0 Anticipated Questions (Panelist Defense)</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Q1: "Why isn't the AI (the core of your thesis) finished for a proposal defense?"</h3>
+                        <p class="p-3 bg-gray-50 border-l-4 border-gray-400">
+                            <strong>A:</strong> "We used Scrum to deliberately decouple the application framework from the ML experimentation. We prioritized the 'Manual Input' feature to create a stable, *testable* MVP. This ensures the app's core logic (billing, settings) is robust and provides immediate value. The AI is a high-risk enhancement scheduled for a subsequent sprint. This *mitigates the risk* of the entire project failing due to AI training delays, a common issue identified in MLOps research (Barros et al., 2024)."
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Q2: "This just looks like 'Incremental' with a new name. What's the real difference?"</h3>
+                        <p class="p-3 bg-gray-50 border-l-4 border-gray-400">
+                            <strong>A:</strong> "The key difference is *adaptation*. A pure Incremental model follows a pre-set plan of increments. We *changed* our plan. Our initial roadmap was `[Camera -> CNN]`. When we identified the risk, we used the Scrum framework to re-prioritize our Product Backlog, pulling the 'Manual Input' story into Sprint 2. An incremental model would have forced us to get stuck on the CNN. Agile Scrum allowed us to *pivot* to deliver value first."
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Q3: "You just added features 'whenever' (like the Torch). Isn't that just chaotic, unplanned coding?"</h3>
+                        <p class="p-3 bg-gray-50 border-l-4 border-gray-400">
+                            <strong>A:</strong> "That wasn't chaos; it was a response to an *emergent requirement*. During Sprint 3, testing revealed the app would fail in low-light. The Scrum framework allows for new 'User Stories' to be created. We identified the 'Torch' feature as high-value and low-effort, and the team had the autonomy to add it to the Sprint Backlog. This is a core strength of Agile—planned adaptation, not chaos."
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6.0 References -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">6.0 References (APA 6th Edition)</h2>
+                <div class="space-y-4 text-sm">
+                    <p>Barros, E., Jr., Gois, J., Meira, L., & Meira, S. (2024). *Agile management for machine learning: A systematic mapping study*. Retrieved from https://arxiv.org/html/2506.20759v1</p>
+                    
+                    <p>Kaya, F., & Genc, H. E. (2024). *AI-powered Scrum: A systematic literature review of the current trends and the state-of-the-art of Artificial Intelligence capabilities in agile project management*. DiVA portal. Retrieved from http://su.diva-portal.org/smash/record.jsf?pid=diva2:1955532</p>
+
+                    <p>Manzoor, U., Zafar, M. H., Waseem, M., & Shoaib, M. (2024). A comprehensive review of agile methodologies in mobile app development. *International Research Journal of Modernization in Engineering Technology and Science, 06*(08), 2459-2466.</p>
+
+                    <p>Schwaber, K., & Sutherland, J. (2020). *The Scrum Guide*. Retrieved from https://scrumguides.org/scrum-guide.html</p>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
