@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MeterSnap Dilemmas on Project Scope and Domain</title>
-    <!-- Load Tailwind CSS for professional styling -->
+    <!-- Load Tailwind CSS for professional styling (FIXED LINK) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Re-using the same font style for consistency */
@@ -32,63 +32,63 @@
             
             <!-- 1.0 Justification for Carmona Water District (CWD) -->
             <section>
-                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">1.0 Justification for Carmona Water District (CWD) as a Case Study</h2>
-                <p class="mb-4">A core decision in our research design was the selection of the Carmona Water District (CWD) as the specific domain for our application. This was a deliberate methodological choice to ensure the project is both feasible and academically sound. The justification is threefold:</p>
+                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">1.0 Why We Chose Carmona Water District (CWD) as our Case Study</h2>
+                <p class="mb-4">A core decision in our research was choosing the Carmona Water District (CWD) as our single area of focus. This was not a random choice, but a deliberate, strategic decision to ensure our project is feasible, financially responsible, and academically strong. We based this on three comprehensive arguments:</p>
 
                 <ul class="list-decimal list-inside ml-4 space-y-4">
                     <li>
-                        <strong>Geographic Feasibility and Data Accessibility:</strong>
-                        <p class="ml-4 text-gray-700">Our team's proximity to the Carmona area, based at the CvSU Carmona campus during the project's inception, makes CWD the most feasible choice. This proximity is critical for primary data collection, such as capturing a diverse dataset of meter images under various real-world conditions (e.g., different lighting, angles, and meter ages). This accessibility is a practical research constraint that we have turned into a strength.</p>
+                        <strong>Logistical & Financial Feasibility (The "Hub" Argument):</strong>
+                        <p class="ml-4 text-gray-700">As a small research group of students, we had to be realistic about our budget and time. Our project's central meeting place and "hub" is the **CvSU Carmona campus**. With members living in nearby areas (Timbao, Langkiwa, GMA, and Carmona), the campus is our main coordination point. This geographic reality makes CWD the *only* logistically sound choice. Trying to cover multiple water districts (like Maynilad or Manila Water) would require an enormous, unrealistic travel budget and a level of logistical coordination that is not feasible for our team.</p>
                     </li>
                     <li>
-                        <strong>Verifiable Public Data for Prototyping:</strong>
-                        <p class="ml-4 text-gray-700">As a public utility, CWD's billing structure (i.e., the rate tiers for residential, commercial, etc.) is transparent and publicly available. This allows us to develop our core "Bill Calculation" logic based on a stable, verifiable set of rules. We can prove our app's calculation accuracy against this known, fixed data model.</p>
+                        <strong>A Bounded and Verifiable "Case Study" (The "Blueprint" Argument):</strong>
+                        <p class="ml-4 text-gray-700">Making an "all-in-one" bill calculator is impossible, as every water district has its own complex billing rules. CWD provides a perfect, bounded "case study" because its data is public and verifiable. We can access their official **billing structures** (rate tiers for Residential, Commercial, etc.), which are stable and easy to check. This allows us to prove our app's math is correct. Our goal isn't to make a universal app, but to create a successful *blueprint* that proves the `(Local Billing Logic + Local AI Training)` concept works and can be replicated by others.</p>
                     </li>
                     <li>
-                        <strong>CWD as a Bounded "Case Study":</strong>
-                        <p class="ml-4 text-gray-700">The most important reason for this choice is to create a *bounded case study*. The Research Coordinator's argument is fundamentally correct: it is impossible to build a "universal" bill calculator, as every water district has its own unique, complex billing rules. By focusing *only* on CWD, we are deliberately limiting our scope. Our goal is not to build a universal commercial product, but to build a *prototype* that proves the concept (bill calculation + CNN scanning) is viable within a single, defined domain.</p>
+                        <strong>AI Data Collection Requirements (The "Meter Farm" Argument):</strong>
+                        <p class="ml-4 text-gray-700">This is our most critical technical reason. A Convolutional Neural Network (CNN) needs to be trained on *thousands* of images. Our logistical proximity (Point 1) is essential for this primary data collection. It allows us to visit the dense customer base of CWD repeatedly, capturing the high volume of images we need in all real-world conditions: in bright sunlight, in deep shadow, at night, in the rain, covered in dirt, new, old, and scratched. Focusing only on CWD makes gathering this high-variance dataset *possible*.</p>
                     </li>
                 </ul>
 
                 <p class="mt-6 p-4 bg-gray-50 border-l-4 border-blue-600">
-                    <strong>Our Position:</strong> We selected CWD not just for convenience, but because it provides the ideal balance of data accessibility and specific, verifiable rules necessary to conduct a successful research prototype.
+                    <strong>Our Position:</strong> Our choice of CWD wasn't for convenience; it was a necessary, multi-faceted strategic decision. It is the only way we can feasibly manage the project's **logistics and budget**, using the CvSU campus as our hub. It provides the **stable, public billing rules** that allow us to prove our concept within a **bounded case study**, as advised by our Research Coordinator. And most importantly, it gives us the dense, accessible **"meter farm"** required to gather the thousands of real-world images needed to successfully train our AI.
                 </p>
             </section>
 
             <!-- 2.0 Clarifying the "Client-Based" Dilemma -->
             <section>
-                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">2.0 Clarifying Stakeholder Roles (The "Client" Dilemma)</h2>
-                <p class="mb-4">There has been ambiguity regarding the term "client-based," as our project focuses on the *customers* of CWD, not CWD itself. This has implications for data gathering and project goals. To resolve this, we have formally defined the stakeholders:</p>
+                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">2.0 Who Is Our "Client"? (Clearing up the Confusion)</h2>
+                <p class="mb-4">We needed to clear up some confusion about the term "client-based." Our project focuses on the *customers* of CWD, not the CWD organization itself. This difference is important for how we gather data and what our project's goals are. To make this clear, we've defined who is who:</p>
 
                 <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-2">2.1 The End-User (Our Primary Focus)</h3>
-                <p>The "client" or, more accurately, the **end-user**, is the individual CWD customer. Our project is fundamentally *consumer-facing*. The problem we are solving (bill uncertainty, "bill shock") is a problem experienced by the customer. Therefore, the app's success, usability, and features are all designed to satisfy the needs of this group.</p>
+                <p>The "client"—or more accurately, our **end-user**—is the individual CWD customer. Our project is built for consumers. The main problem we are trying to solve is the customer's problem: feeling uncertain about their bill or getting "bill shock" at the end of the month. Because of this, our app's success is measured by how well it meets the needs of these customers.</p>
 
                 <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-2">2.2 The Domain Provider (CWD's Role)</h3>
-                <p>The Carmona Water District (CWD) is not our "client" in the traditional sense; they have not commissioned this project. Instead, CWD serves as the **Domain Provider** or **Subject Matter Expert (SME)**. They are the source of the "business logic"—the specific billing rates and classifications that our app must use to be accurate. The app is *tailored* to their domain, but it is not *built for* them.</p>
+                <p>The Carmona Water District (CWD) isn't our "client" in the way most people think of it. They didn't hire us to make this app. Instead, CWD is our **Domain Provider**. This means they are the source of the "business rules"—the specific billing rates and customer types that our app needs to know to be accurate. Our app is *tailored* to CWD's rules, but it isn't *built for* the CWD organization.</p>
 
                 <p class="mt-6 p-4 bg-gray-50 border-l-4 border-green-600">
-                    <strong>Our Position:</strong> This distinction is crucial. It means our primary loyalty is to the *end-user's* needs (clarity, ease of use), while our primary constraint is the *domain's* rules (CWD's rates). This resolves the conflict: we are building a user-centric tool for a specific, non-negotiable domain.
+                    <strong>Our Position:</strong> This difference is very important. It means our main focus is on the *end-user's* needs (making the app clear and easy to use). At the same time, our main limitation is the *domain's* rules (we must follow CWD's rates). This clears up the confusion: we are building a tool that helps users, but it must operate inside a specific, unchangeable set of rules.
                 </p>
             </section>
 
             <!-- 3.0 Data Collection Strategy & Risk Management -->
             <section>
-                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">3.0 Data Collection Strategy (Addressing the Dilemma)</h2>
-                <p class="mb-4">This leads to the question of data gathering: What if CWD, as the Domain Provider, is not cooperative in providing internal data, such as customer complaint logs?</p>
+                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">3.0 Our Data Collection Strategy (And Why We Don't Need CWD's Permission)</h2>
+                <p class="mb-4">This brings us to our data collection plan. What happens if CWD isn't cooperative? What if they don't want to share internal data, like logs of customer complaints?</p>
                 
-                <p class="mb-4">Our research methodology is designed to be robust against this risk. We have identified two distinct types of data we need:</p>
+                <p class="mb-4">Our research plan is designed to work even if this happens. We've identified two different types of data that we need:</p>
 
                 <ul class="list-decimal list-inside ml-4 space-y-4">
                     <li>
-                        <strong>System Data (The "How-to"):</strong> This is the billing logic. As established in Section 1.2, this is public data. We do not need CWD's active cooperation to acquire this; it can be sourced from public records or a customer's own paper bill.
+                        <strong>System Data (The "How-to"):</strong> This is the billing math. As we said earlier, this is public information. We don't need CWD's permission or help to get it. We can find it in public records or just by looking at any customer's paper bill.
                     </li>
                     <li>
-                        <strong>Problem Data (The "Why"):</strong> This is the data proving the *problem* exists (e.g., customer complaints, confusion about billing). We do not need CWD's internal logs for this. In fact, it is *stronger* for our research to gather this as primary data.
+                        <strong>Problem Data (The "Why"):</strong> This is the proof that a problem *actually exists* (for example, finding out if customers are really confused or unhappy about their bills). We don't need CWD's internal complaint logs to prove this. In fact, our research is *stronger* if we gather this information ourselves, as primary data.
                     </li>
                 </ul>
 
                 <p class="mt-6 p-4 bg-gray-50 border-l-4 border-red-600">
-                    <strong>Our Strategy:</strong> We will conduct our own surveys, interviews, and usability tests *directly with the end-users* (the CWD customers) to validate the problem. This user-centric approach is more scientifically valid than relying on second-hand internal reports from CWD. This strategy makes our research independent of CWD's administrative cooperation and keeps the focus firmly on the customer's experience.
+                    <strong>Our Strategy:</strong> Our strategy is simple: we will go straight to the source. We will conduct our own surveys and interviews *directly with the end-users* (the CWD customers) to prove that this problem is real. This approach is better for our research than just using second-hand reports from CWD. It also means our project doesn't depend on CWD's cooperation and keeps our focus where it belongs: on the customer's experience.
                 </p>
             </section>
 
