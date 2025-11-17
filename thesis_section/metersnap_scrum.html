@@ -15,6 +15,33 @@
             font-family: Arial, sans-serif;
             font-weight: 600;
         }
+        .scrum-carousel {
+            position: relative;
+        }
+        .scrum-slide {
+            display: none;
+        }
+        .scrum-slide.active {
+            display: block;
+        }
+        .carousel-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        .carousel-button {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+        .carousel-button:hover,
+        .carousel-button:focus {
+            background: #e5e7eb;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 leading-relaxed">
@@ -65,7 +92,7 @@
 
                 <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-2">2.2 The "Emergent Feature": Responding to Discovery</h3>
                 <p class="mb-4">During a later Sprint focused on UI polish, an emergent requirement was discovered: the app would be unusable in dark environments (e.g., poorly lit utility closets). In a rigid model, this feature would be "out of scope."</p>
-                <p>In Scrum, this is a new "User Story" (`As a user, I want to read my meter in the dark...`). The "Torch" feature was identified as high-value and low-effort. The framework allowed us to add this story to the Sprint, integrate it, and release a better product. This is a classic example of "responding to change over following a plan."</p>
+                <p>In Scrum, we frame discoveries as new "User Stories" (e.g., `As meter readers, we want to read our meters in the dark...`). The "Torch" feature was identified as high-value and low-effort. The framework allowed us to add this story to the Sprint, integrate it, and release a better product. This is a classic example of "responding to change over following a plan."</p>
             </section>
 
             <!-- 3.0 Rejection of Alternatives -->
@@ -74,13 +101,13 @@
                 <p class="mb-4">The selection of Scrum is further solidified by analyzing the guaranteed failure points of alternative models if applied to MeterSnap.</p>
 
                 <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-2">3.1 Why Not Pure Incremental? (The "Puzzle" Method)</h3>
-                <p class="mb-4">A pure Incremental model is like building a puzzle. You finish one piece perfectly (e.g., the Camera module), then the next (the CNN module). This model *still* requires a fixed, upfront plan.</p>
+                <p class="mb-4">A pure Incremental model is like building a puzzle. We finish one piece perfectly (e.g., the Camera module), then the next (the CNN module). This model *still* requires a fixed, upfront plan.</p>
                 <p>
-                    <strong>Point of Failure:</strong> We would have started the "CNN Module" (Increment 2) and become permanently stuck. We would have no product, no calculator, and no progress to show. The model cannot handle a pivot. It does not allow you to change the order of the puzzle pieces.
+                    <strong>Point of Failure:</strong> We would have started the "CNN Module" (Increment 2) and become permanently stuck. We would have no product, no calculator, and no progress to show. The model cannot handle a pivot. It does not allow us to change the order of the puzzle pieces.
                 </D>
 
                 <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-2">3.2 Why Not Pure Iterative? (The "Sketch" Method)</h3>
-                <p class="mb-4">A pure Iterative model is like painting the Mona Lisa by sketching the whole painting, then adding base colors, then adding detail. You are refining the *entire* product at once.</p>
+                <p class="mb-4">A pure Iterative model is like painting the Mona Lisa by sketching the whole painting, then adding base colors, then adding detail. We refine the *entire* product at once.</p>
                 <p>
                     <strong>Point of Failure:</strong> This model assumes the entire system exists from the start, just in a low-fidelity state. It would have forced us to build a "dummy" CNN in Iteration 1. We would be spending all our time refining a non-functional AI, rather than building the parts of the app that *did* work (Settings, Manual Input).
                 </p>
@@ -105,13 +132,13 @@
                             <div class="w-3/4 border-2 border-gray-400 p-3 rounded-md bg-gray-50">
                                 <p class="font-semibold">User Stories:</p>
                                 <ul class="list-disc list-inside text-sm">
-                                    <li class="font-bold">1. As a user, I want to calculate my bill manually. (Promoted)</li>
-                                    <li class="font-bold">2. As a user, I want to configure settings (CWD).</li>
-                                    <li>3. As a user, I want to use my camera.</li>
-                                    <li>4. As a user, I want UI/icons.</li>
-                                    <li>5. As a user, I want to use a torch. (Added later)</li>
+                                    <li class="font-bold">1. As users, we want to calculate our bills manually. (Promoted)</li>
+                                    <li class="font-bold">2. As users, we want to configure the CWD settings.</li>
+                                    <li>3. As users, we want to use the camera.</li>
+                                    <li>4. As users, we want polished UI/icons.</li>
+                                    <li>5. As users, we want to use a torch. (Added later)</li>
                                     <li class="text-gray-500 line-through">...</li>
-                                    <li class="text-gray-500">99. As a user, I want the app to read my meter. (Demoted)</li>
+                                    <li class="text-gray-500">99. As users, we want the app to read our meter. (Demoted)</li>
                                 </ul>
                             </div>
                         </div>
@@ -167,12 +194,95 @@
                 </div>
             </section>
 
+            <!-- 4.1 Defining the Scrum Artifacts and Ceremonies -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">4.1 Defining the Scrum Artifacts and Ceremonies</h2>
+                <p class="mb-4">The Scrum process shown in Figure 1 is composed of "Artifacts" (the things we build) and "Ceremonies" (the meetings we hold). This visualization synthesizes three openly published Scrum development models from Stackademic (Korkut, 2023), GeeksforGeeks (2025), and Workamajig (Donato, 2025).</p>
+
+                <div class="scrum-carousel mb-4" aria-live="polite">
+                    <figure class="scrum-slide active bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                        <img src="images/sdlc/Stackademic.jpg" alt="Scrum lifecycle diagram sourced from Stackademic" class="w-full h-auto" />
+                        <figcaption class="text-xs text-gray-500 mt-2">Figure 1A. Stackademic Scrum model reference.</figcaption>
+                    </figure>
+                    <figure class="scrum-slide bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                        <img src="images/sdlc/GeeksForGeeks.jpg" alt="Scrum lifecycle diagram sourced from GeeksforGeeks" class="w-full h-auto" />
+                        <figcaption class="text-xs text-gray-500 mt-2">Figure 1B. GeeksforGeeks Scrum model reference.</figcaption>
+                    </figure>
+                    <figure class="scrum-slide bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                        <img src="images/sdlc/WorkAMAJig.png" alt="Scrum phases diagram sourced from Workamajig" class="w-full h-auto" />
+                        <figcaption class="text-xs text-gray-500 mt-2">Figure 1C. Workamajig Scrum phases reference.</figcaption>
+                    </figure>
+                    <div class="carousel-controls">
+                        <button type="button" id="scrum-prev" class="carousel-button">Previous</button>
+                        <button type="button" id="scrum-next" class="carousel-button">Next</button>
+                    </div>
+                </div>
+
+                <p class="mb-6">The following definitions are contextualized for the MeterSnap project.</p>
+
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">The "Before" Phase: Project Setup</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <!-- Scope -->
+                    <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg text-gray-800">Scope</h4>
+                        <p class="text-sm"><strong>What it is:</strong> The high-level boundary of the project. What it will and will not do.</p>
+                        <p class="text-sm mt-2 p-2 bg-white border-l-4 border-gray-400"><strong>MeterSnap Example:</strong> "Create an Android app that calculates CWD water bills from both manual input and camera scanning. It will *not* process payments or work on iOS."</p>
+                    </div>
+                    <!-- Product Backlog -->
+                    <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg text-gray-800">Product Backlog</h4>
+                        <p class="text-sm"><strong>What it is:</strong> The master "To-Do List" for the *entire* project, composed of "User Stories."</p>
+                        <p class="text-sm mt-2 p-2 bg-white border-l-4 border-gray-400"><strong>MeterSnap Example:</strong> The full list of features, including `As users, we want to scan meters...` and `As users, we want to enter our readings manually...`</p>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">The "Sprint" Cycle: The Work Loop</h3>
+                <div class="space-y-6">
+                    <!-- Sprint Planning -->
+                    <div class="bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg text-blue-700">1. Sprint Planning Meeting</h4>
+                        <p class="text-sm"><strong>What it is:</strong> The team meets to select a small, achievable chunk of work from the **Product Backlog** to complete in the next cycle (e.g., 2 weeks).</p>
+                        <p class="text-sm mt-2 p-2 bg-blue-50 border-l-4 border-blue-400"><strong>MeterSnap Example:</strong> "For this sprint, we will *only* work on the 'Settings' and 'Manual Input' features. The AI scanning will wait."</p>
+                    </div>
+                    <!-- Sprint Backlog -->
+                    <div class="bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg text-blue-700">2. Sprint Backlog</h4>
+                        <p class="text-sm"><strong>What it is:</strong> The small "To-Do List" created *during* the Sprint Planning meeting. This is the team's commitment for the sprint.</p>
+                        <p class="text-sm mt-2 p-2 bg-blue-50 border-l-4 border-blue-400"><strong>MeterSnap Example:</strong> A list containing only two items: `1. Implement CWD Settings Module.` `2. Implement Manual Input & Bill Logic.`</p>
+                    </div>
+                    <!-- Sprint Execution -->
+                    <div class="bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg text-blue-700">3. Sprint Execution & Daily Scrum</h4>
+                        <p class="text-sm"><strong>What it is:</strong> The 1-4 week period of "heads-down" coding. The **Daily Scrum** is a 15-minute daily check-in covering what we completed, what we plan to complete next, and what blocks our progress.</p>
+                        <p class="text-sm mt-2 p-2 bg-blue-50 border-l-4 border-blue-400"><strong>MeterSnap Example:</strong> The two weeks spent coding the calculation logic. A daily check-in might be: "We're blocked because the CWD rate table is confusing."</p>
+                    </div>
+                    <!-- Usable Software -->
+                    <div class="bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg text-green-700">4. Usable Software (The "Increment")</h4>
+                        <p class="text-sm"><strong>What it is:</strong> The *result* of the sprint. It must be a testable, functional, and "shippable" piece of the product. This is the "Definition of Done."</p>
+                        <p class="text-sm mt-2 p-2 bg-green-50 border-l-4 border-green-400"><strong>MeterSnap Example:</strong> At the end of Sprint 2, the app was a **complete, working bill calculator** (via manual input). This was the MVP.</p>
+                    </div>
+                    <!-- Sprint Review -->
+                    <div class="bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg text-purple-700">5. Sprint Review Meeting</h4>
+                        <p class="text-sm"><strong>What it is:</strong> The team *demonstrates* the "Usable Software" to stakeholders (e.g., professor, panelists) to get feedback.</p>
+                        <p class="text-sm mt-2 p-2 bg-purple-50 border-l-4 border-purple-400"><strong>MeterSnap Example:</strong> During this proposal defense we demonstrate our working MVP (the manual calculator) to the panel for review.</p>
+                    </div>
+                    <!-- Sprint Retrospective -->
+                    <div class="bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg text-purple-700">6. Sprint Retrospective</h4>
+                        <p class="text-sm"><strong>What it is:</strong> The team meets *privately* to discuss the *process*. What went well? What went wrong? How do we improve the *next* sprint?</p>
+                        <p class="text-sm mt-2 p-2 bg-purple-50 border-l-4 border-purple-400"><strong>MeterSnap Example:</strong> "What went wrong? We discovered during testing that the camera is useless in the dark. What do we change? Let's add a 'Torch' feature to the Product Backlog for the next sprint."</p>
+                    </div>
+                </div>
+            </section>
+
             <!-- 5.0 Anticipated Questions -->
             <section>
                 <h2 class="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">5.0 Anticipated Questions (Panelist Defense)</h2>
                 <div class="space-y-6">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-900">Q1: "Why isn't the AI (the core of your thesis) finished for a proposal defense?"</h3>
+                        <h3 class="text-lg font-semibold text-gray-900">Q1: "Why isn't the AI (the core of our thesis) finished for the proposal defense?"</h3>
                         <p class="p-3 bg-gray-50 border-l-4 border-gray-400">
                             <strong>A:</strong> "We used Scrum to deliberately decouple the application framework from the ML experimentation. We prioritized the 'Manual Input' feature to create a stable, *testable* MVP. This ensures the app's core logic (billing, settings) is robust and provides immediate value. The AI is a high-risk enhancement scheduled for a subsequent sprint. This *mitigates the risk* of the entire project failing due to AI training delays, a common issue identified in MLOps research (Barros et al., 2024)."
                         </p>
@@ -184,7 +294,7 @@
                         </p>
                     </div>
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-900">Q3: "You just added features 'whenever' (like the Torch). Isn't that just chaotic, unplanned coding?"</h3>
+                        <h3 class="text-lg font-semibold text-gray-900">Q3: "Did we just add features 'whenever' (like the Torch), making the effort chaotic and unplanned?"</h3>
                         <p class="p-3 bg-gray-50 border-l-4 border-gray-400">
                             <strong>A:</strong> "That wasn't chaos; it was a response to an *emergent requirement*. During Sprint 3, testing revealed the app would fail in low-light. The Scrum framework allows for new 'User Stories' to be created. We identified the 'Torch' feature as high-value and low-effort, and the team had the autonomy to add it to the Sprint Backlog. This is a core strength of Agile—planned adaptation, not chaos."
                         </p>
@@ -203,9 +313,40 @@
                     <p>Manzoor, U., Zafar, M. H., Waseem, M., & Shoaib, M. (2024). A comprehensive review of agile methodologies in mobile app development. *International Research Journal of Modernization in Engineering Technology and Science, 06*(08), 2459-2466.</p>
 
                     <p>Schwaber, K., & Sutherland, J. (2020). *The Scrum Guide*. Retrieved from https://scrumguides.org/scrum-guide.html</p>
+
+                    <p>Donato, H. (2025, June 27). What are the phases of Scrum? *Workamajig*. Retrieved from https://www.workamajig.com/blog/scrum-methodology-guide/scrum-phases</p>
+
+                    <p>GeeksforGeeks. (2025, July 23). Scrum development model in SDLC. Retrieved from https://www.geeksforgeeks.org/software-engineering/scrum-development-model-in-sdlc/</p>
+
+                    <p>Korkut, T. (2023, August 27). Excelling in software development with Scrum methodology part 2. *Stackademic*. Retrieved from https://blog.stackademic.com/excelling-in-software-development-with-scrum-methodology-part-2-e2d0b29437ce</p>
                 </div>
             </section>
         </div>
     </div>
 </body>
+<script>
+    (function () {
+        const slides = document.querySelectorAll('.scrum-slide');
+        const prevBtn = document.getElementById('scrum-prev');
+        const nextBtn = document.getElementById('scrum-next');
+        if (!slides.length || !prevBtn || !nextBtn) return;
+        let currentSlide = 0;
+
+        const showSlide = (index) => {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        };
+
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        });
+    })();
+</script>
 </html>
