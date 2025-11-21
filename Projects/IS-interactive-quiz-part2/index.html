@@ -565,6 +565,7 @@
                 this.currentIndex = 0;
                 this.score = 0;
                 this.streak = 0;
+                this.maxStreak = 0;
                 this.incorrectAnswers = [];
                 
                 // DOM Elements
@@ -599,6 +600,7 @@
                 this.currentIndex = 0;
                 this.score = 0;
                 this.streak = 0;
+                this.maxStreak = 0;
                 this.incorrectAnswers = [];
 
                 // UI Reset
@@ -648,6 +650,7 @@
                     const btn = document.createElement('button');
                     btn.className = 'option-btn w-full p-6 text-left rounded-lg text-lg font-medium animate-slide-in';
                     btn.style.animationDelay = `${index * 0.1}s`;
+                    btn.dataset.answer = opt;
                     btn.innerHTML = `<span class="text-cyan-500 font-bold mr-3">${String.fromCharCode(65 + index)}.</span> ${opt}`;
                     btn.onclick = () => this.handleAnswer(opt, btn);
                     this.ui.optionsGrid.appendChild(btn);
@@ -673,7 +676,7 @@
                     btnElement.classList.add('wrong');
                     // Highlight correct answer
                     buttons.forEach(b => {
-                        if (b.innerHTML.includes(currentQ.correct)) b.classList.add('correct');
+                        if (b.dataset.answer === currentQ.correct) b.classList.add('correct');
                     });
                     this.handleWrong(currentQ);
                 }
@@ -686,6 +689,7 @@
 
             handleCorrect() {
                 this.streak++;
+                if (this.streak > this.maxStreak) this.maxStreak = this.streak;
                 const multiplier = 1 + (Math.floor(this.streak / 5) * 0.5);
                 const points = Math.round(100 * multiplier);
                 this.score += points;
@@ -779,7 +783,7 @@
                 // Calculate best streak (This is a simplified tracking, usually you track max during game)
                 // For now showing current streak or if perfect, total.
                 // Let's just show the final streak as it adds "pressure" to maintain it till the end.
-                document.getElementById('final-streak').innerText = this.streak;
+                document.getElementById('final-streak').innerText = this.maxStreak;
 
                 // Populate Review List
                 const list = document.getElementById('review-list');
