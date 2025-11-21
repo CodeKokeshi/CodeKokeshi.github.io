@@ -3,617 +3,808 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intelligent Systems Interactive Quiz</title>
+    <title>Intelligent Systems: Exam Mastery</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="importmap">
-    {
-        "imports": {
-            "react": "https://esm.sh/react@18.2.0",
-            "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-            "lucide-react": "https://esm.sh/lucide-react@0.292.0"
-        }
-    }
-    </script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
+
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-green: #0aff0a;
+            --neon-red: #ff003c;
+            --bg-dark: #050510;
+            --card-bg: #0f1020;
         }
-        .animation-fade-in {
-            animation: fadeIn 0.3s ease-out forwards;
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-dark);
+            color: white;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-blue); }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 243, 255, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(0, 243, 255, 0.6); }
+        }
+
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pop-in {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .animate-slide-in { animation: slide-in 0.4s ease-out forwards; }
+        .animate-pop { animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .glitch { animation: glitch-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite; }
+
+        /* Components */
+        .neon-border {
+            box-shadow: 0 0 5px var(--neon-blue), inset 0 0 5px var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .option-btn {
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: var(--neon-blue);
+            transform: translateX(5px);
+        }
+
+        .option-btn.correct {
+            background: rgba(10, 255, 10, 0.2);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(10, 255, 10, 0.4);
+        }
+
+        .option-btn.wrong {
+            background: rgba(255, 0, 60, 0.2);
+            border-color: var(--neon-red);
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+        }
+
+        .progress-fill {
+            transition: width 0.5s ease-in-out;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .hidden-screen { display: none; }
+        
+        .glass-panel {
+            background: rgba(15, 16, 32, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
     </style>
 </head>
-<body class="bg-slate-100">
-    <div id="root"></div>
+<body class="h-screen flex flex-col">
 
-    <script type="text/babel" data-type="module">
-        import React, { useState, useEffect } from 'react';
-        import { createRoot } from 'react-dom/client';
-        import { Play, CheckCircle, XCircle, RotateCcw, Trophy, Brain, ChevronRight, Star, BookOpen, Activity } from 'lucide-react';
+    <!-- Background Animated Elements -->
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-20">
+        <div class="absolute top-10 left-10 w-32 h-32 border border-cyan-500 rounded-full animate-[pulse-glow_3s_infinite]"></div>
+        <div class="absolute bottom-20 right-20 w-48 h-48 border border-purple-500 rounded-full animate-[pulse-glow_4s_infinite_reverse]"></div>
+    </div>
 
-        // DATA SOURCE - EXACT TEXT FROM PDF
-        const QUIZ_DATA = [
-          // LESSON 6: Decision Trees & Ensemble Learning
-          {
-            id: 'L6-1',
-            lesson: 'Lesson 6',
-            topic: 'Decision Trees',
-            question: "What is a Decision Tree? It helps us to make decisions by mapping out...",
-            options: [
-              "different choices and their possible outcomes",
-              "various neural pathways and their weights",
-              "linear relationships between variables",
-              "clusters of similar data points"
-            ],
-            correctAnswer: "different choices and their possible outcomes",
-            type: "fill-in"
-          },
-          {
-            id: 'L6-2',
-            lesson: 'Lesson 6',
-            topic: 'Decision Tree Structure',
-            question: "Which node is defined as the 'Starting point representing the whole dataset'?",
-            options: [
-              "Root Node",
-              "Internal Node",
-              "Leaf Node",
-              "Decision Branch"
-            ],
-            correctAnswer: "Root Node",
-            type: "definition"
-          },
-          {
-            id: 'L6-3',
-            lesson: 'Lesson 6',
-            topic: 'Decision Tree Structure',
-            question: "What is Pruning defined as?",
-            options: [
-              "Removal of subnodes at the end of every node",
-              "Adding new branches to increase complexity",
-              "Splitting the dataset into training and testing",
-              "Calculating the entropy of the root node"
-            ],
-            correctAnswer: "Removal of subnodes at the end of every node",
-            type: "definition"
-          },
-          {
-            id: 'L6-4',
-            lesson: 'Lesson 6',
-            topic: 'Types of Trees',
-            question: "Classification Trees are used for predicting categorical outcomes. These trees split the data based on features to...",
-            options: [
-              "classify data into predefined categories",
-              "predict continuous numerical values",
-              "reduce the dimensionality of the data",
-              "create random subsets of features"
-            ],
-            correctAnswer: "classify data into predefined categories",
-            type: "fill-in"
-          },
-          {
-            id: 'L6-5',
-            lesson: 'Lesson 6',
-            topic: 'Disadvantages',
-            question: "One disadvantage of Decision Trees is 'Overfitting'. This happens if they are too deep, which means they...",
-            options: [
-              "memorize the data instead of learning general patterns",
-              "fail to capture non-linear relationships",
-              "become biased toward features with few categories",
-              "cannot handle categorical data"
-            ],
-            correctAnswer: "memorize the data instead of learning general patterns",
-            type: "concept"
-          },
-          {
-            id: 'L6-6',
-            lesson: 'Lesson 6',
-            topic: 'Ensemble Learning',
-            question: "In Bagging (Bootstrap Aggregating), models are trained independently on different random subsets of the training data. Their results are then combined usually by...",
-            options: [
-              "averaging (for regression) or voting (for classification)",
-              "weighted sum based on error rates",
-              "sequential correction of errors",
-              "pruning the least effective trees"
-            ],
-            correctAnswer: "averaging (for regression) or voting (for classification)",
-            type: "concept"
-          },
-          {
-            id: 'L6-7',
-            lesson: 'Lesson 6',
-            topic: 'Random Forest',
-            question: "Random Forest is a machine learning algorithm that uses many decision trees. When building each tree, it...",
-            options: [
-              "picks a few features at random to decide how to split the data",
-              "uses all features at once to split the data",
-              "weights the features based on importance",
-              "calculates the distance between all features"
-            ],
-            correctAnswer: "picks a few features at random to decide how to split the data",
-            type: "concept"
-          },
-          {
-            id: 'L6-8',
-            lesson: 'Lesson 6',
-            topic: 'Boosting',
-            question: "Boosting is an ensemble technique where weak models are trained in series such that each next model tries to...",
-            options: [
-              "correct errors of the previous model",
-              "predict the outcome independently",
-              "reduce the variance of the previous model",
-              "increase the size of the dataset"
-            ],
-            correctAnswer: "correct errors of the previous model",
-            type: "fill-in"
-          },
-          {
-            id: 'L6-9',
-            lesson: 'Lesson 6',
-            topic: 'Specific Algorithms',
-            question: "Which algorithm focuses on challenging examples by assigning weights to data points and combines weak classifiers with weighted voting?",
-            options: [
-              "AdaBoost (Adaptive Boosting)",
-              "Random Forest",
-              "CatBoost",
-              "Random Subspace Method"
-            ],
-            correctAnswer: "AdaBoost (Adaptive Boosting)",
-            type: "definition"
-          },
-
-          // LESSON 7: Collaborative Filtering
-          {
-            id: 'L7-1',
-            lesson: 'Lesson 7',
-            topic: 'Recommender Systems',
-            question: "Collaborative Filtering recommends items based on...",
-            options: [
-              "similarity measures between users and/or items",
-              "discriminating between interesting and uninteresting items",
-              "the specific features of the item itself",
-              "supervised machine learning classifiers"
-            ],
-            correctAnswer: "similarity measures between users and/or items",
-            type: "definition"
-          },
-          {
-            id: 'L7-2',
-            lesson: 'Lesson 7',
-            topic: 'Recommender Systems',
-            question: "Content-Based Recommendation is supervised machine learning used to induce a classifier to...",
-            options: [
-              "discriminate between interesting and uninteresting items for the user",
-              "find similar users and recommend what similar users like",
-              "cluster users into groups based on ratings",
-              "normalize ratings to find averages"
-            ],
-            correctAnswer: "discriminate between interesting and uninteresting items for the user",
-            type: "definition"
-          },
-          {
-            id: 'L7-3',
-            lesson: 'Lesson 7',
-            topic: 'Collaborative Filtering Logic',
-            question: "In Collaborative Filtering, we don't use the features of the item to recommend it, rather we...",
-            options: [
-              "classify the users into clusters of similar types",
-              "analyze the content attributes of the item",
-              "calculate the Euclidean distance between items",
-              "use a decision tree to predict the rating"
-            ],
-            correctAnswer: "classify the users into clusters of similar types",
-            type: "concept"
-          },
-          {
-            id: 'L7-4',
-            lesson: 'Lesson 7',
-            topic: 'Data Processing',
-            question: "In the process of normalizing, we take the average rating of a user and subtract all the given ratings from it, so we'll get...",
-            options: [
-              "either positive or negative values as a rating",
-              "a rounded value of 0 or 1",
-              "the absolute distance between ratings",
-              "the weighted average of the cluster"
-            ],
-            correctAnswer: "either positive or negative values as a rating",
-            type: "concept"
-          },
-
-          // LESSON 8: K Nearest Neighbor (KNN)
-          {
-            id: 'L8-1',
-            lesson: 'Lesson 8',
-            topic: 'KNN Definition',
-            question: "KNN is described as a 'lazy learner' because it...",
-            options: [
-              "memorizes the entire dataset instead of explicit model training",
-              "takes a long time to process the training data",
-              "only looks at a small subset of the data",
-              "does not use a distance metric"
-            ],
-            correctAnswer: "memorizes the entire dataset instead of explicit model training",
-            type: "definition"
-          },
-          {
-            id: 'L8-2',
-            lesson: 'Lesson 8',
-            topic: 'KNN Core Principle',
-            question: "KNN operates on a fundamental principle: similar things exist in...",
-            options: [
-              "close distance within a feature space",
-              "different clusters of the dataset",
-              "linear alignment along the axes",
-              "hierarchical structures"
-            ],
-            correctAnswer: "close distance within a feature space",
-            type: "fill-in"
-          },
-          {
-            id: 'L8-3',
-            lesson: 'Lesson 8',
-            topic: 'Distance Metrics',
-            question: "Euclidean distance is defined as...",
-            options: [
-              "the straight-line distance between two points in a plane or space",
-              "the total distance you would travel along horizontal and vertical lines",
-              "a family of distances which includes Manhattan distance",
-              "the distance measured by probability distribution"
-            ],
-            correctAnswer: "the straight-line distance between two points in a plane or space",
-            type: "definition"
-          },
-          {
-            id: 'L8-4',
-            lesson: 'Lesson 8',
-            topic: 'Distance Metrics',
-            question: "Manhattan Distance is also called...",
-            options: [
-              "taxicab distance",
-              "crow-fly distance",
-              "Minkowski distance",
-              "Euclidean distance"
-            ],
-            correctAnswer: "taxicab distance",
-            type: "definition"
-          },
-          {
-            id: 'L8-5',
-            lesson: 'Lesson 8',
-            topic: 'KNN Steps',
-            question: "In Step 4 of KNN for classification, the algorithm looks at which category the neighbors belong to and picks the one that appears the most. This is called...",
-            options: [
-              "majority voting",
-              "taking the average",
-              "weighted sum",
-              "normalization"
-            ],
-            correctAnswer: "majority voting",
-            type: "concept"
-          },
-          {
-            id: 'L8-6',
-            lesson: 'Lesson 8',
-            topic: 'Disadvantages',
-            question: "A disadvantage of KNN is the 'Curse of Dimensionality', where performance degrades significantly with high-dimensional data as...",
-            options: [
-              "distances become less meaningful",
-              "the model overfits the training data",
-              "calculation time decreases too much",
-              "normalization becomes impossible"
-            ],
-            correctAnswer: "distances become less meaningful",
-            type: "fill-in"
-          }
-        ];
-
-        const LessonCard = ({ lesson, title, icon: Icon, color, onClick, count }) => (
-          <button 
-            onClick={onClick}
-            className={`w-full bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-l-8 ${color} group`}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className={`p-3 rounded-full ${color.replace('border-', 'bg-').replace('500', '100')}`}>
-                  <Icon className={`w-6 h-6 ${color.replace('border-', 'text-')}`} />
-                </div>
-                <div className="text-left">
-                  <h3 className="text-lg font-bold text-gray-800 group-hover:text-blue-600 transition-colors">{lesson}</h3>
-                  <p className="text-sm text-gray-500">{title}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold bg-gray-100 px-2 py-1 rounded text-gray-600">{count} Qs</span>
-                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-blue-500" />
-              </div>
-            </div>
-          </button>
-        );
-
-        const ProgressBar = ({ current, total, streak }) => {
-          const progress = (current / total) * 100;
-          return (
-            <div className="w-full mb-6">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-bold text-gray-500">Question {current + 1} of {total}</span>
-                <div className="flex items-center gap-2 text-orange-500">
-                  <Star className="w-4 h-4 fill-current" />
-                  <span className="text-sm font-bold">Streak: {streak}</span>
-                </div>
-              </div>
-              <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500 ease-out"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-            </div>
-          );
-        };
-
-        function InteractiveQuiz() {
-          const [gameState, setGameState] = useState('menu'); // menu, playing, results
-          const [currentLesson, setCurrentLesson] = useState(null);
-          const [questions, setQuestions] = useState([]);
-          const [currentIndex, setCurrentIndex] = useState(0);
-          const [score, setScore] = useState(0);
-          const [streak, setStreak] = useState(0);
-          const [showFeedback, setShowFeedback] = useState(false);
-          const [selectedAnswer, setSelectedAnswer] = useState(null);
-          const [isCorrect, setIsCorrect] = useState(false);
-          const [missedQuestions, setMissedQuestions] = useState([]);
-
-          const startQuiz = (filterLesson) => {
-            let filtered = QUIZ_DATA;
-            if (filterLesson !== 'all') {
-              filtered = QUIZ_DATA.filter(q => q.lesson === filterLesson);
-            }
-            // Shuffle questions
-            const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-            setQuestions(shuffled);
-            setCurrentLesson(filterLesson);
-            setGameState('playing');
-            setCurrentIndex(0);
-            setScore(0);
-            setStreak(0);
-            setMissedQuestions([]);
-            setShowFeedback(false);
-            setSelectedAnswer(null);
-          };
-
-          const handleAnswer = (answer) => {
-            if (showFeedback) return;
-
-            const correct = answer === questions[currentIndex].correctAnswer;
-            setSelectedAnswer(answer);
-            setIsCorrect(correct);
-            setShowFeedback(true);
-
-            if (correct) {
-              setScore(s => s + 1);
-              setStreak(s => s + 1);
-            } else {
-              setStreak(0);
-              setMissedQuestions(prev => [...prev, questions[currentIndex]]);
-            }
-          };
-
-          const nextQuestion = () => {
-            if (currentIndex < questions.length - 1) {
-              setCurrentIndex(c => c + 1);
-              setShowFeedback(false);
-              setSelectedAnswer(null);
-            } else {
-              setGameState('results');
-            }
-          };
-
-          // --- MENU SCREEN ---
-          if (gameState === 'menu') {
-            return (
-              <div className="min-h-screen bg-gray-50 p-4 flex flex-col items-center justify-center">
-                <div className="max-w-md w-full space-y-8">
-                  <div className="text-center space-y-2">
-                    <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Brain className="w-8 h-8 text-blue-600" />
-                    </div>
-                    <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-                      Intelligent Systems
-                    </h1>
-                    <p className="text-gray-500">Exam Study Guide Quiz</p>
-                    <p className="text-xs text-blue-500 font-semibold uppercase tracking-wider">Word-for-Word Edition</p>
-                  </div>
-
-                  <div className="space-y-4">
-                    <LessonCard 
-                      lesson="Mastery Mode" 
-                      title="All Lessons Combined (6, 7, & 8)" 
-                      icon={Trophy} 
-                      color="border-yellow-500" 
-                      count={QUIZ_DATA.length}
-                      onClick={() => startQuiz('all')} 
-                    />
-                    <LessonCard 
-                      lesson="Lesson 6" 
-                      title="Decision Trees & Ensemble" 
-                      icon={Activity} 
-                      color="border-green-500" 
-                      count={QUIZ_DATA.filter(q => q.lesson === 'Lesson 6').length}
-                      onClick={() => startQuiz('Lesson 6')} 
-                    />
-                    <LessonCard 
-                      lesson="Lesson 7" 
-                      title="Collaborative Filtering" 
-                      icon={BookOpen} 
-                      color="border-purple-500" 
-                      count={QUIZ_DATA.filter(q => q.lesson === 'Lesson 7').length}
-                      onClick={() => startQuiz('Lesson 7')} 
-                    />
-                    <LessonCard 
-                      lesson="Lesson 8" 
-                      title="K Nearest Neighbor (KNN)" 
-                      icon={Activity} 
-                      color="border-red-500" 
-                      count={QUIZ_DATA.filter(q => q.lesson === 'Lesson 8').length}
-                      onClick={() => startQuiz('Lesson 8')} 
-                    />
-                  </div>
-                </div>
-              </div>
-            );
-          }
-
-          // --- RESULTS SCREEN ---
-          if (gameState === 'results') {
-            const percentage = Math.round((score / questions.length) * 100);
+    <!-- START SCREEN -->
+    <div id="start-screen" class="flex-1 flex flex-col items-center justify-center z-10 p-6 relative">
+        <div class="glass-panel p-12 rounded-2xl border-t-4 border-cyan-400 shadow-2xl text-center max-w-2xl w-full animate-pop">
+            <div class="mb-6 text-cyan-400 text-6xl"><i class="fas fa-brain"></i></div>
+            <h1 class="text-5xl font-bold mb-2 tracking-wider uppercase neon-text">System Override</h1>
+            <h2 class="text-xl text-gray-400 mb-8 mono">Intelligent Systems Exam Prep Protocol</h2>
             
-            return (
-              <div className="min-h-screen bg-gray-50 p-4">
-                <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
-                  <div className="p-8 text-center bg-gradient-to-b from-blue-600 to-blue-700 text-white">
-                    <Trophy className="w-16 h-16 mx-auto mb-4 text-yellow-300" />
-                    <h2 className="text-3xl font-bold mb-2">Quiz Complete!</h2>
-                    <div className="text-6xl font-bold mb-2">{percentage}%</div>
-                    <p className="opacity-80">You scored {score} out of {questions.length}</p>
-                  </div>
-
-                  <div className="p-8">
-                    {missedQuestions.length > 0 ? (
-                      <div className="mb-8">
-                        <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                          <RotateCcw className="w-5 h-5 text-red-500" />
-                          Review Missed Questions
-                        </h3>
-                        <div className="space-y-4">
-                          {missedQuestions.map((q) => (
-                            <div key={q.id} className="bg-red-50 p-4 rounded-lg border border-red-100">
-                              <p className="text-sm font-semibold text-red-600 mb-1">{q.topic}</p>
-                              <p className="text-gray-800 font-medium mb-2">{q.question}</p>
-                              <div className="text-sm">
-                                <span className="text-gray-500">Correct Answer: </span>
-                                <span className="font-bold text-green-600">{q.correctAnswer}</span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-center p-8 text-green-600 font-bold text-lg">
-                        Perfect Score! You nailed every definition word-for-word!
-                      </div>
-                    )}
-
-                    <button 
-                      onClick={() => setGameState('menu')}
-                      className="w-full bg-gray-900 text-white py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition-all transform hover:scale-[1.02]"
-                    >
-                      Back to Menu
-                    </button>
-                  </div>
+            <div class="flex flex-col gap-4 mb-8">
+                <div class="flex items-center justify-between bg-gray-900/50 p-3 rounded border border-gray-700">
+                    <span class="text-gray-400"><i class="fas fa-book mr-2"></i>Modules</span>
+                    <span class="text-cyan-400 font-bold">Lessons 6, 7, & 8</span>
                 </div>
-              </div>
-            );
-          }
-
-          // --- PLAYING SCREEN ---
-          const currentQ = questions[currentIndex];
-          
-          return (
-            <div className="min-h-screen bg-slate-100 p-4 flex flex-col items-center">
-              <div className="w-full max-w-2xl">
-                {/* Header */}
-                <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-xl shadow-sm">
-                  <button onClick={() => setGameState('menu')} className="text-gray-400 hover:text-gray-600 font-semibold text-sm">
-                    Exit
-                  </button>
-                  <span className="font-bold text-gray-800">{currentLesson === 'all' ? 'Mastery Mode' : currentLesson}</span>
-                  <div className="w-10"></div> {/* Spacer for center alignment */}
+                <div class="flex items-center justify-between bg-gray-900/50 p-3 rounded border border-gray-700">
+                    <span class="text-gray-400"><i class="fas fa-crosshairs mr-2"></i>Mode</span>
+                    <span class="text-green-400 font-bold">Word-for-Word Precision</span>
                 </div>
+            </div>
 
-                <ProgressBar current={currentIndex} total={questions.length} streak={streak} />
+            <button onclick="game.start()" class="group relative px-8 py-4 bg-cyan-500/10 hover:bg-cyan-500 text-cyan-400 hover:text-black font-bold rounded text-xl transition-all duration-300 border border-cyan-500 w-full">
+                <span class="absolute inset-0 w-full h-full bg-cyan-400/20 blur opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                INITIALIZE QUIZ SEQUENCE
+            </button>
+        </div>
+    </div>
 
-                {/* Question Card */}
-                <div className="bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-500">
-                  <div className="p-8">
-                    <div className="inline-block px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider mb-4">
-                      {currentQ.topic}
+    <!-- GAME SCREEN -->
+    <div id="game-screen" class="hidden-screen flex-1 flex flex-col z-10 max-w-5xl mx-auto w-full p-4">
+        
+        <!-- HUD -->
+        <div class="flex justify-between items-end mb-6 border-b border-gray-700 pb-4">
+            <div>
+                <p class="text-gray-400 text-sm mono mb-1">CURRENT MODULE</p>
+                <h3 id="lesson-badge" class="text-xl font-bold text-purple-400">Lesson 6</h3>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold mono" id="score-display">0000</div>
+                <div class="text-xs text-gray-500 tracking-widest">SYSTEM SCORE</div>
+            </div>
+            <div class="text-right">
+                <div class="flex items-center gap-2 justify-end">
+                    <span class="text-sm text-gray-400">COMBO</span>
+                    <span id="streak-display" class="text-2xl font-bold text-yellow-400">x0</span>
+                </div>
+                <div class="h-1 w-24 bg-gray-800 rounded-full mt-1 ml-auto overflow-hidden">
+                    <div id="streak-bar" class="h-full bg-yellow-400 w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROGRESS -->
+        <div class="w-full bg-gray-800 h-2 rounded-full mb-8 overflow-hidden">
+            <div id="progress-bar" class="progress-fill bg-cyan-500 h-full w-0"></div>
+        </div>
+
+        <!-- QUESTION CARD -->
+        <div class="flex-1 flex flex-col justify-center">
+            <div id="question-container" class="glass-panel p-8 rounded-xl border-l-4 border-cyan-500 relative min-h-[400px] flex flex-col justify-between">
+                
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="bg-cyan-900/50 text-cyan-300 px-3 py-1 rounded text-sm border border-cyan-500/30 mono" id="q-counter">Q 1/40</span>
+                        <span class="text-gray-500 text-xs mono" id="q-category">TOPIC: DECISION TREES</span>
                     </div>
                     
-                    <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-8 leading-relaxed">
-                      {currentQ.question}
+                    <h2 id="question-text" class="text-2xl md:text-3xl font-medium leading-relaxed mb-8">
+                        Loading data stream...
                     </h2>
-
-                    <div className="space-y-3">
-                      {currentQ.options.map((option, idx) => {
-                        const isSelected = selectedAnswer === option;
-                        const isCorrectOption = option === currentQ.correctAnswer;
-                        
-                        // Dynamic Classes for State
-                        let btnClass = "w-full p-4 text-left rounded-xl border-2 transition-all duration-200 relative ";
-                        
-                        if (showFeedback) {
-                          if (isCorrectOption) {
-                            btnClass += "bg-green-50 border-green-500 text-green-800 font-medium";
-                          } else if (isSelected && !isCorrectOption) {
-                            btnClass += "bg-red-50 border-red-500 text-red-800 opacity-75";
-                          } else {
-                            btnClass += "border-gray-100 text-gray-400 opacity-50";
-                          }
-                        } else {
-                          btnClass += "bg-white border-gray-100 hover:border-blue-300 hover:bg-blue-50 text-gray-700 hover:shadow-md";
-                        }
-
-                        return (
-                          <button
-                            key={idx}
-                            onClick={() => handleAnswer(option)}
-                            disabled={showFeedback}
-                            className={btnClass}
-                          >
-                            <div className="flex items-center justify-between">
-                              <span className="pr-8">{option}</span>
-                              {showFeedback && isCorrectOption && <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />}
-                              {showFeedback && isSelected && !isCorrectOption && <XCircle className="w-5 h-5 text-red-600 shrink-0" />}
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Feedback Footer */}
-                  {showFeedback && (
-                    <div className={`p-6 border-t animation-fade-in ${isCorrect ? 'bg-green-50' : 'bg-red-50'}`}>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className={`font-bold text-lg ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>
-                            {isCorrect ? 'Correct!' : 'Not quite right.'}
-                          </p>
-                          <p className="text-sm text-gray-600 mt-1">
-                            {isCorrect ? "Exact match with the study guide." : "Review the definition above."}
-                          </p>
-                        </div>
-                        <button 
-                          onClick={nextQuestion}
-                          className={`px-6 py-3 rounded-xl font-bold text-white shadow-lg transform hover:scale-105 transition-all flex items-center gap-2 ${
-                            isCorrect ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'
-                          }`}
-                        >
-                          {currentIndex < questions.length - 1 ? 'Next Question' : 'Finish Quiz'}
-                          <ChevronRight className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </div>
-                  )}
                 </div>
-              </div>
+
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Options injected by JS -->
+                </div>
+
+                <!-- Feedback Overlay -->
+                <div id="feedback-overlay" class="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm rounded-xl opacity-0 pointer-events-none transition-opacity duration-300 z-20">
+                    <div class="text-center transform scale-0 transition-transform duration-300" id="feedback-content">
+                        <div id="feedback-icon" class="text-6xl mb-2"></div>
+                        <div id="feedback-text" class="text-2xl font-bold uppercase tracking-widest"></div>
+                    </div>
+                </div>
             </div>
-          );
+        </div>
+    </div>
+
+    <!-- END SCREEN -->
+    <div id="end-screen" class="hidden-screen flex-1 flex flex-col items-center justify-center z-10 p-6 overflow-y-auto">
+        <div class="glass-panel max-w-3xl w-full p-8 rounded-2xl border border-gray-700 shadow-2xl my-8">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-bold text-white mb-2">SESSION COMPLETE</h2>
+                <p class="text-gray-400">Data Analysis Report</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-gray-900/50 p-6 rounded-lg border border-gray-700 text-center">
+                    <div class="text-gray-500 text-sm mb-1">FINAL SCORE</div>
+                    <div class="text-4xl font-bold text-cyan-400" id="final-score">0</div>
+                </div>
+                <div class="bg-gray-900/50 p-6 rounded-lg border border-gray-700 text-center">
+                    <div class="text-gray-500 text-sm mb-1">ACCURACY</div>
+                    <div class="text-4xl font-bold text-purple-400" id="final-accuracy">0%</div>
+                </div>
+                <div class="bg-gray-900/50 p-6 rounded-lg border border-gray-700 text-center">
+                    <div class="text-gray-500 text-sm mb-1">BEST STREAK</div>
+                    <div class="text-4xl font-bold text-yellow-400" id="final-streak">0</div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-bold mb-4 border-b border-gray-700 pb-2">Review Log (Incorrect Entries)</h3>
+                <div id="review-list" class="space-y-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+                    <!-- Incorrect answers populated here -->
+                    <p class="text-gray-500 italic text-center">No errors detected. Perfect synchronization.</p>
+                </div>
+            </div>
+
+            <button onclick="location.reload()" class="w-full py-4 bg-white text-black font-bold rounded hover:bg-cyan-400 transition-colors uppercase tracking-widest">
+                Re-Initialize Protocol
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA SOURCE ---
+        // Extracted exactly from the provided PDF content.
+        const studyData = [
+            // Lesson 6: Decision Trees & Ensemble
+            {
+                lesson: "Lesson 6",
+                topic: "Decision Trees",
+                question: "What helps us to make decisions by mapping out different choices and their possible outcomes?",
+                correct: "A Decision Tree",
+                wrong: ["A Neural Network", "Linear Regression", "K-Means Clustering"]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Decision Trees",
+                question: "Why do decision trees matter? They are Intuitive & Transparent meaning:",
+                correct: "Easy to visualize and understand—even non-experts can follow the logic and explain predictions.",
+                wrong: ["They use complex mathematical formulas impossible to visualize.", "They perform hidden calculations in a black box.", "They require extensive feature scaling to function."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Decision Tree Structure",
+                question: "In the structure of a Decision Tree, what is the Root Node?",
+                correct: "Starting point representing the whole dataset.",
+                wrong: ["Points where decisions are made based on data features.", "End points of the tree where the final decision is made.", "Removal of subnodes at the end of every node."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Decision Tree Structure",
+                question: "What are Internal Nodes?",
+                correct: "Points where decisions are made based on data features.",
+                wrong: ["Starting point representing the whole dataset.", "Lines connecting nodes showing the flow from one decision to another.", "End points of the tree where the final decision is made."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Decision Tree Structure",
+                question: "What are Leaf Nodes?",
+                correct: "End points of the tree where the final decision or prediction is made.",
+                wrong: ["Removal of subnodes at the end of every node.", "Starting point representing the whole dataset.", "Points where decisions are made based on data features."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Decision Tree Structure",
+                question: "What is Pruning?",
+                correct: "Removal of subnodes at the end of every node.",
+                wrong: ["Connecting nodes to show the flow of decisions.", "Splitting the data into subsets.", "Creating more branches to increase complexity."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Types of Trees",
+                question: "What are Classification Trees used for?",
+                correct: "Predicting categorical outcomes like spam or not spam.",
+                wrong: ["Predicting continuous outcomes like house prices.", "Clustering data into unknown groups.", "Reducing the dimensionality of data."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Types of Trees",
+                question: "What are Regression Trees used for?",
+                correct: "Predicting continuous outcomes like predicting house prices.",
+                wrong: ["Predicting categorical outcomes like spam or not spam.", "Assigning predefined categories to data.", "Creating visual maps of binary decisions."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Advantages",
+                question: "Unlike many machine learning models, Decision Trees do not require us to:",
+                correct: "Scale or normalize our data.",
+                wrong: ["Split the data into training and test sets.", "Have a target variable.", "Use a computer for calculations."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Disadvantages",
+                question: "What is Overfitting in Decision Trees?",
+                correct: "They memorize the data instead of learning general patterns if they are too deep.",
+                wrong: ["They fail to capture any patterns in the data.", "They become too shallow to make accurate predictions.", "They ignore the training data completely."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Disadvantages",
+                question: "Decision Trees can be unstable, which means:",
+                correct: "Small changes in the data may lead to significant differences in the tree structure and predictions.",
+                wrong: ["Large changes in data have no effect on the tree.", "They crash the computer often.", "They always produce the same result regardless of data changes."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Disadvantages",
+                question: "Decision Trees can become biased toward features with:",
+                correct: "Many distinct values.",
+                wrong: ["Very few distinct values.", "Binary values only.", "Continuous values only."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Ensemble Learning",
+                question: "What is Ensemble Learning?",
+                correct: "A method where we use many small models instead of just one.",
+                wrong: ["A method where we use one giant model.", "A technique to reduce the amount of data needed.", "A way to visualize data points."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Ensemble Types",
+                question: "In Bagging (Bootstrap Aggregating), models are trained:",
+                correct: "Independently on different random subsets of the training data.",
+                wrong: ["Sequentially, one after another.", "On the exact same dataset every time.", "Using different algorithms for each model."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Ensemble Types",
+                question: "In Boosting, models are trained one after another. Each new model focuses on:",
+                correct: "Fixing the errors made by the previous ones.",
+                wrong: ["Confirming the correct predictions of the previous ones.", "Using a completely different dataset.", "Randomly guessing the outcome."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Random Forest",
+                question: "Random Forest is a machine learning algorithm that:",
+                correct: "Uses many decision trees to make better predictions.",
+                wrong: ["Uses a single decision tree.", "Uses linear regression models.", "Uses neural networks only."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Random Forest",
+                question: "When building each tree in a Random Forest, it picks a few features at random to decide how to split the data. This helps:",
+                correct: "The trees stay different from each other.",
+                wrong: ["The trees to be identical.", "To speed up the computer processor.", "To confuse the algorithm."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Boosting Algorithm",
+                question: "Boosting combines multiple weak learners to create a:",
+                correct: "Strong learner.",
+                wrong: ["Weak learner.", "Neutral learner.", "Fast learner."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Boosting Algorithm",
+                question: "In Boosting, misclassified examples receive:",
+                correct: "Higher weights in the next iteration.",
+                wrong: ["Lower weights in the next iteration.", "No weights in the next iteration.", "The same weights as correctly classified examples."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Techniques Summary",
+                question: "Gradient Boosting Machines (GBM) sequentially builds decision trees, with each tree:",
+                correct: "Correcting errors of the previous ones.",
+                wrong: ["Working independently of the others.", "Ignoring the errors of the previous ones.", "Using a different dataset entirely."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Techniques Summary",
+                question: "XGBoost (Extreme Gradient Boosting) does optimizations like:",
+                correct: "Tree pruning, regularization and parallel processing.",
+                wrong: ["Infinite looping and data duplication.", "Reducing feature count only.", "Manual data entry."]
+            },
+            {
+                lesson: "Lesson 6",
+                topic: "Techniques Summary",
+                question: "CatBoost specializes in handling:",
+                correct: "Categorical features natively without extensive preprocessing.",
+                wrong: ["Image data natively.", "Audio files without preprocessing.", "Numerical features only."]
+            },
+            
+            // Lesson 7: Collaborative Filtering
+            {
+                lesson: "Lesson 7",
+                topic: "Recommendation Systems",
+                question: "Collaborative Filtering recommends items based on:",
+                correct: "Similarity measures between users and/or items.",
+                wrong: ["Features of the item itself.", "A supervised classifier of interesting items.", "Random selection."]
+            },
+            {
+                lesson: "Lesson 7",
+                topic: "Recommendation Systems",
+                question: "Content-Based Recommendation is supervised machine learning used to induce a classifier to:",
+                correct: "Discriminate between interesting and uninteresting items for the user.",
+                wrong: ["Find similar users.", "Group users into clusters.", "Predict the average rating of all users."]
+            },
+            {
+                lesson: "Lesson 7",
+                topic: "Collaborative Filtering",
+                question: "In Collaborative Filtering, we classify the users into:",
+                correct: "Clusters of similar types.",
+                wrong: ["Groups based on age only.", "Alphabetical order.", "Random groups."]
+            },
+            {
+                lesson: "Lesson 7",
+                topic: "Data Processing",
+                question: "In collaborative filtering, we round off the data to:",
+                correct: "Compare it more easily.",
+                wrong: ["Make the file size smaller.", "Hide the real ratings.", "Delete the data."]
+            },
+            {
+                lesson: "Lesson 7",
+                topic: "Data Processing",
+                question: "Example of rounding data: we can assign below 3 ratings as:",
+                correct: "0 and above of it as 1.",
+                wrong: ["1 and above of it as 2.", "-1 and above of it as 0.", "5 and above of it as 10."]
+            },
+            {
+                lesson: "Lesson 7",
+                topic: "Normalizing",
+                question: "In the process of normalizing, we take the average rating of a user and:",
+                correct: "Subtract all the given ratings from it.",
+                wrong: ["Add all the given ratings to it.", "Multiply it by the given ratings.", "Divide it by the total number of items."]
+            },
+            {
+                lesson: "Lesson 7",
+                topic: "Normalizing",
+                question: "By normalizing the data, we get either positive or negative values, which can simply classify further into:",
+                correct: "Similar groups.",
+                wrong: ["Different datasets.", "Complex equations.", "Random clusters."]
+            },
+
+            // Lesson 8: KNN
+            {
+                lesson: "Lesson 8",
+                topic: "KNN Basics",
+                question: "KNN is non-parametric, meaning it makes:",
+                correct: "No underlying assumptions about data distribution.",
+                wrong: ["Many assumptions about data distribution.", "Assumptions that the data is linear.", "Assumptions that the data is normal."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "KNN Basics",
+                question: "Why is KNN called a 'lazy learner'?",
+                correct: "It memorizes the entire dataset instead of explicit model training.",
+                wrong: ["It takes a long time to learn.", "It ignores half the data.", "It only works on weekends."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "KNN Basics",
+                question: "Predictions in KNN are made by identifying and analyzing:",
+                correct: "The 'K' closest data points to a new, unclassified input.",
+                wrong: ["The furthest data points from the input.", "The average of the entire dataset.", "The random data points in the set."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "KNN Basics",
+                question: "KNN operates on a fundamental principle that:",
+                correct: "Similar things exist in close distance within a feature space.",
+                wrong: ["Similar things are far apart.", "Dissimilar things are close together.", "Distance does not matter."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "Distance Metrics",
+                question: "Euclidean distance is defined as:",
+                correct: "The straight-line distance between two points in a plane or space.",
+                wrong: ["The distance along a grid.", "The taxicab distance.", "The infinite distance between points."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "Distance Metrics",
+                question: "Manhattan Distance is also called:",
+                correct: "'Taxicab distance'.",
+                wrong: ["'Airplane distance'.", "'Subway distance'.", "'Teleportation distance'."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "Distance Metrics",
+                question: "Why the Absolute Value in Manhattan Distance?",
+                correct: "Ensures that the distance is always positive, regardless of the direction.",
+                wrong: ["Ensures the distance is always negative.", "Makes the calculation harder.", "Rounds the number to the nearest integer."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "Distance Metrics",
+                question: "Minkowski Distance is like a family of distances, where when p=1 it is:",
+                correct: "Manhattan.",
+                wrong: ["Euclidean.", "Hamming.", "Chebyshev."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "Distance Metrics",
+                question: "Minkowski Distance is like a family of distances, where when p=2 it is:",
+                correct: "Euclidean.",
+                wrong: ["Manhattan.", "Hamming.", "Chebyshev."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "KNN Process",
+                question: "In KNN Classification, the algorithm picks the category that:",
+                correct: "Appears the most (majority voting).",
+                wrong: ["Appears the least.", "Has the highest numerical value.", "Is alphabetically first."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "KNN Process",
+                question: "In KNN Regression, instead of voting, it takes:",
+                correct: "The average of the values of those K neighbors.",
+                wrong: ["The median of the values.", "The highest value only.", "The lowest value only."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "Disadvantages",
+                question: "What is the 'Curse of Dimensionality' in KNN?",
+                correct: "Performance degrades significantly with high-dimensional data as distances become less meaningful.",
+                wrong: ["Performance improves with more dimensions.", "The code becomes cursed and stops working.", "It requires 3D glasses to view the data."]
+            },
+            {
+                lesson: "Lesson 8",
+                topic: "Disadvantages",
+                question: "KNN requires data normalization or standardization because:",
+                correct: "It is sensitive to feature scaling.",
+                wrong: ["It is not sensitive to feature scaling.", "It prefers raw data.", "It cannot handle numbers."]
+            }
+        ];
+
+        // --- GAME LOGIC ---
+
+        class QuizGame {
+            constructor(data) {
+                this.fullData = data;
+                this.questions = [];
+                this.currentIndex = 0;
+                this.score = 0;
+                this.streak = 0;
+                this.incorrectAnswers = [];
+                
+                // DOM Elements
+                this.screens = {
+                    start: document.getElementById('start-screen'),
+                    game: document.getElementById('game-screen'),
+                    end: document.getElementById('end-screen')
+                };
+                
+                this.ui = {
+                    questionText: document.getElementById('question-text'),
+                    optionsGrid: document.getElementById('options-grid'),
+                    score: document.getElementById('score-display'),
+                    streak: document.getElementById('streak-display'),
+                    streakBar: document.getElementById('streak-bar'),
+                    progress: document.getElementById('progress-bar'),
+                    counter: document.getElementById('q-counter'),
+                    category: document.getElementById('q-category'),
+                    lessonBadge: document.getElementById('lesson-badge'),
+                    feedback: {
+                        overlay: document.getElementById('feedback-overlay'),
+                        content: document.getElementById('feedback-content'),
+                        icon: document.getElementById('feedback-icon'),
+                        text: document.getElementById('feedback-text')
+                    }
+                };
+            }
+
+            start() {
+                // Shuffle and prep questions
+                this.questions = this.shuffleArray([...this.fullData]);
+                this.currentIndex = 0;
+                this.score = 0;
+                this.streak = 0;
+                this.incorrectAnswers = [];
+
+                // UI Reset
+                this.switchScreen('game');
+                this.updateHUD();
+                this.loadQuestion();
+            }
+
+            switchScreen(screenName) {
+                Object.values(this.screens).forEach(s => s.classList.add('hidden-screen'));
+                this.screens[screenName].classList.remove('hidden-screen');
+            }
+
+            shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            loadQuestion() {
+                const q = this.questions[this.currentIndex];
+                
+                // Animate text entry
+                this.ui.questionText.innerHTML = q.question;
+                this.ui.category.innerText = `TOPIC: ${q.topic.toUpperCase()}`;
+                this.ui.lessonBadge.innerText = q.lesson;
+                this.ui.counter.innerText = `Q ${this.currentIndex + 1}/${this.questions.length}`;
+
+                // Prepare Options
+                let options = [...q.wrong];
+                // Ensure unique wrong answers if duplicates exist in data (rare but safe)
+                options = [...new Set(options)]; 
+                // Slice to 3 wrong answers max if more exist, though data has 3
+                options = options.slice(0, 3);
+                
+                // Add correct answer
+                options.push(q.correct);
+                
+                // Shuffle options
+                options = this.shuffleArray(options);
+
+                // Render Options
+                this.ui.optionsGrid.innerHTML = '';
+                options.forEach((opt, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn w-full p-6 text-left rounded-lg text-lg font-medium animate-slide-in';
+                    btn.style.animationDelay = `${index * 0.1}s`;
+                    btn.innerHTML = `<span class="text-cyan-500 font-bold mr-3">${String.fromCharCode(65 + index)}.</span> ${opt}`;
+                    btn.onclick = () => this.handleAnswer(opt, btn);
+                    this.ui.optionsGrid.appendChild(btn);
+                });
+
+                // Update Progress
+                const progressPct = (this.currentIndex / this.questions.length) * 100;
+                this.ui.progress.style.width = `${progressPct}%`;
+            }
+
+            handleAnswer(selected, btnElement) {
+                // Prevent double clicking
+                const buttons = this.ui.optionsGrid.querySelectorAll('button');
+                buttons.forEach(b => b.disabled = true);
+
+                const currentQ = this.questions[this.currentIndex];
+                const isCorrect = selected === currentQ.correct;
+
+                if (isCorrect) {
+                    btnElement.classList.add('correct');
+                    this.handleCorrect();
+                } else {
+                    btnElement.classList.add('wrong');
+                    // Highlight correct answer
+                    buttons.forEach(b => {
+                        if (b.innerHTML.includes(currentQ.correct)) b.classList.add('correct');
+                    });
+                    this.handleWrong(currentQ);
+                }
+
+                // Delay for next question
+                setTimeout(() => {
+                    this.nextQuestion();
+                }, 1500);
+            }
+
+            handleCorrect() {
+                this.streak++;
+                const multiplier = 1 + (Math.floor(this.streak / 5) * 0.5);
+                const points = Math.round(100 * multiplier);
+                this.score += points;
+                
+                this.showFeedback(true);
+                this.updateHUD();
+            }
+
+            handleWrong(question) {
+                this.streak = 0;
+                this.incorrectAnswers.push(question);
+                this.showFeedback(false);
+                this.updateHUD();
+            }
+
+            showFeedback(isCorrect) {
+                const { overlay, content, icon, text } = this.ui.feedback;
+                
+                overlay.style.opacity = '1';
+                overlay.style.pointerEvents = 'auto';
+                content.style.transform = 'scale(1)';
+                
+                if (isCorrect) {
+                    icon.innerHTML = '<i class="fas fa-check-circle text-green-400"></i>';
+                    text.innerText = 'CORRECT';
+                    text.className = 'text-2xl font-bold uppercase tracking-widest text-green-400';
+                    icon.classList.remove('glitch');
+                } else {
+                    icon.innerHTML = '<i class="fas fa-times-circle text-red-500"></i>';
+                    text.innerText = 'ERROR';
+                    text.className = 'text-2xl font-bold uppercase tracking-widest text-red-500';
+                    icon.classList.add('glitch');
+                }
+
+                setTimeout(() => {
+                    overlay.style.opacity = '0';
+                    content.style.transform = 'scale(0)';
+                    overlay.style.pointerEvents = 'none';
+                }, 1000);
+            }
+
+            updateHUD() {
+                // Score count up animation
+                const currentDisplay = parseInt(this.ui.score.innerText);
+                this.animateValue(this.ui.score, currentDisplay, this.score, 500);
+
+                this.ui.streak.innerText = `x${this.streak}`;
+                
+                // Streak bar fill (caps at 10)
+                const fillPct = Math.min(this.streak * 10, 100);
+                this.ui.streakBar.style.width = `${fillPct}%`;
+                
+                if (this.streak >= 5) {
+                    this.ui.streak.classList.add('neon-text');
+                    this.ui.streak.style.color = '#0aff0a';
+                } else {
+                    this.ui.streak.classList.remove('neon-text');
+                    this.ui.streak.style.color = '#facc15'; // yellow
+                }
+            }
+
+            animateValue(obj, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            nextQuestion() {
+                this.currentIndex++;
+                if (this.currentIndex < this.questions.length) {
+                    this.loadQuestion();
+                } else {
+                    this.endGame();
+                }
+            }
+
+            endGame() {
+                this.switchScreen('end');
+                document.getElementById('final-score').innerText = this.score;
+                
+                const accuracy = Math.round(((this.questions.length - this.incorrectAnswers.length) / this.questions.length) * 100);
+                document.getElementById('final-accuracy').innerText = `${accuracy}%`;
+                
+                // Calculate best streak (This is a simplified tracking, usually you track max during game)
+                // For now showing current streak or if perfect, total.
+                // Let's just show the final streak as it adds "pressure" to maintain it till the end.
+                document.getElementById('final-streak').innerText = this.streak;
+
+                // Populate Review List
+                const list = document.getElementById('review-list');
+                list.innerHTML = '';
+                
+                if (this.incorrectAnswers.length === 0) {
+                    list.innerHTML = '<div class="text-green-400 text-center p-4 border border-green-500/30 rounded bg-green-500/10">PERFECT SCORE - SYSTEM OPTIMIZED</div>';
+                } else {
+                    this.incorrectAnswers.forEach(q => {
+                        const item = document.createElement('div');
+                        item.className = 'bg-red-500/10 p-4 rounded border border-red-500/30';
+                        item.innerHTML = `
+                            <div class="text-xs text-red-300 mb-1">${q.lesson} - ${q.topic}</div>
+                            <div class="font-medium mb-2">${q.question}</div>
+                            <div class="text-sm text-green-400"><i class="fas fa-check mr-2"></i>${q.correct}</div>
+                        `;
+                        list.appendChild(item);
+                    });
+                }
+            }
         }
 
-        const root = createRoot(document.getElementById('root'));
-        root.render(<InteractiveQuiz />);
+        // Initialize
+        const game = new QuizGame(studyData);
+
     </script>
 </body>
 </html>
