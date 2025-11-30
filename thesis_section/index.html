@@ -47,6 +47,13 @@
           <a class="nav-link" href="../projects.html">Projects</a>
           <a class="nav-link active" href="index.html">Thesis</a>
         </nav>
+        <div class="theme-switcher" role="group" aria-label="Theme selector">
+          <span class="theme-label">Theme</span>
+          <button type="button" class="theme-button" data-theme-option="dark" aria-pressed="false">Dark</button>
+          <button type="button" class="theme-button" data-theme-option="light" aria-pressed="false">Light</button>
+          <button type="button" class="theme-button" data-theme-option="wood" aria-pressed="false">Retro</button>
+          <button type="button" class="theme-button" data-theme-option="cyberpunk" aria-pressed="false">Cyberpunk</button>
+        </div>
       </header>
 
       <main>
@@ -56,7 +63,7 @@
           <ul class="thesis-list">
             <li><a href="metersnap-deep-research.html">MeterSnap Deep Research</a></li>
             <li><a href="metersnap_scrum.html">MeterSnap Scrum Detailed Justification</a></li>
-            <li><a href="metersnap_dillemas.html">MeterSnap Dilemmas</a></li>
+            <li><a href="metersnap_dilemmas.html">MeterSnap Dilemmas</a></li>
           </ul>
         </section>
       </main>
@@ -64,6 +71,7 @@
       <footer class="site-footer">© <span id="year"></span> CodeKokeshi. Built with intention.</footer>
     </div>
 
+    <script defer src="../assets/js/site.js"></script>
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>

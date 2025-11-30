@@ -17,8 +17,8 @@
       if (!href) return;
       try {
         const url = new URL(href, window.location.href);
-  url.searchParams.set("v", cacheValue);
-  link.setAttribute("href", url.href);
+        url.searchParams.set("v", cacheValue);
+        link.setAttribute("href", url.href);
       } catch (err) {
         // Fallback for older browsers without URL support
         const separator = href.includes("?") ? "&" : "?";
