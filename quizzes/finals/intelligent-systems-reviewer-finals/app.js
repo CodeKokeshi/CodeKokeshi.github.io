@@ -51,6 +51,24 @@
     return Array.from(root.querySelectorAll(selector));
   }
 
+  function shuffle(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function disableActivityButtons(activityNum) {
+    const activity = $(`#activity-${activityNum}`);
+    if (!activity) return;
+    const submitBtn = activity.querySelector(`[data-submit="${activityNum}"]`);
+    const giveUpBtn = activity.querySelector(`[data-giveup="${activityNum}"]`);
+    if (submitBtn) submitBtn.disabled = true;
+    if (giveUpBtn) giveUpBtn.disabled = true;
+  }
+
   function setResult(id, text, ok = null) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -94,14 +112,14 @@
       // Clear result message
       setResult(`result-${num}`, "");
       
-      // Disable submit if already completed this activity
+      // Re-enable buttons for this activity
       const submitBtn = targetActivity.querySelector(`[data-submit="${num}"]`);
       const giveUpBtn = targetActivity.querySelector(`[data-giveup="${num}"]`);
-      const existing = state.activityResults.find(r => r.activityNum === num);
-      if (existing && submitBtn && giveUpBtn) {
-        submitBtn.disabled = true;
-        giveUpBtn.disabled = true;
-      }
+      if (submitBtn) submitBtn.disabled = false;
+      if (giveUpBtn) giveUpBtn.disabled = false;
+      
+      // Randomize activity content
+      randomizeActivity(num);
     }
   }
 
@@ -169,6 +187,84 @@
     }
   }
 
+  function randomizeActivity(num) {
+    switch (num) {
+      case 2: randomizeActivity2(); break;
+      case 3: randomizeActivity3(); break;
+      case 5: randomizeActivity5(); break;
+      case 6: randomizeActivity6(); break;
+    }
+  }
+
+  function randomizeActivity2() {
+    const root = $("#activity-2");
+    if (!root) return;
+
+    // Randomize term cards order
+    const bank = $(".dnd-bank", root);
+    if (bank) {
+      const cards = $all(".dnd-card", bank);
+      const shuffled = shuffle(cards);
+      bank.innerHTML = "";
+      shuffled.forEach(card => bank.appendChild(card));
+    }
+
+    // Randomize definition slots order
+    const matchGrid = $(".match-grid", root);
+    if (matchGrid) {
+      const items = $all(".match-item", matchGrid);
+      const shuffled = shuffle(items);
+      matchGrid.innerHTML = "";
+      shuffled.forEach(item => matchGrid.appendChild(item));
+    }
+  }
+
+  function randomizeActivity3() {
+    const fieldset = $("#activity-3 .mcq");
+    if (!fieldset) return;
+
+    const legend = $("legend", fieldset);
+    const labels = $all("label.mcq-opt", fieldset);
+    const shuffled = shuffle(labels);
+    
+    fieldset.innerHTML = "";
+    if (legend) fieldset.appendChild(legend);
+    shuffled.forEach(label => {
+      // Clear checked state
+      const input = $("input", label);
+      if (input) input.checked = false;
+      fieldset.appendChild(label);
+    });
+  }
+
+  function randomizeActivity5() {
+    const root = $("#activity-5");
+    if (!root) return;
+
+    const bank = $(".dnd-bank", root);
+    if (bank) {
+      const cards = $all(".dnd-card", bank);
+      const shuffled = shuffle(cards);
+      bank.innerHTML = "";
+      shuffled.forEach(card => bank.appendChild(card));
+    }
+
+    // Clear drop zones
+    $all(".drop-list", root).forEach(list => {
+      list.innerHTML = "";
+    });
+  }
+
+  function randomizeActivity6() {
+    const list = $("#baggingOrder");
+    if (!list) return;
+
+    const items = $all(".order-item", list);
+    const shuffled = shuffle(items);
+    list.innerHTML = "";
+    shuffled.forEach(item => list.appendChild(item));
+  }
+
   // ============ Activity 1: Tree Labeling ============
 
   function renderNodeBadges() {
@@ -210,6 +306,7 @@
   }
 
   function checkActivity1() {
+    disableActivityButtons(1);
     for (const [nodeId, expected] of Object.entries(correct.treeLabels)) {
       const got = state.nodeLabels.get(nodeId);
       if (got !== expected) {
@@ -227,6 +324,7 @@
   }
 
   function giveUpActivity1() {
+    disableActivityButtons(1);
     setResult("result-1", "Skipped. Moving to next activity...", null);
     recordActivity(1, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -281,6 +379,7 @@
   }
 
   function checkActivity2() {
+    disableActivityButtons(2);
     const root = $("#activity-2");
     if (!root) return;
 
@@ -307,6 +406,7 @@
   }
 
   function giveUpActivity2() {
+    disableActivityButtons(2);
     setResult("result-2", "Skipped. Moving to next activity...", null);
     recordActivity(2, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -324,6 +424,7 @@
       return;
     }
 
+    disableActivityButtons(3);
     const ok = setsEqual(picked, correct.mcqAlgorithms);
     if (ok) {
       setResult("result-3", "Correct! ID3, C4.5, and CART.", true);
@@ -337,6 +438,7 @@
   }
 
   function giveUpActivity3() {
+    disableActivityButtons(3);
     setResult("result-3", "Skipped. Moving to next activity...", null);
     recordActivity(3, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -357,6 +459,7 @@
   }
 
   function checkActivity4() {
+    disableActivityButtons(4);
     const root = normalizeAnswer($("#blankRoot")?.value);
     const leaf = normalizeAnswer($("#blankLeaf")?.value);
     const pruning = normalizeAnswer($("#blankPruning")?.value);
@@ -377,6 +480,7 @@
   }
 
   function giveUpActivity4() {
+    disableActivityButtons(4);
     setResult("result-4", "Skipped. Moving to next activity...", null);
     recordActivity(4, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -421,6 +525,7 @@
   }
 
   function checkActivity5() {
+    disableActivityButtons(5);
     const root = $("#activity-5");
     if (!root) return;
 
@@ -445,6 +550,7 @@
   }
 
   function giveUpActivity5() {
+    disableActivityButtons(5);
     setResult("result-5", "Skipped. Moving to next activity...", null);
     recordActivity(5, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -487,6 +593,7 @@
   }
 
   function checkActivity6() {
+    disableActivityButtons(6);
     const list = $("#baggingOrder");
     if (!list) return;
 
@@ -507,6 +614,7 @@
   }
 
   function giveUpActivity6() {
+    disableActivityButtons(6);
     setResult("result-6", "Skipped. Moving to next activity...", null);
     recordActivity(6, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -559,6 +667,7 @@
       return;
     }
 
+    disableActivityButtons(7);
     const ok = correct.overfitDepthAcceptable.has(state.lockedDepth);
 
     if (ok) {
@@ -573,6 +682,7 @@
   }
 
   function giveUpActivity7() {
+    disableActivityButtons(7);
     setResult("result-7", "Skipped. Moving to next activity...", null);
     recordActivity(7, false, true);
     setTimeout(() => nextActivity(), 1500);
