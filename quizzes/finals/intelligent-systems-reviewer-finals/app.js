@@ -404,23 +404,38 @@
     if (!root) return;
 
     const errors = [];
+    const termNames = {
+      "term-root": "Root Node",
+      "term-branches": "Branches",
+      "term-internal": "Internal Nodes",
+      "term-leaf": "Leaf Nodes",
+      "term-pruning": "Pruning"
+    };
+    const slotNames = {
+      "def-root": "starting point/whole dataset",
+      "def-branches": "lines connecting nodes",
+      "def-internal": "decision points",
+      "def-leaf": "end points/final decision",
+      "def-pruning": "removal of subnodes"
+    };
+
     for (const [slotKey, expectedCardKey] of correct.termsMatch.entries()) {
       const slot = $(`.match-slot[data-slot="${slotKey}"]`, root);
       const card = slot ? $(".dnd-card", slot) : null;
       const got = card?.dataset.card;
       if (got !== expectedCardKey) {
-        errors.push(slotKey);
+        errors.push(`${slotNames[slotKey]} → should be ${termNames[expectedCardKey]}`);
       }
     }
 
     if (errors.length > 0) {
-      setResult("result-2", `Incorrect. Check your matches.`, false);
+      setResult("result-2", `Incorrect. ${errors.join("; ")}.`, false);
       recordActivity(2, false);
-      setTimeout(() => nextActivity(), 2000);
+      setTimeout(() => nextActivity(), 3000);
       return;
     }
 
-    setResult("result-2", "Correct!", true);
+    setResult("result-2", "Correct! All terms matched.", true);
     recordActivity(2, true);
     setTimeout(() => nextActivity(), 1500);
   }
@@ -456,9 +471,11 @@
       recordActivity(3, true);
       setTimeout(() => nextActivity(), 1500);
     } else {
-      setResult("result-3", "Incorrect. Expected: ID3, C4.5, and CART.", false);
+      const expected = Array.from(correct.mcqAlgorithms).sort();
+      const selected = Array.from(picked).sort();
+      setResult("result-3", `Incorrect. You selected: ${selected.join(", ") || "none"}. Correct answer: ${expected.join(", ")}.`, false);
       recordActivity(3, false);
-      setTimeout(() => nextActivity(), 2000);
+      setTimeout(() => nextActivity(), 3000);
     }
   }
 
@@ -492,13 +509,17 @@
     const okPruning = pruning.toLowerCase() === correct.fill.blankPruning.toLowerCase();
 
     if (okRoot && okLeaf && okPruning) {
-      setResult("result-4", "Correct!", true);
+      setResult("result-4", "Correct! All blanks filled correctly.", true);
       recordActivity(4, true);
       setTimeout(() => nextActivity(), 1500);
     } else {
-      setResult("result-4", "Incorrect. Expected: Root node / Leaf nodes / Pruning.", false);
+      const errors = [];
+      if (!okRoot) errors.push(`Blank 1: "${correct.fill.blankRoot}"`);
+      if (!okLeaf) errors.push(`Blank 2: "${correct.fill.blankLeaf}"`);
+      if (!okPruning) errors.push(`Blank 3: "${correct.fill.blankPruning}"`);
+      setResult("result-4", `Incorrect. Correct answers: ${errors.join(", ")}.`, false);
       recordActivity(4, false);
-      setTimeout(() => nextActivity(), 2000);
+      setTimeout(() => nextActivity(), 3000);
     }
   }
 
@@ -560,13 +581,20 @@
     const okBoosting = setsEqual(boostingCards, correct.ensembleSort.boosting);
 
     if (okBagging && okBoosting) {
-      setResult("result-5", "Correct!", true);
+      setResult("result-5", "Correct! All cards sorted properly.", true);
       recordActivity(5, true);
       setTimeout(() => nextActivity(), 1500);
     } else {
-      setResult("result-5", "Incorrect. Check your sorting.", false);
+      const errors = [];
+      if (!okBagging) {
+        errors.push("Bagging should contain: Bagging (Bootstrap Aggregating), independent training, and averaging/voting");
+      }
+      if (!okBoosting) {
+        errors.push("Boosting should contain: Boosting and sequential training with error correction");
+      }
+      setResult("result-5", `Incorrect. ${errors.join(". ")}.`, false);
       recordActivity(5, false);
-      setTimeout(() => nextActivity(), 2000);
+      setTimeout(() => nextActivity(), 3500);
     }
   }
 
@@ -622,13 +650,21 @@
     const isCorrect = JSON.stringify(order) === JSON.stringify(correct.baggingOrder);
 
     if (isCorrect) {
-      setResult("result-6", "Correct!", true);
+      setResult("result-6", "Correct! Steps in proper order.", true);
       recordActivity(6, true);
       setTimeout(() => nextActivity(), 1500);
     } else {
-      setResult("result-6", "Incorrect. Expected order: Step 1 → Step 2 → Step 3 → Step 4.", false);
+      const stepLabels = {
+        "step1": "Create subsets",
+        "step2": "Create base models",
+        "step3": "Learn in parallel",
+        "step4": "Combine predictions"
+      };
+      const yourOrder = order.map((s, i) => `${i+1}. ${stepLabels[s]}`).join("; ");
+      const correctOrder = correct.baggingOrder.map((s, i) => `${i+1}. ${stepLabels[s]}`).join("; ");
+      setResult("result-6", `Incorrect. Your order: ${yourOrder}. Correct order: ${correctOrder}.`, false);
       recordActivity(6, false);
-      setTimeout(() => nextActivity(), 2000);
+      setTimeout(() => nextActivity(), 4000);
     }
   }
 
@@ -699,9 +735,9 @@
       recordActivity(7, true);
       setTimeout(() => nextActivity(), 1500);
     } else {
-      setResult("result-7", `Incorrect. You selected depth ${state.lockedDepth}. Optimal is 4 or 5.`, false);
+      setResult("result-7", `Incorrect. You selected depth ${state.lockedDepth}, but the optimal depth is 4 or 5 (highest test accuracy without overfitting).", false);
       recordActivity(7, false);
-      setTimeout(() => nextActivity(), 2000);
+      setTimeout(() => nextActivity(), 3000);
     }
   }
 
