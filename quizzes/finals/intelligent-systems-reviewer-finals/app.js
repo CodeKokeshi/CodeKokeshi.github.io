@@ -306,7 +306,6 @@
   }
 
   function checkActivity1() {
-    disableActivityButtons(1);
     for (const [nodeId, expected] of Object.entries(correct.treeLabels)) {
       const got = state.nodeLabels.get(nodeId);
       if (got !== expected) {
@@ -324,7 +323,6 @@
   }
 
   function giveUpActivity1() {
-    disableActivityButtons(1);
     setResult("result-1", "Skipped. Moving to next activity...", null);
     recordActivity(1, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -379,7 +377,6 @@
   }
 
   function checkActivity2() {
-    disableActivityButtons(2);
     const root = $("#activity-2");
     if (!root) return;
 
@@ -406,7 +403,6 @@
   }
 
   function giveUpActivity2() {
-    disableActivityButtons(2);
     setResult("result-2", "Skipped. Moving to next activity...", null);
     recordActivity(2, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -424,7 +420,6 @@
       return;
     }
 
-    disableActivityButtons(3);
     const ok = setsEqual(picked, correct.mcqAlgorithms);
     if (ok) {
       setResult("result-3", "Correct! ID3, C4.5, and CART.", true);
@@ -438,7 +433,6 @@
   }
 
   function giveUpActivity3() {
-    disableActivityButtons(3);
     setResult("result-3", "Skipped. Moving to next activity...", null);
     recordActivity(3, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -459,7 +453,6 @@
   }
 
   function checkActivity4() {
-    disableActivityButtons(4);
     const root = normalizeAnswer($("#blankRoot")?.value);
     const leaf = normalizeAnswer($("#blankLeaf")?.value);
     const pruning = normalizeAnswer($("#blankPruning")?.value);
@@ -480,7 +473,6 @@
   }
 
   function giveUpActivity4() {
-    disableActivityButtons(4);
     setResult("result-4", "Skipped. Moving to next activity...", null);
     recordActivity(4, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -525,7 +517,6 @@
   }
 
   function checkActivity5() {
-    disableActivityButtons(5);
     const root = $("#activity-5");
     if (!root) return;
 
@@ -550,7 +541,6 @@
   }
 
   function giveUpActivity5() {
-    disableActivityButtons(5);
     setResult("result-5", "Skipped. Moving to next activity...", null);
     recordActivity(5, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -593,7 +583,6 @@
   }
 
   function checkActivity6() {
-    disableActivityButtons(6);
     const list = $("#baggingOrder");
     if (!list) return;
 
@@ -614,7 +603,6 @@
   }
 
   function giveUpActivity6() {
-    disableActivityButtons(6);
     setResult("result-6", "Skipped. Moving to next activity...", null);
     recordActivity(6, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -667,7 +655,6 @@
       return;
     }
 
-    disableActivityButtons(7);
     const ok = correct.overfitDepthAcceptable.has(state.lockedDepth);
 
     if (ok) {
@@ -682,7 +669,6 @@
   }
 
   function giveUpActivity7() {
-    disableActivityButtons(7);
     setResult("result-7", "Skipped. Moving to next activity...", null);
     recordActivity(7, false, true);
     setTimeout(() => nextActivity(), 1500);
@@ -707,6 +693,7 @@
     $all("[data-submit]").forEach(btn => {
       btn.addEventListener("click", () => {
         const activityNum = parseInt(btn.dataset.submit, 10);
+        disableActivityButtons(activityNum);
         switch (activityNum) {
           case 1: checkActivity1(); break;
           case 2: checkActivity2(); break;
@@ -723,6 +710,7 @@
     $all("[data-giveup]").forEach(btn => {
       btn.addEventListener("click", () => {
         const activityNum = parseInt(btn.dataset.giveup, 10);
+        disableActivityButtons(activityNum);
         switch (activityNum) {
           case 1: giveUpActivity1(); break;
           case 2: giveUpActivity2(); break;
