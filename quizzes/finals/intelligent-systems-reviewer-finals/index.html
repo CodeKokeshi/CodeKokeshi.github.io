@@ -76,11 +76,11 @@
             <article class="portfolio-card">
               <div class="portfolio-card__header">
                 <h3>Lesson 9 and 10 — Part 3</h3>
-                <span class="pill">Coming Soon</span>
+                <span class="pill">11 Activities</span>
               </div>
-              <p>Heuristic Search and Genetic Algorithm (placeholder for now).</p>
+              <p>Heuristic Search and Genetic Algorithms. Interactive activities covering search algorithms, A* search, GA operators, crossover, mutation, and evolutionary computing.</p>
               <div class="card-links">
-                <button class="btn" type="button" disabled>Not Available</button>
+                <button class="btn" type="button" data-select-part="part-3">Start Part 3</button>
               </div>
             </article>
           </div>
@@ -784,6 +784,384 @@
             <div class="link-row">
               <button class="btn" type="button" id="backToPartSelection2">← Back to Part Selection</button>
               <button class="btn outline" type="button" id="retryPart2">Retry Part 2</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Part 3 Activity Container -->
+        <section id="part3Container" class="page-section" hidden>
+          <div class="panel">
+            <div class="flex-between">
+              <div>
+                <p class="tag">Lesson 9 and 10 — Part 3</p>
+                <h2 class="panel-title">Heuristic Search and Genetic Algorithms</h2>
+              </div>
+              <div class="sidebar-meta" role="status" aria-live="polite">
+                <div><strong>Activity:</strong> <span id="currentActivity3">1 / 11</span></div>
+                <div><strong>Score:</strong> <span id="scoreText3">0 / 11</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity 1: Heuristic Search Concepts -->
+          <article class="panel activity" id="activity3-1" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 1 — What is Heuristic Search?</h3>
+              <p class="muted">Select all correct statements about heuristic search.</p>
+            </header>
+
+            <fieldset class="mcq" aria-label="MCQ: Heuristic Search">
+              <legend><strong>Question:</strong> Which statements correctly describe heuristic search?</legend>
+              <label class="mcq-opt"><input type="checkbox" name="heuristic-concepts" value="shortcuts" /> Heuristics are intelligent shortcuts to solve problems faster</label>
+              <label class="mcq-opt"><input type="checkbox" name="heuristic-concepts" value="speed" /> Heuristics prioritize speed, trading optimality for quicker solutions</label>
+              <label class="mcq-opt"><input type="checkbox" name="heuristic-concepts" value="guided" /> Uses a heuristic function to estimate closeness to goal</label>
+              <label class="mcq-opt"><input type="checkbox" name="heuristic-concepts" value="perfect" /> Heuristics always find the perfect optimal solution</label>
+              <label class="mcq-opt"><input type="checkbox" name="heuristic-concepts" value="exhaustive" /> Heuristic search is more practical than exhaustive search for large spaces</label>
+            </fieldset>
+
+            <div class="activity-result" id="result3-1" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="31">Submit</button>
+              <button class="btn outline" type="button" data-giveup="31">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 2: Hill Climbing Pitfalls -->
+          <article class="panel activity" id="activity3-2" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 2 — Hill Climbing Algorithm</h3>
+              <p class="muted">Drag the pitfalls to categorize Hill Climbing characteristics.</p>
+            </header>
+
+            <div class="dnd-bank" aria-label="Hill climbing characteristics">
+              <div class="dnd-card" draggable="true" data-card="hc-greedy">Greedy Approach: moves to states with better scores</div>
+              <div class="dnd-card" draggable="true" data-card="hc-local">Local Maxima: can get stuck</div>
+              <div class="dnd-card" draggable="true" data-card="hc-plateau">Plateaus: can get stuck</div>
+              <div class="dnd-card" draggable="true" data-card="hc-ridge">Ridges: can get stuck</div>
+              <div class="dnd-card" draggable="true" data-card="hc-optimal">Always finds global optimum</div>
+            </div>
+
+            <div class="dnd-zones" role="group" aria-label="Drop zones">
+              <div class="drop-zone" data-zone="hc-correct" aria-label="Correct characteristics">
+                <h4>Correct Characteristics</h4>
+                <div class="drop-list" data-list="hc-correct"></div>
+              </div>
+              <div class="drop-zone" data-zone="hc-incorrect" aria-label="Incorrect">
+                <h4>Incorrect</h4>
+                <div class="drop-list" data-list="hc-incorrect"></div>
+              </div>
+            </div>
+
+            <div class="activity-result" id="result3-2" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="32">Submit</button>
+              <button class="btn outline" type="button" data-giveup="32">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 3: Algorithm Formulas Matching -->
+          <article class="panel activity" id="activity3-3" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 3 — Search Algorithm Formulas</h3>
+              <p class="muted">Match each algorithm to its formula.</p>
+            </header>
+
+            <div class="dnd-bank" aria-label="Algorithms to match">
+              <div class="dnd-card" draggable="true" data-card="algo-greedy">Greedy Best-First Search</div>
+              <div class="dnd-card" draggable="true" data-card="algo-astar">A* Search</div>
+            </div>
+
+            <div class="match-grid" role="group" aria-label="Formula definitions">
+              <div class="match-item">
+                <p class="match-def"><strong>Formula:</strong> f(n) = h(n) — Only considers heuristic estimate to goal.</p>
+                <div class="match-slot" data-slot="formula-greedy"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Formula:</strong> f(n) = g(n) + h(n) — Combines actual cost and heuristic estimate.</p>
+                <div class="match-slot" data-slot="formula-astar"></div>
+              </div>
+            </div>
+
+            <div class="activity-result" id="result3-3" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="33">Submit</button>
+              <button class="btn outline" type="button" data-giveup="33">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 4: A* Components -->
+          <article class="panel activity" id="activity3-4" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 4 — A* Search Components</h3>
+              <p class="muted">Fill in what each component represents in the A* formula: f(n) = g(n) + h(n).</p>
+            </header>
+
+            <div class="fill-grid" aria-label="A* components">
+              <label class="fill-item">
+                <span><strong>g(n)</strong> represents:</span>
+                <input type="text" id="astar-g" placeholder="What does g(n) represent?" />
+              </label>
+              <label class="fill-item">
+                <span><strong>h(n)</strong> represents:</span>
+                <input type="text" id="astar-h" placeholder="What does h(n) represent?" />
+              </label>
+              <label class="fill-item">
+                <span><strong>f(n)</strong> represents:</span>
+                <input type="text" id="astar-f" placeholder="What does f(n) represent?" />
+              </label>
+            </div>
+
+            <div class="activity-result" id="result3-4" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="34">Submit</button>
+              <button class="btn outline" type="button" data-giveup="34">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 5: Good Heuristics -->
+          <article class="panel activity" id="activity3-5" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 5 — Characteristics of Good Heuristics</h3>
+              <p class="muted">Select all characteristics of good heuristics.</p>
+            </header>
+
+            <fieldset class="mcq" aria-label="MCQ: Good Heuristics">
+              <legend><strong>Question:</strong> Which are characteristics of good heuristics?</legend>
+              <label class="mcq-opt"><input type="checkbox" name="good-heuristics" value="admissible" /> Admissible: never overestimates true cost</label>
+              <label class="mcq-opt"><input type="checkbox" name="good-heuristics" value="consistent" /> Consistent (Monotonic)</label>
+              <label class="mcq-opt"><input type="checkbox" name="good-heuristics" value="domain" /> Domain-Specific</label>
+              <label class="mcq-opt"><input type="checkbox" name="good-heuristics" value="random" /> Random guessing</label>
+              <label class="mcq-opt"><input type="checkbox" name="good-heuristics" value="overestimate" /> Always overestimates to be safe</label>
+            </fieldset>
+
+            <div class="activity-result" id="result3-5" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="35">Submit</button>
+              <button class="btn outline" type="button" data-giveup="35">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 6: Greedy Algorithm Properties -->
+          <article class="panel activity" id="activity3-6" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 6 — Greedy Algorithm Properties</h3>
+              <p class="muted">Select the two properties required for greedy algorithms.</p>
+            </header>
+
+            <fieldset class="mcq" aria-label="MCQ: Greedy Properties">
+              <legend><strong>Question:</strong> A problem must have which two properties to use a greedy approach?</legend>
+              <label class="mcq-opt"><input type="checkbox" name="greedy-props" value="greedy-choice" /> Greedy-choice property</label>
+              <label class="mcq-opt"><input type="checkbox" name="greedy-props" value="optimal-substructure" /> Optimal Substructure</label>
+              <label class="mcq-opt"><input type="checkbox" name="greedy-props" value="dynamic" /> Dynamic programming property</label>
+              <label class="mcq-opt"><input type="checkbox" name="greedy-props" value="recursive" /> Must be recursive</label>
+            </fieldset>
+
+            <div class="activity-result" id="result3-6" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="36">Submit</button>
+              <button class="btn outline" type="button" data-giveup="36">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 7: Applications Matching -->
+          <article class="panel activity" id="activity3-7" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 7 — Real-World Applications</h3>
+              <p class="muted">Match each application to its description.</p>
+            </header>
+
+            <div class="dnd-bank" aria-label="Applications to match">
+              <div class="dnd-card" draggable="true" data-card="app-gps">GPS Navigation</div>
+              <div class="dnd-card" draggable="true" data-card="app-robotics">Robotics</div>
+              <div class="dnd-card" draggable="true" data-card="app-games">Video Games</div>
+              <div class="dnd-card" draggable="true" data-card="app-network">Network Routing</div>
+            </div>
+
+            <div class="match-grid" role="group" aria-label="Application descriptions">
+              <div class="match-item">
+                <p class="match-def"><strong>Application:</strong> A* is the backbone for finding shortest route in Google Maps and Waze.</p>
+                <div class="match-slot" data-slot="app-def-gps"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Application:</strong> Path planning for autonomous robots in warehouses like Amazon Kiva.</p>
+                <div class="match-slot" data-slot="app-def-robotics"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Application:</strong> Powers NPC movement and AI pathfinding.</p>
+                <div class="match-slot" data-slot="app-def-games"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Application:</strong> Optimizes data packet paths across the internet.</p>
+                <div class="match-slot" data-slot="app-def-network"></div>
+              </div>
+            </div>
+
+            <div class="activity-result" id="result3-7" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="37">Submit</button>
+              <button class="btn outline" type="button" data-giveup="37">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 8: GA Key Terms -->
+          <article class="panel activity" id="activity3-8" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 8 — Genetic Algorithm Key Terms</h3>
+              <p class="muted">Match each term to its definition.</p>
+            </header>
+
+            <div class="dnd-bank" aria-label="Terms to match">
+              <div class="dnd-card" draggable="true" data-card="term-population">Population</div>
+              <div class="dnd-card" draggable="true" data-card="term-chromosome">Chromosome</div>
+              <div class="dnd-card" draggable="true" data-card="term-gene">Gene</div>
+              <div class="dnd-card" draggable="true" data-card="term-fitness">Fitness</div>
+              <div class="dnd-card" draggable="true" data-card="term-selection">Selection</div>
+              <div class="dnd-card" draggable="true" data-card="term-crossover">Crossover</div>
+              <div class="dnd-card" draggable="true" data-card="term-mutation">Mutation</div>
+            </div>
+
+            <div class="match-grid" role="group" aria-label="Term definitions">
+              <div class="match-item">
+                <p class="match-def"><strong>Definition:</strong> The set of all current individuals (potential solutions).</p>
+                <div class="match-slot" data-slot="def-population"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Definition:</strong> An array of bits or characters representing a solution.</p>
+                <div class="match-slot" data-slot="def-chromosome"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Definition:</strong> A single unit or bit within a chromosome.</p>
+                <div class="match-slot" data-slot="def-gene"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Definition:</strong> A score representing how well an individual solves the problem.</p>
+                <div class="match-slot" data-slot="def-fitness"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Definition:</strong> Choosing the best individuals to reproduce.</p>
+                <div class="match-slot" data-slot="def-selection"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Definition:</strong> Exchanging genes between two parents to create offspring.</p>
+                <div class="match-slot" data-slot="def-crossover"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Definition:</strong> Randomly changing genes to maintain diversity.</p>
+                <div class="match-slot" data-slot="def-mutation"></div>
+              </div>
+            </div>
+
+            <div class="activity-result" id="result3-8" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="38">Submit</button>
+              <button class="btn outline" type="button" data-giveup="38">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 9: GA Process Flow -->
+          <article class="panel activity" id="activity3-9" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 9 — GA Process Flow (Order the Steps)</h3>
+              <p class="muted">Drag the steps into the correct order.</p>
+            </header>
+
+            <ol class="order-list" id="gaProcessOrder" aria-label="GA process steps" role="list">
+              <li class="order-item" draggable="true" data-step="ga-step5">Check Termination: If end condition met, stop; else loop back.</li>
+              <li class="order-item" draggable="true" data-step="ga-step1">Start.</li>
+              <li class="order-item" draggable="true" data-step="ga-step3">Evaluation: Determine fitness of each individual.</li>
+              <li class="order-item" draggable="true" data-step="ga-step2">Initialization: Create initial population randomly.</li>
+              <li class="order-item" draggable="true" data-step="ga-step4">Loop: Selection → Crossover → Mutation → Create New Population.</li>
+            </ol>
+
+            <div class="activity-result" id="result3-9" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="39">Submit</button>
+              <button class="btn outline" type="button" data-giveup="39">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 10: Crossover Simulation -->
+          <article class="panel activity" id="activity3-10" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 10 — Crossover Operator (Interactive)</h3>
+              <p class="muted">Given the crossover example from the lesson, identify the correct offspring.</p>
+            </header>
+
+            <div class="info-box">
+              <p><strong>Parent 1:</strong> A B | <strong>C D</strong> | E F G H</p>
+              <p><strong>Parent 2:</strong> F G | <strong>H A</strong> | D B E A</p>
+              <p><strong>Crossover:</strong> Exchange genes between the vertical bars (|).</p>
+            </div>
+
+            <div class="toolbar" role="group" aria-label="Offspring choices">
+              <button type="button" class="chip chip-large" data-offspring="wrong1">A B H A E F G H</button>
+              <button type="button" class="chip chip-large" data-offspring="correct">F G H A C D E A</button>
+              <button type="button" class="chip chip-large" data-offspring="wrong2">A B C D F G H A</button>
+              <button type="button" class="chip chip-large" data-offspring="wrong3">F G C D D B E A</button>
+            </div>
+
+            <div class="activity-result" id="result3-10" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="310">Submit</button>
+              <button class="btn outline" type="button" data-giveup="310">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 11: Mutation Operator -->
+          <article class="panel activity" id="activity3-11" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 11 — Mutation Operator</h3>
+              <p class="muted">Answer questions about the mutation operator.</p>
+            </header>
+
+            <fieldset class="mcq" aria-label="MCQ: Mutation">
+              <legend><strong>Question:</strong> What is the goal of the mutation operator?</legend>
+              <label class="mcq-opt"><input type="checkbox" name="mutation-goal" value="diversity" /> To maintain diversity in the population</label>
+              <label class="mcq-opt"><input type="checkbox" name="mutation-goal" value="convergence" /> To avoid premature convergence</label>
+              <label class="mcq-opt"><input type="checkbox" name="mutation-goal" value="random" /> To insert random genes into offspring</label>
+              <label class="mcq-opt"><input type="checkbox" name="mutation-goal" value="eliminate" /> To eliminate weak individuals</label>
+              <label class="mcq-opt"><input type="checkbox" name="mutation-goal" value="copy" /> To create exact copies of parents</label>
+            </fieldset>
+
+            <div class="activity-result" id="result3-11" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="311">Submit</button>
+              <button class="btn outline" type="button" data-giveup="311">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Summary Screen Part 3 -->
+          <div class="panel" id="summaryScreen3" hidden>
+            <h2 class="panel-title">Part 3 Complete!</h2>
+            <div class="summary-stats">
+              <div class="stat-card">
+                <span class="stat-value" id="finalScore3">0</span>
+                <span class="stat-label">Correct Answers</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value">11</span>
+                <span class="stat-label">Total Activities</span>
+              </div>
+            </div>
+
+            <div class="summary-breakdown" id="summaryBreakdown3">
+              <!-- Will be populated by JS -->
+            </div>
+
+            <div class="link-row">
+              <button class="btn" type="button" id="backToPartSelection3">← Back to Part Selection</button>
+              <button class="btn outline" type="button" id="retryPart3">Retry Part 3</button>
             </div>
           </div>
         </section>

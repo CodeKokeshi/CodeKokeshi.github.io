@@ -13,10 +13,13 @@
     avgSelected: null,
     norm1Selected: null,
     distanceSelected: null,
+    // Part 3 specific state
+    offspringSelected: null,
   };
 
   const TOTAL_ACTIVITIES = 7;
   const TOTAL_ACTIVITIES_PART2 = 12;
+  const TOTAL_ACTIVITIES_PART3 = 11;
 
   const correct = {
     treeLabels: {
@@ -87,6 +90,41 @@
     },
   };
 
+  const correctPart3 = {
+    heuristicConcepts: new Set(["shortcuts", "speed", "guided", "exhaustive"]),
+    hillClimbingCorrect: new Set(["hc-greedy", "hc-local", "hc-plateau", "hc-ridge"]),
+    hillClimbingIncorrect: new Set(["hc-optimal"]),
+    algorithmFormulas: new Map([
+      ["formula-greedy", "algo-greedy"],
+      ["formula-astar", "algo-astar"],
+    ]),
+    astarComponents: {
+      g: "actual cost",
+      h: "heuristic estimate",
+      f: "total",
+    },
+    goodHeuristics: new Set(["admissible", "consistent", "domain"]),
+    greedyProps: new Set(["greedy-choice", "optimal-substructure"]),
+    applications: new Map([
+      ["app-def-gps", "app-gps"],
+      ["app-def-robotics", "app-robotics"],
+      ["app-def-games", "app-games"],
+      ["app-def-network", "app-network"],
+    ]),
+    gaTerms: new Map([
+      ["def-population", "term-population"],
+      ["def-chromosome", "term-chromosome"],
+      ["def-gene", "term-gene"],
+      ["def-fitness", "term-fitness"],
+      ["def-selection", "term-selection"],
+      ["def-crossover", "term-crossover"],
+      ["def-mutation", "term-mutation"],
+    ]),
+    gaProcessOrder: ["ga-step1", "ga-step2", "ga-step3", "ga-step4", "ga-step5"],
+    offspring: "correct",
+    mutationGoals: new Set(["diversity", "convergence", "random"]),
+  };
+
   function $(selector, root = document) {
     return root.querySelector(selector);
   }
@@ -130,7 +168,7 @@
   }
 
   function showScreen(screenId) {
-    const screens = ["partSelection", "part1Container", "part2Container"];
+    const screens = ["partSelection", "part1Container", "part2Container", "part3Container"];
     screens.forEach(id => {
       const el = document.getElementById(id);
       if (el) el.hidden = id !== screenId;
@@ -1574,6 +1612,699 @@
     });
   }
 
+  // ============ PART 3: Heuristic Search & Genetic Algorithms ============
+
+  let dragging3 = null;
+
+  function disableActivityButtonsPart3(activityNum) {
+    const activity = $(`#activity3-${activityNum}`);
+    if (!activity) return;
+    const submitBtn = activity.querySelector(`[data-submit="${30 + activityNum}"]`);
+    const giveUpBtn = activity.querySelector(`[data-giveup="${30 + activityNum}"]`);
+    if (submitBtn) submitBtn.disabled = true;
+    if (giveUpBtn) giveUpBtn.disabled = true;
+  }
+
+  function updateScoreboardPart3() {
+    const scoreText = $("#scoreText3");
+    const currentActivity = $("#currentActivity3");
+    if (scoreText) scoreText.textContent = `${state.score} / ${TOTAL_ACTIVITIES_PART3}`;
+    if (currentActivity) currentActivity.textContent = `${state.currentActivity} / ${TOTAL_ACTIVITIES_PART3}`;
+  }
+
+  function showActivityPart3(num) {
+    for (let i = 1; i <= TOTAL_ACTIVITIES_PART3; i++) {
+      const el = $(`#activity3-${i}`);
+      if (el) el.hidden = true;
+    }
+    const summaryEl = $("#summaryScreen3");
+    if (summaryEl) summaryEl.hidden = true;
+
+    state.currentActivity = num;
+    const activity = $(`#activity3-${num}`);
+    if (activity) {
+      activity.hidden = false;
+      const submitBtn = activity.querySelector(`[data-submit]`);
+      const giveUpBtn = activity.querySelector(`[data-giveup]`);
+      if (submitBtn) submitBtn.disabled = false;
+      if (giveUpBtn) giveUpBtn.disabled = false;
+      randomizeActivityPart3(num);
+    }
+    updateScoreboardPart3();
+  }
+
+  function showSummaryPart3() {
+    for (let i = 1; i <= TOTAL_ACTIVITIES_PART3; i++) {
+      const el = $(`#activity3-${i}`);
+      if (el) el.hidden = true;
+    }
+
+    const summaryScreen = $("#summaryScreen3");
+    if (summaryScreen) {
+      summaryScreen.hidden = false;
+      const finalScore = $("#finalScore3");
+      if (finalScore) finalScore.textContent = state.score;
+
+      const breakdown = $("#summaryBreakdown3");
+      if (breakdown) {
+        breakdown.innerHTML = "<h3>Activity Breakdown</h3>";
+        for (let i = 1; i <= TOTAL_ACTIVITIES_PART3; i++) {
+          const result = state.activityResults.find(r => r.activityNum === i);
+          const item = document.createElement("div");
+          item.className = "summary-item";
+          
+          if (result) {
+            if (result.correct) {
+              item.innerHTML = `<span class="summary-icon success">✓</span> <div><strong>Activity ${i}</strong> <span class="summary-status success">Correct</span></div>`;
+            } else if (result.skipped) {
+              item.innerHTML = `<span class="summary-icon skip">—</span> <div><strong>Activity ${i}</strong> <span class="summary-status skip">Skipped</span></div>`;
+            } else {
+              let detailHTML = `<span class="summary-icon error">✗</span> <div><strong>Activity ${i}</strong> <span class="summary-status error">Incorrect</span>`;
+              if (result.details) {
+                detailHTML += `<br><span class="summary-detail">${result.details}</span>`;
+              }
+              detailHTML += `</div>`;
+              item.innerHTML = detailHTML;
+            }
+          } else {
+            item.innerHTML = `<span class="summary-icon skip">—</span> <div><strong>Activity ${i}</strong> <span class="summary-status skip">Not Attempted</span></div>`;
+          }
+          
+          breakdown.appendChild(item);
+        }
+      }
+    }
+  }
+
+  function recordActivityPart3(activityNum, correct, skipped = false, details = null) {
+    state.activityResults = state.activityResults.filter(r => r.activityNum !== activityNum);
+    state.activityResults.push({ activityNum, correct, skipped, details });
+    if (correct && !skipped) {
+      state.score++;
+    }
+    updateScoreboardPart3();
+  }
+
+  function nextActivityPart3() {
+    if (state.currentActivity < TOTAL_ACTIVITIES_PART3) {
+      showActivityPart3(state.currentActivity + 1);
+    } else {
+      showSummaryPart3();
+    }
+  }
+
+  function randomizeActivityPart3(num) {
+    switch (num) {
+      case 2: randomizeHillClimbing(); break;
+      case 9: randomizeGAProcess(); break;
+      default: break;
+    }
+  }
+
+  // Activity 1: Heuristic Concepts
+  function checkActivity31() {
+    const picked = new Set();
+    $all('input[name="heuristic-concepts"]:checked').forEach(input => picked.add(input.value));
+
+    if (picked.size === 0) {
+      setResult("result3-1", "Please select at least one option.", false);
+      const activity = $("#activity3-1");
+      if (activity) {
+        const submitBtn = activity.querySelector('[data-submit="31"]');
+        const giveUpBtn = activity.querySelector('[data-giveup="31"]');
+        if (submitBtn) submitBtn.disabled = false;
+        if (giveUpBtn) giveUpBtn.disabled = false;
+      }
+      return;
+    }
+
+    const ok = setsEqual(picked, correctPart3.heuristicConcepts);
+    if (ok) {
+      setResult("result3-1", "Correct! All key heuristic concepts identified.", true);
+      recordActivityPart3(1, true);
+      setTimeout(() => nextActivityPart3(), 1500);
+    } else {
+      const details = "Correct: intelligent shortcuts, speed over perfection, guided estimation, more practical than exhaustive";
+      setResult("result3-1", `Incorrect. ${details}.`, false);
+      recordActivityPart3(1, false, false, details);
+      setTimeout(() => nextActivityPart3(), 3000);
+    }
+  }
+
+  function giveUpActivity31() {
+    setResult("result3-1", "Skipped. Moving to next activity...", null);
+    recordActivityPart3(1, false, true);
+    setTimeout(() => nextActivityPart3(), 1500);
+  }
+
+  // Activity 2: Hill Climbing
+  function randomizeHillClimbing() {
+    const bank = $(".dnd-bank", $("#activity3-2"));
+    if (!bank) return;
+    const cards = shuffle($all(".dnd-card", bank));
+    bank.innerHTML = "";
+    cards.forEach(card => bank.appendChild(card));
+    setupHillClimbingDnD();
+  }
+
+  function setupHillClimbingDnD() {
+    const root = $("#activity3-2");
+    if (!root) return;
+
+    const bank = $(".dnd-bank", root);
+    if (!bank) return;
+
+    $all(".dnd-card", root).forEach(card => {
+      card.addEventListener("dragstart", (e) => {
+        dragging3 = card;
+        e.dataTransfer?.setData("text/plain", card.dataset.card || "");
+        e.dataTransfer?.setDragImage(card, 10, 10);
+      });
+
+      card.addEventListener("dragend", () => {
+        dragging3 = null;
+        $all(".drop-zone", root).forEach(zone => zone.classList.remove("is-over"));
+      });
+    });
+
+    $all(".drop-zone", root).forEach(zone => {
+      zone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        zone.classList.add("is-over");
+      });
+
+      zone.addEventListener("dragleave", () => zone.classList.remove("is-over"));
+
+      zone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        zone.classList.remove("is-over");
+        if (!dragging3) return;
+        const list = zone.querySelector(".drop-list");
+        if (list) list.appendChild(dragging3);
+      });
+    });
+
+    bank.addEventListener("dragover", (e) => e.preventDefault());
+    bank.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (!dragging3) return;
+      bank.appendChild(dragging3);
+    });
+  }
+
+  function checkActivity32() {
+    const root = $("#activity3-2");
+    if (!root) return;
+
+    const correctZone = root.querySelector('[data-zone="hc-correct"] .drop-list');
+    const incorrectZone = root.querySelector('[data-zone="hc-incorrect"] .drop-list');
+
+    const correctCards = new Set($all(".dnd-card", correctZone).map(c => c.dataset.card));
+    const incorrectCards = new Set($all(".dnd-card", incorrectZone).map(c => c.dataset.card));
+
+    const okCorrect = setsEqual(correctCards, correctPart3.hillClimbingCorrect);
+    const okIncorrect = setsEqual(incorrectCards, correctPart3.hillClimbingIncorrect);
+
+    if (okCorrect && okIncorrect) {
+      setResult("result3-2", "Correct! Hill climbing characteristics sorted properly.", true);
+      recordActivityPart3(2, true);
+      setTimeout(() => nextActivityPart3(), 1500);
+    } else {
+      const details = "Correct: greedy approach, local maxima, plateaus, ridges are real. Incorrect: does NOT always find global optimum";
+      setResult("result3-2", `Incorrect. ${details}.`, false);
+      recordActivityPart3(2, false, false, details);
+      setTimeout(() => nextActivityPart3(), 3000);
+    }
+  }
+
+  function giveUpActivity32() {
+    setResult("result3-2", "Skipped. Moving to next activity...", null);
+    recordActivityPart3(2, false, true);
+    setTimeout(() => nextActivityPart3(), 1500);
+  }
+
+  // Activity 3: Algorithm Formulas
+  function setupAlgorithmFormulasDnD() {
+    const root = $("#activity3-3");
+    if (!root) return;
+
+    const bank = $(".dnd-bank", root);
+    if (!bank) return;
+
+    $all(".dnd-card", root).forEach(card => {
+      card.addEventListener("dragstart", (e) => {
+        dragging3 = card;
+        e.dataTransfer?.setData("text/plain", card.dataset.card || "");
+        e.dataTransfer?.setDragImage(card, 10, 10);
+      });
+
+      card.addEventListener("dragend", () => {
+        dragging3 = null;
+        $all(".match-slot", root).forEach(slot => slot.classList.remove("is-over"));
+      });
+    });
+
+    $all(".match-slot", root).forEach(slot => {
+      slot.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        slot.classList.add("is-over");
+      });
+
+      slot.addEventListener("dragleave", () => slot.classList.remove("is-over"));
+
+      slot.addEventListener("drop", (e) => {
+        e.preventDefault();
+        slot.classList.remove("is-over");
+        if (!dragging3) return;
+
+        const existingCard = slot.querySelector(".dnd-card");
+        if (existingCard && bank) {
+          bank.appendChild(existingCard);
+        }
+
+        slot.textContent = "";
+        slot.appendChild(dragging3);
+      });
+    });
+
+    bank.addEventListener("dragover", (e) => e.preventDefault());
+    bank.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (!dragging3) return;
+      bank.appendChild(dragging3);
+    });
+  }
+
+  function checkActivity33() {
+    const root = $("#activity3-3");
+    if (!root) return;
+
+    const errors = [];
+    for (const [slotId, expectedCard] of correctPart3.algorithmFormulas) {
+      const slot = root.querySelector(`[data-slot="${slotId}"]`);
+      const card = slot?.querySelector(".dnd-card");
+      const gotCard = card?.dataset.card;
+      if (gotCard !== expectedCard) {
+        errors.push(slotId.replace("formula-", ""));
+      }
+    }
+
+    if (errors.length === 0) {
+      setResult("result3-3", "Correct! Formulas matched to algorithms.", true);
+      recordActivityPart3(3, true);
+      setTimeout(() => nextActivityPart3(), 1500);
+    } else {
+      const details = "Greedy uses f(n)=h(n), A* uses f(n)=g(n)+h(n)";
+      setResult("result3-3", `Incorrect. ${details}.`, false);
+      recordActivityPart3(3, false, false, details);
+      setTimeout(() => nextActivityPart3(), 3000);
+    }
+  }
+
+  function giveUpActivity33() {
+    setResult("result3-3", "Skipped. Moving to next activity...", null);
+    recordActivityPart3(3, false, true);
+    setTimeout(() => nextActivityPart3(), 1500);
+  }
+
+  // Activity 4: A* Components
+  function checkActivity34() {
+    const g = ($("#astar-g")?.value || "").toLowerCase().trim();
+    const h = ($("#astar-h")?.value || "").toLowerCase().trim();
+    const f = ($("#astar-f")?.value || "").toLowerCase().trim();
+
+    const okG = g.includes("actual") && g.includes("cost");
+    const okH = h.includes("heuristic") || h.includes("estimate");
+    const okF = f.includes("total") || f.includes("combined") || f.includes("evaluation");
+
+    if (okG && okH && okF) {
+      setResult("result3-4", "Correct! All A* components identified.", true);
+      recordActivityPart3(4, true);
+      setTimeout(() => nextActivityPart3(), 1500);
+    } else {
+      const errors = [];
+      if (!okG) errors.push("g(n) = actual cost so far");
+      if (!okH) errors.push("h(n) = heuristic estimate to goal");
+      if (!okF) errors.push("f(n) = total evaluation");
+      const details = `Correct: ${errors.join(", ")}`;
+      setResult("result3-4", `Incorrect. ${details}.`, false);
+      recordActivityPart3(4, false, false, details);
+      setTimeout(() => nextActivityPart3(), 3000);
+    }
+  }
+
+  function giveUpActivity34() {
+    setResult("result3-4", "Skipped. Moving to next activity...", null);
+    recordActivityPart3(4, false, true);
+    setTimeout(() => nextActivityPart3(), 1500);
+  }
+
+  // Activity 5: Good Heuristics
+  function checkActivity35() {
+    const picked = new Set();
+    $all('input[name="good-heuristics"]:checked').forEach(input => picked.add(input.value));
+
+    if (picked.size === 0) {
+      setResult("result3-5", "Please select at least one option.", false);
+      const activity = $("#activity3-5");
+      if (activity) {
+        const submitBtn = activity.querySelector('[data-submit="35"]');
+        const giveUpBtn = activity.querySelector('[data-giveup="35"]');
+        if (submitBtn) submitBtn.disabled = false;
+        if (giveUpBtn) giveUpBtn.disabled = false;
+      }
+      return;
+    }
+
+    const ok = setsEqual(picked, correctPart3.goodHeuristics);
+    if (ok) {
+      setResult("result3-5", "Correct! Admissible, Consistent, Domain-Specific.", true);
+      recordActivityPart3(5, true);
+      setTimeout(() => nextActivityPart3(), 1500);
+    } else {
+      const details = "Correct: Admissible (never overestimates), Consistent (Monotonic), Domain-Specific";
+      setResult("result3-5", `Incorrect. ${details}.`, false);
+      recordActivityPart3(5, false, false, details);
+      setTimeout(() => nextActivityPart3(), 3000);
+    }
+  }
+
+  function giveUpActivity35() {
+    setResult("result3-5", "Skipped. Moving to next activity...", null);
+    recordActivityPart3(5, false, true);
+    setTimeout(() => nextActivityPart3(), 1500);
+  }
+
+  // Activity 6: Greedy Properties
+  function checkActivity36() {
+    const picked = new Set();
+    $all('input[name="greedy-props"]:checked').forEach(input => picked.add(input.value));
+
+    if (picked.size === 0) {
+      setResult("result3-6", "Please select at least one option.", false);
+      const activity = $("#activity3-6");
+      if (activity) {
+        const submitBtn = activity.querySelector('[data-submit="36"]');
+        const giveUpBtn = activity.querySelector('[data-giveup="36"]');
+        if (submitBtn) submitBtn.disabled = false;
+        if (giveUpBtn) giveUpBtn.disabled = false;
+      }
+      return;
+    }
+
+    const ok = setsEqual(picked, correctPart3.greedyProps);
+    if (ok) {
+      setResult("result3-6", "Correct! Greedy-choice property and Optimal Substructure.", true);
+      recordActivityPart3(6, true);
+      setTimeout(() => nextActivityPart3(), 1500);
+    } else {
+      const details = "Correct: Greedy-choice property (local optimum leads to global) and Optimal Substructure";
+      setResult("result3-6", `Incorrect. ${details}.`, false);
+      recordActivityPart3(6, false, false, details);
+      setTimeout(() => nextActivityPart3(), 3000);
+    }
+  }
+
+  function giveUpActivity36() {
+    setResult("result3-6", "Skipped. Moving to next activity...", null);
+    recordActivityPart3(6, false, true);
+    setTimeout(() => nextActivityPart3(), 1500);
+  }
+
+  // Activity 7: Applications
+  function setupApplicationsDnD() {
+    const root = $("#activity3-7");
+    if (!root) return;
+
+    const bank = $(".dnd-bank", root);
+    if (!bank) return;
+
+    $all(".dnd-card", root).forEach(card => {
+      card.addEventListener("dragstart", (e) => {
+        dragging3 = card;
+        e.dataTransfer?.setData("text/plain", card.dataset.card || "");
+        e.dataTransfer?.setDragImage(card, 10, 10);
+      });
+
+      card.addEventListener("dragend", () => {
+        dragging3 = null;
+        $all(".match-slot", root).forEach(slot => slot.classList.remove("is-over"));
+      });
+    });
+
+    $all(".match-slot", root).forEach(slot => {
+      slot.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        slot.classList.add("is-over");
+      });
+
+      slot.addEventListener("dragleave", () => slot.classList.remove("is-over"));
+
+      slot.addEventListener("drop", (e) => {
+        e.preventDefault();
+        slot.classList.remove("is-over");
+        if (!dragging3) return;
+
+        const existingCard = slot.querySelector(".dnd-card");
+        if (existingCard && bank) {
+          bank.appendChild(existingCard);
+        }
+
+        slot.textContent = "";
+        slot.appendChild(dragging3);
+      });
+    });
+
+    bank.addEventListener("dragover", (e) => e.preventDefault());
+    bank.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (!dragging3) return;
+      bank.appendChild(dragging3);
+    });
+  }
+
+  function checkActivity37() {
+    const root = $("#activity3-7");
+    if (!root) return;
+
+    const errors = [];
+    for (const [slotId, expectedCard] of correctPart3.applications) {
+      const slot = root.querySelector(`[data-slot="${slotId}"]`);
+      const card = slot?.querySelector(".dnd-card");
+      const gotCard = card?.dataset.card;
+      if (gotCard !== expectedCard) {
+        errors.push(slotId.replace("app-def-", ""));
+      }
+    }
+
+    if (errors.length === 0) {
+      setResult("result3-7", "Correct! All applications matched.", true);
+      recordActivityPart3(7, true);
+      setTimeout(() => nextActivityPart3(), 1500);
+    } else {
+      const details = "GPS=maps, Robotics=warehouses, Games=NPC pathfinding, Network=data packets";
+      setResult("result3-7", `Incorrect. ${details}.`, false);
+      recordActivityPart3(7, false, false, details);
+      setTimeout(() => nextActivityPart3(), 3000);
+    }
+  }
+
+  function giveUpActivity37() {
+    setResult("result3-7", "Skipped. Moving to next activity...", null);
+    recordActivityPart3(7, false, true);
+    setTimeout(() => nextActivityPart3(), 1500);
+  }
+
+  // Activity 8: GA Terms
+  function setupGATermsDnD() {
+    const root = $("#activity3-8");
+    if (!root) return;
+
+    const bank = $(".dnd-bank", root);
+    if (!bank) return;
+
+    $all(".dnd-card", root).forEach(card => {
+      card.addEventListener("dragstart", (e) => {
+        dragging3 = card;
+        e.dataTransfer?.setData("text/plain", card.dataset.card || "");
+        e.dataTransfer?.setDragImage(card, 10, 10);
+      });
+
+      card.addEventListener("dragend", () => {
+        dragging3 = null;
+        $all(".match-slot", root).forEach(slot => slot.classList.remove("is-over"));
+      });
+    });
+
+    $all(".match-slot", root).forEach(slot => {
+      slot.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        slot.classList.add("is-over");
+      });
+
+      slot.addEventListener("dragleave", () => slot.classList.remove("is-over"));
+
+      slot.addEventListener("drop", (e) => {
+        e.preventDefault();
+        slot.classList.remove("is-over");
+        if (!dragging3) return;
+
+        const existingCard = slot.querySelector(".dnd-card");
+        if (existingCard && bank) {
+          bank.appendChild(existingCard);
+        }
+
+        slot.textContent = "";
+        slot.appendChild(dragging3);
+      });
+    });
+
+    bank.addEventListener("dragover", (e) => e.preventDefault());
+    bank.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (!dragging3) return;
+      bank.appendChild(dragging3);
+    });
+  }
+
+  function checkActivity38() {
+    const root = $("#activity3-8");
+    if (!root) return;
+
+    const errors = [];
+    for (const [slotId, expectedCard] of correctPart3.gaTerms) {
+      const slot = root.querySelector(`[data-slot="${slotId}"]`);
+      const card = slot?.querySelector(".dnd-card");
+      const gotCard = card?.dataset.card;
+      if (gotCard !== expectedCard) {
+        const termName = slotId.replace("def-", "");
+        errors.push(termName);
+      }
+    }
+
+    if (errors.length === 0) {
+      setResult("result3-8", "Correct! All GA terms matched.", true);
+      recordActivityPart3(8, true);
+      setTimeout(() => nextActivityPart3(), 1500);
+    } else {
+      const details = "All 7 terms must match their definitions: Population, Chromosome, Gene, Fitness, Selection, Crossover, Mutation";
+      setResult("result3-8", `Incorrect. ${details}.`, false);
+      recordActivityPart3(8, false, false, details);
+      setTimeout(() => nextActivityPart3(), 3000);
+    }
+  }
+
+  function giveUpActivity38() {
+    setResult("result3-8", "Skipped. Moving to next activity...", null);
+    recordActivityPart3(8, false, true);
+    setTimeout(() => nextActivityPart3(), 1500);
+  }
+
+  // Activity 9: GA Process Flow
+  function randomizeGAProcess() {
+    const list = $("#gaProcessOrder");
+    if (!list) return;
+    const items = shuffle($all(".order-item", list));
+    list.innerHTML = "";
+    items.forEach(item => list.appendChild(item));
+    setupOrderListDnD("gaProcessOrder");
+  }
+
+  function checkActivity39() {
+    const list = $("#gaProcessOrder");
+    if (!list) return;
+    const order = $all(".order-item", list).map(item => item.dataset.step);
+    const isCorrect = JSON.stringify(order) === JSON.stringify(correctPart3.gaProcessOrder);
+
+    if (isCorrect) {
+      setResult("result3-9", "Correct! GA process flow in proper order.", true);
+      recordActivityPart3(9, true);
+      setTimeout(() => nextActivityPart3(), 1500);
+    } else {
+      const correctFlow = "1. Start → 2. Initialization → 3. Evaluation → 4. Loop → 5. Check Termination";
+      const details = `Correct order: ${correctFlow}`;
+      setResult("result3-9", `Incorrect. ${details}.`, false);
+      recordActivityPart3(9, false, false, details);
+      setTimeout(() => nextActivityPart3(), 3000);
+    }
+  }
+
+  function giveUpActivity39() {
+    setResult("result3-9", "Skipped. Moving to next activity...", null);
+    recordActivityPart3(9, false, true);
+    setTimeout(() => nextActivityPart3(), 1500);
+  }
+
+  // Activity 10: Crossover
+  function checkActivity310() {
+    if (!state.offspringSelected) {
+      setResult("result3-10", "Please select an offspring.", false);
+      const activity = $("#activity3-10");
+      if (activity) {
+        const submitBtn = activity.querySelector('[data-submit="310"]');
+        const giveUpBtn = activity.querySelector('[data-giveup="310"]');
+        if (submitBtn) submitBtn.disabled = false;
+        if (giveUpBtn) giveUpBtn.disabled = false;
+      }
+      return;
+    }
+
+    const ok = state.offspringSelected === correctPart3.offspring;
+    if (ok) {
+      setResult("result3-10", "Correct! F G H A C D E A is the result of crossover.", true);
+      recordActivityPart3(10, true);
+      setTimeout(() => nextActivityPart3(), 1500);
+    } else {
+      const details = "Parent 1: AB|CD|EFGH, Parent 2: FG|HA|DBEA → Offspring: FG HA CD EA";
+      setResult("result3-10", `Incorrect. ${details}.`, false);
+      recordActivityPart3(10, false, false, details);
+      setTimeout(() => nextActivityPart3(), 3000);
+    }
+  }
+
+  function giveUpActivity310() {
+    setResult("result3-10", "Skipped. Moving to next activity...", null);
+    recordActivityPart3(10, false, true);
+    state.offspringSelected = null;
+    setTimeout(() => nextActivityPart3(), 1500);
+  }
+
+  // Activity 11: Mutation
+  function checkActivity311() {
+    const picked = new Set();
+    $all('input[name="mutation-goal"]:checked').forEach(input => picked.add(input.value));
+
+    if (picked.size === 0) {
+      setResult("result3-11", "Please select at least one option.", false);
+      const activity = $("#activity3-11");
+      if (activity) {
+        const submitBtn = activity.querySelector('[data-submit="311"]');
+        const giveUpBtn = activity.querySelector('[data-giveup="311"]');
+        if (submitBtn) submitBtn.disabled = false;
+        if (giveUpBtn) giveUpBtn.disabled = false;
+      }
+      return;
+    }
+
+    const ok = setsEqual(picked, correctPart3.mutationGoals);
+    if (ok) {
+      setResult("result3-11", "Correct! Maintain diversity, avoid premature convergence, insert random genes.", true);
+      recordActivityPart3(11, true);
+      setTimeout(() => nextActivityPart3(), 1500);
+    } else {
+      const details = "Goal: maintain diversity, avoid premature convergence, insert random genes";
+      setResult("result3-11", `Incorrect. ${details}.`, false);
+      recordActivityPart3(11, false, false, details);
+      setTimeout(() => nextActivityPart3(), 3000);
+    }
+  }
+
+  function giveUpActivity311() {
+    setResult("result3-11", "Skipped. Moving to next activity...", null);
+    recordActivityPart3(11, false, true);
+    setTimeout(() => nextActivityPart3(), 1500);
+  }
+
   // ============ Initialization ============
 
   function init() {
@@ -1596,6 +2327,14 @@
           state.norm1Selected = null;
           state.distanceSelected = null;
           showActivityPart2(1);
+        } else if (part === "part-3") {
+          state.currentPart = part;
+          showScreen("part3Container");
+          state.currentActivity = 0;
+          state.score = 0;
+          state.activityResults = [];
+          state.offspringSelected = null;
+          showActivityPart3(1);
         }
       });
     });
@@ -1632,6 +2371,22 @@
             case 211: checkActivity211(); break;
             case 212: checkActivity212(); break;
           }
+        } else if (activityNum >= 31 && activityNum <= 311) {
+          const part3Num = activityNum >= 310 ? activityNum - 300 : activityNum - 30;
+          disableActivityButtonsPart3(part3Num);
+          switch (activityNum) {
+            case 31: checkActivity31(); break;
+            case 32: checkActivity32(); break;
+            case 33: checkActivity33(); break;
+            case 34: checkActivity34(); break;
+            case 35: checkActivity35(); break;
+            case 36: checkActivity36(); break;
+            case 37: checkActivity37(); break;
+            case 38: checkActivity38(); break;
+            case 39: checkActivity39(); break;
+            case 310: checkActivity310(); break;
+            case 311: checkActivity311(); break;
+          }
         }
       });
     });
@@ -1667,6 +2422,22 @@
             case 210: giveUpActivity210(); break;
             case 211: giveUpActivity211(); break;
             case 212: giveUpActivity212(); break;
+          }
+        } else if (activityNum >= 31 && activityNum <= 311) {
+          const part3Num = activityNum >= 310 ? activityNum - 300 : activityNum - 30;
+          disableActivityButtonsPart3(part3Num);
+          switch (activityNum) {
+            case 31: giveUpActivity31(); break;
+            case 32: giveUpActivity32(); break;
+            case 33: giveUpActivity33(); break;
+            case 34: giveUpActivity34(); break;
+            case 35: giveUpActivity35(); break;
+            case 36: giveUpActivity36(); break;
+            case 37: giveUpActivity37(); break;
+            case 38: giveUpActivity38(); break;
+            case 39: giveUpActivity39(); break;
+            case 310: giveUpActivity310(); break;
+            case 311: giveUpActivity311(); break;
           }
         }
       });
@@ -1811,6 +2582,46 @@
     setupDistanceMetricsDnD();
     setupKNNApplicationsDnD();
     setupAdvDisDnD();
+
+    // Part 3 Summary buttons
+    const backToPartBtn3 = $("#backToPartSelection3");
+    if (backToPartBtn3) {
+      backToPartBtn3.addEventListener("click", () => {
+        state.currentPart = null;
+        state.currentActivity = 0;
+        state.score = 0;
+        state.activityResults = [];
+        state.offspringSelected = null;
+        showScreen("partSelection");
+      });
+    }
+
+    const retryBtn3 = $("#retryPart3");
+    if (retryBtn3) {
+      retryBtn3.addEventListener("click", () => {
+        state.currentActivity = 0;
+        state.score = 0;
+        state.activityResults = [];
+        state.offspringSelected = null;
+        showActivityPart3(1);
+      });
+    }
+
+    // Part 3 Activity-specific setup
+    // Activity 10: Offspring selection
+    $all("[data-offspring]").forEach(chip => {
+      chip.addEventListener("click", () => {
+        $all("[data-offspring]").forEach(c => c.classList.remove("selected"));
+        chip.classList.add("selected");
+        state.offspringSelected = chip.dataset.offspring;
+      });
+    });
+
+    // Part 3 Drag and Drop setups
+    setupHillClimbingDnD();
+    setupAlgorithmFormulasDnD();
+    setupApplicationsDnD();
+    setupGATermsDnD();
 
     // Show part selection screen initially
     showScreen("partSelection");
