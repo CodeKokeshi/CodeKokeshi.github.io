@@ -735,7 +735,7 @@
       recordActivity(7, true);
       setTimeout(() => nextActivity(), 1500);
     } else {
-      setResult("result-7", `Incorrect. You selected depth ${state.lockedDepth}, but the optimal depth is 4 or 5 (highest test accuracy without overfitting).", false);
+      setResult("result-7", `Incorrect. You selected depth ${state.lockedDepth}, but the optimal depth is 4 or 5 (highest test accuracy without overfitting).`, false);
       recordActivity(7, false);
       setTimeout(() => nextActivity(), 3000);
     }
