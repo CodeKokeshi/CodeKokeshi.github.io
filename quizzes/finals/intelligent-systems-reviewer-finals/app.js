@@ -191,8 +191,10 @@
     switch (num) {
       case 2: randomizeActivity2(); break;
       case 3: randomizeActivity3(); break;
+      case 4: randomizeActivity4(); break;
       case 5: randomizeActivity5(); break;
       case 6: randomizeActivity6(); break;
+      case 7: randomizeActivity7(); break;
     }
   }
 
@@ -237,6 +239,16 @@
     });
   }
 
+  function randomizeActivity4() {
+    // Clear fill-in-the-blank inputs
+    const root = $("#blankRoot");
+    const leaf = $("#blankLeaf");
+    const pruning = $("#blankPruning");
+    if (root) root.value = "";
+    if (leaf) leaf.value = "";
+    if (pruning) pruning.value = "";
+  }
+
   function randomizeActivity5() {
     const root = $("#activity-5");
     if (!root) return;
@@ -263,6 +275,17 @@
     const shuffled = shuffle(items);
     list.innerHTML = "";
     shuffled.forEach(item => list.appendChild(item));
+  }
+
+  function randomizeActivity7() {
+    // Reset slider to default and clear locked state
+    state.lockedDepth = null;
+    const slider = $("#depthSlider");
+    if (slider) {
+      slider.value = "4";
+      // Trigger input event to update display
+      slider.dispatchEvent(new Event('input'));
+    }
   }
 
   // ============ Activity 1: Tree Labeling ============
@@ -417,6 +440,13 @@
 
     if (picked.size === 0) {
       setResult("result-3", "Please select at least one option.", false);
+      const activity = $("#activity-3");
+      if (activity) {
+        const submitBtn = activity.querySelector('[data-submit="3"]');
+        const giveUpBtn = activity.querySelector('[data-giveup="3"]');
+        if (submitBtn) submitBtn.disabled = false;
+        if (giveUpBtn) giveUpBtn.disabled = false;
+      }
       return;
     }
 
@@ -652,6 +682,13 @@
   function checkActivity7() {
     if (state.lockedDepth === null) {
       setResult("result-7", "Please adjust the slider.", false);
+      const activity = $("#activity-7");
+      if (activity) {
+        const submitBtn = activity.querySelector('[data-submit="7"]');
+        const giveUpBtn = activity.querySelector('[data-giveup="7"]');
+        if (submitBtn) submitBtn.disabled = false;
+        if (giveUpBtn) giveUpBtn.disabled = false;
+      }
       return;
     }
 
