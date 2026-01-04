@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Intelligent Systems Reviewer (Finals) | CodeKokeshi</title>
+    <meta
+      name="description"
+      content="Interactive finals reviewer for Intelligent Systems (Lesson 6 and more)."
+    />
+    <meta name="theme-color" content="#0f1116" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Press+Start+2P&family=Orbitron:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../assets/css/site.css" data-cache-bust="true" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="particle-canvas"></canvas>
+    <div class="page-shell">
+      <header class="top-bar">
+        <a class="brand" href="../../index.html">Code Kokeshi</a>
+        <nav class="nav-links" aria-label="Pages">
+          <a class="nav-link" href="../../gamedev.html">Game Dev</a>
+          <a class="nav-link" href="../../art.html">Art</a>
+          <a class="nav-link" href="../../projects.html">Projects</a>
+          <a class="nav-link" href="../../reviewers.html">Reviewers</a>
+          <a class="nav-link" href="../../thesis_section/index.html">Thesis</a>
+        </nav>
+        <div class="theme-switcher" role="group" aria-label="Theme selector">
+          <span class="theme-label">Theme</span>
+          <button type="button" class="theme-button" data-theme-option="dark" aria-pressed="false">Dark</button>
+          <button type="button" class="theme-button" data-theme-option="light" aria-pressed="false">Light</button>
+          <button type="button" class="theme-button" data-theme-option="wood" aria-pressed="false">Retro</button>
+          <button type="button" class="theme-button" data-theme-option="cyberpunk" aria-pressed="false">Cyberpunk</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="page-section hero-simple">
+          <h1 class="section-title">Intelligent Systems Reviewer (Finals)</h1>
+          <p class="lead">Interactive drills per lesson section. Start with Lesson 6: Decision Trees &amp; Ensemble Learning.</p>
+          <div class="link-row">
+            <a class="btn outline" href="../../reviewers.html">← Back to Reviewers</a>
+          </div>
+        </section>
+
+        <section class="page-section">
+          <div class="reviewer-layout">
+            <aside class="reviewer-sidebar" aria-label="Lessons">
+              <div class="panel">
+                <h2 class="panel-title">Lessons</h2>
+                <button class="lesson-button" type="button" data-lesson="lesson-6" aria-current="true">
+                  Lesson 6
+                  <span class="muted">Decision Trees &amp; Ensembles</span>
+                </button>
+                <button class="lesson-button" type="button" data-lesson="coming-soon" disabled>
+                  Lesson 7–8
+                  <span class="muted">Coming soon</span>
+                </button>
+                <button class="lesson-button" type="button" data-lesson="coming-soon-2" disabled>
+                  Lesson 9–10
+                  <span class="muted">Coming soon</span>
+                </button>
+
+                <div class="sidebar-meta" role="status" aria-live="polite">
+                  <div><strong>Progress:</strong> <span id="progressText">0 / 4</span></div>
+                  <div><strong>Score:</strong> <span id="scoreText">0</span></div>
+                </div>
+
+                <div class="link-row">
+                  <button class="btn" type="button" id="resetLesson">Reset Lesson</button>
+                </div>
+              </div>
+            </aside>
+
+            <section class="reviewer-main" aria-label="Lesson content">
+              <div class="panel" id="lessonTitlePanel">
+                <p class="tag">Lesson 6</p>
+                <h2 class="panel-title">Decision Trees &amp; Ensemble Learning</h2>
+                <p class="muted">
+                  This lesson is long, so it’s split into 4 interactive activities. Each activity teaches one chunk, then checks it.
+                </p>
+              </div>
+
+              <div class="activity-grid">
+                <article class="panel activity" id="activity-tree-label">
+                  <header class="activity-header">
+                    <h3 class="activity-title">Activity 1 — Label the Decision Tree</h3>
+                    <p class="muted">Click nodes and tag them as Root / Internal / Leaf.</p>
+                  </header>
+
+                  <div class="toolbar" role="group" aria-label="Node label picker">
+                    <button type="button" class="chip" data-pick="root">Root</button>
+                    <button type="button" class="chip" data-pick="internal">Internal</button>
+                    <button type="button" class="chip" data-pick="leaf">Leaf</button>
+                    <button type="button" class="chip outline" id="clearNodeLabels">Clear</button>
+                  </div>
+
+                  <div class="tree" role="application" aria-label="Decision tree diagram">
+                    <div class="tree-row">
+                      <button class="tree-node" type="button" data-node="n1" aria-label="Node 1">Is age &gt; 30?</button>
+                    </div>
+                    <div class="tree-branches" aria-hidden="true">
+                      <span>Yes</span>
+                      <span>No</span>
+                    </div>
+                    <div class="tree-row two">
+                      <button class="tree-node" type="button" data-node="n2" aria-label="Node 2">Income is high?</button>
+                      <button class="tree-node" type="button" data-node="n3" aria-label="Node 3">Browsing time &gt; 10m?</button>
+                    </div>
+                    <div class="tree-row four">
+                      <button class="tree-node" type="button" data-node="n4" aria-label="Node 4">Buys</button>
+                      <button class="tree-node" type="button" data-node="n5" aria-label="Node 5">Doesn’t buy</button>
+                      <button class="tree-node" type="button" data-node="n6" aria-label="Node 6">Buys</button>
+                      <button class="tree-node" type="button" data-node="n7" aria-label="Node 7">Doesn’t buy</button>
+                    </div>
+                  </div>
+
+                  <div class="link-row">
+                    <button class="btn" type="button" data-check="tree-label">Check</button>
+                    <span class="result" id="result-tree-label" role="status" aria-live="polite"></span>
+                  </div>
+                </article>
+
+                <article class="panel activity" id="activity-ensemble-sort">
+                  <header class="activity-header">
+                    <h3 class="activity-title">Activity 2 — Bagging vs Boosting (Drag &amp; Drop)</h3>
+                    <p class="muted">Drag the cards into the right column.</p>
+                  </header>
+
+                  <div class="dnd-bank" aria-label="Cards to sort">
+                    <div class="dnd-card" draggable="true" data-card="bagging">Bagging</div>
+                    <div class="dnd-card" draggable="true" data-card="boosting">Boosting</div>
+                    <div class="dnd-card" draggable="true" data-card="parallel">Trains models in parallel / independently</div>
+                    <div class="dnd-card" draggable="true" data-card="sequential">Trains models sequentially to fix errors</div>
+                    <div class="dnd-card" draggable="true" data-card="voting">Combine via averaging / voting</div>
+                    <div class="dnd-card" draggable="true" data-card="focus-errors">Each next model focuses on mistakes</div>
+                  </div>
+
+                  <div class="dnd-zones" role="group" aria-label="Drop zones">
+                    <div class="drop-zone" data-zone="bagging" aria-label="Bagging drop zone">
+                      <h4>Bagging</h4>
+                      <div class="drop-list" data-list="bagging"></div>
+                    </div>
+                    <div class="drop-zone" data-zone="boosting" aria-label="Boosting drop zone">
+                      <h4>Boosting</h4>
+                      <div class="drop-list" data-list="boosting"></div>
+                    </div>
+                  </div>
+
+                  <div class="link-row">
+                    <button class="btn" type="button" data-check="ensemble-sort">Check</button>
+                    <span class="result" id="result-ensemble-sort" role="status" aria-live="polite"></span>
+                  </div>
+                </article>
+
+                <article class="panel activity" id="activity-bagging-order">
+                  <header class="activity-header">
+                    <h3 class="activity-title">Activity 3 — Order the Bagging Steps</h3>
+                    <p class="muted">Drag the steps into the correct order (1 → 4).</p>
+                  </header>
+
+                  <ol class="order-list" id="baggingOrder" aria-label="Bagging steps order" role="list">
+                    <li class="order-item" draggable="true" data-step="combine">Combine predictions (vote / average) to get final output</li>
+                    <li class="order-item" draggable="true" data-step="subsets">Create multiple bootstrapped subsets (with replacement)</li>
+                    <li class="order-item" draggable="true" data-step="train">Train a base model on each subset</li>
+                    <li class="order-item" draggable="true" data-step="independent">Learn each model independently / in parallel</li>
+                  </ol>
+
+                  <div class="link-row">
+                    <button class="btn" type="button" data-check="bagging-order">Check</button>
+                    <span class="result" id="result-bagging-order" role="status" aria-live="polite"></span>
+                  </div>
+                </article>
+
+                <article class="panel activity" id="activity-overfit-slider">
+                  <header class="activity-header">
+                    <h3 class="activity-title">Activity 4 — Overfitting vs Depth (Interactive)</h3>
+                    <p class="muted">Move the slider and pick a depth that avoids overfitting.</p>
+                  </header>
+
+                  <div class="slider-row">
+                    <label for="depthSlider"><strong>Tree depth:</strong> <span id="depthValue">4</span></label>
+                    <input id="depthSlider" type="range" min="1" max="10" value="4" />
+                  </div>
+
+                  <div class="mini-chart" aria-label="Training vs test accuracy">
+                    <div class="mini-chart__row">
+                      <span class="mini-chart__label">Train</span>
+                      <div class="mini-chart__bar">
+                        <div class="mini-chart__fill" id="trainFill" style="width: 65%"></div>
+                      </div>
+                      <span class="mini-chart__value" id="trainVal">65%</span>
+                    </div>
+                    <div class="mini-chart__row">
+                      <span class="mini-chart__label">Test</span>
+                      <div class="mini-chart__bar">
+                        <div class="mini-chart__fill alt" id="testFill" style="width: 72%"></div>
+                      </div>
+                      <span class="mini-chart__value" id="testVal">72%</span>
+                    </div>
+                  </div>
+
+                  <p class="muted" id="depthHint">
+                    Hint: deeper trees can memorize training data. Choose the depth where test accuracy peaks.
+                  </p>
+
+                  <div class="link-row">
+                    <button class="btn" type="button" data-check="overfit-slider">Lock Answer</button>
+                    <span class="result" id="result-overfit-slider" role="status" aria-live="polite"></span>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">© <span id="year"></span> CodeKokeshi. Built with intention.</footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script defer src="../../assets/js/animations.js"></script>
+    <script defer src="../../assets/js/site.js"></script>
+    <script defer src="app.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
