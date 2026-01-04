@@ -1600,7 +1600,7 @@
       });
     });
 
-    // Submit buttons (Part 1: 1-7, Part 2: 21-32)
+    // Submit buttons (Part 1: 1-7, Part 2: 21-29, 210-212)
     $all("[data-submit]").forEach(btn => {
       btn.addEventListener("click", () => {
         const activityNum = parseInt(btn.dataset.submit, 10);
@@ -1615,7 +1615,7 @@
             case 6: checkActivity6(); break;
             case 7: checkActivity7(); break;
           }
-        } else if (activityNum >= 21 && activityNum <= 32) {
+        } else if (activityNum >= 21 && activityNum <= 212) {
           const part2Num = activityNum - 20;
           disableActivityButtonsPart2(part2Num);
           switch (activityNum) {
@@ -1651,7 +1651,7 @@
             case 6: giveUpActivity6(); break;
             case 7: giveUpActivity7(); break;
           }
-        } else if (activityNum >= 21 && activityNum <= 32) {
+        } else if (activityNum >= 21 && activityNum <= 212) {
           const part2Num = activityNum - 20;
           disableActivityButtonsPart2(part2Num);
           switch (activityNum) {
