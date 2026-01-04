@@ -1,4 +1,3 @@
-This document outlines the core concepts and techniques of Collaborative Filtering as presented in the Lesson 7 Reviewer.
 
 ---
 
@@ -157,5 +156,3 @@ Normalizing involves taking a user's **average rating** and subtracting it from 
 
 
 ---
-
-Would you like me to create a comparison chart between Collaborative Filtering and Content-Based Recommendation based on these notes?

@@ -1,4 +1,3 @@
-This document provides a detailed review of the **K-Nearest Neighbors (KNN)** algorithm, covering its principles, distance metrics, and practical applications as outlined in the Lesson 8 Reviewer.
 
 ---
 
@@ -198,5 +197,3 @@ Also known as ***"taxicab distance"*** or ***"city block distance,"*** this repr
  |
 
 ---
-
-Would you like me to help you solve a practice problem calculating Euclidean and Manhattan distances for a set of data points?

@@ -380,6 +380,134 @@
   background: var(--accent-strong);
 }
 
+/* Activity Result Messages */
+
+.activity-result {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.activity-result.success {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.activity-result.error {
+  background: color-mix(in srgb, var(--accent-strong) 15%, transparent);
+  color: var(--accent-strong);
+  border: 1px solid var(--accent-strong);
+}
+
+/* Summary Screen */
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.stat-card {
+  background: var(--surface-alt);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.summary-breakdown {
+  margin: 1.5rem 0;
+}
+
+.summary-breakdown h3 {
+  margin: 0 0 1rem;
+  font-family: var(--font-heading);
+}
+
+.summary-item {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.summary-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.summary-icon.success {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent);
+}
+
+.summary-icon.error {
+  background: color-mix(in srgb, var(--accent-strong) 20%, transparent);
+  color: var(--accent-strong);
+}
+
+.summary-icon.skip {
+  background: var(--surface);
+  color: var(--muted);
+  border: 2px solid var(--border);
+}
+
+.summary-status {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.summary-status.success {
+  color: var(--accent);
+}
+
+.summary-status.error {
+  color: var(--accent-strong);
+}
+
+.summary-status.skip {
+  color: var(--muted);
+}
+
 @media (max-width: 980px) {
   .reviewer-layout {
     grid-template-columns: 1fr;
@@ -391,5 +519,14 @@
 
   .dnd-zones {
     grid-template-columns: 1fr;
+  }
+
+  .summary-item {
+    grid-template-columns: 28px 1fr;
+  }
+
+  .summary-status {
+    grid-column: 2;
+    margin-top: 0.25rem;
   }
 }
