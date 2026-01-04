@@ -65,11 +65,11 @@
             <article class="portfolio-card">
               <div class="portfolio-card__header">
                 <h3>Lesson 7 and 8 — Part 2</h3>
-                <span class="pill">Coming Soon</span>
+                <span class="pill">12 Activities</span>
               </div>
-              <p>Collaborative Filtering and K Nearest Neighbor (placeholder for now).</p>
+              <p>Collaborative Filtering and K-Nearest Neighbors. Interactive activities covering recommendation systems, similarity measures, distance metrics, and KNN fundamentals.</p>
               <div class="card-links">
-                <button class="btn" type="button" disabled>Not Available</button>
+                <button class="btn" type="button" data-select-part="part-2">Start Part 2</button>
               </div>
             </article>
 
@@ -360,6 +360,430 @@
             <div class="link-row">
               <button class="btn" type="button" id="backToPartSelection">← Back to Part Selection</button>
               <button class="btn outline" type="button" id="retryPart1">Retry Part 1</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Part 2 Activity Container -->
+        <section id="part2Container" class="page-section" hidden>
+          <div class="panel">
+            <div class="flex-between">
+              <div>
+                <p class="tag">Lesson 7 and 8 — Part 2</p>
+                <h2 class="panel-title">Collaborative Filtering and K-Nearest Neighbors</h2>
+              </div>
+              <div class="sidebar-meta" role="status" aria-live="polite">
+                <div><strong>Activity:</strong> <span id="currentActivity2">1 / 12</span></div>
+                <div><strong>Score:</strong> <span id="scoreText2">0 / 12</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity 1: Collaborative Filtering Core Concept -->
+          <article class="panel activity" id="activity2-1" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 1 — Collaborative Filtering Core Concept</h3>
+              <p class="muted">Match the collaborative filtering logic steps in order.</p>
+            </header>
+
+            <ol class="order-list" id="cfLogicOrder" aria-label="CF logic steps" role="list">
+              <li class="order-item" draggable="true" data-step="cf-step3">That item can be recommended to Bob.</li>
+              <li class="order-item" draggable="true" data-step="cf-step1">An item is liked by both Alice and Bob.</li>
+              <li class="order-item" draggable="true" data-step="cf-step2">It implies they are Similar Users.</li>
+              <li class="order-item" draggable="true" data-step="cf-step4">If Alice likes a new item, based on similarity.</li>
+            </ol>
+
+            <div class="activity-result" id="result2-1" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="21">Submit</button>
+              <button class="btn outline" type="button" data-giveup="21">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 2: Recommendation System Types -->
+          <article class="panel activity" id="activity2-2" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 2 — Two Types of Recommendation Systems</h3>
+              <p class="muted">Drag each characteristic to the correct type.</p>
+            </header>
+
+            <div class="dnd-bank" aria-label="Characteristics to sort">
+              <div class="dnd-card" draggable="true" data-card="rec-cf">Recommends based on similarity measures between users and/or items</div>
+              <div class="dnd-card" draggable="true" data-card="rec-cb">Supervised machine learning approach</div>
+              <div class="dnd-card" draggable="true" data-card="rec-cf2">Collaborative Filtering</div>
+              <div class="dnd-card" draggable="true" data-card="rec-cb2">Uses classifier to distinguish interesting vs uninteresting items</div>
+              <div class="dnd-card" draggable="true" data-card="rec-cb3">Content-Based Recommendation</div>
+            </div>
+
+            <div class="dnd-zones" role="group" aria-label="Drop zones">
+              <div class="drop-zone" data-zone="collab-filter" aria-label="Collaborative Filtering zone">
+                <h4>Collaborative Filtering</h4>
+                <div class="drop-list" data-list="collab-filter"></div>
+              </div>
+              <div class="drop-zone" data-zone="content-based" aria-label="Content-Based zone">
+                <h4>Content-Based</h4>
+                <div class="drop-list" data-list="content-based"></div>
+              </div>
+            </div>
+
+            <div class="activity-result" id="result2-2" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="22">Submit</button>
+              <button class="btn outline" type="button" data-giveup="22">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 3: 4 Types of Collaborative Filtering -->
+          <article class="panel activity" id="activity2-3" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 3 — 4 Types of Collaborative Filtering</h3>
+              <p class="muted">Select all four types mentioned in the lesson.</p>
+            </header>
+
+            <fieldset class="mcq" aria-label="MCQ: CF Types">
+              <legend><strong>Question:</strong> Which are the 4 types of Collaborative Filtering?</legend>
+              <label class="mcq-opt"><input type="checkbox" name="cf-types" value="Memory-Based" /> Memory-Based</label>
+              <label class="mcq-opt"><input type="checkbox" name="cf-types" value="Model-Based" /> Model-Based</label>
+              <label class="mcq-opt"><input type="checkbox" name="cf-types" value="Hybrid" /> Hybrid</label>
+              <label class="mcq-opt"><input type="checkbox" name="cf-types" value="Deep Learning" /> Deep Learning</label>
+              <label class="mcq-opt"><input type="checkbox" name="cf-types" value="Content-Based" /> Content-Based</label>
+              <label class="mcq-opt"><input type="checkbox" name="cf-types" value="Rule-Based" /> Rule-Based</label>
+            </fieldset>
+
+            <div class="activity-result" id="result2-3" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="23">Submit</button>
+              <button class="btn outline" type="button" data-giveup="23">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 4: Similarity Measurement Table -->
+          <article class="panel activity" id="activity2-4" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 4 — Measuring Similarity (Interactive)</h3>
+              <p class="muted">Click on the users who have similar ratings patterns to User 1.</p>
+            </header>
+
+            <div class="info-box">
+              <p><strong>User 1's Ratings:</strong> Movie 1 (5★), Movie 2 (4★), Movie 4 (5★)</p>
+              <p><strong>Task:</strong> Find users with similar high ratings (4-5 stars) in the same movies.</p>
+            </div>
+
+            <div class="user-grid" role="group" aria-label="User selection">
+              <button type="button" class="user-card" data-user="user2">
+                <h4>User 2</h4>
+                <p>Movie 2: 4★, Movie 3: 1★, Movie 4: 3★</p>
+              </button>
+              <button type="button" class="user-card" data-user="user3">
+                <h4>User 3</h4>
+                <p>No ratings given</p>
+              </button>
+              <button type="button" class="user-card" data-user="user4">
+                <h4>User 4</h4>
+                <p>Movie 1: 1★, Movie 2: 2★, Movie 4: 2★</p>
+              </button>
+            </div>
+
+            <div class="activity-result" id="result2-4" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="24">Submit</button>
+              <button class="btn outline" type="button" data-giveup="24">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 5: Data Rounding -->
+          <article class="panel activity" id="activity2-5" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 5 — Rounding the Data</h3>
+              <p class="muted">Fill in the correct binary values based on the rounding rule.</p>
+            </header>
+
+            <div class="info-box">
+              <p><strong>Rule:</strong> Ratings <strong>below 3</strong> are assigned as <strong>0</strong>. Ratings <strong>above 3</strong> are assigned as <strong>1</strong>.</p>
+            </div>
+
+            <div class="fill-grid" aria-label="Rounding quiz">
+              <label class="fill-item">
+                <span>If a user rates a movie as <strong>5 stars</strong>, the rounded value is:</span>
+                <input type="text" id="round1" placeholder="0 or 1" maxlength="1" />
+              </label>
+              <label class="fill-item">
+                <span>If a user rates a movie as <strong>2 stars</strong>, the rounded value is:</span>
+                <input type="text" id="round2" placeholder="0 or 1" maxlength="1" />
+              </label>
+              <label class="fill-item">
+                <span>If a user rates a movie as <strong>4 stars</strong>, the rounded value is:</span>
+                <input type="text" id="round3" placeholder="0 or 1" maxlength="1" />
+              </label>
+              <label class="fill-item">
+                <span>If a user rates a movie as <strong>1 star</strong>, the rounded value is:</span>
+                <input type="text" id="round4" placeholder="0 or 1" maxlength="1" />
+              </label>
+            </div>
+
+            <div class="activity-result" id="result2-5" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="25">Submit</button>
+              <button class="btn outline" type="button" data-giveup="25">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 6: Normalizing Ratings Calculation -->
+          <article class="panel activity" id="activity2-6" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 6 — Normalizing Ratings (Interactive Calculation)</h3>
+              <p class="muted">Calculate the normalized ratings step by step.</p>
+            </header>
+
+            <div class="info-box">
+              <p><strong>Given:</strong> A user rated three movies as <strong>4, 5, and 2</strong>.</p>
+              <p><strong>Step 1:</strong> Compute the average rating.</p>
+              <p><strong>Step 2:</strong> Subtract the average from each rating.</p>
+            </div>
+
+            <div class="calc-grid">
+              <div class="calc-step">
+                <p><strong>Step 1:</strong> Average = (4 + 5 + 2) ÷ 3 = ?</p>
+                <div class="toolbar">
+                  <button type="button" class="chip" data-avg="3">3</button>
+                  <button type="button" class="chip" data-avg="3.67">3.67</button>
+                  <button type="button" class="chip" data-avg="4">4</button>
+                  <button type="button" class="chip" data-avg="11">11</button>
+                </div>
+              </div>
+
+              <div class="calc-step" id="step2Normalize" hidden>
+                <p><strong>Step 2:</strong> Normalized Movie 1 (4 - 3.67) = ?</p>
+                <div class="toolbar">
+                  <button type="button" class="chip" data-norm1="0.33">0.33</button>
+                  <button type="button" class="chip" data-norm1="-0.33">-0.33</button>
+                  <button type="button" class="chip" data-norm1="7.67">7.67</button>
+                  <button type="button" class="chip" data-norm1="1">1</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="activity-result" id="result2-6" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="26">Submit</button>
+              <button class="btn outline" type="button" data-giveup="26">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 7: KNN Core Concept -->
+          <article class="panel activity" id="activity2-7" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 7 — What is K-Nearest Neighbors (KNN)?</h3>
+              <p class="muted">Select all correct statements about KNN.</p>
+            </header>
+
+            <fieldset class="mcq" aria-label="MCQ: KNN Basics">
+              <legend><strong>Question:</strong> Which statements about KNN are correct?</legend>
+              <label class="mcq-opt"><input type="checkbox" name="knn-basics" value="supervised" /> KNN is a Supervised Learning algorithm</label>
+              <label class="mcq-opt"><input type="checkbox" name="knn-basics" value="non-parametric" /> KNN is non-parametric and makes no assumptions about data distribution</label>
+              <label class="mcq-opt"><input type="checkbox" name="knn-basics" value="lazy" /> KNN is a "lazy learner" that memorizes the dataset</label>
+              <label class="mcq-opt"><input type="checkbox" name="knn-basics" value="distance" /> KNN predicts by finding K closest data points</label>
+              <label class="mcq-opt"><input type="checkbox" name="knn-basics" value="deep-learning" /> KNN is a deep learning algorithm</label>
+            </fieldset>
+
+            <div class="activity-result" id="result2-7" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="27">Submit</button>
+              <button class="btn outline" type="button" data-giveup="27">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 8: Distance Metrics Matching -->
+          <article class="panel activity" id="activity2-8" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 8 — Distance Metrics (Match)</h3>
+              <p class="muted">Drag each metric to its correct description.</p>
+            </header>
+
+            <div class="dnd-bank" aria-label="Metrics to match">
+              <div class="dnd-card" draggable="true" data-card="metric-euclidean">Euclidean Distance</div>
+              <div class="dnd-card" draggable="true" data-card="metric-manhattan">Manhattan Distance</div>
+              <div class="dnd-card" draggable="true" data-card="metric-minkowski">Minkowski Distance</div>
+            </div>
+
+            <div class="match-grid" role="group" aria-label="Metric definitions">
+              <div class="match-item">
+                <p class="match-def"><strong>Definition:</strong> The shortest straight-line distance between two points, derived from the Pythagorean Theorem.</p>
+                <div class="match-slot" data-slot="def-euclidean"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Definition:</strong> "Taxicab distance" - total distance traveled along horizontal and vertical lines like a city grid.</p>
+                <div class="match-slot" data-slot="def-manhattan"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Definition:</strong> A flexible family of distances that includes both Euclidean (p=2) and Manhattan (p=1) as special cases.</p>
+                <div class="match-slot" data-slot="def-minkowski"></div>
+              </div>
+            </div>
+
+            <div class="activity-result" id="result2-8" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="28">Submit</button>
+              <button class="btn outline" type="button" data-giveup="28">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 9: Distance Calculation (Interactive) -->
+          <article class="panel activity" id="activity2-9" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 9 — Calculate Euclidean Distance (Interactive)</h3>
+              <p class="muted">Click the correct calculated distance between two points.</p>
+            </header>
+
+            <div class="info-box">
+              <p><strong>Given:</strong> Point A = (1, 2) and Point B = (4, 6)</p>
+              <p><strong>Formula:</strong> d = √((x₂-x₁)² + (y₂-y₁)²)</p>
+              <p><strong>Calculation:</strong> d = √((4-1)² + (6-2)²) = √(9 + 16) = √25 = ?</p>
+            </div>
+
+            <div class="toolbar" role="group" aria-label="Distance choices">
+              <button type="button" class="chip" data-distance="3">3</button>
+              <button type="button" class="chip" data-distance="4">4</button>
+              <button type="button" class="chip" data-distance="5">5</button>
+              <button type="button" class="chip" data-distance="25">25</button>
+              <button type="button" class="chip" data-distance="7">7</button>
+            </div>
+
+            <div class="activity-result" id="result2-9" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="29">Submit</button>
+              <button class="btn outline" type="button" data-giveup="29">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 10: KNN Steps Order -->
+          <article class="panel activity" id="activity2-10" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 10 — How KNN Works (Order the Steps)</h3>
+              <p class="muted">Drag the steps into the correct order (1 → 4).</p>
+            </header>
+
+            <ol class="order-list" id="knnStepsOrder" aria-label="KNN steps order" role="list">
+              <li class="order-item" draggable="true" data-step="knn-step4">Classify by majority vote or regress by averaging neighbor values.</li>
+              <li class="order-item" draggable="true" data-step="knn-step1">Choose K (number of nearest neighbors).</li>
+              <li class="order-item" draggable="true" data-step="knn-step3">Identify the K data points with smallest distances.</li>
+              <li class="order-item" draggable="true" data-step="knn-step2">Calculate distances from new point to all training points.</li>
+            </ol>
+
+            <div class="activity-result" id="result2-10" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="210">Submit</button>
+              <button class="btn outline" type="button" data-giveup="210">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 11: KNN Applications -->
+          <article class="panel activity" id="activity2-11" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 11 — Real-World Applications of KNN</h3>
+              <p class="muted">Match each application to its description.</p>
+            </header>
+
+            <div class="dnd-bank" aria-label="Applications to match">
+              <div class="dnd-card" draggable="true" data-card="app-medical">Medical Diagnosis</div>
+              <div class="dnd-card" draggable="true" data-card="app-recommend">Recommendation Systems</div>
+              <div class="dnd-card" draggable="true" data-card="app-fraud">Fraud Detection</div>
+              <div class="dnd-card" draggable="true" data-card="app-image">Image Recognition</div>
+            </div>
+
+            <div class="match-grid" role="group" aria-label="Application descriptions">
+              <div class="match-item">
+                <p class="match-def"><strong>Application:</strong> Classifying tumors as benign or malignant based on patient data.</p>
+                <div class="match-slot" data-slot="app-def-medical"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Application:</strong> Suggesting movies or products based on preferences of similar individuals.</p>
+                <div class="match-slot" data-slot="app-def-recommend"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Application:</strong> Identifying unusual transactions by comparing patterns to known activities.</p>
+                <div class="match-slot" data-slot="app-def-fraud"></div>
+              </div>
+              <div class="match-item">
+                <p class="match-def"><strong>Application:</strong> Categorizing objects by finding similarities to labeled image data.</p>
+                <div class="match-slot" data-slot="app-def-image"></div>
+              </div>
+            </div>
+
+            <div class="activity-result" id="result2-11" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="211">Submit</button>
+              <button class="btn outline" type="button" data-giveup="211">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Activity 12: Advantages vs Disadvantages -->
+          <article class="panel activity" id="activity2-12" hidden>
+            <header class="activity-header">
+              <h3 class="activity-title">Activity 12 — KNN Advantages vs Disadvantages</h3>
+              <p class="muted">Drag each statement to the correct category.</p>
+            </header>
+
+            <div class="dnd-bank" aria-label="Statements to sort">
+              <div class="dnd-card" draggable="true" data-card="adv-simple">Simplicity & Flexibility: Intuitive and easy to implement</div>
+              <div class="dnd-card" draggable="true" data-card="dis-compute">Computational Cost: Expensive during prediction for large datasets</div>
+              <div class="dnd-card" draggable="true" data-card="adv-complex">Handles Complexity: Works with multi-class problems</div>
+              <div class="dnd-card" draggable="true" data-card="dis-scaling">Feature Scaling Needed: Requires data normalization</div>
+              <div class="dnd-card" draggable="true" data-card="adv-notrain">No Training Phase: Data itself is the model</div>
+              <div class="dnd-card" draggable="true" data-card="dis-curse">Curse of Dimensionality: Performance degrades with high-dimensional data</div>
+            </div>
+
+            <div class="dnd-zones" role="group" aria-label="Drop zones">
+              <div class="drop-zone" data-zone="advantages" aria-label="Advantages zone">
+                <h4>Advantages</h4>
+                <div class="drop-list" data-list="advantages"></div>
+              </div>
+              <div class="drop-zone" data-zone="disadvantages" aria-label="Disadvantages zone">
+                <h4>Disadvantages</h4>
+                <div class="drop-list" data-list="disadvantages"></div>
+              </div>
+            </div>
+
+            <div class="activity-result" id="result2-12" role="status" aria-live="polite"></div>
+
+            <div class="link-row">
+              <button class="btn" type="button" data-submit="212">Submit</button>
+              <button class="btn outline" type="button" data-giveup="212">Give Up</button>
+            </div>
+          </article>
+
+          <!-- Summary Screen Part 2 -->
+          <div class="panel" id="summaryScreen2" hidden>
+            <h2 class="panel-title">Part 2 Complete!</h2>
+            <div class="summary-stats">
+              <div class="stat-card">
+                <span class="stat-value" id="finalScore2">0</span>
+                <span class="stat-label">Correct Answers</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value">12</span>
+                <span class="stat-label">Total Activities</span>
+              </div>
+            </div>
+
+            <div class="summary-breakdown" id="summaryBreakdown2">
+              <!-- Will be populated by JS -->
+            </div>
+
+            <div class="link-row">
+              <button class="btn" type="button" id="backToPartSelection2">← Back to Part Selection</button>
+              <button class="btn outline" type="button" id="retryPart2">Retry Part 2</button>
             </div>
           </div>
         </section>
