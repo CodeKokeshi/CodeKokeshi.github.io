@@ -149,14 +149,19 @@
           
           if (result) {
             if (result.correct) {
-              item.innerHTML = `<span class="summary-icon success">✓</span> <span>Activity ${i}</span> <span class="summary-status success">Correct</span>`;
+              item.innerHTML = `<span class="summary-icon success">✓</span> <div><strong>Activity ${i}</strong> <span class="summary-status success">Correct</span></div>`;
             } else if (result.skipped) {
-              item.innerHTML = `<span class="summary-icon skip">—</span> <span>Activity ${i}</span> <span class="summary-status skip">Skipped</span>`;
+              item.innerHTML = `<span class="summary-icon skip">—</span> <div><strong>Activity ${i}</strong> <span class="summary-status skip">Skipped</span></div>`;
             } else {
-              item.innerHTML = `<span class="summary-icon error">✗</span> <span>Activity ${i}</span> <span class="summary-status error">Incorrect</span>`;
+              let detailHTML = `<span class="summary-icon error">✗</span> <div><strong>Activity ${i}</strong> <span class="summary-status error">Incorrect</span>`;
+              if (result.details) {
+                detailHTML += `<br><span class="summary-detail">${result.details}</span>`;
+              }
+              detailHTML += `</div>`;
+              item.innerHTML = detailHTML;
             }
           } else {
-            item.innerHTML = `<span class="summary-icon skip">—</span> <span>Activity ${i}</span> <span class="summary-status skip">Not Attempted</span>`;
+            item.innerHTML = `<span class="summary-icon skip">—</span> <div><strong>Activity ${i}</strong> <span class="summary-status skip">Not Attempted</span></div>`;
           }
           
           breakdown.appendChild(item);
@@ -165,12 +170,12 @@
     }
   }
 
-  function recordActivity(activityNum, correct, skipped = false) {
+  function recordActivity(activityNum, correct, skipped = false, details = null) {
     // Remove existing record for this activity
     state.activityResults = state.activityResults.filter(r => r.activityNum !== activityNum);
     
     // Add new record
-    state.activityResults.push({ activityNum, correct, skipped });
+    state.activityResults.push({ activityNum, correct, skipped, details });
     
     if (correct && !skipped) {
       state.score++;
@@ -332,8 +337,9 @@
     for (const [nodeId, expected] of Object.entries(correct.treeLabels)) {
       const got = state.nodeLabels.get(nodeId);
       if (got !== expected) {
-        setResult("result-1", `Incorrect. Expected: ${nodeId.toUpperCase()} should be ${expected}.`, false);
-        recordActivity(1, false);
+        const details = `Expected: ${nodeId.toUpperCase()} should be ${expected}.`;
+        setResult("result-1", `Incorrect. ${details}`, false);
+        recordActivity(1, false, false, details);
         
         // Show correct answer
         setTimeout(() => nextActivity(), 2000);
@@ -429,8 +435,9 @@
     }
 
     if (errors.length > 0) {
-      setResult("result-2", `Incorrect. ${errors.join("; ")}.`, false);
-      recordActivity(2, false);
+      const details = errors.join("; ");
+      setResult("result-2", `Incorrect. ${details}.`, false);
+      recordActivity(2, false, false, details);
       setTimeout(() => nextActivity(), 3000);
       return;
     }
@@ -473,8 +480,9 @@
     } else {
       const expected = Array.from(correct.mcqAlgorithms).sort();
       const selected = Array.from(picked).sort();
-      setResult("result-3", `Incorrect. You selected: ${selected.join(", ") || "none"}. Correct answer: ${expected.join(", ")}.`, false);
-      recordActivity(3, false);
+      const details = `You selected: ${selected.join(", ") || "none"}. Correct: ${expected.join(", ")}`;
+      setResult("result-3", `Incorrect. ${details}.`, false);
+      recordActivity(3, false, false, details);
       setTimeout(() => nextActivity(), 3000);
     }
   }
@@ -517,8 +525,9 @@
       if (!okRoot) errors.push(`Blank 1: "${correct.fill.blankRoot}"`);
       if (!okLeaf) errors.push(`Blank 2: "${correct.fill.blankLeaf}"`);
       if (!okPruning) errors.push(`Blank 3: "${correct.fill.blankPruning}"`);
-      setResult("result-4", `Incorrect. Correct answers: ${errors.join(", ")}.`, false);
-      recordActivity(4, false);
+      const details = `Correct answers: ${errors.join(", ")}`;
+      setResult("result-4", `Incorrect. ${details}.`, false);
+      recordActivity(4, false, false, details);
       setTimeout(() => nextActivity(), 3000);
     }
   }
@@ -592,8 +601,9 @@
       if (!okBoosting) {
         errors.push("Boosting should contain: Boosting and sequential training with error correction");
       }
-      setResult("result-5", `Incorrect. ${errors.join(". ")}.`, false);
-      recordActivity(5, false);
+      const details = errors.join(". ");
+      setResult("result-5", `Incorrect. ${details}.`, false);
+      recordActivity(5, false, false, details);
       setTimeout(() => nextActivity(), 3500);
     }
   }
@@ -662,8 +672,9 @@
       };
       const yourOrder = order.map((s, i) => `${i+1}. ${stepLabels[s]}`).join("; ");
       const correctOrder = correct.baggingOrder.map((s, i) => `${i+1}. ${stepLabels[s]}`).join("; ");
-      setResult("result-6", `Incorrect. Your order: ${yourOrder}. Correct order: ${correctOrder}.`, false);
-      recordActivity(6, false);
+      const details = `Your order: ${yourOrder}. Correct: ${correctOrder}`;
+      setResult("result-6", `Incorrect. ${details}.`, false);
+      recordActivity(6, false, false, details);
       setTimeout(() => nextActivity(), 4000);
     }
   }
@@ -735,8 +746,9 @@
       recordActivity(7, true);
       setTimeout(() => nextActivity(), 1500);
     } else {
-      setResult("result-7", `Incorrect. You selected depth ${state.lockedDepth}, but the optimal depth is 4 or 5 (highest test accuracy without overfitting).`, false);
-      recordActivity(7, false);
+      const details = `You selected depth ${state.lockedDepth}. Optimal: 4 or 5 (highest test accuracy)`;
+      setResult("result-7", `Incorrect. ${details}.`, false);
+      recordActivity(7, false, false, details);
       setTimeout(() => nextActivity(), 3000);
     }
   }

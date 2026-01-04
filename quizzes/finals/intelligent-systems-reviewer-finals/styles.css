@@ -508,6 +508,15 @@
   color: var(--muted);
 }
 
+.summary-detail {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary, #666);
+  font-style: italic;
+  line-height: 1.4;
+}
+
 @media (max-width: 980px) {
   .reviewer-layout {
     grid-template-columns: 1fr;
