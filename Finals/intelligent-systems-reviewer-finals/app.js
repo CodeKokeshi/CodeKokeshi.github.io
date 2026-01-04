@@ -6,6 +6,7 @@
     selectedLabel: null,
     nodeLabels: new Map(),
     lockedDepthAnswer: null,
+    activePart: "part-1",
   };
 
   const correct = {
@@ -19,11 +20,24 @@
       n7: "leaf",
     },
     ensembleSort: {
-      bagging: new Set(["bagging", "parallel", "voting"]),
-      boosting: new Set(["boosting", "sequential", "focus-errors"]),
+      bagging: new Set(["bagging", "bagging-line-1", "bagging-line-2"]),
+      boosting: new Set(["boosting", "boosting-line-1"]),
     },
-    baggingOrder: ["subsets", "train", "independent", "combine"],
+    baggingOrder: ["step1", "step2", "step3", "step4"],
     overfitDepthAcceptable: new Set([4, 5]),
+    termsMatch: new Map([
+      ["def-root", "term-root"],
+      ["def-branches", "term-branches"],
+      ["def-internal", "term-internal"],
+      ["def-leaf", "term-leaf"],
+      ["def-pruning", "term-pruning"],
+    ]),
+    mcqAlgorithms: new Set(["ID3", "C4.5", "CART"]),
+    fill: {
+      blankRoot: "Root node",
+      blankLeaf: "Leaf nodes",
+      blankPruning: "Pruning",
+    },
   };
 
   function $(selector, root = document) {
@@ -44,7 +58,7 @@
   function updateScoreboard() {
     const progressText = document.getElementById("progressText");
     const scoreText = document.getElementById("scoreText");
-    if (progressText) progressText.textContent = `${state.completed.size} / 4`;
+    if (progressText) progressText.textContent = `${state.completed.size} / 7`;
     if (scoreText) scoreText.textContent = String(state.score);
   }
 
@@ -105,16 +119,21 @@
         return;
       }
     }
-    setResult("result-tree-label", "Perfect — you identified Root/Internal/Leaf correctly.", true);
+    setResult("result-tree-label", "Correct.", true);
     markCompleted("tree-label");
   }
 
-  // -------- Activity 2: DnD Bagging vs Boosting --------
+  // -------- Activity 2: Terms matching --------
 
-  function setupDnD() {
+  function setupMatchDnD() {
     let dragging = null;
+    const root = document.getElementById("activity-terms-match");
+    if (!root) return;
 
-    $all(".dnd-card").forEach((card) => {
+    const bank = $(".dnd-bank", root);
+    if (!bank) return;
+
+    $all(".dnd-card", root).forEach((card) => {
       card.addEventListener("dragstart", (e) => {
         dragging = card;
         e.dataTransfer?.setData("text/plain", card.dataset.card || "");
@@ -123,11 +142,121 @@
 
       card.addEventListener("dragend", () => {
         dragging = null;
-        $all(".drop-zone").forEach((z) => z.classList.remove("is-over"));
+        $all(".match-slot", root).forEach((slot) => slot.classList.remove("is-over"));
       });
     });
 
-    $all(".drop-zone").forEach((zone) => {
+    $all(".match-slot", root).forEach((slot) => {
+      slot.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        slot.classList.add("is-over");
+      });
+
+      slot.addEventListener("dragleave", () => slot.classList.remove("is-over"));
+
+      slot.addEventListener("drop", (e) => {
+        e.preventDefault();
+        slot.classList.remove("is-over");
+        if (!dragging) return;
+        slot.textContent = "";
+        slot.appendChild(dragging);
+      });
+    });
+
+    bank.addEventListener("dragover", (e) => e.preventDefault());
+    bank.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (!dragging) return;
+      bank.appendChild(dragging);
+    });
+  }
+
+  function checkTermsMatch() {
+    const root = document.getElementById("activity-terms-match");
+    if (!root) return;
+
+    for (const [slotKey, expectedCardKey] of correct.termsMatch.entries()) {
+      const slot = $(`.match-slot[data-slot="${slotKey}"]`, root);
+      const card = slot ? $(".dnd-card", slot) : null;
+      const got = card?.dataset.card;
+      if (got !== expectedCardKey) {
+        setResult("result-terms-match", "Not yet. Make sure each term matches its definition.", false);
+        return;
+      }
+    }
+
+    setResult("result-terms-match", "Correct — terminology matches the definitions.", true);
+    markCompleted("terms-match");
+  }
+
+  // -------- Activity 3: MCQ --------
+
+  function checkMcq() {
+    const picked = new Set(
+      $all('#activity-mcq input[name="algos"]:checked').map((i) => i.value),
+    );
+
+    if (picked.size === 0) {
+      setResult("result-mcq", "Pick at least one option.", false);
+      return;
+    }
+
+    const ok = setsEqual(picked, correct.mcqAlgorithms);
+    if (ok) {
+      setResult("result-mcq", "Correct — ID3, C4.5, and CART.", true);
+      markCompleted("mcq");
+      return;
+    }
+
+    setResult("result-mcq", "Not quite. Re-check the proven algorithms list.", false);
+  }
+
+  // -------- Activity 4: Fill in the blanks --------
+
+  function normalizeAnswer(s) {
+    return (s || "").trim().replace(/\s+/g, " ");
+  }
+
+  function checkFill() {
+    const root = normalizeAnswer(document.getElementById("blankRoot")?.value);
+    const leaf = normalizeAnswer(document.getElementById("blankLeaf")?.value);
+    const pruning = normalizeAnswer(document.getElementById("blankPruning")?.value);
+
+    const okRoot = root.toLowerCase() === correct.fill.blankRoot.toLowerCase();
+    const okLeaf = leaf.toLowerCase() === correct.fill.blankLeaf.toLowerCase();
+    const okPruning = pruning.toLowerCase() === correct.fill.blankPruning.toLowerCase();
+
+    if (okRoot && okLeaf && okPruning) {
+      setResult("result-fill", "Correct.", true);
+      markCompleted("fill");
+      return;
+    }
+
+    setResult("result-fill", "Not yet. Expected: Root node / Leaf nodes / Pruning.", false);
+  }
+
+  // -------- Activity 5: DnD Bagging vs Boosting --------
+
+  function setupEnsembleDnD() {
+    let dragging = null;
+
+    const root = document.getElementById("activity-ensemble-sort");
+    if (!root) return;
+
+    $all(".dnd-card", root).forEach((card) => {
+      card.addEventListener("dragstart", (e) => {
+        dragging = card;
+        e.dataTransfer?.setData("text/plain", card.dataset.card || "");
+        e.dataTransfer?.setDragImage(card, 10, 10);
+      });
+
+      card.addEventListener("dragend", () => {
+        dragging = null;
+        $all(".drop-zone", root).forEach((z) => z.classList.remove("is-over"));
+      });
+    });
+
+    $all(".drop-zone", root).forEach((zone) => {
       zone.addEventListener("dragover", (e) => {
         e.preventDefault();
         zone.classList.add("is-over");
@@ -146,7 +275,7 @@
     });
 
     // allow dropping back to the bank
-    const bank = $(".dnd-bank");
+    const bank = $(".dnd-bank", root);
     bank?.addEventListener("dragover", (e) => e.preventDefault());
     bank?.addEventListener("drop", (e) => {
       e.preventDefault();
@@ -176,7 +305,7 @@
 
     setResult(
       "result-ensemble-sort",
-      "Not yet. Tip: bagging = parallel + voting/averaging; boosting = sequential + focuses on errors.",
+      "Not yet. Use the exact Bagging/Boosting sentences from the lesson.",
       false,
     );
   }
@@ -253,7 +382,7 @@
 
     setResult(
       "result-bagging-order",
-      "Not quite. Remember: bootstrapped subsets → train models → learn independently → combine predictions.",
+      "Not quite. Follow the Step 1 → Step 4 order from the lesson.",
       false,
     );
   }
@@ -318,11 +447,33 @@
     clearNodeLabels();
     state.completed.delete("tree-label");
 
-    // Move DnD cards back to bank
-    const bank = $(".dnd-bank");
-    if (bank) {
-      $all(".dnd-card").forEach((c) => bank.appendChild(c));
+    // Move ensemble DnD cards back to its bank
+    const ensembleRoot = document.getElementById("activity-ensemble-sort");
+    const ensembleBank = ensembleRoot ? $(".dnd-bank", ensembleRoot) : null;
+    if (ensembleBank && ensembleRoot) {
+      $all(".dnd-card", ensembleRoot).forEach((c) => ensembleBank.appendChild(c));
     }
+
+    // Reset matching DnD
+    const matchRoot = document.getElementById("activity-terms-match");
+    const matchBank = matchRoot ? $(".dnd-bank", matchRoot) : null;
+    if (matchBank && matchRoot) {
+      $all(".dnd-card", matchRoot).forEach((c) => matchBank.appendChild(c));
+      $all(".match-slot", matchRoot).forEach((slot) => (slot.textContent = ""));
+    }
+
+    // Reset MCQ
+    $all('#activity-mcq input[name="algos"]').forEach((i) => {
+      i.checked = false;
+    });
+
+    // Reset fill
+    const blankRoot = document.getElementById("blankRoot");
+    const blankLeaf = document.getElementById("blankLeaf");
+    const blankPruning = document.getElementById("blankPruning");
+    if (blankRoot) blankRoot.value = "";
+    if (blankLeaf) blankLeaf.value = "";
+    if (blankPruning) blankPruning.value = "";
 
     // Reset bagging order list
     const list = document.getElementById("baggingOrder");
@@ -342,6 +493,9 @@
     }
 
     setResult("result-tree-label", "", null);
+    setResult("result-terms-match", "", null);
+    setResult("result-mcq", "", null);
+    setResult("result-fill", "", null);
     setResult("result-ensemble-sort", "", null);
     setResult("result-bagging-order", "", null);
     setResult("result-overfit-slider", "", null);
@@ -351,8 +505,70 @@
 
   // -------- Wiring --------
 
+  function setActivePart(partKey) {
+    state.activePart = partKey;
+
+    $all("[data-part]").forEach((btn) => {
+      btn.setAttribute("aria-current", btn.dataset.part === partKey ? "true" : "false");
+    });
+
+    $all("[data-part-panel]").forEach((panel) => {
+      const isActive = panel.getAttribute("data-part-panel") === partKey;
+      panel.toggleAttribute("hidden", !isActive);
+    });
+
+    const partTag = document.getElementById("partTag");
+    const partTitle = document.getElementById("partTitle");
+    const partLead = document.getElementById("partLead");
+
+    if (partKey === "part-1") {
+      if (partTag) partTag.textContent = "Lesson 6 — Part 1";
+      if (partTitle) partTitle.textContent = "Decision Trees and Ensemble Learning Reviewer";
+      if (partLead) {
+        partLead.textContent =
+          "Part 1 uses Lesson 6 text and drills it with interactive activities.";
+      }
+      return;
+    }
+
+    if (partKey === "part-2") {
+      if (partTag) partTag.textContent = "Lesson 7 and 8 — Part 2";
+      if (partTitle) partTitle.textContent = "Placeholder";
+      if (partLead) partLead.textContent = "Placeholder page for now.";
+      return;
+    }
+
+    if (partKey === "part-3") {
+      if (partTag) partTag.textContent = "Lesson 9 and 10 — Part 3";
+      if (partTitle) partTitle.textContent = "Placeholder";
+      if (partLead) partLead.textContent = "Placeholder page for now.";
+    }
+  }
+
   window.addEventListener("DOMContentLoaded", () => {
     updateScoreboard();
+
+    // Part selector
+    const initialPart = (() => {
+      const hash = (window.location.hash || "").replace("#", "").trim();
+      if (hash === "part-1" || hash === "part-2" || hash === "part-3") return hash;
+      return "part-1";
+    })();
+
+    setActivePart(initialPart);
+
+    $all("[data-part]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.part;
+        if (!key) return;
+        setActivePart(key);
+        try {
+          window.location.hash = key;
+        } catch {
+          /* no-op */
+        }
+      });
+    });
 
     // Tree
     setPickedLabel("root");
@@ -371,7 +587,8 @@
     });
 
     // DnD
-    setupDnD();
+    setupEnsembleDnD();
+    setupMatchDnD();
 
     // Order
     setupOrderDnD();
@@ -388,6 +605,9 @@
       btn.addEventListener("click", () => {
         const key = btn.getAttribute("data-check");
         if (key === "tree-label") checkTreeLabels();
+        if (key === "terms-match") checkTermsMatch();
+        if (key === "mcq") checkMcq();
+        if (key === "fill") checkFill();
         if (key === "ensemble-sort") checkEnsembleSort();
         if (key === "bagging-order") checkBaggingOrder();
         if (key === "overfit-slider") lockDepthAnswer();
