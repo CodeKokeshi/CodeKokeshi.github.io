@@ -392,6 +392,13 @@
         e.preventDefault();
         slot.classList.remove("is-over");
         if (!dragging) return;
+        
+        // If slot already has a card, return it to bank first
+        const existingCard = slot.querySelector(".dnd-card");
+        if (existingCard && bank) {
+          bank.appendChild(existingCard);
+        }
+        
         slot.textContent = "";
         slot.appendChild(dragging);
       });
@@ -512,9 +519,14 @@
     const leaf = normalizeAnswer($("#blankLeaf")?.value);
     const pruning = normalizeAnswer($("#blankPruning")?.value);
 
-    const okRoot = root.toLowerCase() === correct.fill.blankRoot.toLowerCase();
-    const okLeaf = leaf.toLowerCase() === correct.fill.blankLeaf.toLowerCase();
-    const okPruning = pruning.toLowerCase() === correct.fill.blankPruning.toLowerCase();
+    // More forgiving matching: accepts partial answers like "root" for "root node"
+    const rootLower = root.toLowerCase();
+    const leafLower = leaf.toLowerCase();
+    const pruningLower = pruning.toLowerCase();
+    
+    const okRoot = rootLower.includes("root") && (rootLower.includes("node") || rootLower === "root");
+    const okLeaf = leafLower.includes("leaf") && (leafLower.includes("node") || leafLower === "leaf");
+    const okPruning = pruningLower.includes("prun");
 
     if (okRoot && okLeaf && okPruning) {
       setResult("result-4", "Correct! All blanks filled correctly.", true);
@@ -701,7 +713,7 @@
       const depth = parseInt(slider.value, 10);
       if (depthValue) depthValue.textContent = depth;
 
-      // Simulate accuracy curves
+      // Simulate accuracy curves with slight randomness
       let trainAcc, testAcc;
       if (depth <= 2) {
         trainAcc = 50 + depth * 7;
@@ -714,13 +726,16 @@
         testAcc = 76 - (depth - 5) * 3;
       }
 
-      trainAcc = Math.round(trainAcc);
-      testAcc = Math.round(testAcc);
+      // Add small random variation to make it less obvious
+      const noise = Math.random() * 3 - 1.5;
+      trainAcc = Math.round(trainAcc + noise);
+      testAcc = Math.round(testAcc + noise);
 
       if (trainFill) trainFill.style.width = `${trainAcc}%`;
       if (testFill) testFill.style.width = `${testAcc}%`;
-      if (trainVal) trainVal.textContent = `${trainAcc}%`;
-      if (testVal) testVal.textContent = `${testAcc}%`;
+      // Hide exact percentages - show only bars
+      if (trainVal) trainVal.textContent = "";
+      if (testVal) testVal.textContent = "";
 
       state.lockedDepth = depth;
     });
