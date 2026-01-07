@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IS Finals Exam - Part 2 (Lessons 8-10) | CodeKokeshi</title>
+    <meta
+      name="description"
+      content="Part 2 exam for Intelligent Systems Finals covering Lessons 8-10."
+    />
+    <meta name="theme-color" content="#0f1116" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Press+Start+2P&family=Orbitron:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../../assets/css/site.css" data-cache-bust="true" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="exam-styles.css" />
+  </head>
+  <body>
+    <canvas id="particle-canvas"></canvas>
+    <div class="page-shell">
+      <header class="top-bar">
+        <a class="brand" href="../../../index.html">Code Kokeshi</a>
+        <nav class="nav-links" aria-label="Pages">
+          <a class="nav-link" href="../../../gamedev.html">Game Dev</a>
+          <a class="nav-link" href="../../../art.html">Art</a>
+          <a class="nav-link" href="../../../projects.html">Projects</a>
+          <a class="nav-link" href="../../../reviewers.html">Reviewers</a>
+          <a class="nav-link" href="../../../thesis_section/index.html">Thesis</a>
+        </nav>
+        <div class="theme-switcher" role="group" aria-label="Theme selector">
+          <span class="theme-label">Theme</span>
+          <button type="button" class="theme-button" data-theme-option="dark" aria-pressed="false">Dark</button>
+          <button type="button" class="theme-button" data-theme-option="light" aria-pressed="false">Light</button>
+          <button type="button" class="theme-button" data-theme-option="wood" aria-pressed="false">Retro</button>
+          <button type="button" class="theme-button" data-theme-option="cyberpunk" aria-pressed="false">Cyberpunk</button>
+        </div>
+      </header>
+
+      <main>
+        <!-- Exam Screen -->
+        <section id="examScreen" class="page-section">
+          <div class="hero-simple">
+            <h1 class="section-title">IS Finals Exam - Part 2</h1>
+            <p class="lead">Lessons 8-10: KNN, Heuristic Search & Genetic Algorithms</p>
+            <div class="link-row">
+              <a class="btn outline" href="index.html">← Back to Reviewer</a>
+            </div>
+          </div>
+
+          <div class="exam-container">
+            <div class="exam-header">
+              <div class="exam-info">
+                <p><strong>Total Questions:</strong> <span id="totalQuestions">67</span></p>
+                <p><strong>Progress:</strong> <span id="progressText">0 / 67 answered</span></p>
+              </div>
+              <div class="exam-actions">
+                <button type="button" class="btn outline" id="resetBtn">Reset Exam</button>
+                <button type="button" class="btn primary" id="submitExamBtn">Submit Exam</button>
+              </div>
+            </div>
+
+            <!-- Questions Container -->
+            <div id="questionsContainer" class="questions-container"></div>
+
+            <!-- Navigation -->
+            <div class="exam-navigation">
+              <button type="button" class="btn" id="scrollTopBtn">↑ Back to Top</button>
+              <button type="button" class="btn primary" id="submitExamBtn2">Submit Exam</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Results Screen -->
+        <section id="resultsScreen" class="page-section" hidden>
+          <div class="hero-simple">
+            <h1 class="section-title">Exam Results - Part 2</h1>
+            <div class="results-summary">
+              <div class="score-display">
+                <div class="score-circle">
+                  <span class="score-value" id="scoreValue">0</span>
+                  <span class="score-total">/ <span id="totalQuestionsResult">67</span></span>
+                </div>
+                <div class="score-percentage" id="scorePercentage">0%</div>
+              </div>
+              <div class="score-breakdown">
+                <div class="breakdown-item correct-item">
+                  <span class="breakdown-label">Correct:</span>
+                  <span class="breakdown-value" id="correctCount">0</span>
+                </div>
+                <div class="breakdown-item wrong-item">
+                  <span class="breakdown-label">Wrong:</span>
+                  <span class="breakdown-value" id="wrongCount">0</span>
+                </div>
+                <div class="breakdown-item unanswered-item">
+                  <span class="breakdown-label">Unanswered:</span>
+                  <span class="breakdown-value" id="unansweredCount">0</span>
+                </div>
+              </div>
+            </div>
+            <div class="link-row">
+              <button class="btn outline" id="retakeBtn">Retake Exam</button>
+              <a class="btn" href="index.html">Back to Reviewer</a>
+            </div>
+          </div>
+
+          <!-- Detailed Results -->
+          <div class="results-container">
+            <h2>Detailed Results</h2>
+            <div id="detailedResults" class="detailed-results"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="page-footer">
+        <p>&copy; 2025 CodeKokeshi. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <script src="../../../assets/js/site.js"></script>
+    <script src="exam-data.js"></script>
+    <script src="exam-part2-app.js"></script>
+  </body>
+</html>
