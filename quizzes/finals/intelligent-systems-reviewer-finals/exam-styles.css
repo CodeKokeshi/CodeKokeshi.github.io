@@ -467,21 +467,136 @@
 /* Responsive */
 
 @media (max-width: 768px) {
+  .page-section {
+    padding: 0 0.25rem;
+  }
+
+  .hero-simple {
+    padding: 0 0.5rem;
+  }
+
+  .hero-simple .section-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-simple .lead {
+    font-size: 0.95rem;
+  }
+
+  .link-row {
+    flex-wrap: wrap;
+  }
+
+  .exam-container {
+    padding: 0 0.5rem;
+  }
+
   .exam-header {
     flex-direction: column;
     align-items: stretch;
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .exam-info p {
+    font-size: 0.9rem;
   }
 
   .exam-actions {
     flex-direction: column;
   }
 
+  .exam-actions .btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.875rem 1rem;
+  }
+
+  .question-card {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .question-card:hover {
+    transform: none;
+  }
+
+  .question-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .question-text {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .option-item {
+    padding: 0.875rem;
+    gap: 0.625rem;
+  }
+
+  .option-item label {
+    font-size: 0.95rem;
+  }
+
   .exam-navigation {
     flex-direction: column;
+    padding: 1rem;
+  }
+
+  .exam-navigation .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Results Screen Mobile */
+  .results-summary {
+    padding: 1.25rem;
+    margin: 1rem 0;
+  }
+
+  .score-circle {
+    width: 140px;
+    height: 140px;
+    border-width: 4px;
+  }
+
+  .score-value {
+    font-size: 2.5rem;
+  }
+
+  .score-total {
+    font-size: 1.25rem;
+  }
+
+  .score-percentage {
+    font-size: 1.5rem;
   }
 
   .score-breakdown {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .breakdown-item {
+    padding: 0.875rem;
+  }
+
+  .breakdown-value {
+    font-size: 1.5rem;
+  }
+
+  /* Detailed Results Mobile */
+  .results-container {
+    margin: 1rem auto;
+    padding: 0 0.5rem;
+  }
+
+  .result-card {
+    padding: 1rem;
+    border-left-width: 4px;
   }
 
   .result-header {
@@ -490,8 +605,70 @@
     gap: 0.5rem;
   }
 
+  .result-question-text {
+    font-size: 0.95rem;
+  }
+
+  .result-answer-option {
+    padding: 0.75rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .answer-text {
+    font-size: 0.9rem;
+  }
+
   .answer-label {
     font-size: 0.7rem;
     padding: 0.2rem 0.5rem;
+  }
+
+  .result-explanation {
+    padding: 0.875rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .exam-header {
+    padding: 0.875rem;
+  }
+
+  .question-card {
+    padding: 0.875rem;
+  }
+
+  .question-text {
+    font-size: 0.95rem;
+  }
+
+  .option-item {
+    padding: 0.75rem;
+  }
+
+  .option-item label {
+    font-size: 0.9rem;
+  }
+
+  .score-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .score-value {
+    font-size: 2rem;
+  }
+
+  .result-answer-option {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .answer-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 0.65rem;
   }
 }
