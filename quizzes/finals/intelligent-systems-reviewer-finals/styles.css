@@ -37,6 +37,28 @@
   color: var(--muted);
 }
 
+/* Highlight card for exam */
+.portfolio-card.highlight {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-alt) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-card.highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--accent);
+}
+
+.portfolio-card.highlight .btn.primary {
+  font-weight: 600;
+}
+
 .reviewer-sidebar .panel {
   position: sticky;
   top: 1rem;
