@@ -1128,6 +1128,1216 @@ const examQuestions = [
     ],
     correct: 0,
     explanation: "Disadvantages: Lack of security in the cloud, vendor subordination, and potential for disconnection."
+  },
+
+  // ====== LESSON 7: Fog Computing ======
+
+  {
+    id: 81,
+    lesson: "Lesson 7",
+    topic: "Architecture Layers",
+    question: "What are the three layers of the Fog Computing ecosystem?",
+    options: [
+      "Cloud-Layer (Cloud/Data-Center), Fog-Layer (Fog-Nodes), Edge-Layer (Edge-Gateway, Edge-Devices)",
+      "Application Layer, Transport Layer, Network Layer",
+      "Hardware Layer, Software Layer, User Layer",
+      "Input Layer, Processing Layer, Output Layer"
+    ],
+    correct: 0,
+    explanation: "The ecosystem is organized into: Cloud-Layer (Cloud/Data-Center), Fog-Layer (Fog-Nodes), Edge-Layer (Edge-Gateway, Edge-Devices)."
+  },
+  {
+    id: 82,
+    lesson: "Lesson 7",
+    topic: "Fog Computing Definition",
+    question: "What is Fog Computing's Decentralized Architecture?",
+    options: [
+      "Extending cloud capabilities to the network edge, enabling powerful local processing",
+      "Centralizing all data in one server",
+      "Removing edge devices from the network",
+      "Storing all data in physical file cabinets"
+    ],
+    correct: 0,
+    explanation: "Decentralized Architecture: Extending cloud capabilities to the network edge, enabling powerful local processing."
+  },
+  {
+    id: 83,
+    lesson: "Lesson 7",
+    topic: "Fog Computing Origin",
+    question: "Who coined the term 'Fog Computing' and when?",
+    options: [
+      "Cisco in 2014, describing computing 'close to the ground' — near where data is generated",
+      "Microsoft in 2010, for cloud storage",
+      "Google in 2015, for search optimization",
+      "Amazon in 2012, for e-commerce"
+    ],
+    correct: 0,
+    explanation: "Cisco's Vision (2014): Coined to describe computing 'close to the ground' — near where data is generated."
+  },
+  {
+    id: 84,
+    lesson: "Lesson 7",
+    topic: "Fog Computing Benefits",
+    question: "How does Fog Computing achieve Faster Processing?",
+    options: [
+      "Handles data closer to its source, significantly reducing latency and improving responsiveness",
+      "Sends all data to remote servers first",
+      "Uses slower but more reliable connections",
+      "Processes data only during off-peak hours"
+    ],
+    correct: 0,
+    explanation: "Faster Processing: Handles data closer to its source, significantly reducing latency and improving responsiveness."
+  },
+  {
+    id: 85,
+    lesson: "Lesson 7",
+    topic: "Cloud Limitations",
+    question: "What is the High Latency problem in Cloud Computing?",
+    options: [
+      "Cloud computing suffers from delays, hindering real-time applications",
+      "Cloud computing is too fast for some applications",
+      "Cloud computing has no latency issues",
+      "Cloud computing only works offline"
+    ],
+    correct: 0,
+    explanation: "High Latency: Cloud computing suffers from delays, hindering real-time applications."
+  },
+  {
+    id: 86,
+    lesson: "Lesson 7",
+    topic: "Cloud Limitations",
+    question: "What are Bandwidth Bottlenecks in Cloud Computing?",
+    options: [
+      "Centralized processing creates network congestion unsuitable for time-sensitive IoT and industrial systems",
+      "Unlimited bandwidth for all applications",
+      "Perfect network performance at all times",
+      "No data transfer limitations"
+    ],
+    correct: 0,
+    explanation: "Bandwidth Bottlenecks: Centralized processing creates network congestion unsuitable for time-sensitive IoT and industrial systems."
+  },
+  {
+    id: 87,
+    lesson: "Lesson 7",
+    topic: "Cloud Limitations",
+    question: "Why does Cloud Computing have Increased Security Risks?",
+    options: [
+      "Data traveling long distances to centralized clouds faces more exposure and potential threats",
+      "Data is stored locally and never transmitted",
+      "Cloud servers are immune to attacks",
+      "All cloud data is automatically encrypted"
+    ],
+    correct: 0,
+    explanation: "Increased Security Risks: Data traveling long distances to centralized clouds faces more exposure and potential threats."
+  },
+  {
+    id: 88,
+    lesson: "Lesson 7",
+    topic: "Fog vs Cloud - Latency",
+    question: "How does latency compare between Fog and Cloud Computing?",
+    options: [
+      "Fog: Low latency for immediate responses; Cloud: High latency due to distance",
+      "Fog: High latency; Cloud: Low latency",
+      "Both have identical latency",
+      "Neither has any latency"
+    ],
+    correct: 0,
+    explanation: "Latency: Fog has Low latency for immediate responses; Cloud has High latency due to distance."
+  },
+  {
+    id: 89,
+    lesson: "Lesson 7",
+    topic: "Fog vs Cloud - Location",
+    question: "How does location differ between Fog and Cloud Computing?",
+    options: [
+      "Fog: Nodes at local network edge, close to data sources; Cloud: Centralized servers located remotely",
+      "Fog: Remote servers; Cloud: Local nodes",
+      "Both use the same server locations",
+      "Neither requires physical servers"
+    ],
+    correct: 0,
+    explanation: "Location: Fog has Nodes at local network edge, close to data sources; Cloud has Centralized servers located remotely."
+  },
+  {
+    id: 90,
+    lesson: "Lesson 7",
+    topic: "Fog vs Cloud - Data Hops",
+    question: "How do data hops compare between Fog and Cloud Computing?",
+    options: [
+      "Fog: Processes data in one hop or very few; Cloud: Requires multiple hops, increasing delay",
+      "Fog: Multiple hops; Cloud: One hop",
+      "Both require the same number of hops",
+      "Neither involves any data hops"
+    ],
+    correct: 0,
+    explanation: "Data Hops: Fog processes data in one hop or very few; Cloud requires multiple hops, increasing delay."
+  },
+  {
+    id: 91,
+    lesson: "Lesson 7",
+    topic: "Fog vs Cloud - Security",
+    question: "How does security compare between Fog and Cloud Computing?",
+    options: [
+      "Fog: Enhanced security by localizing sensitive data; Cloud: More vulnerable due to longer data travel",
+      "Cloud is more secure than Fog",
+      "Both have identical security levels",
+      "Neither has any security features"
+    ],
+    correct: 0,
+    explanation: "Security: Fog has Enhanced security by localizing sensitive data; Cloud is More vulnerable due to longer data travel."
+  },
+  {
+    id: 92,
+    lesson: "Lesson 7",
+    topic: "Fog Architecture Components",
+    question: "What is the role of Cloud Data Centers in Fog Computing Architecture?",
+    options: [
+      "Centralized analytics, long-term storage, and control",
+      "Real-time sensor data collection",
+      "Local network routing only",
+      "Device manufacturing"
+    ],
+    correct: 0,
+    explanation: "Cloud Data Centers: Centralized analytics, long-term storage, and control."
+  },
+  {
+    id: 93,
+    lesson: "Lesson 7",
+    topic: "Fog Architecture Components",
+    question: "What is the role of Fog Nodes in Fog Computing Architecture?",
+    options: [
+      "Local servers/gateways for computation and buffering",
+      "Long-term data storage only",
+      "Internet service provision",
+      "End-user device manufacturing"
+    ],
+    correct: 0,
+    explanation: "Fog Nodes: Local servers/gateways for computation and buffering."
+  },
+  {
+    id: 94,
+    lesson: "Lesson 7",
+    topic: "Fog Architecture Components",
+    question: "What is the role of Edge Devices in Fog Computing Architecture?",
+    options: [
+      "Sensors, cameras, and actuators collecting data",
+      "Central data processing",
+      "Cloud storage management",
+      "Network administration"
+    ],
+    correct: 0,
+    explanation: "Edge Devices: Sensors, cameras, and actuators collecting data."
+  },
+  {
+    id: 95,
+    lesson: "Lesson 7",
+    topic: "Fog Core Characteristics",
+    question: "What does Low Latency mean in Fog Computing?",
+    options: [
+      "Processes data close to the source for fast response",
+      "Slow data processing for accuracy",
+      "Delayed responses for security",
+      "Remote processing for efficiency"
+    ],
+    correct: 0,
+    explanation: "Low Latency: Processes data close to the source for fast response."
+  },
+  {
+    id: 96,
+    lesson: "Lesson 7",
+    topic: "Fog Core Characteristics",
+    question: "What does Proximity mean in Fog Computing?",
+    options: [
+      "Fog nodes operate near IoT devices",
+      "Fog nodes are far from data sources",
+      "Fog nodes are in remote data centers",
+      "Fog nodes are in orbit"
+    ],
+    correct: 0,
+    explanation: "Proximity: Fog nodes operate near IoT devices."
+  },
+  {
+    id: 97,
+    lesson: "Lesson 7",
+    topic: "Fog Core Characteristics",
+    question: "What does Real-Time Processing mean in Fog Computing?",
+    options: [
+      "Supports instant or near-instant analytics",
+      "Processes data with a 24-hour delay",
+      "Only batch processing is supported",
+      "No analytics capability"
+    ],
+    correct: 0,
+    explanation: "Real-Time Processing: Supports instant or near-instant analytics."
+  },
+  {
+    id: 98,
+    lesson: "Lesson 7",
+    topic: "Fog Core Characteristics",
+    question: "What is Distributed Architecture in Fog Computing?",
+    options: [
+      "Uses many small nodes instead of one central server",
+      "Uses a single large central server",
+      "Has no server infrastructure",
+      "Relies entirely on cloud computing"
+    ],
+    correct: 0,
+    explanation: "Distributed Architecture: Uses many small nodes instead of one central server."
+  },
+  {
+    id: 99,
+    lesson: "Lesson 7",
+    topic: "Fog Applications",
+    question: "How is Fog Computing used in Industrial IoT?",
+    options: [
+      "Real-time monitoring and control of manufacturing equipment for optimal efficiency",
+      "Storing old manufacturing records",
+      "Manual equipment inspection only",
+      "Marketing automation"
+    ],
+    correct: 0,
+    explanation: "Industrial IoT: Real-time monitoring and control of manufacturing equipment for optimal efficiency."
+  },
+  {
+    id: 100,
+    lesson: "Lesson 7",
+    topic: "Fog Applications",
+    question: "How is Fog Computing used in Smart Cities?",
+    options: [
+      "Enhancing traffic light management and public safety systems with ultra-low latency responses",
+      "Building construction management",
+      "Historical record keeping",
+      "City tourism promotion"
+    ],
+    correct: 0,
+    explanation: "Smart Cities: Enhancing traffic light management and public safety systems with ultra-low latency responses."
+  },
+  {
+    id: 101,
+    lesson: "Lesson 7",
+    topic: "Fog Applications",
+    question: "How is Fog Computing used in Autonomous Vehicles?",
+    options: [
+      "Immediate processing of sensor data crucial for navigation, collision avoidance, and safety",
+      "Entertainment system management",
+      "Vehicle paint selection",
+      "Insurance claim processing"
+    ],
+    correct: 0,
+    explanation: "Autonomous Vehicles: Immediate processing of sensor data crucial for navigation, collision avoidance, and safety."
+  },
+  {
+    id: 102,
+    lesson: "Lesson 7",
+    topic: "Fog Applications",
+    question: "How is Fog Computing used in Content Delivery?",
+    options: [
+      "Netflix's edge caching infrastructure reduces streaming delays and conserves network bandwidth",
+      "Physical DVD distribution",
+      "Newspaper printing",
+      "Radio broadcasting only"
+    ],
+    correct: 0,
+    explanation: "Content Delivery: Netflix's edge caching infrastructure reduces streaming delays and conserves network bandwidth."
+  },
+  {
+    id: 103,
+    lesson: "Lesson 7",
+    topic: "Fog Advantages",
+    question: "How does Fog Computing achieve Reduced Cloud Data?",
+    options: [
+      "Less data sent to the cloud, lowering bandwidth usage and network congestion",
+      "More data sent to the cloud for backup",
+      "Increased cloud storage requirements",
+      "Mandatory cloud synchronization"
+    ],
+    correct: 0,
+    explanation: "Reduced Cloud Data: Less data sent to the cloud, lowering bandwidth usage and network congestion."
+  },
+  {
+    id: 104,
+    lesson: "Lesson 7",
+    topic: "Fog Advantages",
+    question: "Why are Improved Response Times critical in Fog Computing?",
+    options: [
+      "Critical for mission-critical and safety applications where every millisecond counts",
+      "Only important for gaming applications",
+      "Not relevant for IoT systems",
+      "Slow response is preferred"
+    ],
+    correct: 0,
+    explanation: "Improved Response Times: Critical for mission-critical and safety applications where every millisecond counts."
+  },
+  {
+    id: 105,
+    lesson: "Lesson 7",
+    topic: "Fog Advantages",
+    question: "How does Fog Computing enhance Privacy & Security?",
+    options: [
+      "Localizing sensitive processing minimizes data exposure and bolsters security",
+      "Sending all data to public servers",
+      "Removing all encryption",
+      "Sharing data with third parties"
+    ],
+    correct: 0,
+    explanation: "Enhanced Privacy & Security: Localizing sensitive processing minimizes data exposure and bolsters security."
+  },
+  {
+    id: 106,
+    lesson: "Lesson 7",
+    topic: "Fog Advantages",
+    question: "How does Fog Computing achieve Efficient Scaling?",
+    options: [
+      "Scales effectively across a vast number of connected devices in diverse environments",
+      "Only works with a single device",
+      "Cannot scale beyond 10 devices",
+      "Requires manual scaling only"
+    ],
+    correct: 0,
+    explanation: "Efficient Scaling: Scales effectively across a vast number of connected devices in diverse environments."
+  },
+  {
+    id: 107,
+    lesson: "Lesson 7",
+    topic: "Fog & Emerging Tech",
+    question: "How does AI & Machine Learning integrate with Fog Computing?",
+    options: [
+      "Integration for smarter, predictive edge analytics and decision-making",
+      "AI replaces Fog Computing entirely",
+      "ML is incompatible with Fog nodes",
+      "Only used for image editing"
+    ],
+    correct: 0,
+    explanation: "AI & Machine Learning: Integration for smarter, predictive edge analytics and decision-making."
+  },
+  {
+    id: 108,
+    lesson: "Lesson 7",
+    topic: "Fog & Emerging Tech",
+    question: "How does Blockchain integrate with Fog Computing?",
+    options: [
+      "Enables secure, decentralized data management and trust at the edge",
+      "Replaces all fog nodes",
+      "Only used for cryptocurrency",
+      "Incompatible with IoT"
+    ],
+    correct: 0,
+    explanation: "Blockchain: Enables secure, decentralized data management and trust at the edge."
+  },
+  {
+    id: 109,
+    lesson: "Lesson 7",
+    topic: "Fog & Emerging Tech",
+    question: "How does 5G Networks integrate with Fog Computing?",
+    options: [
+      "Supports ultra-low latency and massive IoT connectivity, leveraging 5G's capabilities",
+      "5G is incompatible with Fog",
+      "5G increases latency",
+      "5G reduces IoT connectivity"
+    ],
+    correct: 0,
+    explanation: "5G Networks: Supports ultra-low latency and massive IoT connectivity, leveraging 5G's capabilities."
+  },
+  {
+    id: 110,
+    lesson: "Lesson 7",
+    topic: "Scale of Connectivity",
+    question: "What is the scale of connectivity for Cloud Data Centers, Fog Nodes, and Edge Devices?",
+    options: [
+      "Thousands (Cloud Data Centers), Millions (Fog Nodes), Billions (Edge Devices)",
+      "Billions (Cloud), Thousands (Fog), Millions (Edge)",
+      "Millions (Cloud), Billions (Fog), Thousands (Edge)",
+      "All have the same scale"
+    ],
+    correct: 0,
+    explanation: "Scale of Connectivity: Thousands (Cloud Data Centers), Millions (Fog Nodes), Billions (Edge Devices)."
+  },
+  {
+    id: 111,
+    lesson: "Lesson 7",
+    topic: "Network Communication",
+    question: "What is the data flow Without Fog Computing?",
+    options: [
+      "Sensors -> Relay Node -> Cloud Application Platform. Raw Data travels the entire path",
+      "Sensors -> Fog Node -> Cloud",
+      "Cloud -> Fog -> Sensors",
+      "No data transmission needed"
+    ],
+    correct: 0,
+    explanation: "Without Fog Computing: Sensors -> Relay Node -> Cloud Application Platform. Raw Data travels the entire path."
+  },
+  {
+    id: 112,
+    lesson: "Lesson 7",
+    topic: "Network Communication",
+    question: "What is the data flow With Fog Computing?",
+    options: [
+      "Sensors -> Fog Node (Query/Control) -> Cloud Application Platform. Utilizes Data Subscription with MQTT",
+      "Sensors -> Cloud -> Fog Node",
+      "Cloud -> Sensors directly",
+      "No intermediate processing"
+    ],
+    correct: 0,
+    explanation: "With Fog Computing: Sensors -> Fog Node (Query/Control) -> Cloud Application Platform. Utilizes Data Subscription with MQTT."
+  },
+  {
+    id: 113,
+    lesson: "Lesson 7",
+    topic: "Future of Fog",
+    question: "Why is Fog Computing essential for the future?",
+    options: [
+      "Crucial for the rapidly expanding Internet of Things and real-time applications",
+      "Only useful for legacy systems",
+      "Will be replaced by cloud computing",
+      "Not relevant for modern technology"
+    ],
+    correct: 0,
+    explanation: "Essential Role: Crucial for the rapidly expanding Internet of Things and real-time applications."
+  },
+  {
+    id: 114,
+    lesson: "Lesson 7",
+    topic: "Future of Fog",
+    question: "What are Hybrid Architectures in Fog Computing?",
+    options: [
+      "Synergistic with cloud computing, creating optimal performance through hybrid models",
+      "Fog and Cloud cannot work together",
+      "Only pure Fog systems are viable",
+      "Only pure Cloud systems are viable"
+    ],
+    correct: 0,
+    explanation: "Hybrid Architectures: Synergistic with cloud computing, creating optimal performance through hybrid models."
+  },
+  {
+    id: 115,
+    lesson: "Lesson 7",
+    topic: "Future of Fog",
+    question: "How will Fog Computing transform industries?",
+    options: [
+      "Poised to revolutionize industries by enabling smarter, faster, and more secure edge computing",
+      "Will have no impact on industries",
+      "Only affects the entertainment industry",
+      "Will make industries slower"
+    ],
+    correct: 0,
+    explanation: "Industry Transformation: Poised to revolutionize industries by enabling smarter, faster, and more secure edge computing."
+  },
+
+  // ====== LESSON 8: IoT in Practice ======
+
+  {
+    id: 116,
+    lesson: "Lesson 8",
+    topic: "Sensors",
+    question: "What do Sensors do in IoT?",
+    options: [
+      "Convert physical parameters into electrical signals",
+      "Convert electrical signals into physical actions",
+      "Store data permanently",
+      "Generate electricity"
+    ],
+    correct: 0,
+    explanation: "Sensors convert physical parameters into electrical signals."
+  },
+  {
+    id: 117,
+    lesson: "Lesson 8",
+    topic: "Sensor Types",
+    question: "What are examples of Environmental sensors?",
+    options: [
+      "Temperature, Humidity, Air Quality",
+      "Accelerometers, Gyroscopes, GPS",
+      "Cameras, IR, Light intensity",
+      "Pressure, Flow, Vibration"
+    ],
+    correct: 0,
+    explanation: "Environmental sensors: Temperature, Humidity, Air Quality."
+  },
+  {
+    id: 118,
+    lesson: "Lesson 8",
+    topic: "Sensor Types",
+    question: "What are examples of Motion/Position sensors?",
+    options: [
+      "Accelerometers, Gyroscopes, GPS",
+      "Temperature, Humidity, Air Quality",
+      "Pressure, Flow, Vibration",
+      "Cameras, IR, Light intensity"
+    ],
+    correct: 0,
+    explanation: "Motion/Position sensors: Accelerometers, Gyroscopes, GPS."
+  },
+  {
+    id: 119,
+    lesson: "Lesson 8",
+    topic: "Sensor Types",
+    question: "What are examples of Optical sensors?",
+    options: [
+      "Light intensity, Cameras, IR",
+      "Temperature, Humidity, Air Quality",
+      "Accelerometers, Gyroscopes, GPS",
+      "Pressure, Flow, Vibration"
+    ],
+    correct: 0,
+    explanation: "Optical sensors: Light intensity, Cameras, IR."
+  },
+  {
+    id: 120,
+    lesson: "Lesson 8",
+    topic: "Sensor Types",
+    question: "What are examples of Industrial sensors?",
+    options: [
+      "Pressure, Flow, Vibration",
+      "Temperature, Humidity, Air Quality",
+      "Accelerometers, Gyroscopes, GPS",
+      "Light intensity, Cameras, IR"
+    ],
+    correct: 0,
+    explanation: "Industrial sensors: Pressure, Flow, Vibration."
+  },
+  {
+    id: 121,
+    lesson: "Lesson 8",
+    topic: "Actuators",
+    question: "What do Actuators do in IoT?",
+    options: [
+      "Accept electrical signals and perform physical actions",
+      "Convert physical parameters into electrical signals",
+      "Store data in the cloud",
+      "Analyze network traffic"
+    ],
+    correct: 0,
+    explanation: "Actuators accept electrical signals and perform physical actions."
+  },
+  {
+    id: 122,
+    lesson: "Lesson 8",
+    topic: "Actuator Types",
+    question: "What are examples of Mechanical actuators?",
+    options: [
+      "Servo motors, Stepper motors (Robotics)",
+      "Relays, Solenoids (Smart plugs, locks)",
+      "LED displays, Speakers, Buzzers",
+      "Cameras, IR sensors"
+    ],
+    correct: 0,
+    explanation: "Mechanical actuators: Servo motors, Stepper motors (Robotics)."
+  },
+  {
+    id: 123,
+    lesson: "Lesson 8",
+    topic: "Actuator Types",
+    question: "What are examples of Switching actuators?",
+    options: [
+      "Relays, Solenoids (Smart plugs, locks)",
+      "Servo motors, Stepper motors (Robotics)",
+      "LED displays, Speakers, Buzzers",
+      "Accelerometers, Gyroscopes"
+    ],
+    correct: 0,
+    explanation: "Switching actuators: Relays, Solenoids (Smart plugs, locks)."
+  },
+  {
+    id: 124,
+    lesson: "Lesson 8",
+    topic: "Actuator Types",
+    question: "What are examples of Visual/Audio actuators?",
+    options: [
+      "LED displays, Speakers, Buzzers",
+      "Servo motors, Stepper motors",
+      "Relays, Solenoids",
+      "Pressure, Flow sensors"
+    ],
+    correct: 0,
+    explanation: "Visual/Audio actuators: LED displays, Speakers, Buzzers."
+  },
+  {
+    id: 125,
+    lesson: "Lesson 8",
+    topic: "Feedback Loop",
+    question: "What is the Feedback Loop in IoT?",
+    options: [
+      "Actuators often paired with sensors to maintain a state (e.g., Thermostat)",
+      "A loop for debugging code",
+      "A user survey mechanism",
+      "A network routing protocol"
+    ],
+    correct: 0,
+    explanation: "Feedback Loop: Often paired with sensors to maintain a state (e.g., Thermostat)."
+  },
+  {
+    id: 126,
+    lesson: "Lesson 8",
+    topic: "Microcontrollers",
+    question: "What are the characteristics of Microcontrollers (MCUs)?",
+    options: [
+      "Low power, designed for specific tasks, core of most IoT edge devices, run without a full OS",
+      "High power, general purpose, require full OS",
+      "Only for desktop computers",
+      "Cannot connect to networks"
+    ],
+    correct: 0,
+    explanation: "Microcontrollers are low power and designed for specific tasks. They are the core of most IoT edge devices and run without a full OS."
+  },
+  {
+    id: 127,
+    lesson: "Lesson 8",
+    topic: "MCU Types",
+    question: "What is Arduino known for in IoT?",
+    options: [
+      "Great for prototyping, vast community support",
+      "Industrial grade, high performance",
+      "Integrated Wi-Fi & Bluetooth, dual-core",
+      "Running Machine Learning models"
+    ],
+    correct: 0,
+    explanation: "Arduino: Great for prototyping, vast community support."
+  },
+  {
+    id: 128,
+    lesson: "Lesson 8",
+    topic: "MCU Types",
+    question: "What makes ESP32 the industry favorite for IoT?",
+    options: [
+      "Integrated Wi-Fi & Bluetooth, dual-core, low cost",
+      "Only works with Arduino IDE",
+      "Requires external networking modules",
+      "Very expensive and power hungry"
+    ],
+    correct: 0,
+    explanation: "ESP32: Integrated Wi-Fi & Bluetooth, dual-core, low cost. The industry favorite for IoT."
+  },
+  {
+    id: 129,
+    lesson: "Lesson 8",
+    topic: "MCU Types",
+    question: "What is STM32 known for in IoT?",
+    options: [
+      "Industrial grade, high performance ARM Cortex-M cores",
+      "Great for prototyping only",
+      "Lowest cost option",
+      "No support for ARM architecture"
+    ],
+    correct: 0,
+    explanation: "STM32: Industrial grade, high performance ARM Cortex-M cores."
+  },
+  {
+    id: 130,
+    lesson: "Lesson 8",
+    topic: "Single Board Computers",
+    question: "What are Single Board Computers (SBCs)?",
+    options: [
+      "High processing power, full computers capable of running Linux (or Windows IoT)",
+      "Low power microcontrollers only",
+      "Cannot run any operating system",
+      "Only for gaming applications"
+    ],
+    correct: 0,
+    explanation: "Single Board Computers (SBCs) offer high processing power. They are full computers capable of running Linux (or Windows IoT)."
+  },
+  {
+    id: 131,
+    lesson: "Lesson 8",
+    topic: "SBC Use Cases",
+    question: "What are use cases for Single Board Computers?",
+    options: [
+      "Gateways, Image Processing, Local Servers",
+      "Only simple sensor reading",
+      "Cannot be used as servers",
+      "Only for educational purposes"
+    ],
+    correct: 0,
+    explanation: "Use Cases: Gateways, Image Processing, Local Servers."
+  },
+  {
+    id: 132,
+    lesson: "Lesson 8",
+    topic: "SBC Types",
+    question: "What is Raspberry Pi known for in IoT?",
+    options: [
+      "The gold standard. Runs Python scripts, Docker containers, and database servers locally",
+      "Cannot run Python",
+      "Only for simple LED projects",
+      "Requires Windows only"
+    ],
+    correct: 0,
+    explanation: "Raspberry Pi: The gold standard. Runs Python scripts, Docker containers, and database servers locally."
+  },
+  {
+    id: 133,
+    lesson: "Lesson 8",
+    topic: "Edge AI",
+    question: "What are Specialized SBCs like NVIDIA Jetson used for?",
+    options: [
+      "Run Machine Learning models on-device",
+      "Only basic computing tasks",
+      "Cannot process AI workloads",
+      "Gaming only"
+    ],
+    correct: 0,
+    explanation: "Edge AI: Specialized SBCs (like NVIDIA Jetson) run Machine Learning models on-device."
+  },
+  {
+    id: 134,
+    lesson: "Lesson 8",
+    topic: "Short Range Connectivity",
+    question: "What are Personal Area Networks (PAN) used for?",
+    options: [
+      "Connect devices within a room or building",
+      "Connect cities together",
+      "Satellite communication",
+      "Underwater communication"
+    ],
+    correct: 0,
+    explanation: "Personal Area Networks (PAN) connect devices within a room or building."
+  },
+  {
+    id: 135,
+    lesson: "Lesson 8",
+    topic: "Short Range Connectivity",
+    question: "What is Bluetooth Low Energy (BLE) known for?",
+    options: [
+      "Ultra-low power, ubiquitous in wearables",
+      "High power consumption",
+      "Long range communication",
+      "Only for audio devices"
+    ],
+    correct: 0,
+    explanation: "Bluetooth Low Energy (BLE): Ultra-low power, ubiquitous in wearables."
+  },
+  {
+    id: 136,
+    lesson: "Lesson 8",
+    topic: "Short Range Connectivity",
+    question: "What are Zigbee / Z-Wave used for?",
+    options: [
+      "Mesh networking for Smart Homes (Lights, Sensors)",
+      "Cellular communication",
+      "Satellite links",
+      "Fiber optic connections"
+    ],
+    correct: 0,
+    explanation: "Zigbee / Z-Wave: Mesh networking for Smart Homes (Lights, Sensors)."
+  },
+  {
+    id: 137,
+    lesson: "Lesson 8",
+    topic: "Short Range Connectivity",
+    question: "What is NFC used for in IoT?",
+    options: [
+      "Very short range, used for provisioning and payments",
+      "Long range data transfer",
+      "Video streaming",
+      "Industrial automation"
+    ],
+    correct: 0,
+    explanation: "NFC: Very short range, used for provisioning and payments."
+  },
+  {
+    id: 138,
+    lesson: "Lesson 8",
+    topic: "Long Range Connectivity",
+    question: "What is Wi-Fi best suited for in IoT?",
+    options: [
+      "High bandwidth, power hungry. Best for mains-powered devices needing real-time video or large data",
+      "Battery-powered remote sensors",
+      "Very low power applications",
+      "Devices kilometers apart"
+    ],
+    correct: 0,
+    explanation: "Wi-Fi: High bandwidth, power hungry. Best for mains-powered devices needing real-time video or large data."
+  },
+  {
+    id: 139,
+    lesson: "Lesson 8",
+    topic: "Long Range Connectivity",
+    question: "What is LoRaWAN ideal for?",
+    options: [
+      "Long Range, Low Power. Perfect for agriculture and smart cities where sensors are kilometers apart",
+      "High bandwidth video streaming",
+      "Real-time gaming",
+      "Indoor-only applications"
+    ],
+    correct: 0,
+    explanation: "LoRaWAN: Long Range, Low Power. Perfect for agriculture and smart cities where sensors are kilometers apart."
+  },
+  {
+    id: 140,
+    lesson: "Lesson 8",
+    topic: "Long Range Connectivity",
+    question: "What is Cellular (NB-IoT) used for?",
+    options: [
+      "Uses existing mobile towers. Excellent coverage and reliability for critical logistics and asset tracking",
+      "Short range home automation",
+      "Gaming applications",
+      "Local file sharing"
+    ],
+    correct: 0,
+    explanation: "Cellular (NB-IoT): Uses existing mobile towers. Excellent coverage and reliability for critical logistics and asset tracking."
+  },
+  {
+    id: 141,
+    lesson: "Lesson 8",
+    topic: "Power Management",
+    question: "What is the Energy Challenge for most IoT devices?",
+    options: [
+      "Most IoT devices run on batteries and must last for years. Devices often spend 99% of their time in 'Sleep Mode'",
+      "IoT devices have unlimited power",
+      "All devices use mains power",
+      "Power is not a concern for IoT"
+    ],
+    correct: 0,
+    explanation: "Most IoT devices run on batteries and must last for years. Devices often spend 99% of their time in 'Sleep Mode'."
+  },
+  {
+    id: 142,
+    lesson: "Lesson 8",
+    topic: "Power Management",
+    question: "What is Deep Sleep in IoT power management?",
+    options: [
+      "Shutting down non-essential circuits (Wi-Fi/Radio) when not transmitting",
+      "Running all systems at full power",
+      "Permanently disabling the device",
+      "Increasing transmission power"
+    ],
+    correct: 0,
+    explanation: "Deep Sleep: Shutting down non-essential circuits (Wi-Fi/Radio) when not transmitting."
+  },
+  {
+    id: 143,
+    lesson: "Lesson 8",
+    topic: "Power Management",
+    question: "What is Energy Harvesting in IoT?",
+    options: [
+      "Solar, piezoelectric (vibration), or RF harvesting to extend life",
+      "Using larger batteries",
+      "Connecting to power grid",
+      "Replacing batteries frequently"
+    ],
+    correct: 0,
+    explanation: "Energy Harvesting: Solar, piezoelectric (vibration), or RF harvesting to extend life."
+  },
+  {
+    id: 144,
+    lesson: "Lesson 8",
+    topic: "Power Management",
+    question: "What is Efficient Code in IoT power management?",
+    options: [
+      "Writing software that minimizes active CPU cycles",
+      "Using more complex algorithms",
+      "Running code 24/7",
+      "Ignoring power consumption"
+    ],
+    correct: 0,
+    explanation: "Efficient Code: Writing software that minimizes active CPU cycles."
+  },
+  {
+    id: 145,
+    lesson: "Lesson 8",
+    topic: "IoT Operating Systems",
+    question: "What is Bare Metal programming in IoT?",
+    options: [
+      "No OS. Code runs directly on hardware. Fastest, simplest, but hard to manage complex tasks",
+      "Using Linux for all devices",
+      "Running Windows on microcontrollers",
+      "Cloud-based operating system"
+    ],
+    correct: 0,
+    explanation: "Bare Metal: No OS. Code runs directly on hardware. Fastest, simplest, but hard to manage complex tasks."
+  },
+  {
+    id: 146,
+    lesson: "Lesson 8",
+    topic: "IoT Operating Systems",
+    question: "What are RTOS (FreeRTOS, Zephyr) used for in IoT?",
+    options: [
+      "Real-Time Operating Systems ensure tasks finish deterministically. Essential for time-critical sensing",
+      "General purpose computing",
+      "Gaming applications",
+      "Desktop office work"
+    ],
+    correct: 0,
+    explanation: "RTOS (FreeRTOS, Zephyr): Real-Time Operating Systems ensure tasks finish deterministically. Essential for time-critical sensing."
+  },
+  {
+    id: 147,
+    lesson: "Lesson 8",
+    topic: "IoT Operating Systems",
+    question: "What are General Purpose OS (Linux - Yocto, Ubuntu Core) used for in IoT?",
+    options: [
+      "Used on gateways/SBCs. Multi-threaded, supports Python/Node.js, but power hungry",
+      "Only for microcontrollers",
+      "Cannot run Python or Node.js",
+      "Low power consumption"
+    ],
+    correct: 0,
+    explanation: "General Purpose: Linux (Yocto, Ubuntu Core). Used on gateways/SBCs. Multi-threaded, supports Python/Node.js, but power hungry."
+  },
+  {
+    id: 148,
+    lesson: "Lesson 8",
+    topic: "MQTT Protocol",
+    question: "What is MQTT (Message Queuing Telemetry Transport)?",
+    options: [
+      "The de-facto standard for IoT",
+      "A database query language",
+      "A hardware interface protocol",
+      "A video streaming format"
+    ],
+    correct: 0,
+    explanation: "MQTT (Message Queuing Telemetry Transport) is the de-facto standard for IoT."
+  },
+  {
+    id: 149,
+    lesson: "Lesson 8",
+    topic: "MQTT Protocol",
+    question: "What is the Pub/Sub Model in MQTT?",
+    options: [
+      "Devices don't talk to each other directly; they talk to a 'Broker'",
+      "Devices communicate peer-to-peer",
+      "All devices share the same connection",
+      "Direct device-to-cloud communication"
+    ],
+    correct: 0,
+    explanation: "Pub/Sub Model: Devices don't talk to each other directly; they talk to a 'Broker'."
+  },
+  {
+    id: 150,
+    lesson: "Lesson 8",
+    topic: "MQTT Protocol",
+    question: "Why is MQTT considered Lightweight?",
+    options: [
+      "Small packet overhead, perfect for unstable networks",
+      "Large file transfers only",
+      "Heavy encryption overhead",
+      "Requires high bandwidth"
+    ],
+    correct: 0,
+    explanation: "Lightweight: Small packet overhead, perfect for unstable networks."
+  },
+  {
+    id: 151,
+    lesson: "Lesson 8",
+    topic: "MQTT Protocol",
+    question: "What are QoS Levels in MQTT?",
+    options: [
+      "Quality of Service settings ensure message delivery (Fire & Forget vs. Confirmed)",
+      "Quality of Sound for audio devices",
+      "Queue of Sensors for data collection",
+      "Quantity of Streams for video"
+    ],
+    correct: 0,
+    explanation: "QoS Levels: Quality of Service settings ensure message delivery (Fire & Forget vs. Confirmed)."
+  },
+  {
+    id: 152,
+    lesson: "Lesson 8",
+    topic: "Other Protocols",
+    question: "What is CoAP (Constrained Application Protocol)?",
+    options: [
+      "Designed to be 'HTTP for simple devices'. Uses UDP instead of TCP for lower overhead. Ideal for very constrained sensor nodes",
+      "A video streaming protocol",
+      "A database query language",
+      "A high-bandwidth protocol for servers"
+    ],
+    correct: 0,
+    explanation: "CoAP (Constrained Application Protocol): Designed to be 'HTTP for simple devices'. Uses UDP instead of TCP for lower overhead. Ideal for very constrained sensor nodes."
+  },
+  {
+    id: 153,
+    lesson: "Lesson 8",
+    topic: "Other Protocols",
+    question: "What is HTTP/REST in IoT context?",
+    options: [
+      "The standard web protocol. Heavy for small devices, but widely compatible. Often used by Gateways to push aggregated data to the Cloud",
+      "A lightweight IoT-specific protocol",
+      "Only for mobile applications",
+      "Cannot be used with IoT"
+    ],
+    correct: 0,
+    explanation: "HTTP/REST: The standard web protocol. Heavy for small devices, but widely compatible. Often used by Gateways to push aggregated data to the Cloud."
+  },
+  {
+    id: 154,
+    lesson: "Lesson 8",
+    topic: "Cloud Platforms",
+    question: "What are examples of Cloud Platforms for IoT?",
+    options: [
+      "AWS IoT Core, Azure IoT Hub, and Google Cloud IoT",
+      "Microsoft Word, Excel, PowerPoint",
+      "Facebook, Twitter, Instagram",
+      "VLC, Audacity, GIMP"
+    ],
+    correct: 0,
+    explanation: "Platforms like AWS IoT Core, Azure IoT Hub, and Google Cloud IoT."
+  },
+  {
+    id: 155,
+    lesson: "Lesson 8",
+    topic: "Cloud Platforms",
+    question: "What are Device Shadows in IoT Cloud Platforms?",
+    options: [
+      "Virtual JSON documents that persist device state even when offline",
+      "Physical backups of devices",
+      "Device security certificates",
+      "User interface themes"
+    ],
+    correct: 0,
+    explanation: "Device Shadows: Virtual JSON documents that persist device state even when offline."
+  },
+  {
+    id: 156,
+    lesson: "Lesson 8",
+    topic: "Cloud Platforms",
+    question: "What are Rules Engines in IoT Cloud Platforms?",
+    options: [
+      "'If temp > 50, send email' logic without writing server code",
+      "Physical hardware rules",
+      "Network routing rules only",
+      "Database schema definitions"
+    ],
+    correct: 0,
+    explanation: "Rules Engines: 'If temp > 50, send email' logic without writing server code."
+  },
+  {
+    id: 157,
+    lesson: "Lesson 8",
+    topic: "Cloud Platforms",
+    question: "What is Analytics in IoT Cloud Platforms?",
+    options: [
+      "Storing and visualizing massive streams of sensor data",
+      "Device manufacturing only",
+      "Physical security monitoring",
+      "Employee time tracking"
+    ],
+    correct: 0,
+    explanation: "Analytics: Storing and visualizing massive streams of sensor data."
+  },
+  {
+    id: 158,
+    lesson: "Lesson 8",
+    topic: "Edge Computing Benefits",
+    question: "What is the core concept of Edge Computing in IoT?",
+    options: [
+      "Instead of sending all data to the cloud, process it locally on the Gateway or Device",
+      "Send all data to the cloud for processing",
+      "Only store data, never process it",
+      "Remove all local processing capabilities"
+    ],
+    correct: 0,
+    explanation: "Instead of sending all data to the cloud, process it locally on the Gateway or Device."
+  },
+  {
+    id: 159,
+    lesson: "Lesson 8",
+    topic: "Edge Computing Benefits",
+    question: "How does Edge Computing improve Latency?",
+    options: [
+      "Instant decisions (e.g., stopping a machine) without network delay",
+      "Adds network delay for security",
+      "Slower but more accurate processing",
+      "Requires cloud confirmation first"
+    ],
+    correct: 0,
+    explanation: "Latency: Instant decisions (e.g., stopping a machine) without network delay."
+  },
+  {
+    id: 160,
+    lesson: "Lesson 8",
+    topic: "Edge Computing Benefits",
+    question: "How does Edge Computing save Bandwidth?",
+    options: [
+      "Send only the 'insight' (e.g., 'Person Detected') rather than the full video stream",
+      "Send more data for redundancy",
+      "Stream all raw data always",
+      "Increase cloud storage usage"
+    ],
+    correct: 0,
+    explanation: "Bandwidth: Send only the 'insight' (e.g., 'Person Detected') rather than the full video stream."
+  },
+  {
+    id: 161,
+    lesson: "Lesson 8",
+    topic: "Edge Computing Benefits",
+    question: "How does Edge Computing enhance Privacy?",
+    options: [
+      "Sensitive data stays local",
+      "All data is sent to public clouds",
+      "Data is shared with third parties",
+      "Privacy is not a concern"
+    ],
+    correct: 0,
+    explanation: "Privacy: Sensitive data stays local."
+  },
+  {
+    id: 162,
+    lesson: "Lesson 8",
+    topic: "Edge Computing Benefits",
+    question: "How does Edge Computing improve Reliability?",
+    options: [
+      "System works even if internet goes down",
+      "Requires constant internet connection",
+      "Only works in connected mode",
+      "Reliability decreases without cloud"
+    ],
+    correct: 0,
+    explanation: "Reliability: System works even if internet goes down."
+  },
+  {
+    id: 163,
+    lesson: "Lesson 8",
+    topic: "W3C WoT Architecture",
+    question: "What is Thing Description (TD) in W3C WoT Architecture?",
+    options: [
+      "The core metadata file describing a Thing",
+      "A physical description of the device",
+      "A user manual",
+      "A shipping label"
+    ],
+    correct: 0,
+    explanation: "Thing Description (TD): The core metadata file describing a Thing."
+  },
+  {
+    id: 164,
+    lesson: "Lesson 8",
+    topic: "W3C WoT Architecture",
+    question: "What are Binding Templates in W3C WoT Architecture?",
+    options: [
+      "How to map abstract interactions to actual protocols (HTTP, MQTT, Modbus)",
+      "Physical device bindings",
+      "User account templates",
+      "Database schema templates"
+    ],
+    correct: 0,
+    explanation: "Binding Templates: How to map abstract interactions to actual protocols (HTTP, MQTT, Modbus)."
+  },
+  {
+    id: 165,
+    lesson: "Lesson 8",
+    topic: "W3C WoT Architecture",
+    question: "What is Scripting API in W3C WoT Architecture?",
+    options: [
+      "Standardized JavaScript API for application logic",
+      "A Python-only interface",
+      "Hardware programming interface",
+      "Database query interface"
+    ],
+    correct: 0,
+    explanation: "Scripting API: Standardized JavaScript API for application logic."
+  },
+  {
+    id: 166,
+    lesson: "Lesson 8",
+    topic: "W3C WoT Architecture",
+    question: "What is the Security & Privacy component in W3C WoT Architecture?",
+    options: [
+      "Mechanisms to ensure safe interoperability",
+      "Physical security locks",
+      "User privacy settings only",
+      "Network firewall rules"
+    ],
+    correct: 0,
+    explanation: "Security & Privacy: Mechanisms to ensure safe interoperability."
   }
 ];
 

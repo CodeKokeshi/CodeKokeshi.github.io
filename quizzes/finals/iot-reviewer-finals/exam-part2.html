@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IoT Finals Exam - Part 2: Fog Computing & IoT in Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../assets/css/site.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="exam-styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-grid">
+      <a href="../../../index.html" class="logo">CodeKokeshi</a>
+      <nav class="main-nav" id="main-nav">
+        <a href="../../../index.html">Home</a>
+        <a href="../../../projects.html">Projects</a>
+        <a href="../../../gamedev.html">GameDev</a>
+        <a href="../../../art.html">Art</a>
+        <a href="../../../reviewers.html" class="active">Reviewers</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <!-- Exam Screen -->
+    <div id="exam-screen">
+      <section class="hero-section">
+        <h1 class="section-title">IoT Finals Exam - Part 2</h1>
+        <p class="lead">Fog Computing & IoT in Practice (Lessons 7-8)</p>
+      </section>
+
+      <div class="exam-container">
+        <div class="exam-header">
+          <div class="exam-info">
+            <h2>Multiple Choice Exam</h2>
+            <p><strong>Topics:</strong> Fog Computing Architecture, Fog vs Cloud, Applications, IoT Hardware, Sensors, Actuators, MCUs, SBCs, Connectivity, Protocols, W3C WoT</p>
+            <p><strong>Total Questions:</strong> <span id="total-questions">86</span></p>
+          </div>
+          <div class="exam-actions">
+            <a href="index.html" class="btn outline">← Back to Menu</a>
+          </div>
+        </div>
+
+        <div id="questions-container" class="questions-container">
+          <!-- Questions will be rendered here -->
+        </div>
+
+        <div class="exam-navigation">
+          <p id="progress-text">Answer all questions before submitting</p>
+          <button id="submit-btn" class="btn primary" disabled>Submit Exam</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" style="display: none;">
+      <section class="hero-section">
+        <h1 class="section-title">Exam Results</h1>
+        <p class="lead">IoT Finals - Part 2: Fog Computing & IoT in Practice</p>
+      </section>
+
+      <div class="exam-container">
+        <div class="results-summary">
+          <div class="score-display">
+            <div id="score-circle" class="score-circle">
+              <span id="score-value" class="score-value">0</span>
+              <span id="score-total" class="score-total">/86</span>
+            </div>
+            <div id="score-percentage" class="score-percentage">0%</div>
+          </div>
+
+          <div class="score-breakdown">
+            <div class="breakdown-item correct-item">
+              <span class="breakdown-label">Correct</span>
+              <span id="correct-count" class="breakdown-value">0</span>
+            </div>
+            <div class="breakdown-item wrong-item">
+              <span class="breakdown-label">Wrong</span>
+              <span id="wrong-count" class="breakdown-value">0</span>
+            </div>
+            <div class="breakdown-item unanswered-item">
+              <span class="breakdown-label">Unanswered</span>
+              <span id="unanswered-count" class="breakdown-value">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exam-navigation">
+          <button id="reset-btn" class="btn outline">Back to Menu</button>
+          <button id="retake-btn" class="btn primary">Retake Exam</button>
+        </div>
+      </div>
+
+      <div class="results-container">
+        <h2>Detailed Review</h2>
+        <div id="detailed-results" class="detailed-results">
+          <!-- Detailed results will be rendered here -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 CodeKokeshi. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="exam-data.js"></script>
+  <script src="exam-part2-app.js"></script>
+</body>
+</html>
