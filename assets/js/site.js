@@ -78,5 +78,26 @@
         }
       });
     });
+
+    // Hamburger menu toggle
+    const hamburger = document.querySelector(".hamburger");
+    const mobileMenu = document.querySelector(".mobile-menu");
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener("click", () => {
+        const isExpanded = hamburger.getAttribute("aria-expanded") === "true";
+        hamburger.setAttribute("aria-expanded", !isExpanded);
+        mobileMenu.classList.toggle("active");
+        document.body.style.overflow = !isExpanded ? "hidden" : "";
+      });
+
+      // Close menu when clicking nav links
+      mobileMenu.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          hamburger.setAttribute("aria-expanded", "false");
+          mobileMenu.classList.remove("active");
+          document.body.style.overflow = "";
+        });
+      });
+    }
   });
 })();
