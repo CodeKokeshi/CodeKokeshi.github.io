@@ -177,6 +177,10 @@ a {
 }
 
 @media (max-width: 768px) {
+  .top-bar {
+    flex-wrap: nowrap;
+  }
+
   .hamburger {
     display: flex;
   }
