@@ -179,10 +179,14 @@ a {
 @media (max-width: 768px) {
   .top-bar {
     flex-wrap: nowrap;
+    gap: 0.5rem;
   }
 
   .brand {
     flex-shrink: 0;
+    white-space: nowrap;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    letter-spacing: 0.05em;
   }
 
   .hamburger {
