@@ -307,7 +307,7 @@ a {
 
 .collage-item img {
   width: 100%;
-  max-width: 450px;
+  max-width: clamp(450px, 60vw, 700px);
   height: auto;
   object-fit: contain;
   display: block;
@@ -315,7 +315,7 @@ a {
 }
 
 .collage-item--wide.collage-item--tall img {
-  max-width: 650px;
+  max-width: clamp(650px, 75vw, 900px);
 }
 
 .collage-item::after {
