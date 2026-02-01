@@ -99,5 +99,34 @@
         });
       });
     }
+
+    // Lazy play/pause videos in collage for performance
+    const collageVideos = document.querySelectorAll(".collage-video");
+    if ("IntersectionObserver" in window && collageVideos.length > 0) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+              if (video.readyState === 0) {
+                video.load();
+              }
+              video.muted = true;
+              video.play().catch(() => {
+                /* ignore autoplay blocking */
+              });
+            } else {
+              video.pause();
+            }
+          });
+        },
+        { threshold: 0.35 }
+      );
+
+      collageVideos.forEach((video) => {
+        video.pause();
+        observer.observe(video);
+      });
+    }
   });
 })();
