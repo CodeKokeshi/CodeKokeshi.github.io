@@ -36,50 +36,82 @@
       </header>
 
       <main>
-        <section class="profile-card">
-          <img src="Profile.png" alt="Portrait of CodeKokeshi" class="avatar" />
-          <div>
+        <section class="collage-hero">
+          <div class="collage-hero__copy">
             <p class="tagline">Game dev · digital artist · engineer</p>
             <h1 class="name">Code Kokeshi</h1>
-            <ul class="fact-list" aria-label="What I do">
-              <li>Thousands of hours in Godot building 2D games and tools.</li>
-              <li>Draw digital art in IbisPaint; handle pixel art and animation in Aseprite.</li>
-              <li>Write a lot of Python; use C# and Java for game dev and school work.</li>
-              <li>Ship Godot shaders for 2D and RPG Maker plugins when a project needs them.</li>
-              <li>Also work on 3D modelling, software engineering, and whatever else keeps builds moving.</li>
-            </ul>
+            <p class="lead">A living collage of the tools, styles, and worlds I build—layered to feel playful, varied, and easy on the eyes.</p>
             <div class="link-row">
               <a class="btn" href="https://github.com/CodeKokeshi" target="_blank" rel="noopener">GitHub</a>
               <a class="btn outline" href="https://codekokeshi.itch.io/" target="_blank" rel="noopener">Itch.io</a>
             </div>
           </div>
-        </section>
-
-        <section class="page-section">
-          <h2 class="section-title">Portfolios</h2>
-          <p class="lead">Choose a focus area to explore dedicated showcases of my work.</p>
-          <div class="portfolio-grid">
-            <a class="portfolio-card" href="gamedev.html">
-              <span class="portfolio-card__icon" aria-hidden="true">🎮</span>
-              <h3 class="portfolio-card__title">Game Dev</h3>
-              <p class="portfolio-card__excerpt">Playable experiments, shaders, and jam projects brought to life in RPG Maker and Godot.</p>
-              <span class="portfolio-card__cta">View</span>
-            </a>
-            <a class="portfolio-card" href="art.html">
-              <span class="portfolio-card__icon" aria-hidden="true">🎨</span>
-              <h3 class="portfolio-card__title">Art</h3>
-              <p class="portfolio-card__excerpt">Illustrations, pixel art, and character studies with links to my DeviantArt and Pixiv galleries.</p>
-              <span class="portfolio-card__cta">View</span>
-            </a>
-            <a class="portfolio-card" href="projects.html">
-              <span class="portfolio-card__icon" aria-hidden="true">🛠️</span>
-              <h3 class="portfolio-card__title">Projects</h3>
-              <p class="portfolio-card__excerpt">Web tools, study helpers, and experiments built for coursework and the community.</p>
-              <span class="portfolio-card__cta">View</span>
-            </a>
+          <div class="collage-grid" aria-label="Animated project collage">
+            <figure class="collage-item collage-item--wide collage-item--tall">
+              <img src="gifs/Godot%20-%20TopDown%20-%20Trapped%20In%20A%20Nightmare.gif" alt="Godot top-down game scene" loading="lazy" />
+              <figcaption>
+                <span class="collage-item__label">Godot</span>
+                <span class="collage-item__meta">Top-down horror prototype</span>
+              </figcaption>
+            </figure>
+            <figure class="collage-item collage-item--wide">
+              <img src="gifs/Python%20-%20Aseprite%20but%20Original%20-%20Kokesprite.gif" alt="Python pixel art tool animation" loading="lazy" />
+              <figcaption>
+                <span class="collage-item__label">Python</span>
+                <span class="collage-item__meta">Pixel tooling + automation</span>
+              </figcaption>
+            </figure>
+            <figure class="collage-item collage-item--tall">
+              <img src="gifs/Unity%20-%203D%20Obstacle%20-%20CaelumShift.gif" alt="Unity 3D obstacle course prototype" loading="lazy" />
+              <figcaption>
+                <span class="collage-item__label">Unity</span>
+                <span class="collage-item__meta">CaelumShift demo</span>
+              </figcaption>
+            </figure>
+            <figure class="collage-item">
+              <img src="gifs/Unity%20-%20Platformer%20-%20ChronoPlasmorph.gif" alt="Unity platformer ChronoPlasmorph clip" loading="lazy" />
+              <figcaption>
+                <span class="collage-item__label">Unity</span>
+                <span class="collage-item__meta">ChronoPlasmorph</span>
+              </figcaption>
+            </figure>
+            <figure class="collage-item collage-item--wide">
+              <img src="gifs/Unity%20-%20Platformer%20-%20ChronoPlasmorph%20Beta.gif" alt="Unity platformer beta build clip" loading="lazy" />
+              <figcaption>
+                <span class="collage-item__label">Unity</span>
+                <span class="collage-item__meta">Beta iteration</span>
+              </figcaption>
+            </figure>
+            <figure class="collage-item">
+              <img src="gifs/Unity%20-%20Platformer%20-%20Basic%20Template.gif" alt="Unity platformer template animation" loading="lazy" />
+              <figcaption>
+                <span class="collage-item__label">Unity</span>
+                <span class="collage-item__meta">Starter template</span>
+              </figcaption>
+            </figure>
+            <figure class="collage-item">
+              <img src="gifs/Unity%20-%20Flappy%20Birds.gif" alt="Unity flappy birds style game" loading="lazy" />
+              <figcaption>
+                <span class="collage-item__label">Unity</span>
+                <span class="collage-item__meta">Arcade experiment</span>
+              </figcaption>
+            </figure>
+            <figure class="collage-item collage-item--wide collage-item--tall">
+              <img src="gifs/RPGMaker%20-%20Mystery%20Game.gif" alt="RPG Maker mystery game clip" loading="lazy" />
+              <figcaption>
+                <span class="collage-item__label">RPG Maker</span>
+                <span class="collage-item__meta">Mystery project</span>
+              </figcaption>
+            </figure>
+            <figure class="collage-item collage-item--wide">
+              <img src="gifs/RPGMaker%20-%20PokemonEssentials.gif" alt="RPG Maker Pokemon Essentials scene" loading="lazy" />
+              <figcaption>
+                <span class="collage-item__label">RPG Maker</span>
+                <span class="collage-item__meta">Pokemon Essentials</span>
+              </figcaption>
+            </figure>
           </div>
         </section>
-
       </main>
 
       <footer class="site-footer">© <span id="year"></span> CodeKokeshi. Built with intention.</footer>
