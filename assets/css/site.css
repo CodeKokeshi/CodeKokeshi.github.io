@@ -180,18 +180,24 @@ a {
   .top-bar {
     flex-wrap: nowrap;
     gap: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
   }
 
   .brand {
-    flex-shrink: 0;
+    flex-shrink: 1;
     white-space: nowrap;
-    font-size: clamp(1rem, 4vw, 1.2rem);
-    letter-spacing: 0.05em;
+    font-size: clamp(0.9rem, 3.2vw, 1.05rem);
+    letter-spacing: 0.02em;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .hamburger {
     display: flex;
     flex-shrink: 0;
+    margin-left: 0;
   }
 
   .mobile-menu {
