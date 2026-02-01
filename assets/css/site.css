@@ -418,18 +418,21 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  content-visibility: auto;
+  contain-intrinsic-size: 320px 200px;
 }
 
-.collage-item img {
+.collage-item img,
+.collage-item video {
   width: 100%;
   max-width: clamp(450px, 60vw, 700px);
   height: auto;
   object-fit: contain;
   display: block;
-  filter: saturate(1.05) contrast(1.05);
 }
 
-.collage-item--wide.collage-item--tall img {
+.collage-item--wide.collage-item--tall img,
+.collage-item--wide.collage-item--tall video {
   max-width: clamp(650px, 75vw, 900px);
 }
 
