@@ -181,8 +181,13 @@ a {
     flex-wrap: nowrap;
   }
 
+  .brand {
+    flex-shrink: 0;
+  }
+
   .hamburger {
     display: flex;
+    flex-shrink: 0;
   }
 
   .mobile-menu {
