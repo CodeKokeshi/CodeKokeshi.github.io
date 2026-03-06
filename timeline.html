@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Dev Timeline - CodeKokeshi</title>
+  <meta name="description" content="CodeKokeshi's game development timeline - from ROM Hacking in 2017 to Godot in 2025." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/timeline.css" />
+</head>
+<body>
+  <div class="timeline-page">
+
+    <!-- Header -->
+    <header class="timeline-header">
+      <a href="index.html" class="timeline-back">&larr; Back to Portfolio</a>
+      <h1>Game Dev Timeline</h1>
+      <p class="timeline-subtitle" id="subtitleText">Drag to scroll through my journey</p>
+    </header>
+
+    <!-- Era Legend -->
+    <div class="timeline-legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#ef4444"></span>ROM Hacking (2017)</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span>RPG Maker (2022)</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#ffffff"></span>Unity (2023-2024)</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#478cbf"></span>Godot (2025)</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#10b981"></span>Current</span>
+    </div>
+
+    <!-- Desktop: Horizontal Timeline -->
+    <div class="timeline-container" id="timelineContainer">
+      <div class="timeline-track" id="timelineTrack">
+        <div class="timeline-line"></div>
+        <!-- Items injected by JS -->
+      </div>
+    </div>
+
+    <!-- Mobile: Vertical Timeline -->
+    <div class="timeline-vertical" id="timelineVertical">
+      <!-- Items injected by JS -->
+    </div>
+
+    <!-- Detail Modal / Panel -->
+    <div class="timeline-detail" id="detailPanel" style="display:none;">
+      <div class="timeline-detail__content" id="detailContent">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <script src="assets/js/timeline.js"></script>
+</body>
+</html>
