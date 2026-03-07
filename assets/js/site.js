@@ -197,6 +197,27 @@ const mods = [
   },
 ];
 
+const softwareProjects = [
+  {
+    id: 1,
+    image: 'assets/images/software_web/Kokesprite Editor.png',
+    title: 'Kokesprite Editor',
+    overview: 'An attempt to fully recreate Aseprite on Python using PyQT6.',
+  },
+  {
+    id: 2,
+    image: 'assets/images/software_web/Water Meter Digit Extractor.jpg',
+    title: 'Water Meter Digit Extractor',
+    overview: 'Extract 5-digit water meter readings into MNIST-style 28\u00d728 digit images with a fast desktop tool. Load meter photos, mark 4 points, auto-warp and segment into 5 digits, then save labeled datasets ready for ML training.',
+  },
+  {
+    id: 3,
+    image: 'assets/images/software_web/Koke16-bit Studio.png',
+    title: 'Koke16-Bit Studio',
+    overview: 'A lightweight DAW designed for composing 8-bit and 16-bit retro game music. Instead of using generative AI, it utilizes algorithmic, rule-based music theory to procedurally generate themes (towns, caves, dungeons) and automatically correct user compositions.',
+  },
+];
+
 const toolColors = {
   'RPG Maker': '#4ade80',
   'Unity': '#ffffff',
@@ -444,6 +465,23 @@ function renderArtworks() {
 // MODS GRID
 // ============================================================================
 
+function renderSoftware() {
+  var grid = document.getElementById('softwareGrid');
+  if (!grid) return;
+
+  grid.innerHTML = softwareProjects.map(function(sw) {
+    return '<div class="mod-card">' +
+      '<div class="mod-card__image">' +
+        '<img src="' + encodeURI(sw.image) + '" alt="' + escapeHtml(sw.title) + '" loading="lazy" />' +
+      '</div>' +
+      '<div class="mod-card__content">' +
+        '<h3 class="mod-card__title">' + escapeHtml(sw.title) + '</h3>' +
+        '<p class="mod-card__overview">' + escapeHtml(sw.overview) + '</p>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
 function renderMods() {
   var grid = document.getElementById('modsGrid');
   if (!grid) return;
@@ -532,6 +570,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Render all sections
   renderDesktopGallery();
   renderArtworks();
+  renderSoftware();
   renderMods();
 
   // Setup interactions
