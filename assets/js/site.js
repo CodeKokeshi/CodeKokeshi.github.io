@@ -492,9 +492,8 @@ function renderMods() {
         '<img src="' + encodeURI(mod.image) + '" alt="' + escapeHtml(mod.title) + '" loading="lazy" />' +
       '</div>' +
       '<div class="mod-card__content">' +
-        '<h3 class="mod-card__title">' + escapeHtml(mod.title) + '</h3>' +
+        '<h3 class="mod-card__title"><a href="' + escapeHtml(mod.link) + '" target="_blank" rel="noopener noreferrer" class="mod-card__title-link">' + escapeHtml(mod.title) + '</a></h3>' +
         '<p class="mod-card__overview">' + escapeHtml(mod.overview) + '</p>' +
-        '<a href="' + escapeHtml(mod.link) + '" target="_blank" rel="noopener noreferrer" class="mod-card__link">View Mod on NexusMods &rarr;</a>' +
       '</div>' +
     '</div>';
   }).join('');

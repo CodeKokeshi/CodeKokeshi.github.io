@@ -961,18 +961,15 @@ video::-ms-media-controls {
   font-size: 13px;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 10px 0;
+  margin: 0;
 }
 
-.mod-card__link {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 500;
-  color: #a78bfa;
+.mod-card__title-link {
+  color: #fff;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.mod-card__link:hover {
-  color: #c4b5fd;
+.mod-card__title-link:hover {
+  color: #a78bfa;
 }
