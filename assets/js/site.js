@@ -526,7 +526,7 @@ function _applySection(sectionId) {
     panel.style.display = 'none';
   });
   var target = document.getElementById('section-' + sectionId);
-  if (target) target.style.display = '';
+  if (target) target.style.display = 'block';
 
   // Update desktop nav
   document.querySelectorAll('.header__nav-btn').forEach(function(btn) {
