@@ -896,34 +896,28 @@ video::-ms-media-controls {
    ============================================================================ */
 
 .mods-masonry {
-  column-count: 1;
-  column-gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
   padding: 20px 0;
+  align-items: start;
 }
 
 @media (min-width: 600px) {
   .mods-masonry {
-    column-count: 2;
-    column-gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
   }
 }
 
 @media (min-width: 1200px) {
   .mods-masonry {
-    column-count: 3;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .mod-card {
-  break-inside: avoid;
-  margin-bottom: 20px;
   background: transparent;
-}
-
-@media (min-width: 600px) {
-  .mod-card {
-    margin-bottom: 24px;
-  }
 }
 
 .mod-card__image {
