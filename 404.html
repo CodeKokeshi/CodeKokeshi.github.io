@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CodeKokeshi</title>
+  <script>
+    // GitHub Pages SPA routing trick.
+    // When GitHub Pages serves this 404.html for a path like /mods,
+    // we store the path in sessionStorage and redirect to the root.
+    // The root page reads sessionStorage and restores the URL.
+    var path = window.location.pathname.slice(1); // strip leading /
+    if (path && path !== 'index.html') {
+      sessionStorage.setItem('spa-redirect', path);
+    }
+    window.location.replace('https://codekokeshi.github.io/');
+  </script>
+</head>
+<body></body>
+</html>

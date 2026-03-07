@@ -150,7 +150,7 @@ const mods = [
     id: 2,
     image: 'assets/images/mods/Helpful Pets.webp',
     title: 'Helpful Pets',
-    overview: "Useful pets. Helpful pets. Worker pets. Working pets. Whatever you call it! You can make your pets clear debris, chop trees, destroy boulders (by configuring it in GMCM). Make it follow you around town! Or let it explore the valley and forage for you. You can call it by whistling (default key: V but configurable).",
+    overview: "Useful pets. Helpful pets. Worker pets. Working pets\u2014call them whatever you want. Your pets can clear debris, chop trees, break boulders, forage, or follow you around. Open Pet Manager with V (configurable in GMCM), or use pet interaction directly on mobile. You can even rename your pets. Available in English and Japanese.",
     link: 'https://www.nexusmods.com/stardewvalley/mods/41161'
   },
   {
@@ -517,18 +517,14 @@ function renderMods() {
 // NAVIGATION
 // ============================================================================
 
-var activeSection = 'games';
+var activeSection = null;
+var knownSections = ['games', 'arts', 'software', 'mods', 'quiz', 'about'];
 
-function switchSection(sectionId) {
-  if (sectionId === activeSection) return;
-  activeSection = sectionId;
-
-  // Hide all panels
+function _applySection(sectionId) {
+  // Hide all panels, show the target
   document.querySelectorAll('.section-panel').forEach(function(panel) {
     panel.style.display = 'none';
   });
-
-  // Show target
   var target = document.getElementById('section-' + sectionId);
   if (target) target.style.display = '';
 
@@ -555,6 +551,17 @@ function switchSection(sectionId) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function switchSection(sectionId) {
+  if (sectionId === activeSection) return;
+  activeSection = sectionId;
+
+  // Update URL
+  var url = (sectionId === 'games') ? '/' : '/' + sectionId;
+  history.pushState({ section: sectionId }, '', url);
+
+  _applySection(sectionId);
+}
+
 function setupNavigation() {
   // Desktop nav
   document.querySelectorAll('.header__nav-btn').forEach(function(btn) {
@@ -568,6 +575,14 @@ function setupNavigation() {
     btn.addEventListener('click', function() {
       switchSection(this.getAttribute('data-section'));
     });
+  });
+
+  // Browser back/forward
+  window.addEventListener('popstate', function(e) {
+    var section = (e.state && e.state.section) || 'games';
+    if (section === activeSection) return;
+    activeSection = section;
+    _applySection(section);
   });
 }
 
@@ -592,4 +607,15 @@ document.addEventListener('DOMContentLoaded', function() {
   setupDesktopClick();
   setupDesktopVideoObserver();
   setupCarousel();
+
+  // Determine initial section from URL path
+  var rawPath = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');
+  var initialSection = (knownSections.indexOf(rawPath) !== -1) ? rawPath : 'games';
+
+  // Stamp the history entry with the section so popstate works on first back
+  history.replaceState({ section: initialSection }, '', window.location.pathname);
+
+  // Show the correct section
+  activeSection = initialSection;
+  _applySection(initialSection);
 });
