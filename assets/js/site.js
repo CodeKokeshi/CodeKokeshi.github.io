@@ -5,7 +5,7 @@
 const completedGames = [
   {
     id: 8,
-    src: 'videos/008%20Godot%20-%202D%20Top%20Down%20-%20The%20only%20game%20I%20finished%20(returning%20to%20Game%20Dev%20after%20six%20months%20of%20quitting%20from%20Unity)%20-%20Trapped%20in%20a%20Nightmare.mp4',
+    src: 'assets/videos/games/008%20Godot%20-%202D%20Top%20Down%20-%20The%20only%20game%20I%20finished%20(returning%20to%20Game%20Dev%20after%20six%20months%20of%20quitting%20from%20Unity)%20-%20Trapped%20in%20a%20Nightmare.mp4',
     tool: 'Godot',
     title: 'Trapped in a Nightmare',
     description: 'A top-down adventure/puzzle game similar to Zelda or Hyper Light Drifter',
@@ -13,7 +13,7 @@ const completedGames = [
   },
   {
     id: 4,
-    src: 'videos/004%20Unity%20-%202D%20Platformer%20(Obstacle%20Course)%20-%20A%20Graphic%20Overhaul%20of%20Chrono%20Plasmorph%20Beta.mp4',
+    src: 'assets/videos/games/004%20Unity%20-%202D%20Platformer%20(Obstacle%20Course)%20-%20A%20Graphic%20Overhaul%20of%20Chrono%20Plasmorph%20Beta.mp4',
     tool: 'Unity',
     title: 'Chrono Plasmorph',
     description: 'My first serious attempt at game dev - a platformer obstacle course',
@@ -24,7 +24,7 @@ const completedGames = [
 const currentProjects = [
   {
     id: 10,
-    src: 'videos/010%20Godot%20-%20Current%20Metroidvania%20Project.mp4',
+    src: 'assets/videos/games/010%20Godot%20-%20Current%20Metroidvania%20Project.mp4',
     tool: 'Godot',
     title: 'Metroidvania Project',
     description: 'An attempt to create a metroidvania inspired by Adventure Island',
@@ -32,7 +32,7 @@ const currentProjects = [
   },
   {
     id: 9,
-    src: 'videos/009%20Python%20-%20An%20attempt%20to%20recreate%20Aseprite%20in%20PyQT6%20-%20Kokesprite.mp4',
+    src: 'assets/videos/games/009%20Python%20-%20An%20attempt%20to%20recreate%20Aseprite%20in%20PyQT6%20-%20Kokesprite.mp4',
     tool: 'Python',
     title: 'Kokesprite',
     description: 'An attempt to recreate Aseprite tailored to my preferences, built with PyQt6',
@@ -43,7 +43,7 @@ const currentProjects = [
 const otherProjects = [
   {
     id: 11,
-    src: 'videos/Godot%20-%20Chrono%20Plasmorph%20Remake.mp4',
+    src: 'assets/videos/games/Godot%20-%20Chrono%20Plasmorph%20Remake.mp4',
     tool: 'Godot',
     title: 'Chrono Plasmorph Remake',
     description: 'A remake with full-body sprites and smoother movements',
@@ -51,7 +51,7 @@ const otherProjects = [
   },
   {
     id: 12,
-    src: 'videos/Godot%20-%20Heavy%20Knight.mp4',
+    src: 'assets/videos/games/Godot%20-%20Heavy%20Knight.mp4',
     tool: 'Godot',
     title: 'Heavy Knight',
     description: "A quick game where your heavy knight can't jump and destroys floors when falling",
@@ -59,7 +59,7 @@ const otherProjects = [
   },
   {
     id: 13,
-    src: 'videos/Godot%20-%20True%20Top%20Down%20Demo.mp4',
+    src: 'assets/videos/games/Godot%20-%20True%20Top%20Down%20Demo.mp4',
     tool: 'Godot',
     title: 'True Top Down Demo',
     description: 'A true top-down shooter similar to Intravenous with shoot, roll, knife, and hide mechanics',
@@ -67,7 +67,7 @@ const otherProjects = [
   },
   {
     id: 14,
-    src: 'videos/Godot%20-%20Yet%20Another%20Platformer.mp4',
+    src: 'assets/videos/games/Godot%20-%20Yet%20Another%20Platformer.mp4',
     tool: 'Godot',
     title: 'Yet Another Platformer',
     description: 'An attempt to recreate Chrono Plasmorph in Godot',
@@ -75,7 +75,7 @@ const otherProjects = [
   },
   {
     id: 7,
-    src: 'videos/007%20Unity%20-%20The%20last%20straw%20for%20Unity%20(I%20quit%20Game%20Dev)%20-%20Flappy%20Bird%20Compilation.mp4',
+    src: 'assets/videos/games/007%20Unity%20-%20The%20last%20straw%20for%20Unity%20(I%20quit%20Game%20Dev)%20-%20Flappy%20Bird%20Compilation.mp4',
     tool: 'Unity',
     title: 'Flappy Bird Compilation',
     description: 'My Unity game dev journey demonstrated in Flappy Bird',
@@ -83,7 +83,7 @@ const otherProjects = [
   },
   {
     id: 2,
-    src: 'videos/002%20Unity%20-%202D%20Platformer%20(Obstacle%20Course)%20-%20My%20first%20ever%202D%20Game%20-%20Chrono%20Plasmorph%20Beta.mp4',
+    src: 'assets/videos/games/002%20Unity%20-%202D%20Platformer%20(Obstacle%20Course)%20-%20My%20first%20ever%202D%20Game%20-%20Chrono%20Plasmorph%20Beta.mp4',
     tool: 'Unity',
     title: 'Chrono Plasmorph Beta',
     description: 'A pink-themed platformer using downloaded assets',
@@ -91,7 +91,7 @@ const otherProjects = [
   },
   {
     id: 3,
-    src: 'videos/003%20Unity%20-%203D%20-%20My%20first%20and%20last%203D%20Game%20(an%20attempt%20that%20resulted%20to%20reality%20check).mp4',
+    src: 'assets/videos/games/003%20Unity%20-%203D%20-%20My%20first%20and%20last%203D%20Game%20(an%20attempt%20that%20resulted%20to%20reality%20check).mp4',
     tool: 'Unity',
     title: '3D Reality Check',
     description: 'My first and last 3D game - a massive mistake after learning Flappy Bird',
@@ -99,7 +99,7 @@ const otherProjects = [
   },
   {
     id: 5,
-    src: 'videos/005%20-%20RPG%20Maker%20-%20An%20attempt%20to%20reenter%20Pokemon%20Fan%20Game%20scene%20but%20this%20time%20through%20RMMXP%20and%20not%20Rom%20Hacking.mp4',
+    src: 'assets/videos/games/005%20-%20RPG%20Maker%20-%20An%20attempt%20to%20reenter%20Pokemon%20Fan%20Game%20scene%20but%20this%20time%20through%20RMMXP%20and%20not%20Rom%20Hacking.mp4',
     tool: 'RPG Maker',
     title: 'Pokemon Fan Game',
     description: 'A Pokemon Essentials game featuring 6 choosable characters from BW, BW2, and HeartGold',
@@ -107,7 +107,7 @@ const otherProjects = [
   },
   {
     id: 1,
-    src: 'videos/001%20RPG%20Maker%20-%20Trying%20Game%20Development%20for%20the%20First%20Time%20using%20RPG%20Maker.mp4',
+    src: 'assets/videos/games/001%20RPG%20Maker%20-%20Trying%20Game%20Development%20for%20the%20First%20Time%20using%20RPG%20Maker.mp4',
     tool: 'RPG Maker',
     title: 'First Steps in Game Dev',
     description: 'My first game dev attempt with intro, cutscenes, and quest lists (2022)',
@@ -115,7 +115,7 @@ const otherProjects = [
   },
   {
     id: 6,
-    src: 'videos/006%20Unity%20-%20A%20quick%20project%20for%20a%20refresher%20-%20A%20simple%20platformer.mp4',
+    src: 'assets/videos/games/006%20Unity%20-%20A%20quick%20project%20for%20a%20refresher%20-%20A%20simple%20platformer.mp4',
     tool: 'Unity',
     title: 'Platformer Refresher',
     description: 'A basic platformer with box sprites - my last Unity project before quitting for 6 months',
@@ -126,71 +126,71 @@ const otherProjects = [
 const allVideos = [...completedGames, ...currentProjects, ...otherProjects];
 
 const artworks = [
-  { id: 1, src: 'artworks/104943736_f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg-375w-2x.jpg', isGif: false },
-  { id: 2, src: 'artworks/angela_from_mobile_legends_by_codekokeshi_dk10mpu-414w-2x.jpg', isGif: false },
-  { id: 3, src: 'artworks/dk10p2j-fb4f8030-7fa9-49c2-ae12-dc6b6a7ac79d.gif', isGif: true },
-  { id: 4, src: 'artworks/dlany1o-d686d2b3-3b63-4ddf-abba-8f507f144845.gif', isGif: true },
-  { id: 5, src: 'artworks/gaomon_contest_submission_by_codekokeshi_dk10mw3-375w-2x.jpg', isGif: false },
-  { id: 6, src: 'artworks/Mahiro2.jpg-375w-2x.jpg', isGif: false },
-  { id: 7, src: 'artworks/marnie_by_codekokeshi_dk10n2n-fullview.jpg', isGif: false },
-  { id: 8, src: 'artworks/oyama_mahiro_recolored_by_codekokeshi_dk10mfz-375w-2x.jpg', isGif: false },
-  { id: 9, src: 'artworks/suyarisu_kaymin_by_codekokeshi_dk10n9d-375w-2x.jpg', isGif: false },
-  { id: 10, src: 'artworks/takahama_reiko_fully_colorized_by_codekokeshi_dk10lby-pre.jpg', isGif: false },
+  { id: 1, src: 'assets/images/artworks/104943736_f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg-375w-2x.jpg', isGif: false },
+  { id: 2, src: 'assets/images/artworks/angela_from_mobile_legends_by_codekokeshi_dk10mpu-414w-2x.jpg', isGif: false },
+  { id: 3, src: 'assets/images/artworks/dk10p2j-fb4f8030-7fa9-49c2-ae12-dc6b6a7ac79d.gif', isGif: true },
+  { id: 4, src: 'assets/images/artworks/dlany1o-d686d2b3-3b63-4ddf-abba-8f507f144845.gif', isGif: true },
+  { id: 5, src: 'assets/images/artworks/gaomon_contest_submission_by_codekokeshi_dk10mw3-375w-2x.jpg', isGif: false },
+  { id: 6, src: 'assets/images/artworks/Mahiro2.jpg-375w-2x.jpg', isGif: false },
+  { id: 7, src: 'assets/images/artworks/marnie_by_codekokeshi_dk10n2n-fullview.jpg', isGif: false },
+  { id: 8, src: 'assets/images/artworks/oyama_mahiro_recolored_by_codekokeshi_dk10mfz-375w-2x.jpg', isGif: false },
+  { id: 9, src: 'assets/images/artworks/suyarisu_kaymin_by_codekokeshi_dk10n9d-375w-2x.jpg', isGif: false },
+  { id: 10, src: 'assets/images/artworks/takahama_reiko_fully_colorized_by_codekokeshi_dk10lby-pre.jpg', isGif: false },
 ];
 
 const mods = [
   {
     id: 1,
-    image: 'mods/Bountiful Foraging.webp',
+    image: 'assets/images/mods/Bountiful Foraging.webp',
     title: 'Bountiful Foraging',
     overview: "Make forageables bountiful literally, like in the Beach alone you'll get 50 shells or something. Or on the way to the mountains you'll get 100 grapes on the way. But that depends on your multiplier. Let's say that this is a forage items amount multiplier.",
     link: 'https://www.nexusmods.com/stardewvalley/mods/41289'
   },
   {
     id: 2,
-    image: 'mods/Helpful Pets.webp',
+    image: 'assets/images/mods/Helpful Pets.webp',
     title: 'Helpful Pets',
     overview: "Useful pets. Helpful pets. Worker pets. Working pets. Whatever you call it! You can make your pets clear debris, chop trees, destroy boulders (by configuring it in GMCM). Make it follow you around town! Or let it explore the valley and forage for you. You can call it by whistling (default key: V but configurable).",
     link: 'https://www.nexusmods.com/stardewvalley/mods/41161'
   },
   {
     id: 3,
-    image: 'mods/Fix Museum Inventory.webp',
+    image: 'assets/images/mods/Fix Museum Inventory.webp',
     title: 'Fix Museum Inventory',
     overview: "Rewrote the vanilla museum inventory code to fix various issues like inventory UI covering the museum slots. Added a move button to move the inventory UI around and removed the inventory on the arrangement mode.",
     link: 'https://www.nexusmods.com/stardewvalley/mods/41132'
   },
   {
     id: 4,
-    image: 'mods/Instant Fish Bite.webp',
+    image: 'assets/images/mods/Instant Fish Bite.webp',
     title: 'Instant Fish Bite',
     overview: "Fish instantly bites eliminating the waiting game.",
     link: 'https://www.nexusmods.com/stardewvalley/mods/41102'
   },
   {
     id: 5,
-    image: 'mods/Max Quality Items.webp',
+    image: 'assets/images/mods/Max Quality Items.webp',
     title: 'Max Quality Items',
     overview: "Make all items iridium quality by pressing F9 while inventory / chest is opened. F9 key is replaceable in the Mod Options of GMCM.",
     link: 'https://www.nexusmods.com/stardewvalley/mods/41507'
   },
   {
     id: 6,
-    image: 'mods/Bypass All Doors.webp',
+    image: 'assets/images/mods/Bypass All Doors.webp',
     title: 'Bypass All Doors',
     overview: "Access every doors! Friendship locked? Schedule? Ignore all that!",
     link: 'https://www.nexusmods.com/stardewvalley/mods/41105'
   },
   {
     id: 7,
-    image: 'mods/Infinite Stamina.webp',
+    image: 'assets/images/mods/Infinite Stamina.webp',
     title: 'Infinite Stamina',
     overview: "Keeps the stamina at max value basically making it infinite.",
     link: 'https://www.nexusmods.com/stardewvalley/mods/41065'
   },
   {
     id: 8,
-    image: 'mods/Buy Animals Fully Mature.webp',
+    image: 'assets/images/mods/Buy Animals Fully Mature.webp',
     title: 'Buy Animals Fully Mature',
     overview: "Purchased barn/coop animals are instantly fully matured and ready to produce products.",
     link: 'https://www.nexusmods.com/stardewvalley/mods/41509'
