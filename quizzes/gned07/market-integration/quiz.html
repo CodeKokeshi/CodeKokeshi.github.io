@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Integration Quiz | CodeKokeshi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #e5e5e5;
+      line-height: 1.6;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+    ::selection { background: rgba(139,92,246,0.4); color: #fff; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+    /* HEADER */
+    .quiz-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .quiz-header__back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .quiz-header__back:hover { color: #a78bfa; }
+    .quiz-header__back svg { width:16px;height:16px;flex-shrink:0; }
+    .quiz-header__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      flex: 1;
+      text-align: center;
+    }
+    .quiz-header__tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      color: #a78bfa;
+      white-space: nowrap;
+    }
+
+    /* SCREENS */
+    .screen { display: none; }
+    .screen--active { display: block; }
+
+    /* START SCREEN */
+    .start-wrap {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .start-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 12px;
+    }
+    .start-title {
+      font-size: clamp(24px,5vw,34px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .start-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 32px;
+    }
+    .start-stats {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .start-stat {
+      text-align: center;
+    }
+    .start-stat__val {
+      font-size: 28px;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+    .start-stat__lbl {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 36px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139,92,246,0.4);
+    }
+
+    /* QUIZ SCREEN */
+    .quiz-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 28px 20px 80px;
+    }
+
+    /* PROGRESS */
+    .progress-bar-wrap {
+      margin-bottom: 28px;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-bar__fill {
+      height: 100%;
+      background: linear-gradient(90deg, #8b5cf6, #ec4899);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    /* QUESTION CARD */
+    .question-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin-bottom: 20px;
+    }
+    .question-card__num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 12px;
+    }
+    .question-card__text {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.5;
+    }
+
+    /* OPTIONS */
+    .options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .option-btn:hover:not(:disabled) {
+      background: rgba(139,92,246,0.1);
+      border-color: rgba(139,92,246,0.3);
+      color: #fff;
+    }
+    .option-btn__letter {
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+      transition: background 0.15s, color 0.15s;
+    }
+    /* states */
+    .option-btn--correct {
+      background: rgba(34,197,94,0.12) !important;
+      border-color: rgba(34,197,94,0.5) !important;
+      color: #86efac !important;
+    }
+    .option-btn--correct .option-btn__letter {
+      background: rgba(34,197,94,0.25);
+      border-color: rgba(34,197,94,0.5);
+      color: #86efac;
+    }
+    .option-btn--wrong {
+      background: rgba(239,68,68,0.1) !important;
+      border-color: rgba(239,68,68,0.4) !important;
+      color: #fca5a5 !important;
+    }
+    .option-btn--wrong .option-btn__letter {
+      background: rgba(239,68,68,0.2);
+      border-color: rgba(239,68,68,0.4);
+      color: #fca5a5;
+    }
+    .option-btn:disabled { cursor: default; }
+
+    /* FEEDBACK */
+    .feedback {
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .feedback--correct {
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #86efac;
+    }
+    .feedback--wrong {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.25);
+      color: #fca5a5;
+    }
+    .feedback__label {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    /* NAV BUTTONS */
+    .quiz-nav {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+    .btn-next {
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-next:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139,92,246,0.4);
+    }
+
+    /* RESULTS SCREEN */
+    .results-wrap {
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .results-score-ring {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: conic-gradient(#8b5cf6 var(--pct), rgba(255,255,255,0.06) 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+    .results-score-ring::before {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: #111;
+      border-radius: 50%;
+    }
+    .results-score-val {
+      position: relative;
+      z-index: 1;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .results-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .results-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 32px;
+    }
+    .results-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .results-stat { text-align: center; }
+    .results-stat__val { font-size: 26px; font-weight: 700; }
+    .results-stat__val--correct { color: #86efac; }
+    .results-stat__val--wrong { color: #fca5a5; }
+    .results-stat__lbl { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+    .results-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-secondary {
+      padding: 12px 24px;
+      background: rgba(139,92,246,0.12);
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 10px;
+      color: #a78bfa;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-secondary:hover { background: rgba(139,92,246,0.2); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="quiz-header">
+    <a href="lesson.html" class="quiz-header__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Lesson
+    </a>
+    <span class="quiz-header__title">Market Integration Quiz</span>
+    <span class="quiz-header__tag">GNED07 · L3</span>
+  </header>
+
+  <!-- START SCREEN -->
+  <div id="screenStart" class="screen screen--active">
+    <div class="start-wrap">
+      <p class="start-label">GNED07 &mdash; Lesson 3</p>
+      <h1 class="start-title">Market Integration Quiz</h1>
+      <p class="start-desc">Test your knowledge on definitions, dates, organizations, and types of market integration.</p>
+      <div class="start-stats">
+        <div class="start-stat"><div class="start-stat__val" id="totalCount">55</div><div class="start-stat__lbl">Questions</div></div>
+        <div class="start-stat"><div class="start-stat__val">4</div><div class="start-stat__lbl">Choices Each</div></div>
+        <div class="start-stat"><div class="start-stat__val">MC</div><div class="start-stat__lbl">Type</div></div>
+      </div>
+      <button class="btn-primary" id="startBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Start Quiz
+      </button>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="screenQuiz" class="screen">
+    <div class="quiz-wrap">
+      <div class="progress-bar-wrap">
+        <div class="progress-meta">
+          <span id="progressLabel">Question 1 of 55</span>
+          <span id="scoreLabel">Score: 0</span>
+        </div>
+        <div class="progress-bar"><div class="progress-bar__fill" id="progressFill" style="width:0%"></div></div>
+      </div>
+      <div class="question-card">
+        <p class="question-card__num" id="questionNum">Question 1</p>
+        <p class="question-card__text" id="questionText"></p>
+      </div>
+      <ul class="options-list" id="optionsList"></ul>
+      <div class="feedback" id="feedback">
+        <p class="feedback__label" id="feedbackLabel"></p>
+        <p id="feedbackText"></p>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn-next" id="nextBtn" style="display:none;">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="screenResults" class="screen">
+    <div class="results-wrap">
+      <div class="results-score-ring" id="scoreRing">
+        <span class="results-score-val" id="scorePct">0%</span>
+      </div>
+      <h2 class="results-title" id="resultsTitle">Quiz Complete!</h2>
+      <p class="results-sub" id="resultsSub"></p>
+      <div class="results-breakdown">
+        <div class="results-stat">
+          <div class="results-stat__val results-stat__val--correct" id="correctCount">0</div>
+          <div class="results-stat__lbl">Correct</div>
+        </div>
+        <div class="results-stat">
+          <div class="results-stat__val results-stat__val--wrong" id="wrongCount">0</div>
+          <div class="results-stat__lbl">Wrong</div>
+        </div>
+        <div class="results-stat">
+          <div class="results-stat__val" style="color:#a78bfa;" id="totalCountR">55</div>
+          <div class="results-stat__lbl">Total</div>
+        </div>
+      </div>
+      <div class="results-actions">
+        <button class="btn-secondary" id="retryBtn">↺ Retry</button>
+        <a href="lesson.html" class="btn-secondary">📖 Review Lesson</a>
+        <button class="btn-secondary" id="backBtn">← Back to Quiz List</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  var questions = [
+    // --- CORE DEFINITIONS ---
+    {
+      q: 'The word "Market" is derived from "mercatus." What does "mercatus" mean?',
+      choices: ['buying or selling of goods', 'trading or place of transactions', 'exchange of currency', 'movement of goods across borders'],
+      answer: 1
+    },
+    {
+      q: 'What is Integration, as defined in the context of Market Integration?',
+      choices: [
+        'the unification of currencies among countries',
+        'a state of affairs involving attempts to combine separate national economies into larger economic regions',
+        'the process of removing all trade barriers between nations',
+        'the merging of national governments into a single authority'
+      ],
+      answer: 1
+    },
+    {
+      q: 'Market Integration refers to the process of creating a unified marketplace where ______ can flow freely between countries and regions.',
+      choices: [
+        'goods, services, and capital',
+        'people, technology, and laws',
+        'currency, labor, and military',
+        'investments, taxes, and tariffs'
+      ],
+      answer: 0
+    },
+    {
+      q: 'What are Trade Routes?',
+      choices: [
+        'digital pathways used for online commerce between nations',
+        'government policies that regulate trade',
+        'established pathways, overland or maritime, connecting producers and consumers for commercial cargo transport',
+        'the official agreements signed between trading nations'
+      ],
+      answer: 2
+    },
+    {
+      q: 'What is a Monopoly?',
+      choices: [
+        'a market structure where multiple sellers compete for the same customers',
+        'a market structure where one seller is the sole supplier of a good or service in the market',
+        'a situation where the government controls all trade',
+        'a type of horizontal integration involving mergers'
+      ],
+      answer: 1
+    },
+    {
+      q: 'The Great Depression is defined as the greatest and longest economic recession in modern world history. What years did it run between?',
+      choices: ['1918 to 1935', '1925 to 1939', '1929 to 1941', '1930 to 1945'],
+      answer: 2
+    },
+    {
+      q: 'What is a Tariff?',
+      choices: [
+        'a subsidy given to domestic producers to protect them from foreign competition',
+        'a tax imposed by one country on the goods and services imported from another country to influence it, raise revenues, or protect competitive advantages',
+        'a trade agreement between two countries to eliminate all import duties',
+        'a quota limiting the quantity of goods that can be imported'
+      ],
+      answer: 1
+    },
+    // --- ROMAN PERIOD & EARLY VOYAGES ---
+    {
+      q: 'During the Roman Empire, which trade route allowed goods—especially silk, ideas, and culture—to travel between Europe and Asia?',
+      choices: ['The Spice Route', 'The Silk Road', 'The Trans-Saharan Route', 'The Indian Ocean Route'],
+      answer: 1
+    },
+    {
+      q: 'What did Vasco da Gama discover?',
+      choices: [
+        'the first direct maritime trade route from Europe to India by sailing around Africa\'s Cape of Good Hope',
+        'the Caribbean islands like Cuba, Hispaniola, and parts of Central and South America',
+        'the first European expedition to cross the Pacific Ocean',
+        'the Suez Canal route connecting Europe and Asia'
+      ],
+      answer: 0
+    },
+    {
+      q: 'Christopher Columbus explored which territories?',
+      choices: [
+        'the coast of Africa and the Cape of Good Hope',
+        'the Pacific Ocean for the first time',
+        'the Caribbean islands like Cuba, Hispaniola, and parts of Central and South America',
+        'the trade routes along the Indian subcontinent'
+      ],
+      answer: 2
+    },
+    {
+      q: 'What was Ferdinand Magellan\'s fleet the first to accomplish?',
+      choices: [
+        'discover the first direct maritime trade route from Europe to India',
+        'establish a permanent colony in the Americas',
+        'cross the Atlantic Ocean without stopping',
+        'become the first European expedition to cross the Pacific Ocean'
+      ],
+      answer: 3
+    },
+    {
+      q: 'Which powerful countries controlled intercontinental trade after the early explorations of the 15th century?',
+      choices: [
+        'France, Germany, Britain, and the Netherlands',
+        'Spain, Portugal, Britain, and Italy',
+        'Spain, France, Portugal, and Russia',
+        'Britain, Italy, Greece, and Ottoman Empire'
+      ],
+      answer: 1
+    },
+    // --- NAPOLEONIC WARS ---
+    {
+      q: 'During the Napoleonic Wars period, what replaced sails to make transportation faster and more reliable?',
+      choices: [
+        'electric engines and motorboats',
+        'steam engines replaced sails and railroads',
+        'diesel-powered ships and airplanes',
+        'nuclear-powered vessels and high-speed trains'
+      ],
+      answer: 1
+    },
+    {
+      q: 'The Suez Canal was built on November 17, 1869 by whom?',
+      choices: [
+        'British engineer James Watt',
+        'American diplomat John Quincy Adams',
+        'French diplomat Ferdinand de Lesseps',
+        'Egyptian architect Ramses Al-Sayed'
+      ],
+      answer: 2
+    },
+    {
+      q: 'The Suez Canal shortened travel time between which two regions?',
+      choices: ['North America and South America', 'Africa and Australia', 'Europe and Asia', 'Asia and the Americas'],
+      answer: 2
+    },
+    {
+      q: 'During the Napoleonic Wars and WWI period, trade allowed access to a greater variety of goods. Which of the following was NOT among those listed?',
+      choices: ['spices', 'wheat', 'rubber', 'jute'],
+      answer: 2
+    },
+    {
+      q: 'During the Napoleonic Wars period, what economic structure pattern was followed?',
+      choices: [
+        'supply-demand pattern where consumers drove all economic decisions',
+        'core-periphery pattern where core countries were the center of trading while periphery countries provided raw materials and labor',
+        'circular flow pattern where money moved freely between all nations equally',
+        'export-import pattern where all countries traded equal amounts of goods'
+      ],
+      answer: 1
+    },
+    // --- GREAT DEPRESSION / WWI & WWII ---
+    {
+      q: 'Complete the famous quote about U.S. economic influence: "When the American economy sneezes, ______."',
+      choices: [
+        'the world catches fire',
+        'the rest of the world catches a cold',
+        'other nations must prepare for war',
+        'the global market collapses immediately'
+      ],
+      answer: 1
+    },
+    {
+      q: 'The Great Depression started with what event?',
+      choices: [
+        'the signing of the Treaty of Versailles',
+        'the outbreak of World War II',
+        'the stock market crash of October 1929',
+        'the collapse of the Bretton Woods System'
+      ],
+      answer: 2
+    },
+    {
+      q: 'During the Great Depression, U.S. unemployment reached 25%. This means:',
+      choices: ['1 in 10 people had no job', '1 in 5 people had no job', '1 in 4 people had no job', '1 in 3 people had no job'],
+      answer: 2
+    },
+    {
+      q: 'After the World Wars and the Great Depression, which major powers worked to rebuild the global economy?',
+      choices: [
+        'China, Russia, and India',
+        'the United States, Western Europe, and Japan',
+        'Brazil, Australia, and Canada',
+        'the Soviet Union, France, and Mexico'
+      ],
+      answer: 1
+    },
+    // --- BRETTON WOODS ---
+    {
+      q: 'When was the Bretton Woods Agreement negotiated?',
+      choices: ['June 1 to 15, 1940', 'July 1 to 22, 1944', 'August 5 to 20, 1945', 'January 10 to 30, 1943'],
+      answer: 1
+    },
+    {
+      q: 'The Bretton Woods Agreement was developed by delegates from how many countries?',
+      choices: ['28', '34', '44', '51'],
+      answer: 2
+    },
+    {
+      q: 'Where was the United Nations Monetary and Financial Conference (Bretton Woods) held?',
+      choices: ['Washington, D.C.', 'Geneva, Switzerland', 'New York, New York', 'Bretton Woods, New Hampshire'],
+      answer: 3
+    },
+    {
+      q: 'Under the Bretton Woods System, what was the price of gold set at?',
+      choices: ['$25 an ounce', '$35 an ounce', '$45 an ounce', '$50 an ounce'],
+      answer: 1
+    },
+    {
+      q: 'Who was the Chairman of the Philippine Delegation to the Bretton Woods Conference?',
+      choices: [
+        'Hon. Jaime Hernandez',
+        'Mr. Ismael Mathay',
+        'Colonel Andres Soriano',
+        'Mr. Joseph Foley'
+      ],
+      answer: 2
+    },
+    {
+      q: 'What was Colonel Andres Soriano\'s position when named as Chairman of the Philippine Delegation?',
+      choices: [
+        'Auditor-General of the Philippine Commonwealth',
+        'Manager of the Philippine National Bank',
+        'Secretary of Finance of the Philippine Commonwealth',
+        'Technical Assistant to the Auditor-General'
+      ],
+      answer: 2
+    },
+    {
+      q: 'When did the Bretton Woods System start working fully?',
+      choices: ['1944', '1950', '1958', '1965'],
+      answer: 2
+    },
+    {
+      q: 'On what date did President Richard M. Nixon announce the U.S. would stop the Bretton Woods System?',
+      choices: ['July 4, 1970', 'August 15, 1971', 'September 30, 1972', 'January 1, 1973'],
+      answer: 1
+    },
+    {
+      q: 'The Bretton Woods Agreement created two important organizations. Which are they?',
+      choices: [
+        'NAFTA and APEC',
+        'the World Bank and OECD',
+        'the International Monetary Fund (IMF) and the World Bank',
+        'OPEC and the European Union'
+      ],
+      answer: 2
+    },
+    // --- IMF & WORLD BANK ---
+    {
+      q: 'The International Monetary Fund (IMF) is an organization of how many countries?',
+      choices: ['151', '173', '189', '201'],
+      answer: 2
+    },
+    {
+      q: 'The World Bank comprises two main institutions. Which are they?',
+      choices: [
+        'IMF and IDA',
+        'IBRD and IDA',
+        'IFC and MIGA',
+        'ICSID and IBRD'
+      ],
+      answer: 1
+    },
+    {
+      q: 'What does IBRD stand for?',
+      choices: [
+        'International Business and Revenue Department',
+        'International Bureau for Regional Development',
+        'International Bank for Reconstruction and Development',
+        'Inter-Border Redistribution and Development'
+      ],
+      answer: 2
+    },
+    {
+      q: 'What does IDA stand for?',
+      choices: [
+        'International Defense Alliance',
+        'International Development Association',
+        'Inter-country Distribution Agency',
+        'International Debt Administration'
+      ],
+      answer: 1
+    },
+    {
+      q: 'The IBRD lends to governments of which type of countries?',
+      choices: [
+        'the wealthiest countries only',
+        'developing countries with high debt',
+        'middle-income and creditworthy low-income countries',
+        'countries with natural resource surpluses'
+      ],
+      answer: 2
+    },
+    {
+      q: 'The IDA provides interest-free loans—called credits—and grants to governments of which countries?',
+      choices: ['the wealthiest countries', 'middle-income countries', 'the poorest countries', 'countries in active conflict'],
+      answer: 2
+    },
+    {
+      q: 'What is the International Finance Corporation (IFC)?',
+      choices: [
+        'an institution that lends exclusively to government infrastructure projects',
+        'the largest global development institution focused exclusively on the private sector',
+        'a body that manages international currency exchange rates',
+        'the enforcement arm of the World Bank for loan defaults'
+      ],
+      answer: 1
+    },
+    {
+      q: 'When was the Multilateral Investment Guarantee Agency (MIGA) created?',
+      choices: ['1980', '1985', '1988', '1993'],
+      answer: 2
+    },
+    {
+      q: 'What does ICSID stand for?',
+      choices: [
+        'International Commercial and Securities Investment Division',
+        'Inter-Country Settlement and Investment Department',
+        'International Centre for Settlement of Investment Disputes',
+        'International Council for Structured Investment Decisions'
+      ],
+      answer: 2
+    },
+    // --- TRADE ORGANIZATIONS ---
+    {
+      q: 'NAFTA went into effect on what date?',
+      choices: ['Jan. 1, 1990', 'Jan. 1, 1994', 'Jan. 1, 1998', 'Jan. 1, 2000'],
+      answer: 1
+    },
+    {
+      q: 'NAFTA eliminated most tariffs on trade among which three countries?',
+      choices: [
+        'Mexico, Cuba, and the United States',
+        'Mexico, Canada, and the United States',
+        'Canada, the United States, and Brazil',
+        'Mexico, Canada, and Costa Rica'
+      ],
+      answer: 1
+    },
+    {
+      q: 'NAFTA was replaced by the United States-Mexico-Canada Agreement (USMCA). When was USMCA signed?',
+      choices: ['Nov. 30, 2016', 'Nov. 30, 2017', 'Nov. 30, 2018', 'Nov. 30, 2019'],
+      answer: 2
+    },
+    {
+      q: 'When did the USMCA go into full force?',
+      choices: ['Jan. 1, 2019', 'July 1, 2020', 'Jan. 1, 2021', 'July 1, 2021'],
+      answer: 1
+    },
+    {
+      q: 'How many members does APEC (Asia-Pacific Economic Cooperation) have?',
+      choices: ['18', '19', '21', '28'],
+      answer: 2
+    },
+    {
+      q: 'When was APEC formed?',
+      choices: ['November 1985', 'November 1989', 'November 1993', 'November 1997'],
+      answer: 1
+    },
+    {
+      q: 'How many countries are in the European Union (EU)?',
+      choices: ['19', '27', '28', '34'],
+      answer: 2
+    },
+    {
+      q: 'When was the European Union (EU) established?',
+      choices: ['November 1, 1989', 'November 1, 1993', 'November 1, 1995', 'November 1, 2000'],
+      answer: 1
+    },
+    {
+      q: 'How many EU countries use the euro as their official currency?',
+      choices: ['15', '17', '19', '21'],
+      answer: 2
+    },
+    {
+      q: 'How many member countries does the OECD have?',
+      choices: ['21', '28', '34', '44'],
+      answer: 2
+    },
+    {
+      q: 'When was the OECD established?',
+      choices: ['September 30, 1955', 'September 30, 1961', 'September 30, 1969', 'September 30, 1975'],
+      answer: 1
+    },
+    // --- TYPES OF INTEGRATION ---
+    {
+      q: 'What is Horizontal Integration?',
+      choices: [
+        'when a company expands by acquiring firms in an earlier phase of the value chain',
+        'when a business combines forces with another company that offers similar products or services',
+        'when unrelated businesses are brought together under one parent company',
+        'when a company moves into new markets in different countries'
+      ],
+      answer: 1
+    },
+    {
+      q: 'In Horizontal Integration, a "Merge" involves:',
+      choices: [
+        'one company purchasing another company to reduce competition',
+        'two unrelated businesses forming a conglomerate',
+        'the combining force of two or more companies to form a new entity',
+        'a company acquiring control of its supply chain'
+      ],
+      answer: 2
+    },
+    {
+      q: 'In Horizontal Integration, an "Acquisition" refers to:',
+      choices: [
+        'involves the combining force of two or more companies to form a new entity',
+        'refers to one company purchasing another company, often with the goal of gaining control and reducing their competition',
+        'the creation of a new subsidiary under a holding company',
+        'a government takeover of a private enterprise'
+      ],
+      answer: 1
+    },
+    {
+      q: 'Facebook Inc.\'s acquisition of Instagram occurred in what year?',
+      choices: ['2010', '2011', '2012', '2013'],
+      answer: 2
+    },
+    {
+      q: 'Disney acquired Pixar in 2006 for how much?',
+      choices: ['$4.2 billion', '$5.8 billion', '$6.5 billion', '$7.4 billion'],
+      answer: 3
+    },
+    {
+      q: 'PLDT acquired Digitel (Sun Cellular) in what year?',
+      choices: ['2009', '2010', '2011', '2012'],
+      answer: 2
+    },
+    {
+      q: 'What is Vertical Integration?',
+      choices: [
+        'when a business combines forces with another company that offers similar products or services',
+        'when the company expands either forward or backward by acquiring or merging with firms in an earlier or later phase of the value chain',
+        'when unrelated businesses are consolidated under one holding company',
+        'when a company eliminates all competitors in a given market'
+      ],
+      answer: 1
+    },
+    {
+      q: 'Backward Vertical Integration is the ownership control of the products to a point ______ in the supply chain or the production process.',
+      choices: ['forward', 'parallel', 'earlier', 'later'],
+      answer: 2
+    },
+    {
+      q: 'Forward Vertical Integration is the ownership control of the products to a point ______ in the supply chain or the production process.',
+      choices: ['earlier', 'later', 'parallel', 'external'],
+      answer: 1
+    },
+    {
+      q: 'Which of the following is an example of Backward Vertical Integration?',
+      choices: [
+        'Walt Disney\'s theme parks and Disney+ streaming service',
+        'Apple\'s affairs with Apple retail stores',
+        'Globe Telecommunications\' kiosks in malls',
+        'Jollibee Foods Corp. purchasing businesses involved in poultry processing to secure a reliable source of chicken'
+      ],
+      answer: 3
+    },
+    {
+      q: 'Which of the following is an example of Forward Vertical Integration?',
+      choices: [
+        'Netflix producing their own Netflix original films and shows',
+        'Apple manufacturing its own hardware components',
+        'Walt Disney\'s theme parks and Disney+ streaming service',
+        'Petron investing in oil exploration and production activities'
+      ],
+      answer: 2
+    },
+    {
+      q: 'What is Conglomerate Integration?',
+      choices: [
+        'when a company expands by acquiring firms in the same industry',
+        'when a company expands backward in the supply chain',
+        'refers to the process or strategy of bringing different and unrelated businesses together under one management or corporate control',
+        'the merging of two companies offering similar products or services'
+      ],
+      answer: 2
+    },
+    {
+      q: 'Under which conglomerate are San Miguel Pure Foods, San Miguel Brewery, San Miguel Holdings, and San Miguel Power?',
+      choices: ['Ayala Corporation', 'SM Investments Corp', 'San Miguel Corporation', 'Jollibee Group'],
+      answer: 2
+    },
+    {
+      q: 'SM Supermalls, BDO, and SM Prime Holdings Inc. perform under which parent company?',
+      choices: ['Ayala Corporation', 'San Miguel Corporation', 'SM Investments Corp', 'Metro Pacific Investments'],
+      answer: 2
+    },
+    // --- IMPORTANCE ---
+    {
+      q: 'Which of the following is NOT listed as an importance of Market Integration?',
+      choices: [
+        'It is one of the ways to ascertain the extent of competitiveness in market.',
+        'It helps in the development of a single economic market at national level.',
+        'It eliminates all foreign competition from domestic markets.',
+        'It provides better signals for optimal generation and consumption decisions.'
+      ],
+      answer: 2
+    }
+  ];
+
+  var currentIndex = 0;
+  var score = 0;
+  var answered = false;
+
+  document.getElementById('totalCount').textContent = questions.length;
+  document.getElementById('totalCountR').textContent = questions.length;
+
+  function showScreen(id) {
+    ['screenStart','screenQuiz','screenResults'].forEach(function(s) {
+      document.getElementById(s).classList.remove('screen--active');
+    });
+    document.getElementById(id).classList.add('screen--active');
+  }
+
+  function loadQuestion() {
+    answered = false;
+    var q = questions[currentIndex];
+    var total = questions.length;
+
+    document.getElementById('questionNum').textContent = 'Question ' + (currentIndex + 1);
+    document.getElementById('questionText').textContent = q.q;
+    document.getElementById('progressLabel').textContent = 'Question ' + (currentIndex + 1) + ' of ' + total;
+    document.getElementById('scoreLabel').textContent = 'Score: ' + score;
+    document.getElementById('progressFill').style.width = (currentIndex / total * 100) + '%';
+
+    var feedback = document.getElementById('feedback');
+    feedback.style.display = 'none';
+    feedback.className = 'feedback';
+    document.getElementById('nextBtn').style.display = 'none';
+
+    var letters = ['A','B','C','D'];
+    var list = document.getElementById('optionsList');
+    list.innerHTML = q.choices.map(function(c, i) {
+      return '<li><button class="option-btn" data-idx="' + i + '">' +
+        '<span class="option-btn__letter">' + letters[i] + '</span>' +
+        '<span>' + escape_html(c) + '</span>' +
+        '</button></li>';
+    }).join('');
+
+    list.querySelectorAll('.option-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        selectAnswer(parseInt(this.getAttribute('data-idx')));
+      });
+    });
+  }
+
+  function escape_html(str) {
+    var d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  function selectAnswer(idx) {
+    answered = true;
+    var q = questions[currentIndex];
+    var correct = q.answer;
+    var buttons = document.querySelectorAll('.option-btn');
+
+    buttons.forEach(function(btn) { btn.disabled = true; });
+
+    var feedback = document.getElementById('feedback');
+    if (idx === correct) {
+      score++;
+      buttons[idx].classList.add('option-btn--correct');
+      feedback.className = 'feedback feedback--correct';
+      feedback.style.display = 'block';
+      document.getElementById('feedbackLabel').textContent = '✓ Correct!';
+      document.getElementById('feedbackText').textContent = '';
+    } else {
+      buttons[idx].classList.add('option-btn--wrong');
+      buttons[correct].classList.add('option-btn--correct');
+      feedback.className = 'feedback feedback--wrong';
+      feedback.style.display = 'block';
+      document.getElementById('feedbackLabel').textContent = '✗ Incorrect';
+      document.getElementById('feedbackText').textContent = 'Correct answer: ' + q.choices[correct];
+    }
+
+    document.getElementById('scoreLabel').textContent = 'Score: ' + score;
+    document.getElementById('nextBtn').style.display = 'inline-flex';
+    document.getElementById('nextBtn').textContent = (currentIndex === questions.length - 1) ? 'See Results' : 'Next →';
+  }
+
+  document.getElementById('startBtn').addEventListener('click', function() {
+    showScreen('screenQuiz');
+    loadQuestion();
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', function() {
+    currentIndex++;
+    if (currentIndex < questions.length) {
+      loadQuestion();
+    } else {
+      showResults();
+    }
+  });
+
+  function showResults() {
+    showScreen('screenResults');
+    var total = questions.length;
+    var pct = Math.round(score / total * 100);
+    document.getElementById('scorePct').textContent = pct + '%';
+    document.getElementById('scoreRing').style.setProperty('--pct', pct + '%');
+    document.getElementById('correctCount').textContent = score;
+    document.getElementById('wrongCount').textContent = total - score;
+    document.getElementById('totalCountR').textContent = total;
+
+    var title = pct >= 90 ? 'Outstanding!' : pct >= 75 ? 'Great Job!' : pct >= 60 ? 'Good Effort!' : 'Keep Studying!';
+    document.getElementById('resultsTitle').textContent = title;
+    document.getElementById('resultsSub').textContent = 'You scored ' + score + ' out of ' + total + ' (' + pct + '%)';
+  }
+
+  document.getElementById('retryBtn').addEventListener('click', function() {
+    currentIndex = 0;
+    score = 0;
+    showScreen('screenQuiz');
+    loadQuestion();
+  });
+
+  document.getElementById('backBtn').addEventListener('click', function() {
+    // Navigate back to quiz section
+    window.location.href = '../../../index.html';
+    setTimeout(function() {
+      if (window.switchSection) switchSection('quiz');
+    }, 500);
+  });
+  </script>
+</body>
+</html>
