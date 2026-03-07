@@ -195,6 +195,20 @@ const mods = [
     overview: "Purchased barn/coop animals are instantly fully matured and ready to produce products.",
     link: 'https://www.nexusmods.com/stardewvalley/mods/41509'
   },
+  {
+    id: 9,
+    image: 'assets/images/mods/Pet Adopter.webp',
+    title: 'Pet Adopter',
+    overview: "Instantly adopt any pet breed for free! Browse cats and dogs with a sleek UI, name them, and add them to your farm. Press LShift + V to open.",
+    link: 'https://www.nexusmods.com/stardewvalley/mods/42945'
+  },
+  {
+    id: 10,
+    image: 'assets/images/mods/CK Better Cheats Menu.webp',
+    title: 'CK Better Cheats Menu',
+    overview: "An Ultimate Trainer with 91+ Cheats. Teleport everywhere. Till or water 11x11 soil. One hit trees with axe or boulders with pickaxe. Instantly grow crops and trees. Unlock all recipes for crafting and cooking. Craft without materials. Add gold without causing discrepancies. Instant Fish Bite? Skip Fishing Minigame? Health Regen? One Hit Kill? every cheat is here.",
+    link: 'https://www.nexusmods.com/stardewvalley/mods/42088'
+  },
 ];
 
 const softwareProjects = [
