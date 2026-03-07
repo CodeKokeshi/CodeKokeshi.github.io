@@ -384,6 +384,63 @@
       gap: 6px;
     }
     .btn-secondary:hover { background: rgba(139,92,246,0.2); }
+
+    /* MODE SELECT */
+    .mode-wrap {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .mode-cards {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .mode-card {
+      flex: 1;
+      min-width: 220px;
+      max-width: 280px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 28px 20px;
+      cursor: pointer;
+      text-align: center;
+      font-family: inherit;
+      color: inherit;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    .mode-card:hover {
+      border-color: rgba(139,92,246,0.5);
+      background: rgba(139,92,246,0.07);
+      transform: translateY(-3px);
+    }
+    .mode-card__icon { font-size: 32px; line-height: 1; }
+    .mode-card__name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .mode-card__desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+    }
+    .mode-card__meta {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-top: 4px;
+    }
   </style>
 </head>
 <body>
@@ -398,8 +455,31 @@
     <span class="quiz-header__tag">GNED07 · L3</span>
   </header>
 
+  <!-- MODE SELECT SCREEN -->
+  <div id="screenMode" class="screen screen--active">
+    <div class="mode-wrap">
+      <p class="start-label">GNED07 &mdash; Lesson 3</p>
+      <h1 class="start-title">Market Integration Quiz</h1>
+      <p class="start-desc">Choose your quiz mode before starting.</p>
+      <div class="mode-cards">
+        <button class="mode-card" id="modeNormal">
+          <span class="mode-card__icon">📋</span>
+          <span class="mode-card__name">Knowledge Quiz</span>
+          <span class="mode-card__desc">Multiple choice questions on definitions, dates, organizations, and key concepts.</span>
+          <span class="mode-card__meta">65 Questions</span>
+        </button>
+        <button class="mode-card" id="modeClassify">
+          <span class="mode-card__icon">🔍</span>
+          <span class="mode-card__name">Identify the Integration</span>
+          <span class="mode-card__desc">Read a real-world scenario and classify it as the correct type of market integration.</span>
+          <span class="mode-card__meta">20 Questions &middot; Randomized</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- START SCREEN -->
-  <div id="screenStart" class="screen screen--active">
+  <div id="screenStart" class="screen">
     <div class="start-wrap">
       <p class="start-label">GNED07 &mdash; Lesson 3</p>
       <h1 class="start-title">Market Integration Quiz</h1>
@@ -465,6 +545,7 @@
       </div>
       <div class="results-actions">
         <button class="btn-secondary" id="retryBtn">↺ Retry</button>
+        <button class="btn-secondary" id="changeModeBtn">⇄ Change Mode</button>
         <a href="lesson.html" class="btn-secondary">📖 Review Lesson</a>
         <button class="btn-secondary" id="backBtn">← Back to Quiz List</button>
       </div>
@@ -472,6 +553,119 @@
   </div>
 
   <script>
+  var currentMode = 'normal';
+  var activeQuestions = [];
+
+  /* ── CLASSIFY QUESTIONS ──────────────────────────────────────────
+     Choices are always the same four, in this fixed order:
+       0 = Horizontal Integration
+       1 = Forward Vertical Integration
+       2 = Backward Vertical Integration
+       3 = Conglomerate Integration
+  ─────────────────────────────────────────────────────────────── */
+  var classifyChoices = [
+    'Horizontal Integration',
+    'Forward Vertical Integration',
+    'Backward Vertical Integration',
+    'Conglomerate Integration'
+  ];
+
+  var classifyQuestions = [
+    // --- HORIZONTAL INTEGRATION (answer: 0) ---
+    {
+      q: 'A pizza delivery chain buys out a competing pizza brand operating in the same cities in order to eliminate direct competition and increase its customer base.',
+      choices: classifyChoices, answer: 0
+    },
+    {
+      q: 'Two rival domestic airlines merge to form a single larger carrier, combining their flight routes, maintenance teams, and frequent flyer programs.',
+      choices: classifyChoices, answer: 0
+    },
+    {
+      q: 'A publishing house acquires a smaller competing publisher that specializes in the same genre of books to gain a larger share of that market.',
+      choices: classifyChoices, answer: 0
+    },
+    {
+      q: 'A video game studio purchases another game studio that develops the same type of games in order to expand its library and reduce market rivalry.',
+      choices: classifyChoices, answer: 0
+    },
+    {
+      q: 'A national supermarket chain acquires a smaller regional grocery brand to increase the total number of its store locations across the country.',
+      choices: classifyChoices, answer: 0
+    },
+    // --- FORWARD VERTICAL INTEGRATION (answer: 1) ---
+    {
+      q: 'A flour milling company opens its own chain of bakery shops to sell bread and pastries directly to end consumers instead of supplying through distributors.',
+      choices: classifyChoices, answer: 1
+    },
+    {
+      q: 'A wine vineyard establishes its own boutique stores in tourist districts rather than relying exclusively on liquor distributors to sell its bottles.',
+      choices: classifyChoices, answer: 1
+    },
+    {
+      q: 'A mobile phone manufacturer sets up its own branded repair and service centers to manage after-sales support instead of outsourcing it to third parties.',
+      choices: classifyChoices, answer: 1
+    },
+    {
+      q: 'An oil refinery company launches its own network of branded fuel stations to sell refined petroleum products directly to motorists.',
+      choices: classifyChoices, answer: 1
+    },
+    {
+      q: 'A cosmetics manufacturer opens its own beauty boutiques inside shopping malls rather than supplying its products through third-party department stores.',
+      choices: classifyChoices, answer: 1
+    },
+    // --- BACKWARD VERTICAL INTEGRATION (answer: 2) ---
+    {
+      q: 'A restaurant chain purchases a livestock farm to guarantee a fresh, uninterrupted supply of quality meat for all of its kitchen operations.',
+      choices: classifyChoices, answer: 2
+    },
+    {
+      q: 'A furniture company acquires a timber plantation to directly control the quality and availability of the wood used in manufacturing its products.',
+      choices: classifyChoices, answer: 2
+    },
+    {
+      q: 'A soft drink manufacturer buys a sugar refinery to reduce its reliance on external sugar suppliers and lower its ingredient costs.',
+      choices: classifyChoices, answer: 2
+    },
+    {
+      q: 'A bakery chain takes over a wheat milling operation to secure a reliable, cost-effective source of flour without depending on outside suppliers.',
+      choices: classifyChoices, answer: 2
+    },
+    {
+      q: 'A chocolate brand purchases a cocoa farm to manage the sourcing, supply, and quality of its most critical raw ingredient at the origin.',
+      choices: classifyChoices, answer: 2
+    },
+    // --- CONGLOMERATE INTEGRATION (answer: 3) ---
+    {
+      q: 'An energy corporation acquires a chain of fast food restaurants to diversify its revenue streams beyond the oil and gas sector.',
+      choices: classifyChoices, answer: 3
+    },
+    {
+      q: 'A national bank purchases a film production studio to invest in an industry that has no connection to its core financial services business.',
+      choices: classifyChoices, answer: 3
+    },
+    {
+      q: 'A mining firm buys a group of luxury beach resorts to enter the hospitality market and spread its overall business risk across industries.',
+      choices: classifyChoices, answer: 3
+    },
+    {
+      q: 'A textile manufacturer acquires a pharmaceutical company in order to gain a foothold in a completely different and unrelated industry.',
+      choices: classifyChoices, answer: 3
+    },
+    {
+      q: 'A real estate developer purchases a logistics company and a media broadcasting network to build a diverse portfolio of businesses across multiple industries.',
+      choices: classifyChoices, answer: 3
+    }
+  ];
+
+  function shuffleArray(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
   var questions = [
     // --- CORE DEFINITIONS ---
     {
@@ -978,11 +1172,8 @@
   var score = 0;
   var answered = false;
 
-  document.getElementById('totalCount').textContent = questions.length;
-  document.getElementById('totalCountR').textContent = questions.length;
-
   function showScreen(id) {
-    ['screenStart','screenQuiz','screenResults'].forEach(function(s) {
+    ['screenMode','screenStart','screenQuiz','screenResults'].forEach(function(s) {
       document.getElementById(s).classList.remove('screen--active');
     });
     document.getElementById(id).classList.add('screen--active');
@@ -990,8 +1181,8 @@
 
   function loadQuestion() {
     answered = false;
-    var q = questions[currentIndex];
-    var total = questions.length;
+    var q = activeQuestions[currentIndex];
+    var total = activeQuestions.length;
 
     document.getElementById('questionNum').textContent = 'Question ' + (currentIndex + 1);
     document.getElementById('questionText').textContent = q.q;
@@ -1029,7 +1220,7 @@
 
   function selectAnswer(idx) {
     answered = true;
-    var q = questions[currentIndex];
+    var q = activeQuestions[currentIndex];
     var correct = q.answer;
     var buttons = document.querySelectorAll('.option-btn');
 
@@ -1054,17 +1245,44 @@
 
     document.getElementById('scoreLabel').textContent = 'Score: ' + score;
     document.getElementById('nextBtn').style.display = 'inline-flex';
-    document.getElementById('nextBtn').textContent = (currentIndex === questions.length - 1) ? 'See Results' : 'Next →';
+    document.getElementById('nextBtn').textContent = (currentIndex === activeQuestions.length - 1) ? 'See Results' : 'Next →';
   }
 
+  // Mode select handlers
+  document.getElementById('modeNormal').addEventListener('click', function() {
+    currentMode = 'normal';
+    activeQuestions = questions;
+    document.getElementById('totalCount').textContent = questions.length;
+    document.getElementById('totalCountR').textContent = questions.length;
+    var s = document.querySelector('#screenStart .start-title');
+    s.textContent = 'Knowledge Quiz';
+    document.querySelector('#screenStart .start-desc').textContent = 'Test your knowledge on definitions, dates, organizations, and types of market integration.';
+    document.querySelector('#screenStart .start-stat:nth-child(3) .start-stat__val').textContent = 'MC';
+    showScreen('screenStart');
+  });
+
+  document.getElementById('modeClassify').addEventListener('click', function() {
+    currentMode = 'classify';
+    activeQuestions = shuffleArray(classifyQuestions);
+    document.getElementById('totalCount').textContent = activeQuestions.length;
+    document.getElementById('totalCountR').textContent = activeQuestions.length;
+    var s = document.querySelector('#screenStart .start-title');
+    s.textContent = 'Identify the Integration';
+    document.querySelector('#screenStart .start-desc').textContent = 'Read each scenario and classify it as the correct type of market integration.';
+    document.querySelector('#screenStart .start-stat:nth-child(3) .start-stat__val').textContent = '🔀';
+    showScreen('screenStart');
+  });
+
   document.getElementById('startBtn').addEventListener('click', function() {
+    currentIndex = 0;
+    score = 0;
     showScreen('screenQuiz');
     loadQuestion();
   });
 
   document.getElementById('nextBtn').addEventListener('click', function() {
     currentIndex++;
-    if (currentIndex < questions.length) {
+    if (currentIndex < activeQuestions.length) {
       loadQuestion();
     } else {
       showResults();
@@ -1073,7 +1291,7 @@
 
   function showResults() {
     showScreen('screenResults');
-    var total = questions.length;
+    var total = activeQuestions.length;
     var pct = Math.round(score / total * 100);
     document.getElementById('scorePct').textContent = pct + '%';
     document.getElementById('scoreRing').style.setProperty('--pct', pct + '%');
@@ -1087,10 +1305,17 @@
   }
 
   document.getElementById('retryBtn').addEventListener('click', function() {
+    if (currentMode === 'classify') {
+      activeQuestions = shuffleArray(classifyQuestions);
+    }
     currentIndex = 0;
     score = 0;
     showScreen('screenQuiz');
     loadQuestion();
+  });
+
+  document.getElementById('changeModeBtn').addEventListener('click', function() {
+    showScreen('screenMode');
   });
 
   document.getElementById('backBtn').addEventListener('click', function() {
