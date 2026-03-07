@@ -141,73 +141,73 @@ const artworks = [
 const mods = [
   {
     id: 1,
-    image: 'assets/images/mods/Bountiful Foraging.webp',
-    title: 'Bountiful Foraging',
-    overview: "Make forageables bountiful literally, like in the Beach alone you'll get 50 shells or something. Or on the way to the mountains you'll get 100 grapes on the way. But that depends on your multiplier. Let's say that this is a forage items amount multiplier.",
-    link: 'https://www.nexusmods.com/stardewvalley/mods/41289'
-  },
-  {
-    id: 2,
     image: 'assets/images/mods/Helpful Pets.webp',
     title: 'Helpful Pets',
     overview: "Useful pets. Helpful pets. Worker pets. Working pets\u2014call them whatever you want. Your pets can clear debris, chop trees, break boulders, forage, or follow you around. Open Pet Manager with V (configurable in GMCM), or use pet interaction directly on mobile. You can even rename your pets. Available in English and Japanese.",
     link: 'https://www.nexusmods.com/stardewvalley/mods/41161'
   },
   {
+    id: 2,
+    image: 'assets/images/mods/CK Better Cheats Menu.webp',
+    title: 'CK Better Cheats Menu',
+    overview: "An Ultimate Trainer with 91+ Cheats. Teleport everywhere. Till or water 11x11 soil. One hit trees with axe or boulders with pickaxe. Instantly grow crops and trees. Unlock all recipes for crafting and cooking. Craft without materials. Add gold without causing discrepancies. Instant Fish Bite? Skip Fishing Minigame? Health Regen? One Hit Kill? every cheat is here.",
+    link: 'https://www.nexusmods.com/stardewvalley/mods/42088'
+  },
+  {
     id: 3,
-    image: 'assets/images/mods/Fix Museum Inventory.webp',
-    title: 'Fix Museum Inventory',
-    overview: "Rewrote the vanilla museum inventory code to fix various issues like inventory UI covering the museum slots. Added a move button to move the inventory UI around and removed the inventory on the arrangement mode.",
-    link: 'https://www.nexusmods.com/stardewvalley/mods/41132'
-  },
-  {
-    id: 4,
-    image: 'assets/images/mods/Instant Fish Bite.webp',
-    title: 'Instant Fish Bite',
-    overview: "Fish instantly bites eliminating the waiting game.",
-    link: 'https://www.nexusmods.com/stardewvalley/mods/41102'
-  },
-  {
-    id: 5,
-    image: 'assets/images/mods/Max Quality Items.webp',
-    title: 'Max Quality Items',
-    overview: "Make all items iridium quality by pressing F9 while inventory / chest is opened. F9 key is replaceable in the Mod Options of GMCM.",
-    link: 'https://www.nexusmods.com/stardewvalley/mods/41507'
-  },
-  {
-    id: 6,
-    image: 'assets/images/mods/Bypass All Doors.webp',
-    title: 'Bypass All Doors',
-    overview: "Access every doors! Friendship locked? Schedule? Ignore all that!",
-    link: 'https://www.nexusmods.com/stardewvalley/mods/41105'
-  },
-  {
-    id: 7,
-    image: 'assets/images/mods/Infinite Stamina.webp',
-    title: 'Infinite Stamina',
-    overview: "Keeps the stamina at max value basically making it infinite.",
-    link: 'https://www.nexusmods.com/stardewvalley/mods/41065'
-  },
-  {
-    id: 8,
-    image: 'assets/images/mods/Buy Animals Fully Mature.webp',
-    title: 'Buy Animals Fully Mature',
-    overview: "Purchased barn/coop animals are instantly fully matured and ready to produce products.",
-    link: 'https://www.nexusmods.com/stardewvalley/mods/41509'
-  },
-  {
-    id: 9,
     image: 'assets/images/mods/Pet Adopter.webp',
     title: 'Pet Adopter',
     overview: "Instantly adopt any pet breed for free! Browse cats and dogs with a sleek UI, name them, and add them to your farm. Press LShift + V to open.",
     link: 'https://www.nexusmods.com/stardewvalley/mods/42945'
   },
   {
+    id: 4,
+    image: 'assets/images/mods/Fix Museum Inventory.webp',
+    title: 'Fix Museum Inventory',
+    overview: "Rewrote the vanilla museum inventory code to fix various issues like inventory UI covering the museum slots. Added a move button to move the inventory UI around and removed the inventory on the arrangement mode.",
+    link: 'https://www.nexusmods.com/stardewvalley/mods/41132'
+  },
+  {
+    id: 5,
+    image: 'assets/images/mods/Max Quality Items.webp',
+    title: 'Max Quality Items',
+    overview: "Turn all your items to iridium quality by pressing the hotkey (F9) or use the auto version to automatically turn your items to iridium.",
+    link: 'https://www.nexusmods.com/stardewvalley/mods/41507'
+  },
+  {
+    id: 6,
+    image: 'assets/images/mods/Bountiful Foraging.webp',
+    title: 'Bountiful Foraging',
+    overview: "Make forageables bountiful literally, like in the Beach alone you'll get 50 shells or something. Or on the way to the mountains you'll get 100 grapes on the way. But that depends on your multiplier. Let's say that this is a forage items amount multiplier.",
+    link: 'https://www.nexusmods.com/stardewvalley/mods/41289'
+  },
+  {
+    id: 7,
+    image: 'assets/images/mods/Instant Fish Bite.webp',
+    title: 'Instant Fish Bite',
+    overview: "Fish instantly bites eliminating the waiting game.",
+    link: 'https://www.nexusmods.com/stardewvalley/mods/41102'
+  },
+  {
+    id: 8,
+    image: 'assets/images/mods/Bypass All Doors.webp',
+    title: 'Bypass All Doors',
+    overview: "Access every doors! Friendship locked? Schedule? Ignore all that!",
+    link: 'https://www.nexusmods.com/stardewvalley/mods/41105'
+  },
+  {
+    id: 9,
+    image: 'assets/images/mods/Infinite Stamina.webp',
+    title: 'Infinite Stamina',
+    overview: "Keeps the stamina at max value basically making it infinite.",
+    link: 'https://www.nexusmods.com/stardewvalley/mods/41065'
+  },
+  {
     id: 10,
-    image: 'assets/images/mods/CK Better Cheats Menu.webp',
-    title: 'CK Better Cheats Menu',
-    overview: "An Ultimate Trainer with 91+ Cheats. Teleport everywhere. Till or water 11x11 soil. One hit trees with axe or boulders with pickaxe. Instantly grow crops and trees. Unlock all recipes for crafting and cooking. Craft without materials. Add gold without causing discrepancies. Instant Fish Bite? Skip Fishing Minigame? Health Regen? One Hit Kill? every cheat is here.",
-    link: 'https://www.nexusmods.com/stardewvalley/mods/42088'
+    image: 'assets/images/mods/Buy Animals Fully Mature.webp',
+    title: 'Buy Animals Fully Mature',
+    overview: "Purchased barn/coop animals are instantly fully matured and ready to produce products.",
+    link: 'https://www.nexusmods.com/stardewvalley/mods/41509'
   },
 ];
 
