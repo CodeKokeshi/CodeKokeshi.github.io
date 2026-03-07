@@ -222,23 +222,32 @@ const mods = [
   },
 ];
 
+const rpgMakerPlugins = [
+  // Plugins coming soon
+];
+
+var activeModsCat = 'stardew';
+
 const softwareProjects = [
   {
     id: 1,
     image: 'assets/images/software_web/Kokesprite Editor.png',
     title: 'Kokesprite Editor',
+    tags: ['Python', 'PyQt6'],
     overview: 'An attempt to fully recreate Aseprite on Python using PyQT6.',
   },
   {
     id: 2,
     image: 'assets/images/software_web/Water Meter Digit Extractor.jpg',
     title: 'Water Meter Digit Extractor',
+    tags: ['Python', 'PyQt6'],
     overview: 'Extract 5-digit water meter readings into MNIST-style 28\u00d728 digit images with a fast desktop tool. Load meter photos, mark 4 points, auto-warp and segment into 5 digits, then save labeled datasets ready for ML training.',
   },
   {
     id: 3,
     image: 'assets/images/software_web/Koke16-bit Studio.png',
     title: 'Koke16-Bit Studio',
+    tags: ['Python', 'PyQt6', 'Pygame'],
     overview: 'A lightweight DAW designed for composing 8-bit and 16-bit retro game music. Instead of using generative AI, it utilizes algorithmic, rule-based music theory to procedurally generate themes (towns, caves, dungeons) and automatically correct user compositions.',
   },
 ];
@@ -248,6 +257,8 @@ const toolColors = {
   'Unity': '#ffffff',
   'Godot': '#478cbf',
   'Python': '#fbbf24',
+  'PyQt6': '#38bdf8',
+  'Pygame': '#86efac',
 };
 
 // ============================================================================
@@ -551,12 +562,24 @@ function renderSoftware() {
   if (!grid) return;
 
   grid.innerHTML = softwareProjects.map(function(sw) {
+    var tagsHTML = '';
+    if (sw.tags && sw.tags.length) {
+      tagsHTML = '<div class="mod-card__tags">' +
+        sw.tags.map(function(tag) {
+          var color = toolColors[tag] || '#888';
+          return '<span class="card__tag" style="background-color:' + color + '22;color:' + color + ';border-color:' + color + '44">' +
+            escapeHtml(tag) +
+          '</span>';
+        }).join('') +
+      '</div>';
+    }
     return '<div class="mod-card">' +
       '<div class="mod-card__image">' +
         '<img src="' + encodeURI(sw.image) + '" alt="' + escapeHtml(sw.title) + '" loading="lazy" />' +
       '</div>' +
       '<div class="mod-card__content">' +
         '<h3 class="mod-card__title">' + escapeHtml(sw.title) + '</h3>' +
+        tagsHTML +
         '<p class="mod-card__overview">' + escapeHtml(sw.overview) + '</p>' +
       '</div>' +
     '</div>';
@@ -566,6 +589,11 @@ function renderSoftware() {
 function renderMods() {
   var grid = document.getElementById('modsGrid');
   if (!grid) return;
+
+  if (activeModsCat === 'rpgmaker') {
+    grid.innerHTML = '<div class="mods-placeholder"><p class="mods-placeholder__text">RPG Maker MZ Plugins &mdash; Coming Soon</p></div>';
+    return;
+  }
 
   grid.innerHTML = mods.map(function(mod) {
     return '<div class="mod-card">' +
@@ -578,6 +606,22 @@ function renderMods() {
       '</div>' +
     '</div>';
   }).join('');
+}
+
+function setupModsCategory() {
+  var modsPanel = document.getElementById('section-mods');
+  if (!modsPanel) return;
+  modsPanel.addEventListener('click', function(e) {
+    var btn = e.target.closest('.mods-cat-btn');
+    if (!btn) return;
+    var cat = btn.getAttribute('data-cat');
+    if (cat === activeModsCat) return;
+    activeModsCat = cat;
+    modsPanel.querySelectorAll('.mods-cat-btn').forEach(function(b) {
+      b.classList.toggle('mods-cat-btn--active', b === btn);
+    });
+    renderMods();
+  });
 }
 
 // ============================================================================
@@ -676,6 +720,7 @@ document.addEventListener('DOMContentLoaded', function() {
   setupDesktopVideoObserver();
   setupCarousel();
   setupQuizModal();
+  setupModsCategory();
 
   // Determine initial section from URL path
   var rawPath = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');

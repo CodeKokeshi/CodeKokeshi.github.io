@@ -895,6 +895,37 @@ video::-ms-media-controls {
    MODS SECTION - Masonry Grid
    ============================================================================ */
 
+.mods-cat-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 0 4px;
+}
+
+.mods-cat-btn {
+  padding: 8px 20px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  font-family: inherit;
+}
+
+.mods-cat-btn:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.mods-cat-btn--active {
+  background: rgba(167, 139, 250, 0.15);
+  border-color: #a78bfa;
+  color: #a78bfa;
+}
+
 .mods-masonry {
   display: grid;
   grid-template-columns: 1fr;
@@ -956,6 +987,28 @@ video::-ms-media-controls {
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
+}
+
+.mod-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 10px;
+}
+
+.mods-placeholder {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.mods-placeholder__text {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 15px;
+  font-style: italic;
 }
 
 .mod-card__title-link {
