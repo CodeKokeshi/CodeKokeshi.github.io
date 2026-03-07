@@ -390,9 +390,9 @@
 
   <!-- HEADER -->
   <header class="quiz-header">
-    <a href="lesson.html" class="quiz-header__back">
+    <a href="../../../" class="quiz-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Lesson
+      Quizzes
     </a>
     <span class="quiz-header__title">Market Integration Quiz</span>
     <span class="quiz-header__tag">GNED07 · L3</span>
@@ -1094,11 +1094,8 @@
   });
 
   document.getElementById('backBtn').addEventListener('click', function() {
-    // Navigate back to quiz section
-    window.location.href = '../../../index.html';
-    setTimeout(function() {
-      if (window.switchSection) switchSection('quiz');
-    }, 500);
+    sessionStorage.setItem('spa-redirect', 'quiz');
+    window.location.href = '../../../';
   });
   </script>
 </body>
