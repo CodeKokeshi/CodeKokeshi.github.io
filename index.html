@@ -224,16 +224,8 @@
         <!-- QUIZ SECTION                                                 -->
         <!-- ============================================================ -->
         <div class="section-panel" id="section-quiz" style="display:none;">
-          <div class="placeholder-section">
-            <div class="placeholder-section__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
-                <rect x="9" y="3" width="6" height="4" rx="1" />
-                <path d="M9 12h6M9 16h4" />
-              </svg>
-            </div>
-            <h3 class="placeholder-section__title">Quiz &amp; Reviewers</h3>
-            <p class="placeholder-section__description">Coming soon &mdash; interactive quizzes and exam reviewers will be here.</p>
+          <div class="mods-masonry" id="quizGrid">
+            <!-- Filled by JS -->
           </div>
         </div>
 
@@ -322,6 +314,26 @@
       <p>&copy; <span id="year"></span> CodeKokeshi</p>
     </footer>
 
+  </div>
+
+  <!-- Quiz Modal -->
+  <div id="quizModal" class="quiz-modal" aria-modal="true" role="dialog" style="display:none;">
+    <div class="quiz-modal__backdrop" id="quizModalBackdrop"></div>
+    <div class="quiz-modal__box">
+      <button class="quiz-modal__close" id="quizModalClose" aria-label="Close">&times;</button>
+      <h2 class="quiz-modal__title" id="quizModalTitle"></h2>
+      <p class="quiz-modal__subtitle" id="quizModalSubtitle"></p>
+      <div class="quiz-modal__actions">
+        <a class="quiz-modal__btn quiz-modal__btn--lesson" id="quizModalLesson" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Take Lesson
+        </a>
+        <a class="quiz-modal__btn quiz-modal__btn--quiz" id="quizModalQuiz" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+          Take Quiz
+        </a>
+      </div>
+    </div>
   </div>
 
   <script src="assets/js/site.js"></script>

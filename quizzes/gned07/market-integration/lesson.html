@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Integration — Lesson | CodeKokeshi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #e5e5e5;
+      line-height: 1.75;
+      font-size: 15px;
+    }
+    ::selection { background: rgba(139,92,246,0.4); color: #fff; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+    /* ---- HEADER ---- */
+    .lesson-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .lesson-header__back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .lesson-header__back:hover { color: #a78bfa; }
+    .lesson-header__back svg { width:16px; height:16px; }
+    .lesson-header__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+    .lesson-header__tag {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      color: #a78bfa;
+      white-space: nowrap;
+    }
+
+    /* ---- LAYOUT ---- */
+    .lesson-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ---- HERO ---- */
+    .lesson-hero {
+      margin-bottom: 48px;
+    }
+    .lesson-hero__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 10px;
+    }
+    .lesson-hero__title {
+      font-size: clamp(26px, 5vw, 36px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .lesson-hero__desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ---- SECTION HEADING ---- */
+    .lesson-section {
+      margin-bottom: 40px;
+    }
+    .lesson-section__heading {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(139,92,246,0.2);
+    }
+
+    /* ---- DEFINITION ENTRY ---- */
+    .def {
+      margin-bottom: 16px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid rgba(139,92,246,0.5);
+      border-radius: 0 8px 8px 0;
+    }
+    .def__term {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .def__body {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ---- EXPLORER TABLE ---- */
+    .explorer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .explorer-item {
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .explorer-item__name {
+      font-weight: 700;
+      color: #c4b5fd;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .explorer-item__desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ---- QUOTE ---- */
+    .lesson-quote {
+      margin: 20px 0;
+      padding: 18px 22px;
+      border-left: 4px solid #ec4899;
+      background: rgba(236,72,153,0.07);
+      border-radius: 0 10px 10px 0;
+    }
+    .lesson-quote p {
+      font-size: 15px;
+      font-style: italic;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ---- STAT CHIPS ---- */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .stat-chip {
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(139,92,246,0.1);
+      border: 1px solid rgba(139,92,246,0.25);
+      font-size: 13px;
+      color: #c4b5fd;
+      font-weight: 500;
+    }
+
+    /* ---- INSTITUTIONS TABLE ---- */
+    .inst-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 540px) {
+      .inst-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .inst-card {
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+    }
+    .inst-card__abbr {
+      font-size: 13px;
+      font-weight: 700;
+      color: #a78bfa;
+      margin-bottom: 4px;
+    }
+    .inst-card__full {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 4px;
+    }
+    .inst-card__desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ---- ORGS TABLE ---- */
+    .org-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .org-table th {
+      text-align: left;
+      padding: 8px 12px;
+      background: rgba(139,92,246,0.12);
+      color: #a78bfa;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .org-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.75);
+      vertical-align: top;
+    }
+    .org-table tr:last-child td { border-bottom: none; }
+    .org-table td:first-child { font-weight: 700; color: #c4b5fd; white-space: nowrap; }
+
+    /* ---- INTEGRATION TYPES ---- */
+    .type-card {
+      margin-bottom: 20px;
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .type-card__heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .type-card__body {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 10px;
+    }
+    .type-card__sub {
+      margin-top: 10px;
+      padding-left: 14px;
+      border-left: 2px solid rgba(139,92,246,0.3);
+    }
+    .type-card__sub p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 6px;
+    }
+    .type-card__sub strong { color: rgba(255,255,255,0.8); }
+
+    /* ---- IMPORTANCE LIST ---- */
+    .importance-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .importance-list li {
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.06);
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .importance-list li::before {
+      content: counter(item);
+      counter-increment: item;
+      min-width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .importance-list { counter-reset: item; }
+
+    /* ---- TAKE QUIZ CTA ---- */
+    .lesson-cta {
+      margin-top: 56px;
+      padding: 28px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(236,72,153,0.08));
+      border: 1px solid rgba(139,92,246,0.25);
+      border-radius: 16px;
+      text-align: center;
+    }
+    .lesson-cta h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .lesson-cta p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .lesson-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .lesson-cta__btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139,92,246,0.4);
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="lesson-header">
+    <a href="../../../index.html#quiz" class="lesson-header__back" onclick="history.back(); return false;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </a>
+    <span class="lesson-header__title">Market Integration</span>
+    <span class="lesson-header__tag">GNED07 · Lesson 3</span>
+  </header>
+
+  <main class="lesson-wrap">
+
+    <!-- HERO -->
+    <div class="lesson-hero">
+      <p class="lesson-hero__label">GNED07 &mdash; Lesson 3</p>
+      <h1 class="lesson-hero__title">Market Integration</h1>
+      <p class="lesson-hero__desc">Core definitions and key concepts. Read through before taking the quiz.</p>
+    </div>
+
+    <!-- CORE DEFINITIONS -->
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Core Definitions</h2>
+      <div class="def">
+        <p class="def__term">Market</p>
+        <p class="def__body">Derived from the word <em>"mercatus"</em> which means <strong>trading or place of transactions</strong>.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Integration</p>
+        <p class="def__body">Is a state of affairs involving attempts to combine separate national economies into larger economic regions.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Market Integration</p>
+        <p class="def__body">Refers to the process of creating a unified marketplace where goods, services, and capital can flow freely between countries and regions.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Trade Routes</p>
+        <p class="def__body">Are established pathways, overland or maritime, connecting producers and consumers for commercial cargo transport, facilitating the exchange of goods, ideas, and cultures.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Monopoly</p>
+        <p class="def__body">Is a market structure where one seller is the sole supplier of a good or service in the market.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">The Great Depression</p>
+        <p class="def__body">Is the greatest and longest economic recession in modern world history that ran between <strong>1929 to 1941</strong>.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Tariff</p>
+        <p class="def__body">Is a tax imposed by one country on the goods and services imported from another country to influence it, raise revenues, or protect competitive advantages.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Subsidiary</p>
+        <p class="def__body">A company that is fully or partially owned and controlled by another company, known as the parent or holding company, operating as a separate legal entity.</p>
+      </div>
+    </section>
+
+    <!-- ROMAN PERIOD -->
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Roman Period &amp; Early Voyages</h2>
+      <p style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:16px;">
+        During the Roman Empire, the <strong>Silk Road</strong> allowed goods—especially silk, ideas, and culture—to travel between Europe and Asia. In the 15th century, explorers made intercontinental trade possible. Controlling powers: <strong>Spain, Portugal, Britain, and Italy</strong>.
+      </p>
+      <div class="explorer-list">
+        <div class="explorer-item">
+          <p class="explorer-item__name">Vasco da Gama</p>
+          <p class="explorer-item__desc">Discovered the first direct maritime trade route from Europe to India by sailing around Africa's Cape of Good Hope.</p>
+        </div>
+        <div class="explorer-item">
+          <p class="explorer-item__name">Christopher Columbus</p>
+          <p class="explorer-item__desc">Explored the Caribbean islands like Cuba, Hispaniola, and parts of Central and South America.</p>
+        </div>
+        <div class="explorer-item">
+          <p class="explorer-item__name">Ferdinand Magellan</p>
+          <p class="explorer-item__desc">His fleet became the first European expedition to cross the Pacific Ocean.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAPOLEONIC WARS -->
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Napoleonic Wars &amp; Beginning of WWI</h2>
+      <div class="def">
+        <p class="def__term">Suez Canal</p>
+        <p class="def__body">Built on <strong>November 17, 1869</strong> by French diplomat <strong>Ferdinand de Lesseps</strong>. Shortened travel time between Europe and Asia.</p>
+      </div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.6);margin-top:14px;">
+        <strong>Steam engines</strong> replaced sails and railroads, making transportation faster. Goods traded: <strong>spices, wheat, cotton, iron, and jute</strong>.<br/><br/>
+        Economic structure followed the <strong>core-periphery pattern</strong>: core countries were the center of trading; periphery countries with abundant natural resources provided the raw materials and labor.
+      </p>
+    </section>
+
+    <!-- GREAT DEPRESSION -->
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Two World Wars &amp; The Great Depression</h2>
+      <div class="lesson-quote">
+        <p>"When the American economy sneezes, the rest of the world catches a cold."</p>
+      </div>
+      <div class="stat-row">
+        <span class="stat-chip">Stock market crash: October 1929</span>
+        <span class="stat-chip">U.S. unemployment: 25%</span>
+        <span class="stat-chip">1 in 4 people had no job</span>
+        <span class="stat-chip">Duration: 1929–1941</span>
+      </div>
+    </section>
+
+    <!-- BRETTON WOODS -->
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Bretton Woods System</h2>
+      <div class="stat-row" style="margin-bottom:16px;">
+        <span class="stat-chip">Negotiated: July 1–22, 1944</span>
+        <span class="stat-chip">44 countries</span>
+        <span class="stat-chip">Bretton Woods, New Hampshire</span>
+        <span class="stat-chip">Gold: $35/ounce</span>
+        <span class="stat-chip">Operational: 1958</span>
+        <span class="stat-chip">Ended: August 15, 1971</span>
+      </div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:14px;">
+        On <strong>August 15, 1971</strong>, President <strong>Richard M. Nixon</strong> announced the U.S. would stop the system. It created two major institutions: <strong>International Monetary Fund (IMF)</strong> and the <strong>World Bank</strong>.
+      </p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:8px;font-weight:600;">Philippine Delegation Chairman:</p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.6);">Colonel Andres Soriano, Secretary of Finance of the Philippine Commonwealth</p>
+    </section>
+
+    <!-- FINANCIAL INSTITUTIONS -->
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">International Financial Institutions</h2>
+      <div class="inst-grid">
+        <div class="inst-card">
+          <p class="inst-card__abbr">IMF</p>
+          <p class="inst-card__full">International Monetary Fund</p>
+          <p class="inst-card__desc">Organization of <strong>189 countries</strong>. Ensures stability of the international monetary system.</p>
+        </div>
+        <div class="inst-card">
+          <p class="inst-card__abbr">World Bank</p>
+          <p class="inst-card__full">International Financial Institution</p>
+          <p class="inst-card__desc">Provides loans and grants to governments of poorer countries. Comprises <strong>IBRD</strong> and <strong>IDA</strong>.</p>
+        </div>
+        <div class="inst-card">
+          <p class="inst-card__abbr">IBRD</p>
+          <p class="inst-card__full">International Bank for Reconstruction and Development</p>
+          <p class="inst-card__desc">Lends to governments of middle-income and creditworthy low-income countries.</p>
+        </div>
+        <div class="inst-card">
+          <p class="inst-card__abbr">IDA</p>
+          <p class="inst-card__full">International Development Association</p>
+          <p class="inst-card__desc">Provides interest-free loans—called credits—and grants to governments of the poorest countries.</p>
+        </div>
+        <div class="inst-card">
+          <p class="inst-card__abbr">IFC</p>
+          <p class="inst-card__full">International Finance Corporation</p>
+          <p class="inst-card__desc">Largest global development institution focused exclusively on the <strong>private sector</strong>.</p>
+        </div>
+        <div class="inst-card">
+          <p class="inst-card__abbr">MIGA</p>
+          <p class="inst-card__full">Multilateral Investment Guarantee Agency</p>
+          <p class="inst-card__desc">Created in <strong>1988</strong>. Offers political risk insurance (guarantees) to investors and lenders.</p>
+        </div>
+        <div class="inst-card">
+          <p class="inst-card__abbr">ICSID</p>
+          <p class="inst-card__full">International Centre for Settlement of Investment Disputes</p>
+          <p class="inst-card__desc">Provides international facilities for conciliation and arbitration of investment disputes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRADE ORGANIZATIONS -->
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Trade &amp; Economic Organizations</h2>
+      <table class="org-table">
+        <thead>
+          <tr>
+            <th>Org</th>
+            <th>Key Facts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NAFTA</td>
+            <td>Went into effect <strong>Jan. 1, 1994</strong>. Eliminated most tariffs among Mexico, Canada, and the U.S. Replaced by <strong>USMCA</strong> (signed Nov. 30, 2018; full force July 1, 2020).</td>
+          </tr>
+          <tr>
+            <td>APEC</td>
+            <td>Asia-Pacific Economic Cooperation. <strong>21 members</strong>. Formed <strong>November 1989</strong>.</td>
+          </tr>
+          <tr>
+            <td>EU</td>
+            <td>European Union. <strong>28 countries</strong>. Established <strong>November 1, 1993</strong>. <strong>19</strong> countries use the euro.</td>
+          </tr>
+          <tr>
+            <td>OECD</td>
+            <td>Organization Economic Co-operation and Development. <strong>34 member countries</strong>. Established <strong>September 30, 1961</strong>.</td>
+          </tr>
+          <tr>
+            <td>OPEC</td>
+            <td>Organization of the Petroleum Exporting Countries. Coordinates and unifies petroleum policies of member countries.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- TYPES OF INTEGRATION -->
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Types of Market Integration</h2>
+
+      <div class="type-card">
+        <p class="type-card__heading">#1 Horizontal Integration</p>
+        <p class="type-card__body">When a business combines forces with another company that offers <strong>similar products or services</strong>.</p>
+        <div class="type-card__sub">
+          <p><strong>Merge</strong> — involves the combining force of two or more companies to form a new entity.</p>
+          <p><strong>Acquisition</strong> — refers to one company purchasing another company, often with the goal of gaining control and reducing their competition.</p>
+        </div>
+      </div>
+
+      <div class="type-card">
+        <p class="type-card__heading">#2 Vertical Integration</p>
+        <p class="type-card__body">When the company expands either forward or backward by acquiring or merging with firms in an earlier or later phase of the value chain.</p>
+        <div class="type-card__sub">
+          <p><strong>Backward Vertical Integration</strong> — ownership control of the products to a point <em>earlier</em> in the supply chain or the production process.</p>
+          <p><strong>Forward Vertical Integration</strong> — ownership control of the products to a point <em>later</em> in the supply chain or the production process.</p>
+        </div>
+      </div>
+
+      <div class="type-card">
+        <p class="type-card__heading">#3 Conglomerate Integration</p>
+        <p class="type-card__body">Refers to the process or strategy of bringing different and unrelated businesses together under one management or corporate control. A <strong>conglomerate</strong> is a large corporation formed by several distinct, often unrelated, businesses operating in different industries, all under one parent company (holding company).</p>
+      </div>
+    </section>
+
+    <!-- IMPORTANCE -->
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Importance of Market Integration</h2>
+      <ul class="importance-list">
+        <li>It is one of the ways to ascertain the extent of competitiveness in market.</li>
+        <li>It helps in the development of a single economic market at national level.</li>
+        <li>It provides better signals for optimal generation and consumption decisions.</li>
+      </ul>
+    </section>
+
+    <!-- CTA -->
+    <div class="lesson-cta">
+      <h3>Ready to test yourself?</h3>
+      <p>You've reviewed the lesson. Time to take the quiz.</p>
+      <a href="quiz.html" class="lesson-cta__btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+        Take Quiz
+      </a>
+    </div>
+
+  </main>
+</body>
+</html>

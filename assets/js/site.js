@@ -138,6 +138,17 @@ const artworks = [
   { id: 10, src: 'assets/images/artworks/takahama_reiko_fully_colorized_by_codekokeshi_dk10lby-pre.jpg', isGif: false },
 ];
 
+const quizzes = [
+  {
+    id: 1,
+    image: 'assets/images/quizzes/gned07_01.webp',
+    title: 'Market Integration Quiz',
+    description: 'Lesson 3 of GNED07 discussing about Market Integration.',
+    lessonUrl: 'quizzes/gned07/market-integration/lesson.html',
+    quizUrl: 'quizzes/gned07/market-integration/quiz.html',
+  },
+];
+
 const mods = [
   {
     id: 1,
@@ -463,6 +474,62 @@ function setupCarousel() {
 // ARTWORKS GRID
 // ============================================================================
 
+// ============================================================================
+// QUIZ GRID & MODAL
+// ============================================================================
+
+function renderQuizzes() {
+  var grid = document.getElementById('quizGrid');
+  if (!grid) return;
+
+  grid.innerHTML = quizzes.map(function(q) {
+    return '<div class="mod-card">' +
+      '<div class="mod-card__image">' +
+        '<img src="' + encodeURI(q.image) + '" alt="' + escapeHtml(q.title) + '" loading="lazy" />' +
+      '</div>' +
+      '<div class="mod-card__content">' +
+        '<h3 class="quiz-card__title" data-quiz-id="' + q.id + '">' + escapeHtml(q.title) + '</h3>' +
+        '<p class="mod-card__overview">' + escapeHtml(q.description) + '</p>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function openQuizModal(quizId) {
+  var q = quizzes.find(function(x) { return x.id === quizId; });
+  if (!q) return;
+  document.getElementById('quizModalTitle').textContent = q.title;
+  document.getElementById('quizModalSubtitle').textContent = q.description;
+  document.getElementById('quizModalLesson').href = q.lessonUrl;
+  document.getElementById('quizModalQuiz').href = q.quizUrl;
+  var modal = document.getElementById('quizModal');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQuizModal() {
+  document.getElementById('quizModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function setupQuizModal() {
+  // Open on title click (delegated)
+  document.getElementById('quizGrid').addEventListener('click', function(e) {
+    var title = e.target.closest('.quiz-card__title');
+    if (!title) return;
+    openQuizModal(parseInt(title.getAttribute('data-quiz-id'), 10));
+  });
+
+  // Close on X or backdrop
+  document.getElementById('quizModalClose').addEventListener('click', closeQuizModal);
+  document.getElementById('quizModalBackdrop').addEventListener('click', closeQuizModal);
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeQuizModal();
+  });
+}
+
 function renderArtworks() {
   var grid = document.getElementById('artworkGrid');
   if (!grid) return;
@@ -600,6 +667,7 @@ document.addEventListener('DOMContentLoaded', function() {
   renderArtworks();
   renderSoftware();
   renderMods();
+  renderQuizzes();
 
   // Setup interactions
   setupNavigation();
@@ -607,6 +675,7 @@ document.addEventListener('DOMContentLoaded', function() {
   setupDesktopClick();
   setupDesktopVideoObserver();
   setupCarousel();
+  setupQuizModal();
 
   // Determine initial section from URL path
   var rawPath = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');

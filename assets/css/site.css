@@ -967,3 +967,143 @@ video::-ms-media-controls {
 .mod-card__title-link:hover {
   color: #a78bfa;
 }
+
+/* ============================================================================
+   QUIZ CARD
+   ============================================================================ */
+
+.quiz-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  user-select: none;
+}
+
+.quiz-card__title:hover {
+  color: #a78bfa;
+}
+
+/* ============================================================================
+   QUIZ MODAL
+   ============================================================================ */
+
+.quiz-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.quiz-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+}
+
+.quiz-modal__box {
+  position: relative;
+  background: #111;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 16px;
+  padding: 36px 32px 32px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+.quiz-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.quiz-modal__close:hover {
+  color: #fff;
+}
+
+.quiz-modal__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 6px 0;
+  padding-right: 24px;
+}
+
+.quiz-modal__subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  margin: 0 0 28px 0;
+}
+
+.quiz-modal__actions {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+@media (min-width: 480px) {
+  .quiz-modal__actions {
+    flex-direction: row;
+  }
+}
+
+.quiz-modal__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.quiz-modal__btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.quiz-modal__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.quiz-modal__btn--lesson {
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  color: #a78bfa;
+}
+
+.quiz-modal__btn--lesson:hover {
+  background: rgba(139, 92, 246, 0.25);
+}
+
+.quiz-modal__btn--quiz {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  border: 1px solid transparent;
+  color: #fff;
+}
+
+.quiz-modal__btn--quiz:hover {
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+}
