@@ -17,6 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Press+Start+2P&family=Orbitron:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/site.css" data-cache-bust="true" />
   </head>
   <body>
@@ -24,12 +25,26 @@
     <div class="page-shell">
       <header class="top-bar">
         <a class="brand" href="../index.html">Code Kokeshi</a>
+        <nav class="nav-links" aria-label="Pages">
+          <a class="nav-link" href="../gamedev.html">Game Dev</a>
+          <a class="nav-link" href="../art.html">Art</a>
+          <a class="nav-link" href="../projects.html">Projects</a>
+          <a class="nav-link" href="../reviewers.html">Reviewers</a>
+          <a class="nav-link" href="../thesis_section/index.html">Thesis</a>
+        </nav>
+        <div class="theme-switcher" role="group" aria-label="Theme selector">
+          <span class="theme-label">Theme</span>
+          <button type="button" class="theme-button" data-theme-option="dark" aria-pressed="false">Dark</button>
+          <button type="button" class="theme-button" data-theme-option="light" aria-pressed="false">Light</button>
+          <button type="button" class="theme-button" data-theme-option="wood" aria-pressed="false">Retro</button>
+          <button type="button" class="theme-button" data-theme-option="cyberpunk" aria-pressed="false">Cyberpunk</button>
+        </div>
       </header>
 
       <main>
         <section class="page-section hero-simple">
-          <h1 class="section-title">Hidden Delivery</h1>
-          <p class="lead">Dragon's Heart project files for client review.</p>
+          <h1 class="section-title">Hidden Project Delivery</h1>
+          <p class="lead">Direct access page for client file download.</p>
         </section>
 
         <section class="page-section">
@@ -56,6 +71,7 @@
       <footer class="site-footer">© <span id="year"></span> CodeKokeshi.</footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script defer src="../assets/js/animations.js"></script>
     <script defer src="../assets/js/site.js"></script>
