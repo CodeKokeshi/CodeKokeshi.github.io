@@ -163,6 +163,14 @@ const quizzes = [
     lessonUrl: 'quizzes/gned07/global-governance/lesson.html',
     quizUrl: 'quizzes/gned07/global-governance/quiz.html',
   },
+  {
+    id: 4,
+    image: 'assets/images/quizzes/lesson_5-global-divde.webp',
+    title: 'Global Divide Quiz',
+    description: 'Lesson 5 of GNED07 about the Global North and Global South divide.',
+    lessonUrl: 'quizzes/gned07/global-divide/lesson.html',
+    quizUrl: 'quizzes/gned07/global-divide/quiz.html',
+  },
 ];
 
 const mods = [

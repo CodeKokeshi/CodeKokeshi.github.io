@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="84641eae-f0c5-468b-8b48-f9226d664d2f"></script>
+  <title>Global Divide Quiz | CodeKokeshi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #e5e5e5;
+      line-height: 1.6;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+    ::selection { background: rgba(139,92,246,0.4); color: #fff; }
+
+    .quiz-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .quiz-header__back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .quiz-header__back:hover { color: #a78bfa; }
+    .quiz-header__back svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .quiz-header__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      flex: 1;
+      text-align: center;
+    }
+    .quiz-header__tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      color: #a78bfa;
+      white-space: nowrap;
+    }
+
+    .screen { display: none; }
+    .screen--active { display: block; }
+
+    .mode-wrap,
+    .start-wrap,
+    .results-wrap {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .start-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 12px;
+    }
+    .start-title {
+      font-size: clamp(24px, 5vw, 34px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .start-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 30px;
+    }
+
+    .mode-cards {
+      display: flex;
+      gap: 16px;
+      margin-top: 26px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .mode-card {
+      flex: 1;
+      min-width: 230px;
+      max-width: 290px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 26px 20px;
+      cursor: pointer;
+      text-align: center;
+      font-family: inherit;
+      color: inherit;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    .mode-card:hover {
+      border-color: rgba(139,92,246,0.5);
+      background: rgba(139,92,246,0.07);
+      transform: translateY(-3px);
+    }
+    .mode-card__icon { font-size: 30px; line-height: 1; }
+    .mode-card__name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .mode-card__desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+    }
+    .mode-card__meta {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-top: 4px;
+    }
+
+    .start-stats {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .start-stat { text-align: center; }
+    .start-stat__val {
+      font-size: 28px;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+    .start-stat__lbl {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 36px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139,92,246,0.4);
+    }
+
+    .quiz-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 28px 20px 80px;
+    }
+
+    .progress-bar-wrap { margin-bottom: 28px; }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-bar__fill {
+      height: 100%;
+      background: linear-gradient(90deg, #8b5cf6, #ec4899);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .question-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin-bottom: 20px;
+    }
+    .question-card__num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 12px;
+    }
+    .question-card__text {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.5;
+    }
+
+    .options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .option-btn:hover:not(:disabled) {
+      background: rgba(139,92,246,0.1);
+      border-color: rgba(139,92,246,0.3);
+      color: #fff;
+    }
+    .option-btn__letter {
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .fill-wrap {
+      margin-bottom: 22px;
+      display: none;
+    }
+    .fill-sentence {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.87);
+      margin-bottom: 14px;
+    }
+    .fill-blank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 100px;
+      padding: 2px 10px;
+      margin: 0 4px;
+      border-radius: 8px;
+      border: 1px dashed rgba(139,92,246,0.5);
+      background: rgba(139,92,246,0.1);
+      color: #a78bfa;
+      font-weight: 700;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    .fill-blank--filled {
+      border-style: solid;
+      color: #fff;
+      background: rgba(236,72,153,0.18);
+      border-color: rgba(236,72,153,0.55);
+    }
+
+    .fill-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .fill-chip {
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.85);
+      border-radius: 999px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .fill-chip:hover:not(:disabled) {
+      border-color: rgba(139,92,246,0.45);
+      background: rgba(139,92,246,0.12);
+      color: #fff;
+    }
+    .fill-chip--used {
+      border-color: rgba(236,72,153,0.5);
+      background: rgba(236,72,153,0.18);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      padding: 10px 18px;
+      background: rgba(139,92,246,0.12);
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 10px;
+      color: #a78bfa;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-secondary:hover:not(:disabled) { background: rgba(139,92,246,0.2); }
+    .btn-secondary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .option-btn--correct {
+      background: rgba(34,197,94,0.12) !important;
+      border-color: rgba(34,197,94,0.5) !important;
+      color: #86efac !important;
+    }
+    .option-btn--correct .option-btn__letter {
+      background: rgba(34,197,94,0.25);
+      border-color: rgba(34,197,94,0.5);
+      color: #86efac;
+    }
+    .option-btn--wrong {
+      background: rgba(239,68,68,0.1) !important;
+      border-color: rgba(239,68,68,0.4) !important;
+      color: #fca5a5 !important;
+    }
+    .option-btn--wrong .option-btn__letter {
+      background: rgba(239,68,68,0.2);
+      border-color: rgba(239,68,68,0.4);
+      color: #fca5a5;
+    }
+    .option-btn:disabled { cursor: default; }
+
+    .feedback {
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .feedback--correct {
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #86efac;
+    }
+    .feedback--wrong {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.25);
+      color: #fca5a5;
+    }
+    .feedback__label {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-next {
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-next:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139,92,246,0.4);
+    }
+
+    .results-score-ring {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: conic-gradient(#8b5cf6 var(--pct), rgba(255,255,255,0.06) 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+    .results-score-ring::before {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: #111;
+      border-radius: 50%;
+    }
+    .results-score-val {
+      position: relative;
+      z-index: 1;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .results-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .results-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 32px;
+    }
+    .results-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .results-stat { text-align: center; }
+    .results-stat__val { font-size: 26px; font-weight: 700; }
+    .results-stat__val--correct { color: #86efac; }
+    .results-stat__val--wrong { color: #fca5a5; }
+    .results-stat__lbl {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .results-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <header class="quiz-header">
+    <a href="../../../" class="quiz-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Quizzes
+    </a>
+    <span class="quiz-header__title">Global Divide Quiz</span>
+    <span class="quiz-header__tag">GNED07 - L5</span>
+  </header>
+
+  <div id="screenMode" class="screen screen--active">
+    <div class="mode-wrap">
+      <p class="start-label">GNED07 - Lesson 5</p>
+      <h1 class="start-title">Global Divide Quiz</h1>
+      <p class="start-desc">Choose your mode. Both are based on Lesson 5 content, with focus on highlighted terms.</p>
+      <div class="mode-cards">
+        <button class="mode-card" id="modeMc">
+          <span class="mode-card__icon">MC</span>
+          <span class="mode-card__name">Multiple Choice</span>
+          <span class="mode-card__desc">Global North and South, history, socio-economic differences, and globalization impacts.</span>
+          <span class="mode-card__meta" id="modeMcCount">0 Questions</span>
+        </button>
+        <button class="mode-card" id="modeFill">
+          <span class="mode-card__icon">FIB</span>
+          <span class="mode-card__name">Fill in the Blanks</span>
+          <span class="mode-card__desc">Click options to fill blanks in order. Click a placed option again to return it to the box.</span>
+          <span class="mode-card__meta" id="modeFillCount">0 Questions</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="screenStart" class="screen">
+    <div class="start-wrap">
+      <p class="start-label">GNED07 - Lesson 5</p>
+      <h1 class="start-title" id="startTitle">Global Divide Quiz</h1>
+      <p class="start-desc" id="startDesc">Review then start.</p>
+      <div class="start-stats">
+        <div class="start-stat"><div class="start-stat__val" id="totalCount">0</div><div class="start-stat__lbl">Questions</div></div>
+        <div class="start-stat"><div class="start-stat__val">4</div><div class="start-stat__lbl">Choices / Options</div></div>
+        <div class="start-stat"><div class="start-stat__val" id="modeCode">MC</div><div class="start-stat__lbl">Mode</div></div>
+      </div>
+      <button class="btn-primary" id="startBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Start Quiz
+      </button>
+    </div>
+  </div>
+
+  <div id="screenQuiz" class="screen">
+    <div class="quiz-wrap">
+      <div class="progress-bar-wrap">
+        <div class="progress-meta">
+          <span id="progressLabel">Question 1 of 1</span>
+          <span id="scoreLabel">Score: 0</span>
+        </div>
+        <div class="progress-bar"><div class="progress-bar__fill" id="progressFill" style="width:0%"></div></div>
+      </div>
+
+      <div class="question-card">
+        <p class="question-card__num" id="questionNum">Question 1</p>
+        <p class="question-card__text" id="questionText"></p>
+      </div>
+
+      <ul class="options-list" id="optionsList"></ul>
+
+      <div class="fill-wrap" id="fillWrap">
+        <div class="fill-sentence" id="fillSentence"></div>
+        <div class="fill-bank" id="fillBank"></div>
+        <button class="btn-secondary" id="fillCheckBtn" disabled>Check Answer</button>
+      </div>
+
+      <div class="feedback" id="feedback">
+        <p class="feedback__label" id="feedbackLabel"></p>
+        <p id="feedbackText"></p>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn-next" id="nextBtn" style="display:none;">Next -&gt;</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="screenResults" class="screen">
+    <div class="results-wrap">
+      <div class="results-score-ring" id="scoreRing">
+        <span class="results-score-val" id="scorePct">0%</span>
+      </div>
+      <h2 class="results-title" id="resultsTitle">Quiz Complete!</h2>
+      <p class="results-sub" id="resultsSub"></p>
+      <div class="results-breakdown">
+        <div class="results-stat">
+          <div class="results-stat__val results-stat__val--correct" id="correctCount">0</div>
+          <div class="results-stat__lbl">Correct</div>
+        </div>
+        <div class="results-stat">
+          <div class="results-stat__val results-stat__val--wrong" id="wrongCount">0</div>
+          <div class="results-stat__lbl">Wrong</div>
+        </div>
+        <div class="results-stat">
+          <div class="results-stat__val" style="color:#a78bfa;" id="totalCountR">0</div>
+          <div class="results-stat__lbl">Total</div>
+        </div>
+      </div>
+      <div class="results-actions">
+        <button class="btn-secondary" id="retryBtn">Retry</button>
+        <button class="btn-secondary" id="changeModeBtn">Change Mode</button>
+        <a href="lesson.html" class="btn-secondary">Review Lesson</a>
+        <button class="btn-secondary" id="backBtn">Back to Quiz List</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  var sourceMcQuestions = [];
+
+  var sourceFillQuestions = [];
+
+  sourceMcQuestions = [
+    {
+      q: 'The global divide between the North and the South is ______.',
+      choices: [
+        'a concept used to describe the differences in economic, social, and political development between countries.',
+        'a substantial emigration and migration of individuals.',
+        'the movement of people or animals from one place to another, involving a change in the place of residence, either across international borders (external) or within a country (internal).',
+        'the practice of one country exercising political, economic, and social control over another territory and its inhabitants, often involving settler occupation to exploit resources, labor, and markets.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'The Global North refers to ______.',
+      choices: [
+        'wealthy, industrialized, and mostly democratic countries that have advanced economies, strong infrastructures, and high standards of living.',
+        'developing or less developed countries that face challenges such as poverty, limited industrialization, weaker infrastructure, and political instability.',
+        'higher GDP per capita and higher income levels, meaning people earn more on average.',
+        'trade barriers, unfair terms, and limited influence in global markets.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'The Global South consists of ______.',
+      choices: [
+        'developing or less developed countries that face challenges such as poverty, limited industrialization, weaker infrastructure, and political instability.',
+        'wealthy, industrialized, and mostly democratic countries that have advanced economies, strong infrastructures, and high standards of living.',
+        'the United States, Canada, Western European nations, Australia, New Zealand, and the more developed parts of Asia.',
+        'more stable governments, strong institutions, and systems of law that are widely respected.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'The term "Global South" emerged as a more neutral alternative to the term ______.',
+      choices: ['"Third World,"', 'Global North', 'Global South', 'the North and the South'],
+      answer: 0
+    },
+    {
+      q: 'It is important to note that ______.',
+      choices: [
+        'this divide is not strictly geographical',
+        'Migration is another outcome of globalization.',
+        'the technological gap between the North and South.',
+        'A substantial emigration and migration of individuals.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'From the 16th to the 20th centuries, European countries like Britain, Spain, Portugal, and France ______.',
+      choices: [
+        'colonized large parts of Africa, Asia, and the Americas.',
+        'finally gained independence from European powers.',
+        'help manage international finance and development.',
+        'reduce corruption, encourage democratic practices, and protect human rights.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'Starting in the late 18th century, the Industrial Revolution ______.',
+      choices: [
+        'marked a period when Europe and North America experienced rapid industrial growth and technological advances.',
+        'was a more neutral alternative to the term "Third World,"',
+        'is another outcome of globalization.',
+        'occurs as talented professionals leave, slowing national development.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'New inventions, machines, factories, and methods of production allowed these countries to ______.',
+      choices: [
+        'produce goods faster and cheaper, leading to massive economic growth.',
+        'depend heavily on agriculture, mining, or exporting raw materials, which generate less wealth and create fewer opportunities for economic growth.',
+        'face political instability, weaker institutions, and higher levels of corruption, which can make it harder for these countries to manage resources, provide public services, or achieve economic growth.',
+        'move to the Global North in search of better economic opportunities, education, or safety from political instability and conflicts.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'Countries in the Global North generally have ______.',
+      choices: [
+        'higher GDP per capita and higher income levels, meaning people earn more on average.',
+        'agriculture, mining, or exporting raw materials, which generate less wealth and create fewer opportunities for economic growth.',
+        'trade barriers, unfair terms, and limited influence in global markets.',
+        'political instability, weaker institutions, and higher levels of corruption, which can make it harder for these countries to manage resources, provide public services, or achieve economic growth.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'In the Global North, people usually have ______.',
+      choices: [
+        'better access to healthcare, higher life expectancy, and lower rates of disease.',
+        'lower life expectancy, higher disease rates, and lower literacy rates.',
+        'political instability, weaker institutions, and higher levels of corruption, which can make it harder for these countries to manage resources, provide public services, or achieve economic growth.',
+        'trade barriers, unfair terms, and limited influence in global markets.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'Countries in the Global North tend to have ______.',
+      choices: [
+        'more stable governments, strong institutions, and systems of law that are widely respected.',
+        'political instability, weaker institutions, and higher levels of corruption, which can make it harder for these countries to manage resources, provide public services, or achieve economic growth.',
+        'trade barriers, unfair terms, and limited influence in global markets.',
+        'agriculture, mining, or exporting raw materials, which generate less wealth and create fewer opportunities for economic growth.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'Trade agreements and global economic policies often favor ______.',
+      choices: [
+        'developed countries in the Global North,',
+        'developing countries in the Global South,',
+        'regions of Asia, Africa, the Middle East, and Latin America.',
+        'the United States, Canada, Western European nations, Australia, New Zealand, and the more developed parts of Asia.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'Another effect of globalization is the ______.',
+      choices: [
+        'technological gap between the North and South.',
+        'A substantial emigration and migration of individuals.',
+        'produce goods faster and cheaper, leading to massive economic growth.',
+        'higher GDP per capita and higher income levels, meaning people earn more on average.'
+      ],
+      answer: 0
+    },
+    {
+      q: '______ is another outcome of globalization.',
+      choices: ['Migration', 'Industrial Revolution', 'Colonialism', 'Brain drain'],
+      answer: 0
+    },
+    {
+      q: 'For the South, ______ occurs as talented professionals leave, slowing national development.',
+      choices: ['brain drain', 'Migration', 'Global South', 'Global North'],
+      answer: 0
+    },
+    {
+      q: 'One important step is to implement fair trade practices and ______.',
+      choices: [
+        'reduce trade barriers that put developing countries at a disadvantage.',
+        'help manage international finance and development.',
+        'produce goods faster and cheaper, leading to massive economic growth.',
+        'carry negative connotations of poverty and backwardness.'
+      ],
+      answer: 0
+    },
+    {
+      q: 'Supporting good governance and the establishment of strong institutions in the Global South can ______.',
+      choices: [
+        'reduce corruption, encourage democratic practices, and protect human rights.',
+        'exploit resources, labor, and markets.',
+        'mark a period when Europe and North America experienced rapid industrial growth and technological advances.',
+        'carry negative connotations of poverty and backwardness.'
+      ],
+      answer: 0
+    }
+  ];
+
+  sourceFillQuestions = [
+    {
+      sentence: 'The global divide between the North and the South is __BLANK__.',
+      answers: ['a concept used to describe the differences in economic, social, and political development between countries.'],
+      options: [
+        'a concept used to describe the differences in economic, social, and political development between countries.',
+        'a substantial emigration and migration of individuals.',
+        'the technological gap between the North and South.',
+        'help manage international finance and development.'
+      ]
+    },
+    {
+      sentence: 'The Global North refers to __BLANK__.',
+      answers: ['wealthy, industrialized, and mostly democratic countries that have advanced economies, strong infrastructures, and high standards of living.'],
+      options: [
+        'wealthy, industrialized, and mostly democratic countries that have advanced economies, strong infrastructures, and high standards of living.',
+        'developing or less developed countries that face challenges such as poverty, limited industrialization, weaker infrastructure, and political instability.',
+        'higher GDP per capita and higher income levels, meaning people earn more on average.',
+        'trade barriers, unfair terms, and limited influence in global markets.'
+      ]
+    },
+    {
+      sentence: 'In contrast, the Global South consists of __BLANK__.',
+      answers: ['developing or less developed countries that face challenges such as poverty, limited industrialization, weaker infrastructure, and political instability.'],
+      options: [
+        'developing or less developed countries that face challenges such as poverty, limited industrialization, weaker infrastructure, and political instability.',
+        'wealthy, industrialized, and mostly democratic countries that have advanced economies, strong infrastructures, and high standards of living.',
+        'the United States, Canada, Western European nations, Australia, New Zealand, and the more developed parts of Asia.',
+        'more stable governments, strong institutions, and systems of law that are widely respected.'
+      ]
+    },
+    {
+      sentence: 'The term "Global South" emerged as a more neutral alternative to the term __BLANK__.',
+      answers: ['"Third World,"'],
+      options: ['"Third World,"', 'Global North', 'Global South', 'the North and the South']
+    },
+    {
+      sentence: 'It is important to note that __BLANK__.',
+      answers: ['this divide is not strictly geographical'],
+      options: [
+        'this divide is not strictly geographical',
+        'Migration is another outcome of globalization.',
+        'the technological gap between the North and South.',
+        'A substantial emigration and migration of individuals.'
+      ]
+    },
+    {
+      sentence: 'Starting in the late 18th century, the Industrial Revolution marked a period when __BLANK__.',
+      answers: ['Europe and North America experienced rapid industrial growth and technological advances.'],
+      options: [
+        'Europe and North America experienced rapid industrial growth and technological advances.',
+        'many former colonies finally gained independence from European powers.',
+        'countries in the Global South must invest in education and healthcare systems, improving literacy, health outcomes, and the overall quality of life for their citizens.',
+        'countries in the Global North generally have higher GDP per capita and higher income levels, meaning people earn more on average.'
+      ]
+    },
+    {
+      sentence: 'New inventions, machines, factories, and methods of production allowed these countries to __BLANK__.',
+      answers: ['produce goods faster and cheaper, leading to massive economic growth.'],
+      options: [
+        'produce goods faster and cheaper, leading to massive economic growth.',
+        'depend heavily on agriculture, mining, or exporting raw materials, which generate less wealth and create fewer opportunities for economic growth.',
+        'face political instability, weaker institutions, and higher levels of corruption, which can make it harder for these countries to manage resources, provide public services, or achieve economic growth.',
+        'move to the Global North in search of better economic opportunities, education, or safety from political instability and conflicts.'
+      ]
+    },
+    {
+      sentence: 'Countries in the Global North generally have __BLANK__.',
+      answers: ['higher GDP per capita and higher income levels, meaning people earn more on average.'],
+      options: [
+        'higher GDP per capita and higher income levels, meaning people earn more on average.',
+        'agriculture, mining, or exporting raw materials, which generate less wealth and create fewer opportunities for economic growth.',
+        'better access to healthcare, higher life expectancy, and lower rates of disease.',
+        'lower life expectancy, higher disease rates, and lower literacy rates.'
+      ]
+    },
+    {
+      sentence: 'In the Global North, people usually have __BLANK__.',
+      answers: ['better access to healthcare, higher life expectancy, and lower rates of disease.'],
+      options: [
+        'better access to healthcare, higher life expectancy, and lower rates of disease.',
+        'lower life expectancy, higher disease rates, and lower literacy rates.',
+        'political instability, weaker institutions, and higher levels of corruption, which can make it harder for these countries to manage resources, provide public services, or achieve economic growth.',
+        'trade barriers, unfair terms, and limited influence in global markets.'
+      ]
+    },
+    {
+      sentence: 'Countries in the Global North tend to have __BLANK__.',
+      answers: ['more stable governments, strong institutions, and systems of law that are widely respected.'],
+      options: [
+        'more stable governments, strong institutions, and systems of law that are widely respected.',
+        'political instability, weaker institutions, and higher levels of corruption, which can make it harder for these countries to manage resources, provide public services, or achieve economic growth.',
+        'trade barriers, unfair terms, and limited influence in global markets.',
+        'agriculture, mining, or exporting raw materials, which generate less wealth and create fewer opportunities for economic growth.'
+      ]
+    },
+    {
+      sentence: 'Trade agreements and global economic policies often favor __BLANK__.',
+      answers: ['developed countries in the Global North,'],
+      options: [
+        'developed countries in the Global North,',
+        'developing countries in the Global South,',
+        'the United States, Canada, Western European nations, Australia, New Zealand, and the more developed parts of Asia.',
+        'regions of Asia, Africa, the Middle East, and Latin America.'
+      ]
+    },
+    {
+      sentence: 'Another effect of globalization is the __BLANK__.',
+      answers: ['technological gap between the North and South.'],
+      options: [
+        'technological gap between the North and South.',
+        'A substantial emigration and migration of individuals.',
+        'produce goods faster and cheaper, leading to massive economic growth.',
+        'higher GDP per capita and higher income levels, meaning people earn more on average.'
+      ]
+    },
+    {
+      sentence: '__BLANK__ is another outcome of globalization.',
+      answers: ['Migration'],
+      options: ['Migration', 'Industrial Revolution', 'Colonialism', 'Brain drain']
+    },
+    {
+      sentence: 'For the South, __BLANK__ occurs as talented professionals leave, slowing national development.',
+      answers: ['brain drain'],
+      options: ['brain drain', 'Migration', 'Global South', 'Global North']
+    },
+    {
+      sentence: 'Migration is the movement of people or animals from one place to another, involving __BLANK__.',
+      answers: ['a change in the place of residence, either across international borders (external) or within a country (internal).'],
+      options: [
+        'a change in the place of residence, either across international borders (external) or within a country (internal).',
+        'a substantial emigration and migration of individuals.',
+        'rapid industrial growth and technological advances.',
+        'higher GDP per capita and higher income levels, meaning people earn more on average.'
+      ]
+    },
+    {
+      sentence: 'Brain drain means __BLANK__.',
+      answers: ['A substantial emigration and migration of individuals.'],
+      options: [
+        'A substantial emigration and migration of individuals.',
+        'the movement of people or animals from one place to another, involving a change in the place of residence, either across international borders (external) or within a country (internal).',
+        'the technological gap between the North and South.',
+        'a concept used to describe the differences in economic, social, and political development between countries.'
+      ]
+    },
+    {
+      sentence: 'One important step is to implement fair trade practices and __BLANK__.',
+      answers: ['reduce trade barriers that put developing countries at a disadvantage.'],
+      options: [
+        'reduce trade barriers that put developing countries at a disadvantage.',
+        'help manage international finance and development.',
+        'produce goods faster and cheaper, leading to massive economic growth.',
+        'carry negative connotations of poverty and backwardness.'
+      ]
+    },
+    {
+      sentence: 'At the same time, countries in the Global South must invest in __BLANK__.',
+      answers: ['education and healthcare systems, improving literacy, health outcomes, and the overall quality of life for their citizens.'],
+      options: [
+        'education and healthcare systems, improving literacy, health outcomes, and the overall quality of life for their citizens.',
+        'trade barriers, unfair terms, and limited influence in global markets.',
+        'gold, cotton, spices, and other raw materials.',
+        'markets, subsidies, and resources.'
+      ]
+    },
+    {
+      sentence: 'Supporting good governance and the establishment of strong institutions in the Global South can __BLANK__.',
+      answers: ['reduce corruption, encourage democratic practices, and protect human rights.'],
+      options: [
+        'reduce corruption, encourage democratic practices, and protect human rights.',
+        'exploit resources, labor, and markets.',
+        'mark a period when Europe and North America experienced rapid industrial growth and technological advances.',
+        'carry negative connotations of poverty and backwardness.'
+      ]
+    }
+  ];
+
+  var currentMode = 'mc';
+  var activeQuestions = [];
+  var currentIndex = 0;
+  var score = 0;
+  var answered = false;
+
+  var fillPlaced = [];
+  var fillUsedOptionToBlank = [];
+
+  function shuffleArray(arr) {
+    var out = arr.slice();
+    for (var i = out.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = out[i];
+      out[i] = out[j];
+      out[j] = tmp;
+    }
+    return out;
+  }
+
+  function buildMcQuestions() {
+    return sourceMcQuestions.map(function(sourceQuestion) {
+      var choiceItems = sourceQuestion.choices.map(function(choiceText, choiceIndex) {
+        return {
+          text: choiceText,
+          isCorrect: choiceIndex === sourceQuestion.answer
+        };
+      });
+
+      choiceItems = shuffleArray(choiceItems);
+
+      var correctIndex = 0;
+      for (var i = 0; i < choiceItems.length; i++) {
+        if (choiceItems[i].isCorrect) {
+          correctIndex = i;
+          break;
+        }
+      }
+
+      return {
+        type: 'mc',
+        q: sourceQuestion.q,
+        choices: choiceItems.map(function(item) { return item.text; }),
+        answer: correctIndex
+      };
+    });
+  }
+
+  function buildFillQuestions() {
+    return sourceFillQuestions.map(function(sourceQuestion) {
+      return {
+        type: 'fill',
+        q: 'Fill in the blank(s) using the option box.',
+        sentence: sourceQuestion.sentence,
+        answers: sourceQuestion.answers.slice(),
+        options: shuffleArray(sourceQuestion.options)
+      };
+    });
+  }
+
+  function showScreen(id) {
+    ['screenMode', 'screenStart', 'screenQuiz', 'screenResults'].forEach(function(screenId) {
+      document.getElementById(screenId).classList.remove('screen--active');
+    });
+    document.getElementById(id).classList.add('screen--active');
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function configureStartScreen() {
+    var isMc = currentMode === 'mc';
+    var total = isMc ? sourceMcQuestions.length : sourceFillQuestions.length;
+
+    document.getElementById('totalCount').textContent = total;
+    document.getElementById('totalCountR').textContent = total;
+
+    document.getElementById('startTitle').textContent = isMc ? 'Knowledge Quiz' : 'Fill in the Blanks';
+    document.getElementById('startDesc').textContent = isMc
+      ? 'Multiple choice quiz focused on highlighted terms and key statements from Lesson 5.'
+      : 'Click options in order to fill blanks. Click a placed option again to return it to the option box.';
+    document.getElementById('modeCode').textContent = isMc ? 'MC' : 'FIB';
+  }
+
+  function initFillState(question) {
+    fillPlaced = [];
+    for (var i = 0; i < question.answers.length; i++) fillPlaced.push('');
+    fillUsedOptionToBlank = [];
+    for (var j = 0; j < question.options.length; j++) fillUsedOptionToBlank.push(-1);
+  }
+
+  function renderFillQuestion(question) {
+    var sentenceParts = question.sentence.split('__BLANK__');
+    var sentenceHtml = '';
+
+    for (var i = 0; i < sentenceParts.length; i++) {
+      sentenceHtml += escapeHtml(sentenceParts[i]);
+      if (i < question.answers.length) {
+        var value = fillPlaced[i];
+        sentenceHtml += '<span class="fill-blank' + (value ? ' fill-blank--filled' : '') + '">' +
+          escapeHtml(value || '______') +
+          '</span>';
+      }
+    }
+
+    document.getElementById('fillSentence').innerHTML = sentenceHtml;
+
+    var bank = document.getElementById('fillBank');
+    bank.innerHTML = question.options.map(function(optionText, optionIndex) {
+      var used = fillUsedOptionToBlank[optionIndex] !== -1;
+      return '<button class="fill-chip' + (used ? ' fill-chip--used' : '') + '" data-option-idx="' + optionIndex + '">' +
+        escapeHtml(optionText) +
+        '</button>';
+    }).join('');
+
+    bank.querySelectorAll('.fill-chip').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        var optionIndex = parseInt(this.getAttribute('data-option-idx'), 10);
+        toggleFillOption(optionIndex);
+      });
+    });
+
+    var hasEmpty = fillPlaced.indexOf('') !== -1;
+    document.getElementById('fillCheckBtn').disabled = hasEmpty || answered;
+  }
+
+  function toggleFillOption(optionIndex) {
+    var question = activeQuestions[currentIndex];
+    var assignedBlank = fillUsedOptionToBlank[optionIndex];
+
+    if (assignedBlank !== -1) {
+      fillPlaced[assignedBlank] = '';
+      fillUsedOptionToBlank[optionIndex] = -1;
+    } else {
+      var firstEmpty = fillPlaced.indexOf('');
+      if (firstEmpty === -1) return;
+      fillPlaced[firstEmpty] = question.options[optionIndex];
+      fillUsedOptionToBlank[optionIndex] = firstEmpty;
+    }
+
+    renderFillQuestion(question);
+  }
+
+  function loadQuestion() {
+    answered = false;
+    var question = activeQuestions[currentIndex];
+    var total = activeQuestions.length;
+
+    document.getElementById('questionNum').textContent = 'Question ' + (currentIndex + 1);
+    document.getElementById('questionText').textContent = question.q;
+    document.getElementById('progressLabel').textContent = 'Question ' + (currentIndex + 1) + ' of ' + total;
+    document.getElementById('scoreLabel').textContent = 'Score: ' + score;
+    document.getElementById('progressFill').style.width = (currentIndex / total * 100) + '%';
+
+    var feedback = document.getElementById('feedback');
+    feedback.style.display = 'none';
+    feedback.className = 'feedback';
+    document.getElementById('nextBtn').style.display = 'none';
+
+    var optionsList = document.getElementById('optionsList');
+    var fillWrap = document.getElementById('fillWrap');
+
+    if (question.type === 'mc') {
+      optionsList.style.display = 'flex';
+      fillWrap.style.display = 'none';
+
+      var letters = ['A', 'B', 'C', 'D'];
+      optionsList.innerHTML = question.choices.map(function(choiceText, i) {
+        return '<li><button class="option-btn" data-idx="' + i + '">' +
+          '<span class="option-btn__letter">' + letters[i] + '</span>' +
+          '<span>' + escapeHtml(choiceText) + '</span>' +
+          '</button></li>';
+      }).join('');
+
+      optionsList.querySelectorAll('.option-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (answered) return;
+          selectMcAnswer(parseInt(this.getAttribute('data-idx'), 10));
+        });
+      });
+    } else {
+      optionsList.style.display = 'none';
+      fillWrap.style.display = 'block';
+      initFillState(question);
+      renderFillQuestion(question);
+    }
+  }
+
+  function selectMcAnswer(idx) {
+    answered = true;
+    var question = activeQuestions[currentIndex];
+    var correctIndex = question.answer;
+    var buttons = document.querySelectorAll('.option-btn');
+
+    buttons.forEach(function(btn) { btn.disabled = true; });
+
+    var feedback = document.getElementById('feedback');
+    if (idx === correctIndex) {
+      score++;
+      buttons[idx].classList.add('option-btn--correct');
+      feedback.className = 'feedback feedback--correct';
+      feedback.style.display = 'block';
+      document.getElementById('feedbackLabel').textContent = 'Correct!';
+      document.getElementById('feedbackText').textContent = '';
+    } else {
+      buttons[idx].classList.add('option-btn--wrong');
+      buttons[correctIndex].classList.add('option-btn--correct');
+      feedback.className = 'feedback feedback--wrong';
+      feedback.style.display = 'block';
+      document.getElementById('feedbackLabel').textContent = 'Incorrect';
+      document.getElementById('feedbackText').textContent = 'Correct answer: ' + question.choices[correctIndex];
+    }
+
+    document.getElementById('scoreLabel').textContent = 'Score: ' + score;
+    document.getElementById('nextBtn').style.display = 'inline-flex';
+    document.getElementById('nextBtn').textContent = (currentIndex === activeQuestions.length - 1) ? 'See Results' : 'Next ->';
+  }
+
+  function checkFillAnswer() {
+    if (answered) return;
+
+    var question = activeQuestions[currentIndex];
+    var isCorrect = true;
+
+    for (var i = 0; i < question.answers.length; i++) {
+      if (fillPlaced[i] !== question.answers[i]) {
+        isCorrect = false;
+        break;
+      }
+    }
+
+    answered = true;
+
+    document.querySelectorAll('.fill-chip').forEach(function(btn) { btn.disabled = true; });
+    document.getElementById('fillCheckBtn').disabled = true;
+
+    var feedback = document.getElementById('feedback');
+    if (isCorrect) {
+      score++;
+      feedback.className = 'feedback feedback--correct';
+      feedback.style.display = 'block';
+      document.getElementById('feedbackLabel').textContent = 'Correct!';
+      document.getElementById('feedbackText').textContent = '';
+    } else {
+      feedback.className = 'feedback feedback--wrong';
+      feedback.style.display = 'block';
+      document.getElementById('feedbackLabel').textContent = 'Incorrect';
+      document.getElementById('feedbackText').textContent = 'Correct answer: ' + question.answers.join(' | ');
+    }
+
+    document.getElementById('scoreLabel').textContent = 'Score: ' + score;
+    document.getElementById('nextBtn').style.display = 'inline-flex';
+    document.getElementById('nextBtn').textContent = (currentIndex === activeQuestions.length - 1) ? 'See Results' : 'Next ->';
+  }
+
+  function showResults() {
+    showScreen('screenResults');
+    var total = activeQuestions.length;
+    var pct = Math.round(score / total * 100);
+
+    document.getElementById('scorePct').textContent = pct + '%';
+    document.getElementById('scoreRing').style.setProperty('--pct', pct + '%');
+    document.getElementById('correctCount').textContent = score;
+    document.getElementById('wrongCount').textContent = total - score;
+    document.getElementById('totalCountR').textContent = total;
+
+    var title = pct >= 90 ? 'Outstanding!' : pct >= 75 ? 'Great Job!' : pct >= 60 ? 'Good Effort!' : 'Keep Studying!';
+    document.getElementById('resultsTitle').textContent = title;
+    document.getElementById('resultsSub').textContent = 'You scored ' + score + ' out of ' + total + ' (' + pct + '%)';
+  }
+
+  document.getElementById('modeMc').addEventListener('click', function() {
+    currentMode = 'mc';
+    configureStartScreen();
+    showScreen('screenStart');
+  });
+
+  document.getElementById('modeFill').addEventListener('click', function() {
+    currentMode = 'fill';
+    configureStartScreen();
+    showScreen('screenStart');
+  });
+
+  document.getElementById('startBtn').addEventListener('click', function() {
+    activeQuestions = currentMode === 'mc' ? buildMcQuestions() : buildFillQuestions();
+    currentIndex = 0;
+    score = 0;
+    showScreen('screenQuiz');
+    loadQuestion();
+  });
+
+  document.getElementById('fillCheckBtn').addEventListener('click', function() {
+    checkFillAnswer();
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', function() {
+    currentIndex++;
+    if (currentIndex < activeQuestions.length) {
+      loadQuestion();
+    } else {
+      showResults();
+    }
+  });
+
+  document.getElementById('retryBtn').addEventListener('click', function() {
+    activeQuestions = currentMode === 'mc' ? buildMcQuestions() : buildFillQuestions();
+    currentIndex = 0;
+    score = 0;
+    showScreen('screenQuiz');
+    loadQuestion();
+  });
+
+  document.getElementById('changeModeBtn').addEventListener('click', function() {
+    showScreen('screenMode');
+  });
+
+  document.getElementById('backBtn').addEventListener('click', function() {
+    sessionStorage.setItem('spa-redirect', 'quiz');
+    window.location.href = '../../../';
+  });
+
+  document.getElementById('modeMcCount').textContent = sourceMcQuestions.length + ' Questions';
+  document.getElementById('modeFillCount').textContent = sourceFillQuestions.length + ' Questions';
+  </script>
+</body>
+</html>
