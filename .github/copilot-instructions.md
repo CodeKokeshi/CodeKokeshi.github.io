@@ -1,0 +1,2 @@
+1. When making a quiz, much like the market integration. Ensure that the made quiz is literally, not changed. Word for word, sentence for sentence, do not change it. It is how the professors are making quiz, by easily recalled. Meaning, from the source itself, the sentences as the question just has some words that was replaced as blanks. Or the answers/choices are word for word the same as the source.
+2. 
