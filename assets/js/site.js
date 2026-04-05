@@ -141,11 +141,19 @@ const artworks = [
 const quizzes = [
   {
     id: 1,
-    image: 'assets/images/quizzes/gned07_01.webp',
+    image: 'assets/images/quizzes/lesson_3-market-integration.webp',
     title: 'Market Integration Quiz',
     description: 'Lesson 3 of GNED07 discussing about Market Integration.',
     lessonUrl: 'quizzes/gned07/market-integration/lesson.html',
     quizUrl: 'quizzes/gned07/market-integration/quiz.html',
+  },
+  {
+    id: 2,
+    image: 'assets/images/quizzes/lesson_1-globalization.png',
+    title: 'Globalization Quiz',
+    description: 'Lesson 1 of GNED07 introducing the study of Globalization.',
+    lessonUrl: 'quizzes/gned07/globalization/lesson.html',
+    quizUrl: 'quizzes/gned07/globalization/quiz.html',
   },
 ];
 
