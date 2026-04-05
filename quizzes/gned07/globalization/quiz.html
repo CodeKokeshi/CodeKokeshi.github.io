@@ -460,7 +460,7 @@
   </div>
 
   <script>
-  var questions = [
+  var sourceQuestions = [
     {
       q: 'One of the most widely accepted explanations of globalization was given by ______: "the expansion and intensification of social relations and consciousness across world-time and across world-space."',
       choices: ['Manfred Steger', 'Immanuel Wallerstein', 'Tony Blair and Bill Clinton', 'powerful groups'],
@@ -663,6 +663,40 @@
     }
   ];
 
+  function buildQuestions() {
+    return sourceQuestions.map(function(sourceQuestion) {
+      var choiceItems = sourceQuestion.choices.map(function(choiceText, choiceIndex) {
+        return {
+          text: choiceText,
+          isCorrect: choiceIndex === sourceQuestion.answer
+        };
+      });
+
+      for (var i = choiceItems.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = choiceItems[i];
+        choiceItems[i] = choiceItems[j];
+        choiceItems[j] = temp;
+      }
+
+      var correctIndex = 0;
+      for (var k = 0; k < choiceItems.length; k++) {
+        if (choiceItems[k].isCorrect) {
+          correctIndex = k;
+          break;
+        }
+      }
+
+      return {
+        q: sourceQuestion.q,
+        choices: choiceItems.map(function(item) { return item.text; }),
+        answer: correctIndex
+      };
+    });
+  }
+
+  var questions = buildQuestions();
+
   var currentIndex = 0;
   var score = 0;
   var answered = false;
@@ -760,6 +794,7 @@
   }
 
   document.getElementById('startBtn').addEventListener('click', function() {
+    questions = buildQuestions();
     currentIndex = 0;
     score = 0;
     showScreen('screenQuiz');
@@ -776,6 +811,7 @@
   });
 
   document.getElementById('retryBtn').addEventListener('click', function() {
+    questions = buildQuestions();
     currentIndex = 0;
     score = 0;
     showScreen('screenQuiz');
