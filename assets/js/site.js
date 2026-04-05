@@ -155,6 +155,14 @@ const quizzes = [
     lessonUrl: 'quizzes/gned07/globalization/lesson.html',
     quizUrl: 'quizzes/gned07/globalization/quiz.html',
   },
+  {
+    id: 3,
+    image: 'assets/images/quizzes/lesson_4-global-governance.png',
+    title: 'Global Governance Quiz',
+    description: 'Lesson 4 of GNED07 about the contemporary global governance.',
+    lessonUrl: 'quizzes/gned07/global-governance/lesson.html',
+    quizUrl: 'quizzes/gned07/global-governance/quiz.html',
+  },
 ];
 
 const mods = [

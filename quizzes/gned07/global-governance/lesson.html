@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="84641eae-f0c5-468b-8b48-f9226d664d2f"></script>
+  <title>Global Governance - Lesson | CodeKokeshi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #e5e5e5;
+      line-height: 1.75;
+      font-size: 15px;
+    }
+    ::selection { background: rgba(139,92,246,0.4); color: #fff; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+    .lesson-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .lesson-header__back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .lesson-header__back:hover { color: #a78bfa; }
+    .lesson-header__back svg { width: 16px; height: 16px; }
+    .lesson-header__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+    .lesson-header__tag {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      color: #a78bfa;
+      white-space: nowrap;
+    }
+
+    .lesson-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .lesson-hero { margin-bottom: 48px; }
+    .lesson-hero__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 10px;
+    }
+    .lesson-hero__title {
+      font-size: clamp(26px, 5vw, 36px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .lesson-hero__desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      max-width: 740px;
+    }
+
+    .lesson-section { margin-bottom: 40px; }
+    .lesson-section__heading {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(139,92,246,0.2);
+    }
+
+    .def {
+      margin-bottom: 14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid rgba(139,92,246,0.5);
+      border-radius: 0 8px 8px 0;
+    }
+    .def__term {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .def__body {
+      font-size: 14px;
+      color: rgba(255,255,255,0.73);
+    }
+
+    .numbered {
+      list-style: none;
+      counter-reset: item;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .numbered li {
+      counter-increment: item;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.06);
+      font-size: 14px;
+      color: rgba(255,255,255,0.72);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .numbered li::before {
+      content: counter(item);
+      min-width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card {
+      margin-bottom: 14px;
+      padding: 16px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+    }
+    .card__title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .card__text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.68);
+    }
+
+    .lesson-cta {
+      margin-top: 56px;
+      padding: 28px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(236,72,153,0.08));
+      border: 1px solid rgba(139,92,246,0.25);
+      border-radius: 16px;
+      text-align: center;
+    }
+    .lesson-cta h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .lesson-cta p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .lesson-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .lesson-cta__btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139,92,246,0.4);
+    }
+  </style>
+</head>
+<body>
+  <header class="lesson-header">
+    <a href="../../../" class="lesson-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Quizzes
+    </a>
+    <span class="lesson-header__title">Global Governance</span>
+    <span class="lesson-header__tag">GNED07 - Lesson 4</span>
+  </header>
+
+  <main class="lesson-wrap">
+    <div class="lesson-hero">
+      <p class="lesson-hero__label">GNED07 - Lesson 4</p>
+      <h1 class="lesson-hero__title">The Contemporary Global Governance</h1>
+      <p class="lesson-hero__desc">Focus on the highlighted terms and key statements before taking the quiz.</p>
+    </div>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">The Attributes of Today's Global System</h2>
+      <ol class="numbered">
+        <li>First, there are countries or states that are independent and govern themselves.</li>
+        <li>Second, these countries interact with each other through diplomacy.</li>
+        <li>Third, there are international organizations, like the United Nations (UN), that facilitate these interactions.</li>
+        <li>Fourth, beyond simply facilitating meetings between states, international organizations also take on lives of their own.</li>
+      </ol>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Core Concepts</h2>
+      <div class="def">
+        <p class="def__term">Diplomacy</p>
+        <p class="def__body">Diplomacy is the established method of influencing the decisions and behavior of foreign governments and peoples through dialogue, negotiation, and other measures short of war or violence.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">State</p>
+        <p class="def__body">A state is a sovereign, organized political community with a centralized government, defined territory, permanent population, and the ultimate authority (sovereignty) to make and enforce laws, distinguished by its monopoly on the legitimate use of force.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">A state has four elements</p>
+        <p class="def__body">1) it exercises authority over a specific population, called citizens; 2) it governs a specific territory; 3) a state has a structure of government that crafts various rules that people (or the society) follow; and 4) most crucially, the state has sovereignty over its territory.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Sovereignty</p>
+        <p class="def__body">Sovereignty is the supreme, independent authority a state holds over its own territory and people, meaning it has the ultimate power to govern itself without external interference.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Nation</p>
+        <p class="def__body">A nation is a group of people who share a common language, history, culture, and usually a specific territory.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Benedict Anderson</p>
+        <p class="def__body">According to Benedict Anderson, a nation is an "imagined community."</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Nations usually limit membership to</p>
+        <p class="def__body">People who share a culture, speak a common language, and live within a specific territory.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">The Interstate System</h2>
+      <div class="def">
+        <p class="def__term">Treaty of Westphalia</p>
+        <p class="def__body">The origins of the present-day concept of sovereignty can be traced back to the Treaty of Westphalia.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">1648 and Thirty Years' War</p>
+        <p class="def__body">This treaty was signed in 1648 to end the Thirty Years' War, one of the most destructive wars in European history.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Thirty Years' War (1618 - 1648)</p>
+        <p class="def__body">The Thirty Years' War began as a religious conflict between Catholics and Protestants, but later turned into a political and power struggle among European states. At the center of this conflict was the Holy Roman Empire.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">House of Habsburg</p>
+        <p class="def__body">These emperors of the Holy Roman Empire mostly came from the House of Habsburg, a powerful Catholic royal family that also ruled Spain and other territories.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Protestant Reformation</p>
+        <p class="def__body">The split between the Catholic Church and Protestantism happened in the 16th century during the Protestant Reformation.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Martin Luther</p>
+        <p class="def__body">Reformers like Martin Luther criticized the Catholic Church for corruption and abuse of power.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Treaty</p>
+        <p class="def__body">A treaty is a binding formal agreement, contract, or other written instrument that establishes obligations between two or more states and international organizations.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Treaty of Munster</p>
+        <p class="def__body">Treaty of Munster focused mainly on settling disputes between Catholic countries and strengthened the idea that states should respect each other's borders and independence.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Treaty of Osnabruck</p>
+        <p class="def__body">Treaty of Osnabruck dealt primarily with the religious conflict between Catholics and Protestants within the Holy Roman Empire.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">What Is Global Governance and What It Does</h2>
+      <div class="def">
+        <p class="def__term">Global governance</p>
+        <p class="def__body">Global governance simply means how countries work together to manage problems that go beyond national borders.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">No single world government</p>
+        <p class="def__body">There is no single "world government" that controls all countries.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">How it emerged</p>
+        <p class="def__body">Global governance emerged because many of today's problems go beyond the ability of one country to handle alone.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">UN role</p>
+        <p class="def__body">While there is no single central authority in global governance, the United Nations (UN) comes closest to this role.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">UN can do</p>
+        <p class="def__body">The UN can raise awareness of global issues, coordinate responses, and involve many non-state actors, including both governmental and non-governmental organizations.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">UN began its operations on October 24, 1945</p>
+        <p class="def__body">After World War II, the UN began its operations on October 24, 1945.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">The Five Main UN Roles and Functions</h2>
+      <div class="card">
+        <p class="card__title">1) Maintain International Peace and Security</p>
+        <p class="card__text">The UN was created in 1945 after World War II to help prevent wars and conflicts around the world. It works by helping countries resolve disputes peacefully, sending peacekeepers to conflict areas, and creating conditions that allow peace to last.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">2) Protect Human Rights</p>
+        <p class="card__text">Promoting and protecting human rights is one of the UN's main goals. In 1948, the Universal Declaration of Human Rights was adopted, making human rights an international standard.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">3) Deliver Humanitarian Aid</p>
+        <p class="card__text">The UN helps countries when disasters or crises happen that they cannot handle alone. This includes natural disasters, wars, or other emergencies, providing food, shelter, medical care, and other support to people in need.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">4) Promote Sustainable Development</p>
+        <p class="card__text">Sustainable development means creating opportunities for economic growth, social well-being, and environmental protection. The UN works with countries to promote prosperity and a better quality of life for everyone.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">5) Uphold International Law</p>
+        <p class="card__text">The UN ensures that countries follow international laws and agreements through courts, treaties, and the Security Council, which can send peacekeepers, impose sanctions, or approve the use of force when necessary.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Six Key UN Organs</h2>
+      <div class="card">
+        <p class="card__title">The General Assembly</p>
+        <p class="card__text">The main discussion body of the UN. Every member country has equal representation.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">The Security Council</p>
+        <p class="card__text">Responsible for maintaining international peace and security. It has 15 members: five permanent members and ten non-permanent members elected for two-year terms.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">The Economic and Social Council (ECOSOC)</p>
+        <p class="card__text">Focuses on cooperation, policy review, and advice on economic, social, environmental, and related issues.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">The Trusteeship Council</p>
+        <p class="card__text">Created to oversee trust territories and ensure they moved toward independence and self-government. It suspended operations after the last trust territory became independent in 1994.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">The International Court of Justice (ICJ)</p>
+        <p class="card__text">The UN's main judicial body where countries can settle disputes through the law. It is in the Peace Palace in The Hague, Netherlands.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">The Secretariat</p>
+        <p class="card__text">Handles the day-to-day operations of the UN. It is led by the Secretary-General, appointed by the General Assembly on the recommendation of the Security Council.</p>
+      </div>
+    </section>
+
+    <div class="lesson-cta">
+      <h3>Ready to test yourself?</h3>
+      <p>You reviewed Lesson 4. Continue to the quiz.</p>
+      <a href="quiz.html" class="lesson-cta__btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+        Take Quiz
+      </a>
+    </div>
+  </main>
+</body>
+</html>
