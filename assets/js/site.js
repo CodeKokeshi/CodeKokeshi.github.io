@@ -171,6 +171,14 @@ const quizzes = [
     lessonUrl: 'quizzes/gned07/global-divide/lesson.html',
     quizUrl: 'quizzes/gned07/global-divide/quiz.html',
   },
+  {
+    id: 5,
+    image: 'assets/images/quizzes/lesson_6-asian-regionalism.webp',
+    title: 'Asian Regionalism Quiz',
+    description: 'Lesson 6 of GNED07 discussing Asian regionalism and ASEAN integration.',
+    lessonUrl: 'quizzes/gned07/asian-regionalism/lesson.html',
+    quizUrl: 'quizzes/gned07/asian-regionalism/quiz.html',
+  },
 ];
 
 const mods = [

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="84641eae-f0c5-468b-8b48-f9226d664d2f"></script>
+  <title>Asian Regionalism - Lesson | CodeKokeshi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #e5e5e5;
+      line-height: 1.75;
+      font-size: 15px;
+    }
+    ::selection { background: rgba(139,92,246,0.4); color: #fff; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+    .lesson-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .lesson-header__back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .lesson-header__back:hover { color: #a78bfa; }
+    .lesson-header__back svg { width: 16px; height: 16px; }
+    .lesson-header__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+    .lesson-header__tag {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      color: #a78bfa;
+      white-space: nowrap;
+    }
+
+    .lesson-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .lesson-hero { margin-bottom: 48px; }
+    .lesson-hero__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 10px;
+    }
+    .lesson-hero__title {
+      font-size: clamp(26px, 5vw, 36px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .lesson-hero__desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      max-width: 740px;
+    }
+
+    .lesson-section { margin-bottom: 40px; }
+    .lesson-section__heading {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(139,92,246,0.2);
+    }
+
+    .def {
+      margin-bottom: 14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid rgba(139,92,246,0.5);
+      border-radius: 0 8px 8px 0;
+    }
+    .def__term {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .def__body {
+      font-size: 14px;
+      color: rgba(255,255,255,0.73);
+    }
+
+    .numbered {
+      list-style: none;
+      counter-reset: item;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .numbered li {
+      counter-increment: item;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.06);
+      font-size: 14px;
+      color: rgba(255,255,255,0.72);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .numbered li::before {
+      content: counter(item);
+      min-width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card {
+      margin-bottom: 14px;
+      padding: 16px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+    }
+    .card__title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .card__text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.68);
+    }
+
+    .lesson-cta {
+      margin-top: 56px;
+      padding: 28px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(236,72,153,0.08));
+      border: 1px solid rgba(139,92,246,0.25);
+      border-radius: 16px;
+      text-align: center;
+    }
+    .lesson-cta h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .lesson-cta p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .lesson-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .lesson-cta__btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139,92,246,0.4);
+    }
+  </style>
+</head>
+<body>
+  <header class="lesson-header">
+    <a href="../../../" class="lesson-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Quizzes
+    </a>
+    <span class="lesson-header__title">Asian Regionalism</span>
+    <span class="lesson-header__tag">GNED07 - Lesson 6</span>
+  </header>
+
+  <main class="lesson-wrap">
+    <div class="lesson-hero">
+      <p class="lesson-hero__label">GNED07 - Lesson 6</p>
+      <h1 class="lesson-hero__title">Asian Regionalism</h1>
+      <p class="lesson-hero__desc">Focus on the highlighted terms and key statements before taking the quiz.</p>
+    </div>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Core Concepts</h2>
+      <div class="def">
+        <p class="def__term">Globalization</p>
+        <p class="def__body">Globalization means the whole world becomes more connected economically, politically and socially.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Regionalization</p>
+        <p class="def__body">Regionalization is the process of dividing an area into smaller segments called regions.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Regionalism</p>
+        <p class="def__body">Regionalism happens when two or more countries decide to cooperate closely for shared goals- peace, stability, and wealth.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Why do countries form regional associations?</h2>
+      <div class="card">
+        <p class="card__title">Military Defense - NATO</p>
+        <p class="card__text">The North Atlantic Treaty Organization (NATO) is a 32-member intergovernmental military alliance formed in 1949 to guarantee the freedom and security of its members, especially during the Cold War, through the principle of collective defense.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">Note</p>
+        <p class="card__text">The USA and Canada are also NATO Members.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">principle of collective defense</p>
+        <p class="def__body">principle of collective defense - means that an attack on one member country is considered an attack on all members.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Asian Financial Crisis (July 1997-December 1998)</p>
+        <p class="def__body">A financial crisis started in Thailand in July 1997 and spread across East Asia, wreaking havoc on economies in the region and leading to spillover effects in Latin America and Eastern Europe in 1998.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">Chiang Mai Initiative Multilateralization (CMIM)</p>
+        <p class="card__text">s a $240 billion multilateral currency swap arrangement among ASEAN+3 members (ASEAN, China, Japan, Korea, and Hong Kong) designed to address balance of payments and short-term liquidity challenges.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Resources - OPEC</p>
+        <p class="def__body">The Organization of the Petroleum Exporting Countries (OPEC) is a permanent intergovernmental organization founded in 1960, dedicated to coordinating petroleum policies among member nations to ensure stable oil prices and a consistent supply to consumers.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Protection of Independence - African Union</p>
+        <p class="def__body">The African Union (AU) is a continental body consisting of 55 member states that make up the countries of the African continent. Officially launched in July 2002 in Durban, South Africa, it succeeded the Organisation of African Unity (OAU) with a mandate to accelerate integration and promote peace, security, and economic growth.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Regional Context in Asia</h2>
+      <ol class="numbered">
+        <li>Asia has been the cradle of several ancient civilizations such as the Chinese, Indian, and Khmer civilizations.</li>
+        <li>Important in Silk road trade- the historical economic and cultural exchange between Rome and China.</li>
+        <li>Cradle of ancient Chinese and Japanese civilizations as well as the Mongol Empire.</li>
+        <li>A region with high population density and the cradle of Indian civilization.</li>
+        <li>Found in the Asia Pacific Ring of Fire and historically, the goal destinations of the European expeditions its spice.</li>
+        <li>Many are arid desert regions but serve as the gateways and routes to major bodies of water in the world.</li>
+      </ol>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">The Bangkok Declaration (1967)</h2>
+      <ol class="numbered">
+        <li>Signed on August 8, 1967 in Bangkok, Thailand.</li>
+        <li>Also known as the ASEAN Declaration.</li>
+        <li>For regional stability and security.</li>
+        <li>For economic development and prosperity.</li>
+        <li>For social and cultural cooperation.</li>
+        <li>For political cooperation.</li>
+        <li>For regional identity and unity.</li>
+      </ol>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">SEATO and ASA</h2>
+      <div class="card">
+        <p class="card__title">Southeast Asia Treaty Organization (SEATO)</p>
+        <p class="card__text">Established: 1954. This regional defense pact was created during the Cold War and was primarily designed to block further communist gains in Southeast Asia following the French defeat in Indochina.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Core Characterization</p>
+        <p class="def__body">Western-led alliance; limited Asian participation. Only three Asian nations (Philippines, Pakistan, and Thailand) were actual members.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Association of Southeast Asia (1961)</p>
+        <p class="def__body">Formed by the Philippines, Thailand, and Malaya. It failed due to political tensions and lack of structure, and led to the creation of a stronger, Asian-led organization.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">ASA Signatories of the Treaty creating ASA</p>
+        <p class="def__body">Felixberto M. Serrano, Thanat Khoman, and Tunku Abdul Rahman agreed to form the Association of Southeast Asia (ASA) in Bangkok, Thailand on 31 July 1961.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Founding Fathers and Timor-Leste Timeline</h2>
+      <div class="def">
+        <p class="def__term">The Founding Fathers of ASEAN</p>
+        <p class="def__body">Narciso Ramos, Adam Malik, Thanat Khoman, Tun Abdul Razak, and S. Rajaratnam signed the Bangkok Declaration on August 8, 1967.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">The Original Five Nations</p>
+        <p class="def__body">Philippines, Indonesia, Thailand, Malaysia, and Singapore.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">Timeline of Timor-Leste's ASEAN Journey</p>
+        <p class="card__text">2002: Timor-Leste gains independence and is granted observer status in ASEAN. 2005: Joined the ASEAN Regional Forum (ARF). 2007: Acceded to the Treaty of Amity and Cooperation (TAC). 2011: Officially applied for ASEAN membership; feasibility studies were conducted. 2013: Received backing from all ASEAN members to join the organization. 2017: The image notes that accession continued to be stalled.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">History Is Made</p>
+        <p class="card__text">The Diplomat (October 27, 2025): History Is Made: Timor-Leste Becomes ASEAN's 11th Member. After a 14-year journey toward membership, Timor-Leste officially joined the bloc.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">ASEAN Emblem and Integration</h2>
+      <div class="def">
+        <p class="def__term">The ASEAN Emblem</p>
+        <p class="def__body">The ASEAN Emblem represents a stable, peaceful, united, and dynamic ASEAN.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Color Symbolism</p>
+        <p class="def__body">Blue means stability and peace. Red means courage and dynamism. White means purity. Yellow means prosperity.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">The Central Symbol</p>
+        <p class="def__body">The center of the emblem features ten stalks of rice (padi) bound together, representing friendship and solidarity.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">Map of Southeast Asia</p>
+        <p class="card__text">There are now 11 countries in Southeast Asia with a total land area of approximately 4,545,792 km2 and a population of roughly 675,000,000.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">ASEAN +3 Cooperation</p>
+        <p class="card__text">ASEAN +3 coordinates cooperation between ASEAN member states and China, Japan, and South Korea.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">Why ASEAN Integration Matters</p>
+        <p class="card__text">Integration helps the region stand strong together against global challenges, amplify voices internationally, and build economic resilience through a single market and production base.</p>
+      </div>
+    </section>
+
+    <div class="lesson-cta">
+      <h3>Ready to test yourself?</h3>
+      <p>You reviewed Lesson 6. Continue to the quiz.</p>
+      <a href="quiz.html" class="lesson-cta__btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+        Take Quiz
+      </a>
+    </div>
+  </main>
+</body>
+</html>
