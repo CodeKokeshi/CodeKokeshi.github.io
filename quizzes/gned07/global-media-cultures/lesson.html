@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="84641eae-f0c5-468b-8b48-f9226d664d2f"></script>
+  <title>Global Media Cultures - Lesson | CodeKokeshi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #e5e5e5;
+      line-height: 1.75;
+      font-size: 15px;
+    }
+    ::selection { background: rgba(139,92,246,0.4); color: #fff; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+    .lesson-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .lesson-header__back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .lesson-header__back:hover { color: #a78bfa; }
+    .lesson-header__back svg { width: 16px; height: 16px; }
+    .lesson-header__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+    .lesson-header__tag {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      color: #a78bfa;
+      white-space: nowrap;
+    }
+
+    .lesson-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .lesson-hero { margin-bottom: 48px; }
+    .lesson-hero__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 10px;
+    }
+    .lesson-hero__title {
+      font-size: clamp(26px, 5vw, 36px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .lesson-hero__desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      max-width: 760px;
+    }
+
+    .lesson-section { margin-bottom: 40px; }
+    .lesson-section__heading {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(139,92,246,0.2);
+    }
+
+    .def {
+      margin-bottom: 14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid rgba(139,92,246,0.5);
+      border-radius: 0 8px 8px 0;
+    }
+    .def__term {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .def__body {
+      font-size: 14px;
+      color: rgba(255,255,255,0.73);
+    }
+
+    .numbered {
+      list-style: none;
+      counter-reset: item;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .numbered li {
+      counter-increment: item;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.06);
+      font-size: 14px;
+      color: rgba(255,255,255,0.72);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .numbered li::before {
+      content: counter(item);
+      min-width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card {
+      margin-bottom: 14px;
+      padding: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+    }
+    .card__title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .card__text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.68);
+    }
+
+    .lesson-cta {
+      margin-top: 56px;
+      padding: 28px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(236,72,153,0.08));
+      border: 1px solid rgba(139,92,246,0.25);
+      border-radius: 16px;
+      text-align: center;
+    }
+    .lesson-cta h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .lesson-cta p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .lesson-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .lesson-cta__btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139,92,246,0.4);
+    }
+  </style>
+</head>
+<body>
+  <header class="lesson-header">
+    <a href="../../../" class="lesson-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Quizzes
+    </a>
+    <span class="lesson-header__title">Global Media Cultures</span>
+    <span class="lesson-header__tag">GNED07 - Lesson 7</span>
+  </header>
+
+  <main class="lesson-wrap">
+    <div class="lesson-hero">
+      <p class="lesson-hero__label">GNED07 - Lesson 7</p>
+      <h1 class="lesson-hero__title">Global Media Cultures</h1>
+      <p class="lesson-hero__desc">Cover the full lesson from media types and media evolution to McLuhan, cultural flow, global versus cultural products, and the major issues inside global media culture.</p>
+    </div>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Media</h2>
+      <div class="def">
+        <p class="def__term">Media</p>
+        <p class="def__body">Media refers to the communication channels through which we disseminate news, music, movies, education, promotional messages, and other media.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Three Major Types of Media</p>
+        <p class="def__body">Media can be classified into three major types: print media, broadcast media, and digital media.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">Print Media</p>
+        <p class="card__text">Print media refers to information that is physically printed on paper or other materials. Examples include books, newspapers, magazines, brochures, flyers, posters, journals, and newsletters. It is known for permanence because information can be stored, reread, and preserved for a long time, but it cannot provide real-time updates, production and distribution can be costly, and it requires physical access. Examples given in the lesson include daily newspapers, educational textbooks, comic books, and academic journals.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">Broadcast Media</p>
+        <p class="card__text">Broadcast media refers to media that transmits information electronically to a wide audience through radio waves or cable systems. It became prominent during the electronic age and is designed for mass communication. It can reach large audiences quickly and simultaneously. The main forms are radio and television. Radio delivers audio content like news, music, talk shows, and public service announcements, while television combines audio and visual elements for stronger storytelling and reporting. Examples include news programs, drama series, documentaries, advertisements, and live event coverage.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">Digital Media</p>
+        <p class="card__text">Digital media refers to content that is created, stored, and distributed using digital technology, especially through the internet and devices such as computers, smartphones, and tablets. Examples include websites, social media platforms, blogs, podcasts, online news portals, streaming services, and mobile applications like Facebook, Instagram, TikTok, and YouTube.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Evolution of Media</h2>
+      <ol class="numbered">
+        <li><strong>Oral Communication</strong> is the earliest form of media. It existed long before writing systems and dates back to prehistoric times. Speech is believed to have developed at least 200,000 years ago, helping Homo sapiens distinguish themselves from other species. Because there were no written records, memory played a crucial role. Elders and storytellers served as living libraries, preserving history through repetition and performance. The Iliad and The Odyssey were originally transmitted orally before being written down.</li>
+        <li><strong>Script</strong> marks a major turning point because writing lets people record ideas, preserve knowledge, and communicate across time and distance. Early humans inscribed symbols on stone, clay tablets, and papyrus. Papyrus was an ancient writing material made from the cyperus papyrus plant and used by ancient Egyptians as early as 3000 BCE. One of the earliest writing systems was Cuneiform in Mesopotamia, while Egyptian hieroglyphics were carved on temple walls and monuments. These systems later evolved into alphabets, which made writing easier to learn.</li>
+        <li><strong>Printing Press</strong> revolutionized the production and distribution of information in the 15th century. Developed by Johannes Gutenberg, it enabled mass production of written materials. Before it, books were copied by hand and were rare and expensive. Printing made books, pamphlets, and newspapers widely available and helped increase literacy rates. The Gutenberg Bible is one of the most famous early printed works. Printed media also played a key role in shaping public opinion and political movements. In the Philippines, the first book published was the Doctrina Christiana en lengua espanola y tagala, printed in Manila in 1593.</li>
+        <li><strong>Electronic Media</strong> introduced new forms of communication powered by electricity, including the telegraph, radio, and television. These allowed information to be transmitted instantly over long distances. Radio became popular for news and entertainment, and Franklin D. Roosevelt used it for his famous Fireside Chats. Television combined audio and visual elements and made communication more engaging. A major example is the Apollo 11 moon landing in 1969, which millions watched in real time.</li>
+        <li><strong>Digital Media</strong> is the current stage in media evolution and is driven by computers, the internet, and mobile technologies. It allows instant, interactive, and multimedia communication on a global scale. In 2018, the Pew Research Center reported that 95% of adolescents ages 10 to 19 had smartphone access and half were almost constantly online. The most highly consumed platforms in that study were YouTube, Instagram, and Snapchat. Youth said they used social media for four reasons: communicating with friends, accessing information, entertainment, and self-expression. In the Philippines, newspaper consumption declined while about 96% of Filipinos watched TV for almost four hours. Increasing digital media consumption is linked to internet accessibility.</li>
+      </ol>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Media and Its Function</h2>
+      <div class="def">
+        <p class="def__term">Marshall McLuhan</p>
+        <p class="def__body">Media theorist Marshall McLuhan declared that "the medium is the message."</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Meaning of the Medium Is the Message</p>
+        <p class="def__body">McLuhan argues that the medium itself, meaning the form or channel of communication, has a greater impact than the actual content of the message. The way a message is delivered influences how it is understood, interpreted, and experienced. Different media platforms shape human perception, behavior, and even culture.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Example</p>
+        <p class="def__body">Watching a news report on television is different from reading the same report in a newspaper. Even if the content is the same, the medium changes how people react to it. Because of this, media changes how we experience the world and influences how we think, feel, and interact with others.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Media and Globalization</p>
+        <p class="def__body">The media have made globalization possible. Electronic media allowed opportunities to spread across the world. Media acts as the lifeblood of globalization by enabling the swift transmission of ideas, culture, and knowledge.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Culture</p>
+        <p class="def__body">Culture can be defined as all the ways of life, including arts, beliefs, and institutions, of a population. Culture is what makes a country unique or sui generis because each country has different cultural activities and cultural beliefs.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Global Products vs Cultural Products</h2>
+      <div class="def">
+        <p class="def__term">Global Products</p>
+        <p class="def__body">Global products are goods and services that are standardized and distributed across multiple countries, transcending cultural and geographic boundaries.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Cultural Products</p>
+        <p class="def__body">Cultural products are goods and services deeply rooted in the values, traditions, and practices of a particular culture.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Challenges of a Global Media Culture</h2>
+      <div class="def">
+        <p class="def__term">Cultural Flow</p>
+        <p class="def__body">Cultural flow refers to the movement and exchange of cultural elements such as ideas, values, traditions, language, fashion, music, and food across national boundaries.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">1) Cultural Assimilation</p>
+        <p class="card__text">Cultural assimilation happens when individuals or groups adopt the culture of a dominant or more powerful society, sometimes losing aspects of their original culture in the process.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">2) Cultural Imperialism</p>
+        <p class="card__text">Cultural imperialism refers to the dominance of one culture over others, often through media, business, or political influence. This can overshadow or weaken local cultures.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">3) Cultural Hybridization</p>
+        <p class="card__text">Cultural hybridization occurs when different cultures interact and blend, creating something new that contains elements from both or multiple cultures. Instead of one culture dominating another, they combine and evolve.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">4) Glocalization</p>
+        <p class="card__text">Glocalization refers to the adaptation of global ideas, products, or practices to fit local cultures and preferences. It combines "global" and "local." Instead of simply copying global trends, they are modified to suit local needs.</p>
+      </div>
+      <div class="card">
+        <p class="card__title">5) Cultural Differentialism</p>
+        <p class="card__text">Cultural differentialism emphasizes the importance of preserving and maintaining the uniqueness of different cultures, even in a highly globalized world. It highlights that not all cultures will merge or become similar because some communities actively protect their identity and traditions.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Issues in Global Media Culture</h2>
+      <div class="def">
+        <p class="def__term">Media Bias</p>
+        <p class="def__body">Media bias happens when news or information is presented in a way that favors one side or opinion. Instead of being fully objective, some media sources highlight certain facts while ignoring others.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Fake News and Misinformation</p>
+        <p class="def__body">Fake news refers to false information made to look like real news, while misinformation is wrong or misleading information, whether intentional or not.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Privacy Concerns</p>
+        <p class="def__body">Privacy concerns arise when personal data is collected, tracked, or shared without full awareness or consent.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Digital Divide</p>
+        <p class="def__body">The digital divide refers to the gap between people who have access to technology and the internet and those who do not.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Censorship</p>
+        <p class="def__body">Censorship is the control or restriction of information by governments, organizations, or platforms.</p>
+      </div>
+    </section>
+
+    <div class="lesson-cta">
+      <h3>Ready to test yourself?</h3>
+      <p>You reviewed Lesson 7. Continue to the quiz.</p>
+      <a href="quiz.html" class="lesson-cta__btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+        Take Quiz
+      </a>
+    </div>
+  </main>
+</body>
+</html>

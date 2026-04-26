@@ -179,6 +179,14 @@ const quizzes = [
     lessonUrl: 'quizzes/gned07/asian-regionalism/lesson.html',
     quizUrl: 'quizzes/gned07/asian-regionalism/quiz.html',
   },
+  {
+    id: 6,
+    image: 'assets/images/quizzes/lesson_7-global-media-cultures.webp',
+    title: 'Global Media Cultures Quiz',
+    description: 'Lesson 7 of GNED07 covering media types, media evolution, and global media culture.',
+    lessonUrl: 'quizzes/gned07/global-media-cultures/lesson.html',
+    quizUrl: 'quizzes/gned07/global-media-cultures/quiz.html',
+  },
 ];
 
 const mods = [

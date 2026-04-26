@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="84641eae-f0c5-468b-8b48-f9226d664d2f"></script>
+  <title>Global Media Cultures Quiz | CodeKokeshi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #e5e5e5;
+      line-height: 1.6;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+    ::selection { background: rgba(139,92,246,0.4); color: #fff; }
+
+    .quiz-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .quiz-header__back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .quiz-header__back:hover { color: #a78bfa; }
+    .quiz-header__back svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .quiz-header__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      flex: 1;
+      text-align: center;
+    }
+    .quiz-header__tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      color: #a78bfa;
+      white-space: nowrap;
+    }
+
+    .screen { display: none; }
+    .screen--active { display: block; }
+
+    .mode-wrap,
+    .start-wrap,
+    .results-wrap {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .start-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 12px;
+    }
+    .start-title {
+      font-size: clamp(24px, 5vw, 34px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .start-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 30px;
+    }
+
+    .mode-cards {
+      display: flex;
+      gap: 16px;
+      margin-top: 26px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .mode-card {
+      flex: 1;
+      min-width: 230px;
+      max-width: 290px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 26px 20px;
+      cursor: pointer;
+      text-align: center;
+      font-family: inherit;
+      color: inherit;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    .mode-card:hover {
+      border-color: rgba(139,92,246,0.5);
+      background: rgba(139,92,246,0.07);
+      transform: translateY(-3px);
+    }
+    .mode-card__icon { font-size: 30px; line-height: 1; }
+    .mode-card__name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .mode-card__desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+    }
+    .mode-card__meta {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-top: 4px;
+    }
+
+    .start-stats {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .start-stat { text-align: center; }
+    .start-stat__val {
+      font-size: 28px;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+    .start-stat__lbl {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 36px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139,92,246,0.4);
+    }
+
+    .quiz-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 28px 20px 80px;
+    }
+
+    .progress-bar-wrap { margin-bottom: 28px; }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-bar__fill {
+      height: 100%;
+      background: linear-gradient(90deg, #8b5cf6, #ec4899);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .question-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin-bottom: 20px;
+    }
+    .question-card__section {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #ec4899;
+      margin-bottom: 10px;
+    }
+    .question-card__num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 12px;
+    }
+    .question-card__text {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.5;
+    }
+
+    .options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .option-btn:hover:not(:disabled) {
+      background: rgba(139,92,246,0.1);
+      border-color: rgba(139,92,246,0.3);
+      color: #fff;
+    }
+    .option-btn__letter {
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .fill-wrap {
+      margin-bottom: 22px;
+      display: none;
+    }
+    .fill-sentence {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.87);
+      margin-bottom: 14px;
+    }
+    .fill-blank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 100px;
+      padding: 2px 10px;
+      margin: 0 4px;
+      border-radius: 8px;
+      border: 1px dashed rgba(139,92,246,0.5);
+      background: rgba(139,92,246,0.1);
+      color: #a78bfa;
+      font-weight: 700;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    .fill-blank--filled {
+      border-style: solid;
+      color: #fff;
+      background: rgba(236,72,153,0.18);
+      border-color: rgba(236,72,153,0.55);
+    }
+
+    .fill-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .fill-chip {
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.85);
+      border-radius: 999px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .fill-chip:hover:not(:disabled) {
+      border-color: rgba(139,92,246,0.45);
+      background: rgba(139,92,246,0.12);
+      color: #fff;
+    }
+    .fill-chip--used {
+      border-color: rgba(236,72,153,0.5);
+      background: rgba(236,72,153,0.18);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      padding: 10px 18px;
+      background: rgba(139,92,246,0.12);
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 10px;
+      color: #a78bfa;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-secondary:hover:not(:disabled) { background: rgba(139,92,246,0.2); }
+    .btn-secondary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .option-btn--correct {
+      background: rgba(34,197,94,0.12) !important;
+      border-color: rgba(34,197,94,0.5) !important;
+      color: #86efac !important;
+    }
+    .option-btn--correct .option-btn__letter {
+      background: rgba(34,197,94,0.25);
+      border-color: rgba(34,197,94,0.5);
+      color: #86efac;
+    }
+    .option-btn--wrong {
+      background: rgba(239,68,68,0.1) !important;
+      border-color: rgba(239,68,68,0.4) !important;
+      color: #fca5a5 !important;
+    }
+    .option-btn--wrong .option-btn__letter {
+      background: rgba(239,68,68,0.2);
+      border-color: rgba(239,68,68,0.4);
+      color: #fca5a5;
+    }
+    .option-btn:disabled { cursor: default; }
+
+    .feedback {
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .feedback--correct {
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #86efac;
+    }
+    .feedback--wrong {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.25);
+      color: #fca5a5;
+    }
+    .feedback__label {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-next {
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-next:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139,92,246,0.4);
+    }
+
+    .results-score-ring {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: conic-gradient(#8b5cf6 var(--pct), rgba(255,255,255,0.06) 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+    .results-score-ring::before {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: #111;
+      border-radius: 50%;
+    }
+    .results-score-val {
+      position: relative;
+      z-index: 1;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .results-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .results-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 32px;
+    }
+    .results-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .results-stat { text-align: center; }
+    .results-stat__val { font-size: 26px; font-weight: 700; }
+    .results-stat__val--correct { color: #86efac; }
+    .results-stat__val--wrong { color: #fca5a5; }
+    .results-stat__lbl {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .results-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <header class="quiz-header">
+    <a href="../../../" class="quiz-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Quizzes
+    </a>
+    <span class="quiz-header__title">Global Media Cultures Quiz</span>
+    <span class="quiz-header__tag">GNED07 - L7</span>
+  </header>
+
+  <div id="screenMode" class="screen screen--active">
+    <div class="mode-wrap">
+      <p class="start-label">GNED07 - Lesson 7</p>
+      <h1 class="start-title">Global Media Cultures Quiz</h1>
+      <p class="start-desc">Choose your mode. Questions are grouped by lesson section and heavily target the emphasized terms and statements.</p>
+      <div class="mode-cards">
+        <button class="mode-card" id="modeMc">
+          <span class="mode-card__icon">MC</span>
+          <span class="mode-card__name">Multiple Choice</span>
+          <span class="mode-card__desc">Media types, media evolution, McLuhan, cultural flow, product types, and global media issues.</span>
+          <span class="mode-card__meta" id="modeMcCount">0 Questions</span>
+        </button>
+        <button class="mode-card" id="modeFill">
+          <span class="mode-card__icon">FIB</span>
+          <span class="mode-card__name">Fill in the Blanks</span>
+          <span class="mode-card__desc">Click the options to fill the blanks in order. Click a placed option again to return it.</span>
+          <span class="mode-card__meta" id="modeFillCount">0 Questions</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="screenStart" class="screen">
+    <div class="start-wrap">
+      <p class="start-label">GNED07 - Lesson 7</p>
+      <h1 class="start-title" id="startTitle">Global Media Cultures Quiz</h1>
+      <p class="start-desc" id="startDesc">Review then start.</p>
+      <div class="start-stats">
+        <div class="start-stat"><div class="start-stat__val" id="totalCount">0</div><div class="start-stat__lbl">Questions</div></div>
+        <div class="start-stat"><div class="start-stat__val">4</div><div class="start-stat__lbl">Choices / Options</div></div>
+        <div class="start-stat"><div class="start-stat__val" id="modeCode">MC</div><div class="start-stat__lbl">Mode</div></div>
+      </div>
+      <button class="btn-primary" id="startBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Start Quiz
+      </button>
+    </div>
+  </div>
+
+  <div id="screenQuiz" class="screen">
+    <div class="quiz-wrap">
+      <div class="progress-bar-wrap">
+        <div class="progress-meta">
+          <span id="progressLabel">Question 1 of 1</span>
+          <span id="scoreLabel">Score: 0</span>
+        </div>
+        <div class="progress-bar"><div class="progress-bar__fill" id="progressFill" style="width:0%"></div></div>
+      </div>
+
+      <div class="question-card">
+        <p class="question-card__section" id="questionSection"></p>
+        <p class="question-card__num" id="questionNum">Question 1</p>
+        <p class="question-card__text" id="questionText"></p>
+      </div>
+
+      <ul class="options-list" id="optionsList"></ul>
+
+      <div class="fill-wrap" id="fillWrap">
+        <div class="fill-sentence" id="fillSentence"></div>
+        <div class="fill-bank" id="fillBank"></div>
+        <button class="btn-secondary" id="fillCheckBtn" disabled>Check Answer</button>
+      </div>
+
+      <div class="feedback" id="feedback">
+        <p class="feedback__label" id="feedbackLabel"></p>
+        <p id="feedbackText"></p>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn-next" id="nextBtn" style="display:none;">Next -&gt;</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="screenResults" class="screen">
+    <div class="results-wrap">
+      <div class="results-score-ring" id="scoreRing">
+        <span class="results-score-val" id="scorePct">0%</span>
+      </div>
+      <h2 class="results-title" id="resultsTitle">Quiz Complete!</h2>
+      <p class="results-sub" id="resultsSub"></p>
+      <div class="results-breakdown">
+        <div class="results-stat">
+          <div class="results-stat__val results-stat__val--correct" id="correctCount">0</div>
+          <div class="results-stat__lbl">Correct</div>
+        </div>
+        <div class="results-stat">
+          <div class="results-stat__val results-stat__val--wrong" id="wrongCount">0</div>
+          <div class="results-stat__lbl">Wrong</div>
+        </div>
+        <div class="results-stat">
+          <div class="results-stat__val" style="color:#a78bfa;" id="totalCountR">0</div>
+          <div class="results-stat__lbl">Total</div>
+        </div>
+      </div>
+      <div class="results-actions">
+        <button class="btn-secondary" id="retryBtn">Retry</button>
+        <button class="btn-secondary" id="changeModeBtn">Change Mode</button>
+        <a href="lesson.html" class="btn-secondary">Review Lesson</a>
+        <button class="btn-secondary" id="backBtn">Back to Quiz List</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  var sourceMcQuestions = [
+    // Section: Media
+    {
+      section: 'Media',
+      q: 'Media refers to the communication channels through which we disseminate news, music, movies, education, promotional messages, and other ______.',
+      choices: ['media', 'states', 'treaties', 'cultures'],
+      answer: 0
+    },
+    {
+      section: 'Media',
+      q: 'Media can be classified into three major types: ______.',
+      choices: ['print media, broadcast media, and digital media', 'radio, newspapers, and textbooks', 'film, language, and advertising', 'blogs, magazines, and diplomacy'],
+      answer: 0
+    },
+    {
+      section: 'Media',
+      q: 'Which type of media refers to information that is physically printed on paper or other materials?',
+      choices: ['Print media', 'Broadcast media', 'Digital media', 'Electronic media'],
+      answer: 0
+    },
+    {
+      section: 'Media',
+      q: 'Print media is known for its ______, meaning the information can be stored, reread, and preserved for a long time.',
+      choices: ['permanence', 'interactivity', 'real-time updates', 'instant transmission'],
+      answer: 0
+    },
+    {
+      section: 'Media',
+      q: 'Which is NOT listed as a limitation of print media?',
+      choices: ['It reaches large audiences simultaneously through radio waves.', 'It cannot provide real-time updates.', 'Production and distribution can be costly.', 'It requires physical access.'],
+      answer: 0
+    },
+    {
+      section: 'Media',
+      q: 'Daily newspapers, educational textbooks, comic books, and academic journals are examples of ______.',
+      choices: ['print media', 'broadcast media', 'digital media', 'cultural flow'],
+      answer: 0
+    },
+    {
+      section: 'Media',
+      q: 'Broadcast media transmits information electronically to a wide audience through ______.',
+      choices: ['radio waves or cable systems', 'paper and papyrus', 'stone and clay tablets', 'government censorship'],
+      answer: 0
+    },
+    {
+      section: 'Media',
+      q: 'Broadcast media became prominent during the ______.',
+      choices: ['electronic age', 'prehistoric age', 'printing age', 'papyrus age'],
+      answer: 0
+    },
+    {
+      section: 'Media',
+      q: 'The main forms of broadcast media are ______.',
+      choices: ['radio and television', 'books and newspapers', 'blogs and podcasts', 'posters and journals'],
+      answer: 0
+    },
+    {
+      section: 'Media',
+      q: 'Television is described as more engaging and effective for storytelling and reporting because it combines ______.',
+      choices: ['audio and visual elements', 'print and paper elements', 'memory and repetition', 'tradition and institutions'],
+      answer: 0
+    },
+    {
+      section: 'Media',
+      q: 'Digital media refers to content created, stored, and distributed using digital technology, particularly through ______.',
+      choices: ['the internet and electronic devices', 'stone tablets and monuments', 'radio waves only', 'printed newsletters only'],
+      answer: 0
+    },
+    {
+      section: 'Media',
+      q: 'Which list contains examples of digital media from the lesson?',
+      choices: ['Websites, social media platforms, blogs, podcasts, and streaming services', 'Temple walls, papyrus, and cuneiform', 'Drama series, documentaries, and public service announcements only', 'Flyers, brochures, and newspapers only'],
+      answer: 0
+    },
+
+    // Section: Evolution of Media
+    {
+      section: 'Evolution of Media',
+      q: 'The earliest form of media is ______.',
+      choices: ['oral communication', 'script', 'printing press', 'digital media'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Speech is believed to have developed at least ______ ago.',
+      choices: ['200,000 years', '2,000 years', '20,000 years', '3000 BCE'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Because there were no written records, ______ played a crucial role in oral communication.',
+      choices: ['memory', 'broadcasting', 'television', 'algorithms'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Elders and storytellers were described as ______.',
+      choices: ['living libraries', 'global products', 'non-state actors', 'digital natives'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Which two famous literary works were originally transmitted orally before being written down?',
+      choices: ['The Iliad and The Odyssey', 'The Gutenberg Bible and Doctrina Christiana', 'The Bible and the Quran', 'Hamlet and Macbeth'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'The invention of writing systems marked a major turning point because writing allows people to ______.',
+      choices: ['record ideas, preserve knowledge, and communicate across time and distance', 'broadcast messages through cable systems', 'watch live event coverage', 'access the internet on smartphones'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Early humans began inscribing symbols on materials such as stone, clay tablets, and ______.',
+      choices: ['papyrus', 'television screens', 'news portals', 'loudspeakers'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Papyrus was used by ancient Egyptians as early as ______.',
+      choices: ['3000 BCE', '1593', '1969', '2018'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'One of the earliest writing systems developed in Mesopotamia was ______.',
+      choices: ['Cuneiform', 'Hieroglyphics', 'Alphabet', 'Papyrus'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Over time, writing systems evolved into ______, sets of symbols representing sounds.',
+      choices: ['alphabets', 'broadcasts', 'institutions', 'cultural flows'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'The invention of the printing press in the 15th century was developed by ______.',
+      choices: ['Johannes Gutenberg', 'Marshall McLuhan', 'Franklin D. Roosevelt', 'Pew Research Center'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Before the printing press, books were copied by hand, making them ______.',
+      choices: ['rare and expensive', 'interactive and multimedia', 'cheap and mass-produced', 'instant and global'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'One of the most famous early printed works is the ______.',
+      choices: ['Gutenberg Bible', 'The Odyssey', 'Doctrina Christiana', 'Apollo 11 broadcast'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Printed media also played a key role in shaping public opinion and ______.',
+      choices: ['political movements', 'internet accessibility', 'mobile applications', 'smartphone access'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'The first book published in the Philippines was the ______.',
+      choices: ['Doctrina Christiana en lengua espanola y tagala', 'Gutenberg Bible', 'The Iliad', 'The Odyssey'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Doctrina Christiana en lengua espanola y tagala was printed in ______ in 1593.',
+      choices: ['Manila', 'Mesopotamia', 'The Hague', 'Nile River'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Electronic media introduced communication powered by electricity, such as the telegraph, radio, and ______.',
+      choices: ['television', 'papyrus', 'newspapers', 'alphabets'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Franklin D. Roosevelt used radio for his famous ______.',
+      choices: ['Fireside Chats', 'Apollo 11 address', 'Universal Declaration', 'Gutenberg sessions'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'A historic television example in the lesson is the landing on the moon of ______.',
+      choices: ['Apollo 11 in 1969', 'The Odyssey in 1593', 'Cuneiform in 3000 BCE', 'The Gutenberg Bible in 2018'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Digital media is the current stage in the evolution of communication, driven by computers, the internet, and ______.',
+      choices: ['mobile technologies', 'papyrus plants', 'temple walls', 'religious empires'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'In 2018, Pew Research Center reported that ______ of adolescents ages 10 to 19 had smartphone access.',
+      choices: ['95%', '50%', '96%', '75%'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'The same Pew study said that half of those adolescents were almost constantly ______.',
+      choices: ['online', 'watching TV', 'reading newspapers', 'using radio'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Which set of platforms was identified as highly consumed by the youth in the Pew study?',
+      choices: ['YouTube, Instagram, and Snapchat', 'Facebook, TikTok, and newspapers', 'Radio, television, and magazines', 'Blogs, journals, and textbooks'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'The youth in the study said they used social media for four reasons: communicating with friends, accessing information, entertainment, and ______.',
+      choices: ['self-expression', 'censorship', 'political control', 'religious reform'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'In the Philippines, approximately ______ of Filipinos watch TVs, devoting almost four hours to their favorite shows.',
+      choices: ['96%', '95%', '50%', '25%'],
+      answer: 0
+    },
+    {
+      section: 'Evolution of Media',
+      q: 'Increasing consumption of digital media is observed to be due to ______.',
+      choices: ['internet accessibility', 'paper permanence', 'censorship', 'telegraph systems'],
+      answer: 0
+    },
+
+    // Section: Media and Its Function
+    {
+      section: 'Media and Its Function',
+      q: 'Which media theorist declared that "the medium is the message"?',
+      choices: ['Marshall McLuhan', 'Johannes Gutenberg', 'Franklin D. Roosevelt', 'Benedict Anderson'],
+      answer: 0
+    },
+    {
+      section: 'Media and Its Function',
+      q: 'McLuhan argues that the ______ itself has a greater impact than the actual content of the message.',
+      choices: ['medium', 'culture', 'citizen', 'institution'],
+      answer: 0
+    },
+    {
+      section: 'Media and Its Function',
+      q: 'According to McLuhan, the way a message is delivered influences how the message is ______.',
+      choices: ['understood, interpreted, and experienced', 'printed, sold, and archived', 'stored, copied, and censored', 'translated, erased, and restricted'],
+      answer: 0
+    },
+    {
+      section: 'Media and Its Function',
+      q: 'Even if the content is the same, the medium changes how people ______.',
+      choices: ['react to it', 'print it', 'translate it', 'tax it'],
+      answer: 0
+    },
+    {
+      section: 'Media and Its Function',
+      q: 'Because of this, media changes how we experience the world and influences how we think, feel, and ______.',
+      choices: ['interact with others', 'grow papyrus', 'copy books by hand', 'end wars'],
+      answer: 0
+    },
+    {
+      section: 'Media and Its Function',
+      q: '"The media have made ______ possible."',
+      choices: ['globalization', 'censorship', 'alphabetization', 'isolationism'],
+      answer: 0
+    },
+    {
+      section: 'Media and Its Function',
+      q: 'Media acts as the ______ of globalization by enabling the swift transmission of ideas, culture, and knowledge.',
+      choices: ['lifeblood', 'opposition', 'restriction', 'monopoly'],
+      answer: 0
+    },
+    {
+      section: 'Media and Its Function',
+      q: 'Culture is defined in the lesson as all the ways of life including arts, beliefs, and ______ of a population.',
+      choices: ['institutions', 'products', 'broadcasts', 'algorithms'],
+      answer: 0
+    },
+    {
+      section: 'Media and Its Function',
+      q: 'Culture is what makes a country unique or ______.',
+      choices: ['sui generis', 'alphabet', 'digital divide', 'global product'],
+      answer: 0
+    },
+
+    // Section: Global Products vs Cultural Products
+    {
+      section: 'Global Products vs Cultural Products',
+      q: 'Global products are goods and services that are standardized and distributed across multiple countries, transcending cultural and ______ boundaries.',
+      choices: ['geographic', 'linguistic only', 'televised', 'religious only'],
+      answer: 0
+    },
+    {
+      section: 'Global Products vs Cultural Products',
+      q: 'Cultural products are goods and services deeply rooted in the ______, traditions, and practices of a particular culture.',
+      choices: ['values', 'algorithms', 'tariffs', 'borders'],
+      answer: 0
+    },
+
+    // Section: Challenges of a Global Media Culture
+    {
+      section: 'Challenges of a Global Media Culture',
+      q: 'Cultural flow refers to the movement and exchange of cultural elements across ______ boundaries.',
+      choices: ['national', 'digital-only', 'electronic-only', 'television-only'],
+      answer: 0
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      q: 'Which of the following is listed as part of cultural flow?',
+      choices: ['Ideas, values, traditions, language, fashion, music, and food', 'Only books and newspapers', 'Only laws and treaties', 'Only internet devices'],
+      answer: 0
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      q: 'Cultural assimilation happens when individuals or groups adopt the culture of a dominant society, sometimes losing aspects of their ______ culture.',
+      choices: ['original', 'digital', 'broadcast', 'printed'],
+      answer: 0
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      q: 'Cultural imperialism refers to the ______ of one culture over others.',
+      choices: ['dominance', 'preservation', 'balancing', 'adaptation'],
+      answer: 0
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      q: 'Cultural imperialism often occurs through media, business, or ______ influence.',
+      choices: ['political', 'geographic', 'alphabetic', 'prehistoric'],
+      answer: 0
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      q: 'Cultural hybridization occurs when different cultures interact and ______, creating something new.',
+      choices: ['blend', 'separate', 'vanish', 'standardize'],
+      answer: 0
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      q: 'Glocalization refers to the adaptation of global ideas, products, or practices to fit local cultures and ______.',
+      choices: ['preferences', 'empires', 'reeds', 'monuments'],
+      answer: 0
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      q: 'Glocalization combines ______.',
+      choices: ['global and local', 'print and broadcast', 'core and periphery', 'culture and bias'],
+      answer: 0
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      q: 'Cultural differentialism emphasizes preserving the ______ of different cultures even in a highly globalized world.',
+      choices: ['uniqueness', 'sameness', 'uniformity', 'censorship'],
+      answer: 0
+    },
+
+    // Section: Issues in Global Media Culture
+    {
+      section: 'Issues in Global Media Culture',
+      q: 'Media bias happens when news or information is presented in a way that favors one side or ______.',
+      choices: ['opinion', 'language', 'continent', 'platform'],
+      answer: 0
+    },
+    {
+      section: 'Issues in Global Media Culture',
+      q: 'Fake news refers to ______.',
+      choices: ['false information made to look like real news', 'the control of information by governments', 'the gap in internet access', 'personal data being collected without consent'],
+      answer: 0
+    },
+    {
+      section: 'Issues in Global Media Culture',
+      q: 'Misinformation is ______.',
+      choices: ['wrong or misleading information, whether intentional or not', 'only intentional propaganda from government', 'news that is always satirical', 'the blending of multiple cultures'],
+      answer: 0
+    },
+    {
+      section: 'Issues in Global Media Culture',
+      q: 'Privacy concerns arise when personal data is collected, tracked, or shared without full awareness or ______.',
+      choices: ['consent', 'broadcasting', 'translation', 'imagination'],
+      answer: 0
+    },
+    {
+      section: 'Issues in Global Media Culture',
+      q: 'The digital divide refers to the gap between people who have access to technology and the internet and those who ______.',
+      choices: ['do not', 'watch TV', 'read newspapers', 'adopt global products'],
+      answer: 0
+    },
+    {
+      section: 'Issues in Global Media Culture',
+      q: 'Censorship is the control or restriction of information by governments, organizations, or ______.',
+      choices: ['platforms', 'storytellers', 'temples', 'papyrus makers'],
+      answer: 0
+    }
+  ];
+
+  var sourceFillQuestions = [
+    {
+      section: 'Media',
+      sentence: 'Media can be classified into three major types: __BLANK__, __BLANK__, and __BLANK__.',
+      answers: ['print media', 'broadcast media', 'digital media'],
+      options: ['print media', 'broadcast media', 'digital media', 'cultural products', 'global products', 'oral communication']
+    },
+    {
+      section: 'Media',
+      sentence: 'Print media is known for its __BLANK__, meaning the information can be stored, reread, and preserved for a long time.',
+      answers: ['permanence'],
+      options: ['permanence', 'interactivity', 'globalization', 'censorship']
+    },
+    {
+      section: 'Media',
+      sentence: 'The main forms of broadcast media are __BLANK__ and __BLANK__.',
+      answers: ['radio', 'television'],
+      options: ['radio', 'television', 'papyrus', 'cuneiform', 'journals', 'podcasts']
+    },
+    {
+      section: 'Media',
+      sentence: 'Digital media is distributed using digital technology, particularly through the __BLANK__ and electronic devices.',
+      answers: ['internet'],
+      options: ['internet', 'Nile River', 'printing press', 'monuments']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: '__BLANK__ is the earliest form of media.',
+      answers: ['Oral Communication'],
+      options: ['Oral Communication', 'Digital Media', 'Printing Press', 'Broadcast Media']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: 'Because there were no written records, __BLANK__ played a crucial role.',
+      answers: ['memory'],
+      options: ['memory', 'broadcasting', 'censorship', 'currency']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: 'Elders and storytellers served as "__BLANK__."',
+      answers: ['living libraries'],
+      options: ['living libraries', 'global products', 'media bias', 'non-state actors']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: 'Papyrus was used by ancient Egyptians as early as __BLANK__.',
+      answers: ['3000 BCE'],
+      options: ['3000 BCE', '1593', '1969', '2018']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: 'One of the earliest writing systems developed in Mesopotamia was __BLANK__.',
+      answers: ['Cuneiform'],
+      options: ['Cuneiform', 'Television', 'Podcast', 'Alphabetical Broadcasting']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: 'The invention of the printing press in the 15th century was developed by __BLANK__.',
+      answers: ['Johannes Gutenberg'],
+      options: ['Johannes Gutenberg', 'Marshall McLuhan', 'Franklin D. Roosevelt', 'Pew Research Center']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: 'One of the most famous early printed works is the __BLANK__.',
+      answers: ['Gutenberg Bible'],
+      options: ['Gutenberg Bible', 'The Odyssey', 'Fireside Chats', 'Apollo 11']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: 'The first book published in the Philippines is the __BLANK__, printed in Manila in 1593.',
+      answers: ['Doctrina Christiana en lengua espanola y tagala'],
+      options: ['Doctrina Christiana en lengua espanola y tagala', 'The Iliad', 'The Odyssey', 'Universal Declaration of Human Rights']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: 'Franklin D. Roosevelt used radio for his famous __BLANK__.',
+      answers: ['Fireside Chats'],
+      options: ['Fireside Chats', 'Living Libraries', 'Global Products', 'Cultural Flow']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: 'A historic television example is the moon landing of __BLANK__ in 1969.',
+      answers: ['Apollo 11'],
+      options: ['Apollo 11', 'The Odyssey', 'Doctrina Christiana', 'Pew Research Center']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: 'Pew Research Center reported in 2018 that __BLANK__ of adolescents ages 10 to 19 had smartphone access.',
+      answers: ['95%'],
+      options: ['95%', '96%', '50%', '25%']
+    },
+    {
+      section: 'Evolution of Media',
+      sentence: 'The youth in the study used social media for communicating with friends, accessing information, entertainment, and __BLANK__.',
+      answers: ['self-expression'],
+      options: ['self-expression', 'censorship', 'imperialism', 'distribution']
+    },
+    {
+      section: 'Media and Its Function',
+      sentence: 'Marshall McLuhan declared that "__BLANK__ is the message."',
+      answers: ['the medium'],
+      options: ['the medium', 'the culture', 'the textbook', 'the nation']
+    },
+    {
+      section: 'Media and Its Function',
+      sentence: 'Media acts as the __BLANK__ of globalization.',
+      answers: ['lifeblood'],
+      options: ['lifeblood', 'barrier', 'opponent', 'archive']
+    },
+    {
+      section: 'Media and Its Function',
+      sentence: 'Culture can be defined as all the ways of life including arts, beliefs, and __BLANK__ of a population.',
+      answers: ['institutions'],
+      options: ['institutions', 'headphones', 'tablets', 'algorithms']
+    },
+    {
+      section: 'Global Products vs Cultural Products',
+      sentence: '__BLANK__ are goods and services that are standardized and distributed across multiple countries.',
+      answers: ['Global products'],
+      options: ['Global products', 'Cultural products', 'Living libraries', 'Print media']
+    },
+    {
+      section: 'Global Products vs Cultural Products',
+      sentence: '__BLANK__ are deeply rooted in the values, traditions, and practices of a particular culture.',
+      answers: ['Cultural products'],
+      options: ['Cultural products', 'Global products', 'Broadcast media', 'Digital divides']
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      sentence: 'Cultural flow refers to the movement and exchange of cultural elements across __BLANK__ boundaries.',
+      answers: ['national'],
+      options: ['national', 'electronic', 'alphabetic', 'televised']
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      sentence: 'Cultural assimilation happens when individuals or groups __BLANK__ the culture of a dominant or more powerful society.',
+      answers: ['adopt'],
+      options: ['adopt', 'ban', 'print', 'broadcast']
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      sentence: 'Cultural imperialism refers to the __BLANK__ of one culture over others.',
+      answers: ['dominance'],
+      options: ['dominance', 'preservation', 'equality', 'neutrality']
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      sentence: 'Cultural hybridization occurs when different cultures interact and __BLANK__.',
+      answers: ['blend'],
+      options: ['blend', 'separate', 'pause', 'broadcast']
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      sentence: 'Glocalization combines "__BLANK__" and "__BLANK__."',
+      answers: ['global', 'local'],
+      options: ['global', 'local', 'print', 'digital', 'state', 'nation']
+    },
+    {
+      section: 'Challenges of a Global Media Culture',
+      sentence: 'Cultural differentialism emphasizes preserving the __BLANK__ of different cultures.',
+      answers: ['uniqueness'],
+      options: ['uniqueness', 'uniformity', 'silence', 'bias']
+    },
+    {
+      section: 'Issues in Global Media Culture',
+      sentence: 'Fake news refers to __BLANK__ made to look like real news.',
+      answers: ['false information'],
+      options: ['false information', 'government restrictions', 'balanced reporting', 'cultural blending']
+    },
+    {
+      section: 'Issues in Global Media Culture',
+      sentence: 'The __BLANK__ refers to the gap between people who have access to technology and the internet and those who do not.',
+      answers: ['digital divide'],
+      options: ['digital divide', 'cultural flow', 'global product', 'print archive']
+    },
+    {
+      section: 'Issues in Global Media Culture',
+      sentence: '__BLANK__ is the control or restriction of information by governments, organizations, or platforms.',
+      answers: ['Censorship'],
+      options: ['Censorship', 'Hybridization', 'Assimilation', 'Self-expression']
+    }
+  ];
+
+  var currentMode = 'mc';
+  var activeQuestions = [];
+  var currentIndex = 0;
+  var score = 0;
+  var answered = false;
+
+  var fillPlaced = [];
+  var fillUsedOptionToBlank = [];
+
+  function shuffleArray(arr) {
+    var out = arr.slice();
+    for (var i = out.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = out[i];
+      out[i] = out[j];
+      out[j] = tmp;
+    }
+    return out;
+  }
+
+  function buildMcQuestions() {
+    return sourceMcQuestions.map(function(sourceQuestion) {
+      var choiceItems = sourceQuestion.choices.map(function(choiceText, choiceIndex) {
+        return {
+          text: choiceText,
+          isCorrect: choiceIndex === sourceQuestion.answer
+        };
+      });
+
+      choiceItems = shuffleArray(choiceItems);
+
+      var correctIndex = 0;
+      for (var i = 0; i < choiceItems.length; i++) {
+        if (choiceItems[i].isCorrect) {
+          correctIndex = i;
+          break;
+        }
+      }
+
+      return {
+        type: 'mc',
+        section: sourceQuestion.section,
+        q: sourceQuestion.q,
+        choices: choiceItems.map(function(item) { return item.text; }),
+        answer: correctIndex
+      };
+    });
+  }
+
+  function buildFillQuestions() {
+    return sourceFillQuestions.map(function(sourceQuestion) {
+      return {
+        type: 'fill',
+        section: sourceQuestion.section,
+        q: 'Fill in the blank(s) using the option box.',
+        sentence: sourceQuestion.sentence,
+        answers: sourceQuestion.answers.slice(),
+        options: shuffleArray(sourceQuestion.options)
+      };
+    });
+  }
+
+  function showScreen(id) {
+    ['screenMode', 'screenStart', 'screenQuiz', 'screenResults'].forEach(function(screenId) {
+      document.getElementById(screenId).classList.remove('screen--active');
+    });
+    document.getElementById(id).classList.add('screen--active');
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function configureStartScreen() {
+    var isMc = currentMode === 'mc';
+    var total = isMc ? sourceMcQuestions.length : sourceFillQuestions.length;
+
+    document.getElementById('totalCount').textContent = total;
+    document.getElementById('totalCountR').textContent = total;
+
+    document.getElementById('startTitle').textContent = isMc ? 'Knowledge Quiz' : 'Fill in the Blanks';
+    document.getElementById('startDesc').textContent = isMc
+      ? 'Multiple choice quiz focused on emphasized terms and key statements from every section of Lesson 7.'
+      : 'Click options in order to fill blanks. Questions stay grouped by lesson section.';
+    document.getElementById('modeCode').textContent = isMc ? 'MC' : 'FIB';
+  }
+
+  function initFillState(question) {
+    fillPlaced = [];
+    for (var i = 0; i < question.answers.length; i++) fillPlaced.push('');
+    fillUsedOptionToBlank = [];
+    for (var j = 0; j < question.options.length; j++) fillUsedOptionToBlank.push(-1);
+  }
+
+  function renderFillQuestion(question) {
+    var sentenceParts = question.sentence.split('__BLANK__');
+    var sentenceHtml = '';
+
+    for (var i = 0; i < sentenceParts.length; i++) {
+      sentenceHtml += escapeHtml(sentenceParts[i]);
+      if (i < question.answers.length) {
+        var value = fillPlaced[i];
+        sentenceHtml += '<span class="fill-blank' + (value ? ' fill-blank--filled' : '') + '">' +
+          escapeHtml(value || '______') +
+          '</span>';
+      }
+    }
+
+    document.getElementById('fillSentence').innerHTML = sentenceHtml;
+
+    var bank = document.getElementById('fillBank');
+    bank.innerHTML = question.options.map(function(optionText, optionIndex) {
+      var used = fillUsedOptionToBlank[optionIndex] !== -1;
+      return '<button class="fill-chip' + (used ? ' fill-chip--used' : '') + '" data-option-idx="' + optionIndex + '">' +
+        escapeHtml(optionText) +
+        '</button>';
+    }).join('');
+
+    bank.querySelectorAll('.fill-chip').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        var optionIndex = parseInt(this.getAttribute('data-option-idx'), 10);
+        toggleFillOption(optionIndex);
+      });
+    });
+
+    var hasEmpty = fillPlaced.indexOf('') !== -1;
+    document.getElementById('fillCheckBtn').disabled = hasEmpty || answered;
+  }
+
+  function toggleFillOption(optionIndex) {
+    var question = activeQuestions[currentIndex];
+    var assignedBlank = fillUsedOptionToBlank[optionIndex];
+
+    if (assignedBlank !== -1) {
+      fillPlaced[assignedBlank] = '';
+      fillUsedOptionToBlank[optionIndex] = -1;
+    } else {
+      var firstEmpty = fillPlaced.indexOf('');
+      if (firstEmpty === -1) return;
+      fillPlaced[firstEmpty] = question.options[optionIndex];
+      fillUsedOptionToBlank[optionIndex] = firstEmpty;
+    }
+
+    renderFillQuestion(question);
+  }
+
+  function loadQuestion() {
+    answered = false;
+    var question = activeQuestions[currentIndex];
+    var total = activeQuestions.length;
+
+    document.getElementById('questionSection').textContent = question.section || '';
+    document.getElementById('questionNum').textContent = 'Question ' + (currentIndex + 1);
+    document.getElementById('questionText').textContent = question.q;
+    document.getElementById('progressLabel').textContent = 'Question ' + (currentIndex + 1) + ' of ' + total;
+    document.getElementById('scoreLabel').textContent = 'Score: ' + score;
+    document.getElementById('progressFill').style.width = (currentIndex / total * 100) + '%';
+
+    var feedback = document.getElementById('feedback');
+    feedback.style.display = 'none';
+    feedback.className = 'feedback';
+    document.getElementById('nextBtn').style.display = 'none';
+
+    var optionsList = document.getElementById('optionsList');
+    var fillWrap = document.getElementById('fillWrap');
+
+    if (question.type === 'mc') {
+      optionsList.style.display = 'flex';
+      fillWrap.style.display = 'none';
+
+      var letters = ['A', 'B', 'C', 'D'];
+      optionsList.innerHTML = question.choices.map(function(choiceText, i) {
+        return '<li><button class="option-btn" data-idx="' + i + '">' +
+          '<span class="option-btn__letter">' + letters[i] + '</span>' +
+          '<span>' + escapeHtml(choiceText) + '</span>' +
+          '</button></li>';
+      }).join('');
+
+      optionsList.querySelectorAll('.option-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (answered) return;
+          selectMcAnswer(parseInt(this.getAttribute('data-idx'), 10));
+        });
+      });
+    } else {
+      optionsList.style.display = 'none';
+      fillWrap.style.display = 'block';
+      initFillState(question);
+      renderFillQuestion(question);
+    }
+  }
+
+  function selectMcAnswer(idx) {
+    answered = true;
+    var question = activeQuestions[currentIndex];
+    var correctIndex = question.answer;
+    var buttons = document.querySelectorAll('.option-btn');
+
+    buttons.forEach(function(btn) { btn.disabled = true; });
+
+    var feedback = document.getElementById('feedback');
+    if (idx === correctIndex) {
+      score++;
+      buttons[idx].classList.add('option-btn--correct');
+      feedback.className = 'feedback feedback--correct';
+      feedback.style.display = 'block';
+      document.getElementById('feedbackLabel').textContent = 'Correct!';
+      document.getElementById('feedbackText').textContent = '';
+    } else {
+      buttons[idx].classList.add('option-btn--wrong');
+      buttons[correctIndex].classList.add('option-btn--correct');
+      feedback.className = 'feedback feedback--wrong';
+      feedback.style.display = 'block';
+      document.getElementById('feedbackLabel').textContent = 'Incorrect';
+      document.getElementById('feedbackText').textContent = 'Correct answer: ' + question.choices[correctIndex];
+    }
+
+    document.getElementById('scoreLabel').textContent = 'Score: ' + score;
+    document.getElementById('nextBtn').style.display = 'inline-flex';
+    document.getElementById('nextBtn').textContent = (currentIndex === activeQuestions.length - 1) ? 'See Results' : 'Next ->';
+  }
+
+  function checkFillAnswer() {
+    if (answered) return;
+
+    var question = activeQuestions[currentIndex];
+    var isCorrect = true;
+
+    for (var i = 0; i < question.answers.length; i++) {
+      if (fillPlaced[i] !== question.answers[i]) {
+        isCorrect = false;
+        break;
+      }
+    }
+
+    answered = true;
+
+    document.querySelectorAll('.fill-chip').forEach(function(btn) { btn.disabled = true; });
+    document.getElementById('fillCheckBtn').disabled = true;
+
+    var feedback = document.getElementById('feedback');
+    if (isCorrect) {
+      score++;
+      feedback.className = 'feedback feedback--correct';
+      feedback.style.display = 'block';
+      document.getElementById('feedbackLabel').textContent = 'Correct!';
+      document.getElementById('feedbackText').textContent = '';
+    } else {
+      feedback.className = 'feedback feedback--wrong';
+      feedback.style.display = 'block';
+      document.getElementById('feedbackLabel').textContent = 'Incorrect';
+      document.getElementById('feedbackText').textContent = 'Correct answer: ' + question.answers.join(' | ');
+    }
+
+    document.getElementById('scoreLabel').textContent = 'Score: ' + score;
+    document.getElementById('nextBtn').style.display = 'inline-flex';
+    document.getElementById('nextBtn').textContent = (currentIndex === activeQuestions.length - 1) ? 'See Results' : 'Next ->';
+  }
+
+  function showResults() {
+    showScreen('screenResults');
+    var total = activeQuestions.length;
+    var pct = Math.round(score / total * 100);
+
+    document.getElementById('scorePct').textContent = pct + '%';
+    document.getElementById('scoreRing').style.setProperty('--pct', pct + '%');
+    document.getElementById('correctCount').textContent = score;
+    document.getElementById('wrongCount').textContent = total - score;
+    document.getElementById('totalCountR').textContent = total;
+
+    var title = pct >= 90 ? 'Outstanding!' : pct >= 75 ? 'Great Job!' : pct >= 60 ? 'Good Effort!' : 'Keep Studying!';
+    document.getElementById('resultsTitle').textContent = title;
+    document.getElementById('resultsSub').textContent = 'You scored ' + score + ' out of ' + total + ' (' + pct + '%)';
+  }
+
+  document.getElementById('modeMc').addEventListener('click', function() {
+    currentMode = 'mc';
+    configureStartScreen();
+    showScreen('screenStart');
+  });
+
+  document.getElementById('modeFill').addEventListener('click', function() {
+    currentMode = 'fill';
+    configureStartScreen();
+    showScreen('screenStart');
+  });
+
+  document.getElementById('startBtn').addEventListener('click', function() {
+    activeQuestions = currentMode === 'mc' ? buildMcQuestions() : buildFillQuestions();
+    currentIndex = 0;
+    score = 0;
+    showScreen('screenQuiz');
+    loadQuestion();
+  });
+
+  document.getElementById('fillCheckBtn').addEventListener('click', function() {
+    checkFillAnswer();
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', function() {
+    currentIndex++;
+    if (currentIndex < activeQuestions.length) {
+      loadQuestion();
+    } else {
+      showResults();
+    }
+  });
+
+  document.getElementById('retryBtn').addEventListener('click', function() {
+    activeQuestions = currentMode === 'mc' ? buildMcQuestions() : buildFillQuestions();
+    currentIndex = 0;
+    score = 0;
+    showScreen('screenQuiz');
+    loadQuestion();
+  });
+
+  document.getElementById('changeModeBtn').addEventListener('click', function() {
+    showScreen('screenMode');
+  });
+
+  document.getElementById('backBtn').addEventListener('click', function() {
+    sessionStorage.setItem('spa-redirect', 'quiz');
+    window.location.href = '../../../';
+  });
+
+  document.getElementById('modeMcCount').textContent = sourceMcQuestions.length + ' Questions';
+  document.getElementById('modeFillCount').textContent = sourceFillQuestions.length + ' Questions';
+  </script>
+</body>
+</html>
