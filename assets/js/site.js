@@ -199,6 +199,22 @@ const genderSocietyQuizzes = [
     quizUrl: 'quizzes/gas/sex-and-gender/quiz.html',
   },
   {
+    id: 102,
+    image: 'assets/images/quizzes/lesson_2-sogiesc.png',
+    title: 'Understanding SOGIESC Quiz',
+    description: 'Lesson 2 of Gender and Society about sexual orientation, gender identity, gender expression, and sex characteristics.',
+    lessonUrl: 'quizzes/gas/sogiesc/lesson.html',
+    quizUrl: 'quizzes/gas/sogiesc/quiz.html',
+  },
+  {
+    id: 103,
+    image: 'assets/images/quizzes/lesson_3-gender-and-social-construct.png',
+    title: 'Gender and Social Construct Quiz',
+    description: 'Lesson 3 of Gender and Society about social construction, gender theories, roles, and stereotypes.',
+    lessonUrl: 'quizzes/gas/gender-and-social-construct/lesson.html',
+    quizUrl: 'quizzes/gas/gender-and-social-construct/quiz.html',
+  },
+  {
     id: 104,
     image: 'assets/images/quizzes/lesson_4-gender-and-family.png',
     title: 'Gender and Family Quiz',
