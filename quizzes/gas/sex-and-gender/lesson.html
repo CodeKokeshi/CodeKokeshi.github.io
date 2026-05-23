@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sex and Gender - Gender and Society Lesson 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(236,72,153,0.18), transparent 32rem),
+        radial-gradient(circle at top right, rgba(139,92,246,0.18), transparent 30rem),
+        #0a0a0a;
+      color: #fff;
+      line-height: 1.65;
+    }
+    .lesson-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px clamp(18px, 5vw, 56px);
+      background: rgba(10,10,10,0.86);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(14px);
+    }
+    .lesson-header__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.72);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: color 0.2s ease;
+    }
+    .lesson-header__back:hover { color: #f0abfc; }
+    .lesson-header__back svg { width: 16px; height: 16px; }
+    .lesson-header__title { font-weight: 800; text-align: center; }
+    .lesson-header__tag {
+      color: rgba(255,255,255,0.48);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .lesson-wrap {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 64px 0 80px;
+    }
+    .lesson-hero {
+      margin-bottom: 44px;
+      padding: clamp(24px, 5vw, 44px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(236,72,153,0.15), rgba(139,92,246,0.13));
+      box-shadow: 0 24px 80px rgba(0,0,0,0.34);
+    }
+    .lesson-hero__label {
+      color: #f9a8d4;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .lesson-hero__title {
+      font-size: clamp(38px, 8vw, 76px);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      margin-bottom: 18px;
+    }
+    .lesson-hero__desc {
+      max-width: 720px;
+      color: rgba(255,255,255,0.76);
+      font-size: 17px;
+    }
+    .lesson-section { margin-bottom: 42px; }
+    .lesson-section__heading {
+      display: inline-block;
+      margin-bottom: 18px;
+      font-size: clamp(24px, 4vw, 34px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      background: linear-gradient(90deg, #f9a8d4, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .card, .def, .table-wrap {
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.055);
+      padding: 20px;
+    }
+    .def + .def { margin-top: 16px; }
+    .def__term, .card__title {
+      margin-bottom: 8px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .def__body, .card__text, .lesson-section p, li {
+      color: rgba(255,255,255,0.72);
+      font-size: 15px;
+    }
+    ul, ol { padding-left: 22px; }
+    li + li { margin-top: 8px; }
+    .table-wrap {
+      overflow-x: auto;
+      padding: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+    th, td {
+      padding: 15px 18px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.74);
+      vertical-align: top;
+    }
+    th {
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.06);
+    }
+    tr:last-child td { border-bottom: 0; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .summary__item {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(236,72,153,0.11);
+      border: 1px solid rgba(236,72,153,0.22);
+      color: rgba(255,255,255,0.76);
+      font-weight: 600;
+    }
+    .lesson-cta {
+      margin-top: 56px;
+      padding: 28px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(236,72,153,0.18), rgba(139,92,246,0.16));
+      border: 1px solid rgba(255,255,255,0.12);
+      text-align: center;
+    }
+    .lesson-cta h3 { font-size: 24px; margin-bottom: 8px; }
+    .lesson-cta p { color: rgba(255,255,255,0.66); margin-bottom: 18px; }
+    .lesson-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+    .lesson-cta__btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(236,72,153,0.34);
+    }
+    @media (max-width: 640px) {
+      .lesson-header__title { display: none; }
+      .lesson-header { padding-inline: 18px; }
+      .lesson-wrap { padding-top: 38px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="lesson-header">
+    <a href="../../../" class="lesson-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Quizzes
+    </a>
+    <span class="lesson-header__title">Sex and Gender</span>
+    <span class="lesson-header__tag">GAS - Lesson 1</span>
+  </header>
+
+  <main class="lesson-wrap">
+    <div class="lesson-hero">
+      <p class="lesson-hero__label">Gender and Society - Lesson 1</p>
+      <h1 class="lesson-hero__title">Sex and Gender</h1>
+      <p class="lesson-hero__desc">As you explore various aspects of gender and development, it is necessary to obtain a clearer understanding of what sex and gender are by delving into their respective definitions and constructs.</p>
+    </div>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Definition of Sex</h2>
+      <div class="def">
+        <p class="def__term">Sex</p>
+        <p class="def__body">Sex refers to the biological and physiological characteristics that define humans as male, female, or intersex.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">Biological characteristics</p>
+        <p class="def__body">These characteristics are innate and universal, determined by anatomy, chromosomes, and hormones.</p>
+      </div>
+      <div class="card-grid" style="margin-top:16px;">
+        <div class="card">
+          <p class="card__title">Chromosomes</p>
+          <p class="card__text">Females typically have XX chromosomes; males have XY.</p>
+        </div>
+        <div class="card">
+          <p class="card__title">Reproductive organs</p>
+          <p class="card__text">Ovaries and uterus in females; testes and penis in males.</p>
+        </div>
+        <div class="card">
+          <p class="card__title">Secondary sex characteristics</p>
+          <p class="card__text">Body hair, breast development, voice pitch, and related traits.</p>
+        </div>
+      </div>
+      <div class="def" style="margin-top:16px;">
+        <p class="def__term">Key idea</p>
+        <p class="def__body">Sex is biological, generally assigned at birth, and rarely changes, though some individuals may undergo medical transitions to align their physical characteristics with their gender identity.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Definition of Gender</h2>
+      <div class="def">
+        <p class="def__term">Gender</p>
+        <p class="def__body">Gender refers to the socially constructed roles, behaviors, expectations, and attributes that a society considers appropriate for men, women, and people of other gender identities.</p>
+      </div>
+      <div class="def">
+        <p class="def__term">How gender is shaped</p>
+        <p class="def__body">It is shaped by culture, history, religion, and social norms, and can vary across time and place.</p>
+      </div>
+      <div class="card-grid" style="margin-top:16px;">
+        <div class="card">
+          <p class="card__title">Gender role example</p>
+          <p class="card__text">Expecting women to take care of the home and children.</p>
+        </div>
+        <div class="card">
+          <p class="card__title">Gender role example</p>
+          <p class="card__text">Expecting men to be the breadwinners.</p>
+        </div>
+        <div class="card">
+          <p class="card__title">Gender role example</p>
+          <p class="card__text">Assuming only men can hold leadership or political roles.</p>
+        </div>
+      </div>
+      <div class="def" style="margin-top:16px;">
+        <p class="def__term">Key idea</p>
+        <p class="def__body">Gender is not biological. It is socially and culturally defined and can change over time as society evolves.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Sex vs. Gender: The Difference</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Aspect</th>
+              <th>Sex</th>
+              <th>Gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Basis</td>
+              <td>Biological: chromosomes, anatomy, hormones.</td>
+              <td>Social and cultural norms and expectations.</td>
+            </tr>
+            <tr>
+              <td>Nature</td>
+              <td>Innate and generally fixed.</td>
+              <td>Learned, dynamic, and may change.</td>
+            </tr>
+            <tr>
+              <td>Examples</td>
+              <td>Male, female, intersex.</td>
+              <td>Masculine, feminine, non-binary, transgender.</td>
+            </tr>
+            <tr>
+              <td>Determined by</td>
+              <td>Biology.</td>
+              <td>Society and culture.</td>
+            </tr>
+            <tr>
+              <td>Focuses on</td>
+              <td>Physical traits.</td>
+              <td>Roles, behaviors, identity.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Why It Is Important to Distinguish Between Sex and Gender</h2>
+      <p>Understanding the difference helps in promoting gender equality and addressing gender-based discrimination.</p>
+      <div class="card-grid" style="margin-top:16px;">
+        <div class="card">
+          <p class="card__title">Disaster response</p>
+          <p class="card__text">Recognizing gender differences helps ensure that both men's and women's needs are addressed, such as access to reproductive health care or stigma around seeking emotional help.</p>
+        </div>
+        <div class="card">
+          <p class="card__title">Education</p>
+          <p class="card__text">Understanding gender roles prevents stereotyping, such as girls being discouraged from STEM fields.</p>
+        </div>
+        <div class="card">
+          <p class="card__title">Workplaces</p>
+          <p class="card__text">Gender awareness promotes equal opportunities and inclusive environments.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">The Broader Spectrum of Gender</h2>
+      <p>Modern discussions recognize that gender is not binary, meaning not only male or female.</p>
+      <div class="card-grid" style="margin-top:16px;">
+        <div class="card">
+          <p class="card__title">Transgender</p>
+          <p class="card__text">Gender identity differs from sex assigned at birth.</p>
+        </div>
+        <div class="card">
+          <p class="card__title">Non-binary</p>
+          <p class="card__text">Does not fit within the traditional male/female categories.</p>
+        </div>
+        <div class="card">
+          <p class="card__title">Gender-fluid</p>
+          <p class="card__text">Gender identity may change over time or context.</p>
+        </div>
+      </div>
+      <p style="margin-top:16px;">Recognizing this diversity fosters inclusivity and respect for human rights.</p>
+    </section>
+
+    <section class="lesson-section">
+      <h2 class="lesson-section__heading">Summary</h2>
+      <div class="summary">
+        <div class="summary__item">Sex = biological and physical characteristics.</div>
+        <div class="summary__item">Gender = social and cultural roles, expectations, and identities.</div>
+        <div class="summary__item">Both interact to shape people's experiences, opportunities, and treatment in society.</div>
+        <div class="summary__item">Understanding both concepts is key to achieving gender equality and ensuring that everyone, regardless of sex or gender, enjoys equal rights and opportunities.</div>
+      </div>
+    </section>
+
+    <div class="lesson-cta">
+      <h3>Ready to test yourself?</h3>
+      <p>You reviewed Lesson 1. Continue to the quiz.</p>
+      <a href="quiz.html" class="lesson-cta__btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+        Take Quiz
+      </a>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sex and Gender Quiz - Gender and Society Lesson 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(236,72,153,0.2), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(139,92,246,0.18), transparent 32rem),
+        #0a0a0a;
+      color: #fff;
+      line-height: 1.5;
+    }
+    button, a { font: inherit; }
+    .quiz-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px clamp(18px, 5vw, 56px);
+      background: rgba(10,10,10,0.86);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(14px);
+    }
+    .quiz-header__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.72);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 800;
+      transition: color 0.2s ease;
+    }
+    .quiz-header__back:hover { color: #f0abfc; }
+    .quiz-header__back svg { width: 16px; height: 16px; }
+    .quiz-header__title { font-weight: 900; text-align: center; }
+    .quiz-header__tag {
+      color: rgba(255,255,255,0.48);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .screen { display: none; }
+    .screen--active { display: block; }
+    .quiz-shell {
+      width: min(880px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 62px 0 80px;
+    }
+    .hero-card, .quiz-card, .results-card {
+      border: 1px solid rgba(255,255,255,0.11);
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035));
+      box-shadow: 0 26px 90px rgba(0,0,0,0.38);
+      padding: clamp(24px, 5vw, 42px);
+    }
+    .hero-label {
+      color: #f9a8d4;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .hero-title {
+      font-size: clamp(38px, 8vw, 70px);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      margin-bottom: 18px;
+    }
+    .hero-desc {
+      color: rgba(255,255,255,0.72);
+      max-width: 680px;
+      font-size: 16px;
+    }
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .mode-card {
+      width: 100%;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+    }
+    .mode-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(249,168,212,0.55);
+      background: rgba(236,72,153,0.13);
+    }
+    .mode-card__code {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(236,72,153,0.16);
+      color: #f9a8d4;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+    }
+    .mode-card__title { display: block; font-size: 19px; font-weight: 900; margin-bottom: 6px; }
+    .mode-card__desc { display: block; color: rgba(255,255,255,0.64); font-size: 14px; }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .btn-primary, .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 11px 17px;
+      border: 0;
+      border-radius: 12px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.16s ease, opacity 0.16s ease;
+    }
+    .btn-primary { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.07);
+    }
+    .btn-primary:hover, .btn-secondary:hover { transform: translateY(-2px); }
+    .btn-primary:disabled, .btn-secondary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: rgba(255,255,255,0.64);
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .progress-bar {
+      height: 9px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      margin-bottom: 26px;
+    }
+    .progress-bar__fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #ec4899, #8b5cf6);
+      transition: width 0.25s ease;
+    }
+    .question-card__num {
+      color: #f9a8d4;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .question-card__text {
+      font-size: clamp(22px, 4vw, 31px);
+      line-height: 1.2;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 22px;
+    }
+    .options-list {
+      display: grid;
+      gap: 12px;
+      list-style: none;
+    }
+    .option-btn {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      width: 100%;
+      padding: 15px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.055);
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+    }
+    .option-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: rgba(249,168,212,0.5);
+      background: rgba(236,72,153,0.1);
+    }
+    .option-btn:disabled { cursor: default; }
+    .option-btn__letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 32px;
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: rgba(255,255,255,0.1);
+      font-weight: 900;
+    }
+    .option-btn--correct { border-color: rgba(74,222,128,0.75); background: rgba(34,197,94,0.15); }
+    .option-btn--wrong { border-color: rgba(248,113,113,0.75); background: rgba(239,68,68,0.14); }
+    .fill-wrap { display: none; }
+    .fill-sentence {
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.055);
+      color: rgba(255,255,255,0.78);
+      font-size: 19px;
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+    .fill-blank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 140px;
+      margin: 0 4px;
+      padding: 4px 10px;
+      border-radius: 10px;
+      border: 1px dashed rgba(249,168,212,0.62);
+      color: #f9a8d4;
+      font-weight: 900;
+      vertical-align: baseline;
+    }
+    .fill-blank--filled {
+      border-style: solid;
+      background: rgba(236,72,153,0.14);
+      color: #fff;
+    }
+    .fill-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .fill-chip {
+      padding: 10px 13px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.07);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 800;
+      transition: opacity 0.16s ease, transform 0.16s ease, border-color 0.16s ease;
+    }
+    .fill-chip:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: rgba(249,168,212,0.55);
+    }
+    .fill-chip--used { opacity: 0.42; }
+    .feedback {
+      display: none;
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+    }
+    .feedback__label { display: block; font-weight: 900; margin-bottom: 4px; }
+    .feedback__text { color: rgba(255,255,255,0.7); }
+    .feedback--correct { border-color: rgba(74,222,128,0.55); background: rgba(34,197,94,0.12); }
+    .feedback--wrong { border-color: rgba(248,113,113,0.55); background: rgba(239,68,68,0.12); }
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .score-ring {
+      width: 170px;
+      height: 170px;
+      margin: 0 auto 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: conic-gradient(#ec4899 var(--pct), rgba(255,255,255,0.1) 0);
+    }
+    .score-ring__inner {
+      width: 132px;
+      height: 132px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #111;
+      font-size: 34px;
+      font-weight: 900;
+    }
+    .results-card { text-align: center; }
+    .results-title { font-size: 34px; margin-bottom: 8px; }
+    .results-sub { color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+    @media (max-width: 640px) {
+      .quiz-header__title { display: none; }
+      .quiz-shell { padding-top: 38px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="quiz-header">
+    <a href="../../../" class="quiz-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Quizzes
+    </a>
+    <span class="quiz-header__title">Sex and Gender Quiz</span>
+    <span class="quiz-header__tag">GAS - L1</span>
+  </header>
+
+  <main class="quiz-shell">
+    <section class="screen screen--active" id="screenMode">
+      <div class="hero-card">
+        <p class="hero-label">Gender and Society - Lesson 1</p>
+        <h1 class="hero-title">Sex and Gender Quiz</h1>
+        <p class="hero-desc">Choose a mode. Both modes use only the lesson content from Sex and Gender through the end of the summary.</p>
+        <div class="mode-grid">
+          <button class="mode-card" data-mode="mc">
+            <span class="mode-card__code">MC</span>
+            <span class="mode-card__title">Multiple Choice</span>
+            <span class="mode-card__desc">Questions about definitions, examples, and key distinctions.</span>
+          </button>
+          <button class="mode-card" data-mode="fill">
+            <span class="mode-card__code">FIB</span>
+            <span class="mode-card__title">Fill in the Blanks</span>
+            <span class="mode-card__desc">Click options to complete source-based sentences.</span>
+          </button>
+        </div>
+        <div class="btn-row">
+          <a href="lesson.html" class="btn-secondary">Review Lesson</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="screenStart">
+      <div class="hero-card">
+        <p class="hero-label" id="modeCode">MC</p>
+        <h1 class="hero-title" id="startTitle">Knowledge Quiz</h1>
+        <p class="hero-desc" id="startDesc">Answer each question. Your choices will be shuffled each attempt.</p>
+        <div class="btn-row">
+          <button class="btn-primary" id="startBtn">Start Quiz</button>
+          <button class="btn-secondary" id="modeBackBtn">Change Mode</button>
+          <a href="lesson.html" class="btn-secondary">Review Lesson</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="screenQuiz">
+      <div class="quiz-card">
+        <div class="progress-top">
+          <span id="progressLabel">Question 1 of 1</span>
+          <span id="scoreLabel">Score: 0</span>
+        </div>
+        <div class="progress-bar"><div class="progress-bar__fill" id="progressFill"></div></div>
+        <p class="question-card__num" id="questionNum">Question 1</p>
+        <p class="question-card__text" id="questionText"></p>
+        <ul class="options-list" id="optionsList"></ul>
+        <div class="fill-wrap" id="fillWrap">
+          <div class="fill-sentence" id="fillSentence"></div>
+          <div class="fill-bank" id="fillBank"></div>
+          <button class="btn-secondary" id="fillCheckBtn" disabled>Check Answer</button>
+        </div>
+        <div class="feedback" id="feedback">
+          <span class="feedback__label" id="feedbackLabel"></span>
+          <span class="feedback__text" id="feedbackText"></span>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn-secondary" id="backBtn">Back to Quizzes</button>
+          <button class="btn-primary" id="nextBtn" style="display:none;">Next</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="screenResults">
+      <div class="results-card">
+        <div class="score-ring" id="scoreRing" style="--pct:0%;"><div class="score-ring__inner" id="scorePct">0%</div></div>
+        <h2 class="results-title" id="resultsTitle">Results</h2>
+        <p class="results-sub" id="resultsSub"></p>
+        <div class="btn-row" style="justify-content:center;">
+          <button class="btn-primary" id="retryBtn">Retry Mode</button>
+          <button class="btn-secondary" id="changeModeBtn">Change Mode</button>
+          <a href="lesson.html" class="btn-secondary">Review Lesson</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  var sourceMcQuestions = [
+    {
+      q: 'Which concept refers to biological and physiological characteristics that define humans as male, female, or intersex?',
+      choices: ['Sex', 'Gender', 'Gender role', 'Gender-fluid'],
+      answer: 0
+    },
+    {
+      q: 'Which group of factors determines biological characteristics in the lesson?',
+      choices: ['Anatomy, chromosomes, and hormones', 'Culture, history, and religion', 'Roles, behaviors, and identity', 'Education, workplace, and disaster response'],
+      answer: 0
+    },
+    {
+      q: 'Which chromosome pair is typically associated with females in the lesson?',
+      choices: ['XX', 'XY', 'YY', 'XO only'],
+      answer: 0
+    },
+    {
+      q: 'Which chromosome pair is typically associated with males in the lesson?',
+      choices: ['XY', 'XX', 'YY', 'XXY only'],
+      answer: 0
+    },
+    {
+      q: 'Which item is listed as an example of reproductive organs in females?',
+      choices: ['Ovaries and uterus', 'Testes and penis', 'Voice pitch and body hair', 'Breadwinner role'],
+      answer: 0
+    },
+    {
+      q: 'Which item is listed as an example of reproductive organs in males?',
+      choices: ['Testes and penis', 'Ovaries and uterus', 'Breast development', 'Leadership role'],
+      answer: 0
+    },
+    {
+      q: 'Which list gives examples of secondary sex characteristics from the lesson?',
+      choices: ['Body hair, breast development, and voice pitch', 'Culture, history, and social norms', 'Masculine, feminine, and non-binary', 'Home care, breadwinning, and leadership'],
+      answer: 0
+    },
+    {
+      q: 'According to the lesson key idea, sex is generally assigned when?',
+      choices: ['At birth', 'During education', 'After entering the workplace', 'Only after adulthood'],
+      answer: 0
+    },
+    {
+      q: 'Which concept refers to socially constructed roles, behaviors, expectations, and attributes?',
+      choices: ['Gender', 'Sex', 'Chromosomes', 'Anatomy'],
+      answer: 0
+    },
+    {
+      q: 'Which group shapes gender according to the lesson?',
+      choices: ['Culture, history, religion, and social norms', 'Chromosomes, anatomy, and hormones', 'Ovaries, uterus, testes, and penis', 'Body hair, breast development, and voice pitch'],
+      answer: 0
+    },
+    {
+      q: 'What does the lesson say about how gender varies?',
+      choices: ['It can vary across time and place', 'It is always fixed at birth', 'It is determined only by chromosomes', 'It rarely changes because of anatomy'],
+      answer: 0
+    },
+    {
+      q: 'Which example is listed as a gender role?',
+      choices: ['Expecting men to be the breadwinners', 'Females typically having XX chromosomes', 'Males typically having XY chromosomes', 'Ovaries and uterus in females'],
+      answer: 0
+    },
+    {
+      q: 'Which example is listed as a gender role?',
+      choices: ['Assuming only men can hold leadership or political roles', 'Breast development', 'Voice pitch', 'Hormones'],
+      answer: 0
+    },
+    {
+      q: 'In the comparison table, which word describes the nature of sex?',
+      choices: ['Innate and generally fixed', 'Learned and dynamic', 'Socially constructed', 'Defined by social norms'],
+      answer: 0
+    },
+    {
+      q: 'In the comparison table, which word describes the nature of gender?',
+      choices: ['Learned, dynamic, and may change', 'Innate and generally fixed', 'Determined by anatomy only', 'Limited to physical traits'],
+      answer: 0
+    },
+    {
+      q: 'Which examples belong under sex in the comparison table?',
+      choices: ['Male, female, intersex', 'Masculine, feminine, non-binary, transgender', 'Roles, behaviors, identity', 'Culture and social expectations'],
+      answer: 0
+    },
+    {
+      q: 'Which examples belong under gender in the comparison table?',
+      choices: ['Masculine, feminine, non-binary, transgender', 'Male, female, intersex', 'Chromosomes, anatomy, hormones', 'Ovaries, uterus, testes'],
+      answer: 0
+    },
+    {
+      q: 'Understanding the difference helps promote gender equality and address what issue?',
+      choices: ['Gender-based discrimination', 'Chromosome replacement', 'Biological assignment', 'Medical transition only'],
+      answer: 0
+    },
+    {
+      q: 'In disaster response, recognizing gender differences helps ensure whose needs are addressed?',
+      choices: ['Both men\'s and women\'s needs', 'Only women\'s needs', 'Only men\'s needs', 'Only political leaders\' needs'],
+      answer: 0
+    },
+    {
+      q: 'In education, understanding gender roles helps prevent what?',
+      choices: ['Stereotyping', 'Chromosomes', 'Anatomy', 'Intersex classifications'],
+      answer: 0
+    },
+    {
+      q: 'What workplace result is connected to gender awareness in the lesson?',
+      choices: ['Equal opportunities and inclusive environments', 'Fixed social roles', 'Discouraging girls from STEM fields', 'Assigning sex at birth'],
+      answer: 0
+    },
+    {
+      q: 'Modern discussions recognize that gender is not what?',
+      choices: ['Binary', 'Socially shaped', 'Culturally defined', 'Able to change'],
+      answer: 0
+    },
+    {
+      q: 'Which term means gender identity differs from sex assigned at birth?',
+      choices: ['Transgender', 'Non-binary', 'Gender-fluid', 'Intersex'],
+      answer: 0
+    },
+    {
+      q: 'Which term means a person does not fit within traditional male/female categories?',
+      choices: ['Non-binary', 'Transgender', 'Gender-fluid', 'Female'],
+      answer: 0
+    },
+    {
+      q: 'Which term means gender identity may change over time or context?',
+      choices: ['Gender-fluid', 'Non-binary', 'Transgender', 'Male'],
+      answer: 0
+    },
+    {
+      q: 'Recognizing gender diversity fosters inclusivity and respect for what?',
+      choices: ['Human rights', 'Chromosome pairs', 'Physical traits only', 'Assigned birth records'],
+      answer: 0
+    },
+    {
+      q: 'What do sex and gender both interact to shape according to the summary?',
+      choices: ['People\'s experiences, opportunities, and treatment in society', 'Only chromosome pairs', 'Only reproductive organs', 'Only leadership roles'],
+      answer: 0
+    },
+    {
+      q: 'Understanding both concepts is key to achieving what goal in the summary?',
+      choices: ['Gender equality', 'Gender stereotyping', 'Gender-based discrimination', 'Binary-only identity'],
+      answer: 0
+    }
+  ];
+
+  var sourceFillQuestions = [
+    {
+      sentence: '__BLANK__ refers to the biological and physiological characteristics that define humans as __BLANK__, __BLANK__, or __BLANK__.',
+      answers: ['Sex', 'male', 'female', 'intersex'],
+      options: ['Sex', 'male', 'female', 'intersex', 'Gender', 'non-binary', 'transgender']
+    },
+    {
+      sentence: 'These characteristics are innate and universal, determined by __BLANK__, __BLANK__, and __BLANK__.',
+      answers: ['anatomy', 'chromosomes', 'hormones'],
+      options: ['anatomy', 'chromosomes', 'hormones', 'culture', 'history', 'religion']
+    },
+    {
+      sentence: 'Females typically have __BLANK__ chromosomes; males have __BLANK__.',
+      answers: ['XX', 'XY'],
+      options: ['XX', 'XY', 'YY', 'XO']
+    },
+    {
+      sentence: '__BLANK__ is biological, generally assigned at birth, and rarely changes.',
+      answers: ['Sex'],
+      options: ['Sex', 'Gender', 'Gender-fluid', 'Non-binary']
+    },
+    {
+      sentence: '__BLANK__ refers to the socially constructed roles, behaviors, expectations, and attributes that a society considers appropriate.',
+      answers: ['Gender'],
+      options: ['Gender', 'Sex', 'Chromosomes', 'Anatomy']
+    },
+    {
+      sentence: 'It is shaped by __BLANK__, __BLANK__, __BLANK__, and social norms.',
+      answers: ['culture', 'history', 'religion'],
+      options: ['culture', 'history', 'religion', 'anatomy', 'chromosomes', 'hormones']
+    },
+    {
+      sentence: 'Gender is not biological. It is __BLANK__ and __BLANK__ defined.',
+      answers: ['socially', 'culturally'],
+      options: ['socially', 'culturally', 'innately', 'physically', 'chromosomally']
+    },
+    {
+      sentence: 'Under basis, sex is biological while gender is based on social and cultural __BLANK__ and __BLANK__.',
+      answers: ['norms', 'expectations'],
+      options: ['norms', 'expectations', 'chromosomes', 'hormones', 'organs']
+    },
+    {
+      sentence: 'Under nature, sex is innate and generally fixed while gender is learned, dynamic, and may __BLANK__.',
+      answers: ['change'],
+      options: ['change', 'disappear', 'freeze', 'divide']
+    },
+    {
+      sentence: 'Gender focuses on roles, behaviors, and __BLANK__.',
+      answers: ['identity'],
+      options: ['identity', 'anatomy', 'hormones', 'chromosomes']
+    },
+    {
+      sentence: 'Understanding the difference helps in promoting __BLANK__ and addressing gender-based __BLANK__.',
+      answers: ['gender equality', 'discrimination'],
+      options: ['gender equality', 'discrimination', 'birth assignment', 'chromosomes', 'voice pitch']
+    },
+    {
+      sentence: 'In education, understanding gender roles prevents __BLANK__.',
+      answers: ['stereotyping'],
+      options: ['stereotyping', 'medical transitions', 'chromosomes', 'hormones']
+    },
+    {
+      sentence: 'In workplaces, gender awareness promotes equal opportunities and __BLANK__ environments.',
+      answers: ['inclusive'],
+      options: ['inclusive', 'fixed', 'binary', 'biological']
+    },
+    {
+      sentence: 'Modern discussions recognize that gender is not __BLANK__, meaning not only male or female.',
+      answers: ['binary'],
+      options: ['binary', 'social', 'cultural', 'dynamic']
+    },
+    {
+      sentence: '__BLANK__ means gender identity differs from sex assigned at birth.',
+      answers: ['Transgender'],
+      options: ['Transgender', 'Non-binary', 'Gender-fluid', 'Intersex']
+    },
+    {
+      sentence: '__BLANK__ means a person does not fit within the traditional male/female categories.',
+      answers: ['Non-binary'],
+      options: ['Non-binary', 'Transgender', 'Gender-fluid', 'Female']
+    },
+    {
+      sentence: '__BLANK__ means gender identity may change over time or context.',
+      answers: ['Gender-fluid'],
+      options: ['Gender-fluid', 'Non-binary', 'Transgender', 'Male']
+    },
+    {
+      sentence: 'Recognizing this diversity fosters __BLANK__ and respect for human rights.',
+      answers: ['inclusivity'],
+      options: ['inclusivity', 'stereotyping', 'discrimination', 'fixed roles']
+    },
+    {
+      sentence: 'Sex equals biological and physical __BLANK__.',
+      answers: ['characteristics'],
+      options: ['characteristics', 'roles', 'expectations', 'identities']
+    },
+    {
+      sentence: 'Gender equals social and cultural roles, expectations, and __BLANK__.',
+      answers: ['identities'],
+      options: ['identities', 'chromosomes', 'organs', 'hormones']
+    },
+    {
+      sentence: 'Both interact to shape people\'s experiences, opportunities, and __BLANK__ in society.',
+      answers: ['treatment'],
+      options: ['treatment', 'chromosomes', 'anatomy', 'voice pitch']
+    },
+    {
+      sentence: 'Understanding both concepts is key to achieving gender equality and ensuring equal rights and __BLANK__.',
+      answers: ['opportunities'],
+      options: ['opportunities', 'stereotypes', 'discrimination', 'fixed roles']
+    }
+  ];
+
+  var currentMode = 'mc';
+  var activeQuestions = [];
+  var currentIndex = 0;
+  var score = 0;
+  var answered = false;
+  var fillPlaced = [];
+  var fillUsedOptionToBlank = [];
+
+  function shuffleArray(arr) {
+    var out = arr.slice();
+    for (var i = out.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = out[i];
+      out[i] = out[j];
+      out[j] = tmp;
+    }
+    return out;
+  }
+
+  function buildMcQuestions() {
+    return sourceMcQuestions.map(function(sourceQuestion) {
+      var choiceItems = sourceQuestion.choices.map(function(choiceText, choiceIndex) {
+        return {
+          text: choiceText,
+          isCorrect: choiceIndex === sourceQuestion.answer
+        };
+      });
+
+      choiceItems = shuffleArray(choiceItems);
+
+      var correctIndex = 0;
+      for (var i = 0; i < choiceItems.length; i++) {
+        if (choiceItems[i].isCorrect) {
+          correctIndex = i;
+          break;
+        }
+      }
+
+      return {
+        type: 'mc',
+        q: sourceQuestion.q,
+        choices: choiceItems.map(function(item) { return item.text; }),
+        answer: correctIndex
+      };
+    });
+  }
+
+  function buildFillQuestions() {
+    return sourceFillQuestions.map(function(sourceQuestion) {
+      return {
+        type: 'fill',
+        q: 'Fill in the blank(s) using the option box.',
+        sentence: sourceQuestion.sentence,
+        answers: sourceQuestion.answers.slice(),
+        options: shuffleArray(sourceQuestion.options)
+      };
+    });
+  }
+
+  function showScreen(id) {
+    ['screenMode', 'screenStart', 'screenQuiz', 'screenResults'].forEach(function(screenId) {
+      document.getElementById(screenId).classList.remove('screen--active');
+    });
+    document.getElementById(id).classList.add('screen--active');
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function configureStartScreen() {
+    var isMc = currentMode === 'mc';
+    var total = isMc ? sourceMcQuestions.length : sourceFillQuestions.length;
+
+    document.getElementById('startTitle').textContent = isMc ? 'Knowledge Quiz' : 'Fill in the Blanks';
+    document.getElementById('startDesc').textContent = isMc
+      ? 'Multiple choice quiz focused on definitions, examples, key comparisons, and the summary.'
+      : 'Click options in order to fill blanks. Click a placed option again to return it to the option box.';
+    document.getElementById('modeCode').textContent = isMc ? 'MC - ' + total + ' Questions' : 'FIB - ' + total + ' Questions';
+  }
+
+  function initFillState(question) {
+    fillPlaced = [];
+    for (var i = 0; i < question.answers.length; i++) fillPlaced.push('');
+    fillUsedOptionToBlank = [];
+    for (var j = 0; j < question.options.length; j++) fillUsedOptionToBlank.push(-1);
+  }
+
+  function renderFillQuestion(question) {
+    var sentenceParts = question.sentence.split('__BLANK__');
+    var sentenceHtml = '';
+
+    for (var i = 0; i < sentenceParts.length; i++) {
+      sentenceHtml += escapeHtml(sentenceParts[i]);
+      if (i < question.answers.length) {
+        var value = fillPlaced[i];
+        sentenceHtml += '<span class="fill-blank' + (value ? ' fill-blank--filled' : '') + '">' +
+          escapeHtml(value || '______') +
+          '</span>';
+      }
+    }
+
+    document.getElementById('fillSentence').innerHTML = sentenceHtml;
+
+    var bank = document.getElementById('fillBank');
+    bank.innerHTML = question.options.map(function(optionText, optionIndex) {
+      var used = fillUsedOptionToBlank[optionIndex] !== -1;
+      return '<button class="fill-chip' + (used ? ' fill-chip--used' : '') + '" data-option-idx="' + optionIndex + '">' +
+        escapeHtml(optionText) +
+      '</button>';
+    }).join('');
+
+    bank.querySelectorAll('.fill-chip').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        toggleFillOption(parseInt(this.getAttribute('data-option-idx'), 10));
+      });
+    });
+
+    document.getElementById('fillCheckBtn').disabled = fillPlaced.indexOf('') !== -1 || answered;
+  }
+
+  function toggleFillOption(optionIndex) {
+    var question = activeQuestions[currentIndex];
+    var assignedBlank = fillUsedOptionToBlank[optionIndex];
+
+    if (assignedBlank !== -1) {
+      fillPlaced[assignedBlank] = '';
+      fillUsedOptionToBlank[optionIndex] = -1;
+    } else {
+      var firstEmpty = fillPlaced.indexOf('');
+      if (firstEmpty === -1) return;
+      fillPlaced[firstEmpty] = question.options[optionIndex];
+      fillUsedOptionToBlank[optionIndex] = firstEmpty;
+    }
+
+    renderFillQuestion(question);
+  }
+
+  function loadQuestion() {
+    answered = false;
+    var question = activeQuestions[currentIndex];
+    var total = activeQuestions.length;
+
+    document.getElementById('questionNum').textContent = 'Question ' + (currentIndex + 1);
+    document.getElementById('questionText').textContent = question.q;
+    document.getElementById('progressLabel').textContent = 'Question ' + (currentIndex + 1) + ' of ' + total;
+    document.getElementById('scoreLabel').textContent = 'Score: ' + score;
+    document.getElementById('progressFill').style.width = (currentIndex / total * 100) + '%';
+
+    var feedback = document.getElementById('feedback');
+    feedback.style.display = 'none';
+    feedback.className = 'feedback';
+    document.getElementById('nextBtn').style.display = 'none';
+
+    var optionsList = document.getElementById('optionsList');
+    var fillWrap = document.getElementById('fillWrap');
+
+    if (question.type === 'mc') {
+      fillWrap.style.display = 'none';
+      optionsList.style.display = 'grid';
+      var letters = ['A', 'B', 'C', 'D'];
+      optionsList.innerHTML = question.choices.map(function(choiceText, i) {
+        return '<li><button class="option-btn" data-idx="' + i + '">' +
+          '<span class="option-btn__letter">' + letters[i] + '</span>' +
+          '<span>' + escapeHtml(choiceText) + '</span>' +
+        '</button></li>';
+      }).join('');
+
+      optionsList.querySelectorAll('.option-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (answered) return;
+          selectMcAnswer(parseInt(this.getAttribute('data-idx'), 10));
+        });
+      });
+    } else {
+      optionsList.style.display = 'none';
+      optionsList.innerHTML = '';
+      fillWrap.style.display = 'block';
+      initFillState(question);
+      renderFillQuestion(question);
+    }
+  }
+
+  function selectMcAnswer(idx) {
+    answered = true;
+    var question = activeQuestions[currentIndex];
+    var buttons = document.querySelectorAll('.option-btn');
+    buttons.forEach(function(btn) { btn.disabled = true; });
+
+    var feedback = document.getElementById('feedback');
+    if (idx === question.answer) {
+      score++;
+      buttons[idx].classList.add('option-btn--correct');
+      feedback.className = 'feedback feedback--correct';
+      document.getElementById('feedbackLabel').textContent = 'Correct!';
+      document.getElementById('feedbackText').textContent = '';
+    } else {
+      buttons[idx].classList.add('option-btn--wrong');
+      buttons[question.answer].classList.add('option-btn--correct');
+      feedback.className = 'feedback feedback--wrong';
+      document.getElementById('feedbackLabel').textContent = 'Incorrect';
+      document.getElementById('feedbackText').textContent = 'Correct answer: ' + question.choices[question.answer];
+    }
+
+    feedback.style.display = 'block';
+    document.getElementById('scoreLabel').textContent = 'Score: ' + score;
+    document.getElementById('nextBtn').style.display = 'inline-flex';
+    document.getElementById('nextBtn').textContent = currentIndex === activeQuestions.length - 1 ? 'See Results' : 'Next';
+  }
+
+  function checkFillAnswer() {
+    if (answered) return;
+    answered = true;
+    var question = activeQuestions[currentIndex];
+    var isCorrect = true;
+
+    for (var i = 0; i < question.answers.length; i++) {
+      if (fillPlaced[i] !== question.answers[i]) {
+        isCorrect = false;
+        break;
+      }
+    }
+
+    var feedback = document.getElementById('feedback');
+    if (isCorrect) {
+      score++;
+      feedback.className = 'feedback feedback--correct';
+      document.getElementById('feedbackLabel').textContent = 'Correct!';
+      document.getElementById('feedbackText').textContent = '';
+    } else {
+      feedback.className = 'feedback feedback--wrong';
+      document.getElementById('feedbackLabel').textContent = 'Incorrect';
+      document.getElementById('feedbackText').textContent = 'Correct answer: ' + question.answers.join(' | ');
+    }
+
+    document.querySelectorAll('.fill-chip').forEach(function(btn) { btn.disabled = true; });
+    document.getElementById('fillCheckBtn').disabled = true;
+    feedback.style.display = 'block';
+    document.getElementById('scoreLabel').textContent = 'Score: ' + score;
+    document.getElementById('nextBtn').style.display = 'inline-flex';
+    document.getElementById('nextBtn').textContent = currentIndex === activeQuestions.length - 1 ? 'See Results' : 'Next';
+  }
+
+  function startQuiz() {
+    activeQuestions = currentMode === 'mc' ? buildMcQuestions() : buildFillQuestions();
+    currentIndex = 0;
+    score = 0;
+    showScreen('screenQuiz');
+    loadQuestion();
+  }
+
+  function showResults() {
+    showScreen('screenResults');
+    var total = activeQuestions.length;
+    var pct = Math.round(score / total * 100);
+    document.getElementById('scorePct').textContent = pct + '%';
+    document.getElementById('scoreRing').style.setProperty('--pct', pct + '%');
+    document.getElementById('resultsTitle').textContent = pct >= 90 ? 'Outstanding!' : pct >= 75 ? 'Great Job!' : pct >= 60 ? 'Good Effort!' : 'Keep Studying!';
+    document.getElementById('resultsSub').textContent = 'You scored ' + score + ' out of ' + total + ' (' + pct + '%)';
+  }
+
+  document.querySelectorAll('.mode-card').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      currentMode = this.getAttribute('data-mode');
+      configureStartScreen();
+      showScreen('screenStart');
+    });
+  });
+
+  document.getElementById('startBtn').addEventListener('click', startQuiz);
+  document.getElementById('retryBtn').addEventListener('click', startQuiz);
+  document.getElementById('modeBackBtn').addEventListener('click', function() { showScreen('screenMode'); });
+  document.getElementById('changeModeBtn').addEventListener('click', function() { showScreen('screenMode'); });
+  document.getElementById('fillCheckBtn').addEventListener('click', checkFillAnswer);
+  document.getElementById('nextBtn').addEventListener('click', function() {
+    currentIndex++;
+    if (currentIndex < activeQuestions.length) {
+      loadQuestion();
+    } else {
+      showResults();
+    }
+  });
+  document.getElementById('backBtn').addEventListener('click', function() {
+    sessionStorage.setItem('spa-redirect', 'quiz');
+    window.location.href = '../../../';
+  });
+  </script>
+</body>
+</html>

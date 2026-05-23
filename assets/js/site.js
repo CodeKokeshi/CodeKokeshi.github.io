@@ -189,6 +189,17 @@ const quizzes = [
   },
 ];
 
+const genderSocietyQuizzes = [
+  {
+    id: 101,
+    image: 'assets/images/quizzes/lesson_1-sex-and-gender.png',
+    title: 'Sex and Gender Quiz',
+    description: 'Lesson 1 of Gender and Society about the difference between sex and gender.',
+    lessonUrl: 'quizzes/gas/sex-and-gender/lesson.html',
+    quizUrl: 'quizzes/gas/sex-and-gender/quiz.html',
+  },
+];
+
 const mods = [
   {
     id: 1,
@@ -550,24 +561,33 @@ function setupCarousel() {
 // ============================================================================
 
 function renderQuizzes() {
-  var grid = document.getElementById('quizGrid');
-  if (!grid) return;
+  function renderQuizGrid(gridId, quizItems) {
+    var grid = document.getElementById(gridId);
+    if (!grid) return;
 
-  grid.innerHTML = quizzes.map(function(q) {
-    return '<div class="mod-card">' +
-      '<div class="mod-card__image">' +
-        '<img src="' + encodeURI(q.image) + '" alt="' + escapeHtml(q.title) + '" loading="lazy" />' +
-      '</div>' +
-      '<div class="mod-card__content">' +
-        '<h3 class="quiz-card__title" data-quiz-id="' + q.id + '">' + escapeHtml(q.title) + '</h3>' +
-        '<p class="mod-card__overview">' + escapeHtml(q.description) + '</p>' +
-      '</div>' +
-    '</div>';
-  }).join('');
+    grid.innerHTML = quizItems.map(function(q) {
+      return '<div class="mod-card">' +
+        '<div class="mod-card__image">' +
+          '<img src="' + encodeURI(q.image) + '" alt="' + escapeHtml(q.title) + '" loading="lazy" />' +
+        '</div>' +
+        '<div class="mod-card__content">' +
+          '<h3 class="quiz-card__title" data-quiz-id="' + q.id + '">' + escapeHtml(q.title) + '</h3>' +
+          '<p class="mod-card__overview">' + escapeHtml(q.description) + '</p>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  renderQuizGrid('quizGrid', quizzes);
+  renderQuizGrid('gasQuizGrid', genderSocietyQuizzes);
+}
+
+function getAllQuizzes() {
+  return quizzes.concat(genderSocietyQuizzes);
 }
 
 function openQuizModal(quizId) {
-  var q = quizzes.find(function(x) { return x.id === quizId; });
+  var q = getAllQuizzes().find(function(x) { return x.id === quizId; });
   if (!q) return;
   document.getElementById('quizModalTitle').textContent = q.title;
   document.getElementById('quizModalSubtitle').textContent = q.description;
@@ -585,7 +605,7 @@ function closeQuizModal() {
 
 function setupQuizModal() {
   // Open on title click (delegated)
-  document.getElementById('quizGrid').addEventListener('click', function(e) {
+  document.getElementById('section-quiz').addEventListener('click', function(e) {
     var title = e.target.closest('.quiz-card__title');
     if (!title) return;
     openQuizModal(parseInt(title.getAttribute('data-quiz-id'), 10));
