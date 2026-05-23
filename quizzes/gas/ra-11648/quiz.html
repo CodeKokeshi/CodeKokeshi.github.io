@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RA 11648 Quiz - Gender and Society Lesson 9</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../assets/css/gas-pages.css" />
+</head>
+<body>
+  <header class="page-header"><a href="../../../" class="page-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Quizzes</a><span class="page-header__title">RA 11648 Quiz</span><span class="page-header__tag">GAS - L9</span></header>
+  <main class="wrap">
+    <section class="screen screen--active" id="screenMode"><div class="hero"><p class="hero__label">Gender and Society - Lesson 9</p><h1 class="hero__title">RA 11648 Quiz</h1><p class="hero__desc">Choose a mode. Both modes cover strengthened protection, statutory rape age changes, and child protection provisions.</p><div class="mode-grid"><button class="mode-card" data-mode="mc"><span class="mode-card__code">MC</span><span class="mode-card__title">Multiple Choice</span><span class="mode-card__desc">Amendments and core rules.</span></button><button class="mode-card" data-mode="fill"><span class="mode-card__code">FIB</span><span class="mode-card__title">Fill in the Blanks</span><span class="mode-card__desc">Complete source-based statements.</span></button></div><div class="btn-row"><a href="lesson.html" class="btn-secondary">Review Lesson</a></div></div></section>
+    <section class="screen" id="screenStart"><div class="hero"><p class="hero__label" id="modeCode">MC</p><h1 class="hero__title" id="startTitle">Knowledge Quiz</h1><p class="hero__desc" id="startDesc"></p><div class="btn-row"><button class="btn-primary" id="startBtn">Start Quiz</button><button class="btn-secondary" id="modeBackBtn">Change Mode</button><a href="lesson.html" class="btn-secondary">Review Lesson</a></div></div></section>
+    <section class="screen" id="screenQuiz"><div class="panel"><div class="progress-top"><span id="progressLabel">Question 1 of 1</span><span id="scoreLabel">Score: 0</span></div><div class="progress-bar"><div class="progress-bar__fill" id="progressFill"></div></div><p class="question-card__num" id="questionNum">Question 1</p><p class="question-card__text" id="questionText"></p><ul class="options-list" id="optionsList"></ul><div class="fill-wrap" id="fillWrap"><div class="fill-sentence" id="fillSentence"></div><div class="fill-bank" id="fillBank"></div><button class="btn-secondary" id="fillCheckBtn" disabled>Check Answer</button></div><div class="feedback" id="feedback"><span class="feedback__label" id="feedbackLabel"></span><span class="feedback__text" id="feedbackText"></span></div><div class="quiz-nav"><button class="btn-secondary" id="backBtn">Back to Quizzes</button><button class="btn-primary" id="nextBtn" style="display:none;">Next</button></div></div></section>
+    <section class="screen" id="screenResults"><div class="results-card"><div class="score-ring" id="scoreRing" style="--pct:0%;"><div class="score-ring__inner" id="scorePct">0%</div></div><h2 class="results-title" id="resultsTitle">Results</h2><p class="results-sub" id="resultsSub"></p><div class="btn-row" style="justify-content:center;"><button class="btn-primary" id="retryBtn">Retry Mode</button><button class="btn-secondary" id="changeModeBtn">Change Mode</button><a href="lesson.html" class="btn-secondary">Review Lesson</a></div></div></section>
+  </main>
+  <script>
+  window.GAS_QUIZ_DATA = {
+    mc: [
+      { q: 'RA 11648 promotes stronger protection against rape and what else?', choices: ['Sexual exploitation and abuse', 'Transport violations', 'Workplace promotions', 'Property disputes'], answer: 0 },
+      { q: 'RA 11648 increases the age for determining what?', choices: ['Statutory rape', 'Paternity leave', 'Public space harassment', 'Transport negligence'], answer: 0 },
+      { q: 'Which law does RA 11648 amend as the Anti-Rape Law of 1997?', choices: ['RA 8353', 'RA 11313', 'RA 11930', 'RA 8187'], answer: 0 },
+      { q: 'Under the amendment, rape is committed when the offended party is under what age or demented?', choices: ['Sixteen (16) years of age', 'Twelve (12) years of age', 'Eighteen (18) years of age', 'Seven (7) years of age'], answer: 0 },
+      { q: 'The close-in-age exception requires the age difference to be not more than how many years?', choices: ['Three (3) years', 'Five (5) years', 'Ten (10) years', 'Sixteen (16) years'], answer: 0 },
+      { q: 'The close-in-age exception requires the act to be consensual, non-abusive, and what?', choices: ['Non-exploitative', 'Commercial', 'Recorded', 'Public'], answer: 0 },
+      { q: 'When does the close-in-age exception not apply?', choices: ['If the victim is under thirteen (13) years of age', 'If the parties are classmates', 'If the offender is unemployed', 'If the act is online'], answer: 0 },
+      { q: 'Non-abusive means absence of undue influence, intimidation, fraudulent machinations, coercion, threat, and what?', choices: ['Physical, sexual, psychological, or mental injury or maltreatment', 'Employment benefits only', 'CCTV footage', 'Transport franchise'], answer: 0 },
+      { q: 'Non-exploitative means no unfair taking advantage of the child’s vulnerability, differential power, or what?', choices: ['Trust', 'Transportation', 'Scholarship', 'Publication'], answer: 0 },
+      { q: 'Qualified seduction involves a minor sixteen and over but under what age?', choices: ['Eighteen', 'Thirteen', 'Twelve', 'Twenty-one'], answer: 0 },
+      { q: 'Simple seduction is committed by means of what?', choices: ['Deceit', 'Warning signs', 'CCTV order', 'Safe harbor'], answer: 0 },
+      { q: 'Children exploited in prostitution and other sexual abuse may be affected by money, profit, consideration, coercion, or whose influence?', choices: ['Any adult, syndicate or group', 'Only classmates', 'Only local government', 'Only teachers'], answer: 0 },
+      { q: 'Child trafficking includes trading and dealing with children, including buying and selling a child for money, consideration, or what?', choices: ['Barter', 'Promotion', 'Custody order', 'Scholarship'], answer: 0 },
+      { q: 'For child trafficking, the penalty maximum applies when the victim is under what age?', choices: ['Sixteen (16) years of age', 'Eighteen (18) years of age', 'Thirteen (13) years of age', 'Twelve (12) years of age'], answer: 0 }
+    ],
+    fill: [
+      { sentence: 'RA 11648 increases the age for determining statutory __BLANK__.', answers: ['rape'], options: ['rape', 'leave', 'harassment', 'custody'] },
+      { sentence: 'The amended rule applies when the offended party is under __BLANK__ years of age or demented.', answers: ['sixteen'], options: ['sixteen', 'twelve', 'eighteen', 'seven'] },
+      { sentence: 'The close-in-age exception requires an age difference of not more than __BLANK__ years.', answers: ['three'], options: ['three', 'five', 'ten', 'sixteen'] },
+      { sentence: 'The act must be consensual, non-abusive, and __BLANK__.', answers: ['non-exploitative'], options: ['non-exploitative', 'commercial', 'recorded', 'public'] },
+      { sentence: 'The exception does not apply if the victim is under __BLANK__ years of age.', answers: ['thirteen'], options: ['thirteen', 'sixteen', 'eighteen', 'three'] },
+      { sentence: 'Non-exploitative means there is no unfair taking advantage of vulnerability, differential power, or __BLANK__.', answers: ['trust'], options: ['trust', 'transport', 'publication', 'employment'] },
+      { sentence: 'Qualified seduction involves a minor sixteen and over but under __BLANK__ years of age.', answers: ['eighteen'], options: ['eighteen', 'thirteen', 'twelve', 'twenty-one'] },
+      { sentence: 'Simple seduction is committed by means of __BLANK__.', answers: ['deceit'], options: ['deceit', 'warning', 'training', 'transport'] },
+      { sentence: 'Child trafficking includes buying and selling a child for money, consideration, or __BLANK__.', answers: ['barter'], options: ['barter', 'custody', 'promotion', 'leave'] }
+    ]
+  };
+  </script>
+  <script src="../../../assets/js/gas-quiz-engine.js"></script>
+</body>
+</html>

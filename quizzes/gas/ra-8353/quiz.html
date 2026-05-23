@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RA 8353 Quiz - Gender and Society Lesson 8</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../assets/css/gas-pages.css" />
+</head>
+<body>
+  <header class="page-header"><a href="../../../" class="page-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Quizzes</a><span class="page-header__title">RA 8353 Quiz</span><span class="page-header__tag">GAS - L8</span></header>
+  <main class="wrap">
+    <section class="screen screen--active" id="screenMode"><div class="hero"><p class="hero__label">Gender and Society - Lesson 8</p><h1 class="hero__title">RA 8353 Quiz</h1><p class="hero__desc">Choose a mode. Both modes cover RA 8353, rape definitions, penalties, pardon, and presumptions.</p><div class="mode-grid"><button class="mode-card" data-mode="mc"><span class="mode-card__code">MC</span><span class="mode-card__title">Multiple Choice</span><span class="mode-card__desc">Definition and penalty concepts.</span></button><button class="mode-card" data-mode="fill"><span class="mode-card__code">FIB</span><span class="mode-card__title">Fill in the Blanks</span><span class="mode-card__desc">Complete law-based statements.</span></button></div><div class="btn-row"><a href="lesson.html" class="btn-secondary">Review Lesson</a></div></div></section>
+    <section class="screen" id="screenStart"><div class="hero"><p class="hero__label" id="modeCode">MC</p><h1 class="hero__title" id="startTitle">Knowledge Quiz</h1><p class="hero__desc" id="startDesc"></p><div class="btn-row"><button class="btn-primary" id="startBtn">Start Quiz</button><button class="btn-secondary" id="modeBackBtn">Change Mode</button><a href="lesson.html" class="btn-secondary">Review Lesson</a></div></div></section>
+    <section class="screen" id="screenQuiz"><div class="panel"><div class="progress-top"><span id="progressLabel">Question 1 of 1</span><span id="scoreLabel">Score: 0</span></div><div class="progress-bar"><div class="progress-bar__fill" id="progressFill"></div></div><p class="question-card__num" id="questionNum">Question 1</p><p class="question-card__text" id="questionText"></p><ul class="options-list" id="optionsList"></ul><div class="fill-wrap" id="fillWrap"><div class="fill-sentence" id="fillSentence"></div><div class="fill-bank" id="fillBank"></div><button class="btn-secondary" id="fillCheckBtn" disabled>Check Answer</button></div><div class="feedback" id="feedback"><span class="feedback__label" id="feedbackLabel"></span><span class="feedback__text" id="feedbackText"></span></div><div class="quiz-nav"><button class="btn-secondary" id="backBtn">Back to Quizzes</button><button class="btn-primary" id="nextBtn" style="display:none;">Next</button></div></div></section>
+    <section class="screen" id="screenResults"><div class="results-card"><div class="score-ring" id="scoreRing" style="--pct:0%;"><div class="score-ring__inner" id="scorePct">0%</div></div><h2 class="results-title" id="resultsTitle">Results</h2><p class="results-sub" id="resultsSub"></p><div class="btn-row" style="justify-content:center;"><button class="btn-primary" id="retryBtn">Retry Mode</button><button class="btn-secondary" id="changeModeBtn">Change Mode</button><a href="lesson.html" class="btn-secondary">Review Lesson</a></div></div></section>
+  </main>
+  <script>
+  window.GAS_QUIZ_DATA = {
+    mc: [
+      { q: 'RA 8353 is also known as what?', choices: ['Anti-Rape Law', 'Safe Spaces Act', 'Anti-OSAEC Act', 'Paternity Leave Act'], answer: 0 },
+      { q: 'RA 8353 classifies rape as what kind of crime?', choices: ['Crime Against Persons', 'Crime Against Property', 'Crime Against Public Order', 'Crime Against Security'], answer: 0 },
+      { q: 'Under paragraph 1, rape may be committed through force, threat, or what?', choices: ['Intimidation', 'Promotion', 'Scholarship', 'Paternity leave'], answer: 0 },
+      { q: 'Rape may be committed when the offended party is deprived of reason or otherwise what?', choices: ['Unconscious', 'Employed', 'Promoted', 'Trained'], answer: 0 },
+      { q: 'Rape may be committed by means of fraudulent machination or grave abuse of what?', choices: ['Authority', 'Property', 'Scholarship', 'CCTV footage'], answer: 0 },
+      { q: 'The source lesson states rape is committed when the offended party is under what age or demented?', choices: ['Twelve (12) years of age', 'Sixteen (16) years of age', 'Eighteen (18) years of age', 'Seven (7) years of age'], answer: 0 },
+      { q: 'Paragraph 2 describes rape by sexual assault through insertion into another person’s mouth, anal orifice, genital or anal orifice by penis, instrument, or what?', choices: ['Object', 'Document', 'Vehicle', 'Warning sign'], answer: 0 },
+      { q: 'Rape under paragraph 1 is punished by what?', choices: ['Reclusion perpetua', 'Prision mayor', 'Arresto mayor', 'Fine only'], answer: 0 },
+      { q: 'What raises the penalty when rape is committed with a deadly weapon?', choices: ['Use of a deadly weapon or by two or more persons', 'Use of a warning sign', 'Use of a school manual', 'Use of a public vehicle'], answer: 0 },
+      { q: 'Which circumstance involves a victim below seven years old?', choices: ['Aggravating/qualifying circumstance', 'Safe harbor exception', 'Close-in-age exception', 'Good Samaritan protection'], answer: 0 },
+      { q: 'Which disease-related circumstance is listed?', choices: ['Offender knows of HIV/AIDS or another sexually transmissible disease and transmits it', 'Victim has a common cold', 'Offender knows of a school policy', 'Victim has work benefits'], answer: 0 },
+      { q: 'Rape under paragraph 2 is punished by what?', choices: ['Prision mayor', 'Reclusion perpetua only', 'Arresto menor', 'Community service only'], answer: 0 },
+      { q: 'What can extinguish the criminal action or penalty under Article 266-C?', choices: ['Subsequent valid marriage between the offended party and offender', 'A school grievance procedure', 'A warning sign', 'A transport franchise'], answer: 0 },
+      { q: 'What may be accepted as evidence under Article 266-D?', choices: ['Physical overt act manifesting resistance or incapacity to give valid consent', 'Only a diploma', 'Only a transport license', 'Only a workplace memo'], answer: 0 }
+    ],
+    fill: [
+      { sentence: 'RA 8353 is the __BLANK__ Law.', answers: ['Anti-Rape'], options: ['Anti-Rape', 'Safe Spaces', 'Paternity Leave', 'Anti-OSAEC'] },
+      { sentence: 'The crime of rape is classified as a Crime Against __BLANK__.', answers: ['Persons'], options: ['Persons', 'Property', 'Security', 'Honor'] },
+      { sentence: 'Rape may be committed through force, threat, or __BLANK__.', answers: ['intimidation'], options: ['intimidation', 'promotion', 'training', 'custody'] },
+      { sentence: 'Rape may be committed by fraudulent machination or grave abuse of __BLANK__.', answers: ['authority'], options: ['authority', 'property', 'education', 'transport'] },
+      { sentence: 'The source lesson states rape is committed when the offended party is under __BLANK__ years of age or demented.', answers: ['twelve'], options: ['twelve', 'sixteen', 'eighteen', 'three'] },
+      { sentence: 'Rape under paragraph 1 is punished by __BLANK__.', answers: ['reclusion perpetua'], options: ['reclusion perpetua', 'prision mayor', 'arresto mayor', 'fine only'] },
+      { sentence: 'Rape under paragraph 2 is punished by __BLANK__.', answers: ['prision mayor'], options: ['prision mayor', 'reclusion perpetua', 'arresto menor', 'community service'] },
+      { sentence: 'The subsequent valid __BLANK__ between the offended party and offender extinguishes criminal action or penalty.', answers: ['marriage'], options: ['marriage', 'promotion', 'scholarship', 'franchise'] },
+      { sentence: 'Physical overt acts manifesting __BLANK__ may be accepted as evidence.', answers: ['resistance'], options: ['resistance', 'employment', 'harassment', 'publication'] }
+    ]
+  };
+  </script>
+  <script src="../../../assets/js/gas-quiz-engine.js"></script>
+</body>
+</html>

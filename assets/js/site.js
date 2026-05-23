@@ -222,6 +222,38 @@ const genderSocietyQuizzes = [
     lessonUrl: 'quizzes/gas/ra-7877/lesson.html',
     quizUrl: 'quizzes/gas/ra-7877/quiz.html',
   },
+  {
+    id: 107,
+    image: 'assets/images/quizzes/lesson_7-ra-11313.png',
+    title: 'RA 11313 Quiz',
+    description: 'Lesson 7 of Gender and Society about the Safe Spaces Act.',
+    lessonUrl: 'quizzes/gas/ra-11313/lesson.html',
+    quizUrl: 'quizzes/gas/ra-11313/quiz.html',
+  },
+  {
+    id: 108,
+    image: 'assets/images/quizzes/lesson_8-ra-8353.png',
+    title: 'RA 8353 Quiz',
+    description: 'Lesson 8 of Gender and Society about the Anti-Rape Law.',
+    lessonUrl: 'quizzes/gas/ra-8353/lesson.html',
+    quizUrl: 'quizzes/gas/ra-8353/quiz.html',
+  },
+  {
+    id: 109,
+    image: 'assets/images/quizzes/lesson_9-ra-11648.png',
+    title: 'RA 11648 Quiz',
+    description: 'Lesson 9 of Gender and Society about stronger protection against rape, sexual exploitation, and abuse.',
+    lessonUrl: 'quizzes/gas/ra-11648/lesson.html',
+    quizUrl: 'quizzes/gas/ra-11648/quiz.html',
+  },
+  {
+    id: 110,
+    image: 'assets/images/quizzes/lesson_10-ra-11930.png',
+    title: 'RA 11930 Quiz',
+    description: 'Lesson 10 of Gender and Society about OSAEC and child sexual abuse or exploitation materials.',
+    lessonUrl: 'quizzes/gas/ra-11930/lesson.html',
+    quizUrl: 'quizzes/gas/ra-11930/quiz.html',
+  },
 ];
 
 const mods = [
