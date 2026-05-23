@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RA 9262 Quiz - Gender and Society Lesson 5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../assets/css/gas-pages.css" />
+</head>
+<body>
+  <header class="page-header">
+    <a href="../../../" class="page-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Quizzes
+    </a>
+    <span class="page-header__title">RA 9262 Quiz</span>
+    <span class="page-header__tag">GAS - L5</span>
+  </header>
+
+  <main class="wrap">
+    <section class="screen screen--active" id="screenMode">
+      <div class="hero">
+        <p class="hero__label">Gender and Society - Lesson 5</p>
+        <h1 class="hero__title">RA 9262 Quiz</h1>
+        <p class="hero__desc">Choose a mode. Both modes cover the definition of VAWC and the acts listed in Section 5.</p>
+        <div class="mode-grid">
+          <button class="mode-card" data-mode="mc"><span class="mode-card__code">MC</span><span class="mode-card__title">Multiple Choice</span><span class="mode-card__desc">Definitions and acts under RA 9262.</span></button>
+          <button class="mode-card" data-mode="fill"><span class="mode-card__code">FIB</span><span class="mode-card__title">Fill in the Blanks</span><span class="mode-card__desc">Complete law-based sentences.</span></button>
+        </div>
+        <div class="btn-row"><a href="lesson.html" class="btn-secondary">Review Lesson</a></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screenStart"><div class="hero"><p class="hero__label" id="modeCode">MC</p><h1 class="hero__title" id="startTitle">Knowledge Quiz</h1><p class="hero__desc" id="startDesc"></p><div class="btn-row"><button class="btn-primary" id="startBtn">Start Quiz</button><button class="btn-secondary" id="modeBackBtn">Change Mode</button><a href="lesson.html" class="btn-secondary">Review Lesson</a></div></div></section>
+
+    <section class="screen" id="screenQuiz">
+      <div class="panel">
+        <div class="progress-top"><span id="progressLabel">Question 1 of 1</span><span id="scoreLabel">Score: 0</span></div>
+        <div class="progress-bar"><div class="progress-bar__fill" id="progressFill"></div></div>
+        <p class="question-card__num" id="questionNum">Question 1</p>
+        <p class="question-card__text" id="questionText"></p>
+        <ul class="options-list" id="optionsList"></ul>
+        <div class="fill-wrap" id="fillWrap"><div class="fill-sentence" id="fillSentence"></div><div class="fill-bank" id="fillBank"></div><button class="btn-secondary" id="fillCheckBtn" disabled>Check Answer</button></div>
+        <div class="feedback" id="feedback"><span class="feedback__label" id="feedbackLabel"></span><span class="feedback__text" id="feedbackText"></span></div>
+        <div class="quiz-nav"><button class="btn-secondary" id="backBtn">Back to Quizzes</button><button class="btn-primary" id="nextBtn" style="display:none;">Next</button></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screenResults"><div class="results-card"><div class="score-ring" id="scoreRing" style="--pct:0%;"><div class="score-ring__inner" id="scorePct">0%</div></div><h2 class="results-title" id="resultsTitle">Results</h2><p class="results-sub" id="resultsSub"></p><div class="btn-row" style="justify-content:center;"><button class="btn-primary" id="retryBtn">Retry Mode</button><button class="btn-secondary" id="changeModeBtn">Change Mode</button><a href="lesson.html" class="btn-secondary">Review Lesson</a></div></div></section>
+  </main>
+
+  <script>
+  window.GAS_QUIZ_DATA = {
+    mc: [
+      { q: 'RA 9262 is also known as what?', choices: ['Anti-Violence Against Women and Their Children Act of 2004', 'Anti-Sexual Harassment in the Workplace Act of 1995', 'Magna Carta of Women', 'Paternity Leave Act'], answer: 0 },
+      { q: 'Violence against women and their children may be committed against a woman who is a wife, former wife, or a woman with whom the person has or had what relationship?', choices: ['Sexual or dating relationship', 'Only employment relationship', 'Only school relationship', 'Only training relationship'], answer: 0 },
+      { q: 'The definition includes acts against the woman’s child whether legitimate or what?', choices: ['Illegitimate', 'Adopted only', 'Adult only', 'Employed only'], answer: 0 },
+      { q: 'Which harm or suffering is included in the definition?', choices: ['Physical, sexual, psychological harm or suffering, or economic abuse', 'Only property damage', 'Only workplace discrimination', 'Only academic sanctions'], answer: 0 },
+      { q: 'Which is one of the four listed forms of violence?', choices: ['Economic abuse', 'Academic abuse', 'Training abuse', 'Scholarship abuse'], answer: 0 },
+      { q: 'Section 5 says the crime is committed by causing what to the woman or her child?', choices: ['Physical harm', 'A passing grade', 'A promotion', 'A stipend'], answer: 0 },
+      { q: 'Which act places the woman or her child in fear of imminent physical harm?', choices: ['Placing the woman or child in fear of imminent physical harm', 'Granting favorable compensation', 'Giving a scholarship', 'Providing paternity leave'], answer: 0 },
+      { q: 'What does Section 5 include when someone restricts freedom of movement or conduct?', choices: ['Force, threat of force, harm, threat of harm, or intimidation', 'Only written contracts', 'Only public announcements', 'Only education policies'], answer: 0 },
+      { q: 'Which act concerns custody?', choices: ['Threatening to deprive or actually depriving custody to her or his family', 'Granting honors and scholarships', 'Providing a passing grade', 'Offering legal training'], answer: 0 },
+      { q: 'Which act concerns legally due support?', choices: ['Depriving or threatening to deprive financial support legally due', 'Enhancing human resources', 'Guaranteeing full respect for human rights', 'Granting privileges'], answer: 0 },
+      { q: 'Which act concerns occupation or business?', choices: ['Preventing legitimate profession, occupation, business, or activity', 'Giving a stipend', 'Teaching a course', 'Providing shared custody'], answer: 0 },
+      { q: 'RA 9262 includes causing sexual activity that does not constitute rape through force, threat, physical harm, or what?', choices: ['Intimidation', 'Promotion', 'Education', 'Paternity leave'], answer: 0 },
+      { q: 'Which act is listed as causing substantial emotional or psychological distress?', choices: ['Stalking or following in public or private places', 'Granting scholarships', 'Making legal frameworks', 'Offering training'], answer: 0 },
+      { q: 'Which act involves the residence of the woman or her child?', choices: ['Peering in the window or lingering outside the residence', 'Giving a passing grade', 'Providing workplace benefits', 'Teaching human rights'], answer: 0 },
+      { q: 'Which act involves property and personal belongings?', choices: ['Destroying property and personal belongings or harming animals or pets', 'Providing insufficient training', 'Giving employment terms', 'Implementing GAD programs'], answer: 0 },
+      { q: 'RA 9262 also covers repeated verbal and emotional abuse and denial of what?', choices: ['Financial support', 'Scholarships', 'Promotions', 'Training certificates'], answer: 0 }
+    ],
+    fill: [
+      { sentence: 'RA 9262 is the Anti-Violence Against Women and their Children Act of __BLANK__.', answers: ['2004'], options: ['2004', '1995', '2009', '1996'] },
+      { sentence: 'Violence may result in physical, sexual, psychological harm or suffering, or economic __BLANK__.', answers: ['abuse'], options: ['abuse', 'promotion', 'training', 'custody'] },
+      { sentence: 'It includes physical violence, sexual violence, psychological violence, and economic __BLANK__.', answers: ['abuse'], options: ['abuse', 'education', 'employment', 'scholarship'] },
+      { sentence: 'Section 5 includes causing physical harm to the woman or her __BLANK__.', answers: ['child'], options: ['child', 'teacher', 'manager', 'coach'] },
+      { sentence: 'The law covers placing the woman or her child in fear of imminent physical __BLANK__.', answers: ['harm'], options: ['harm', 'grade', 'promotion', 'stipend'] },
+      { sentence: 'Restricting freedom of movement or conduct may be done by force, threat, harm, or __BLANK__.', answers: ['intimidation'], options: ['intimidation', 'promotion', 'instruction', 'education'] },
+      { sentence: 'One covered act is depriving or threatening to deprive financial support legally __BLANK__.', answers: ['due'], options: ['due', 'optional', 'shared', 'public'] },
+      { sentence: 'One covered act is preventing legitimate profession, occupation, business, or __BLANK__.', answers: ['activity'], options: ['activity', 'scholarship', 'grade', 'training'] },
+      { sentence: 'Stalking or following may occur in public or __BLANK__ places.', answers: ['private'], options: ['private', 'academic', 'legal', 'historic'] },
+      { sentence: 'The lesson includes causing mental or emotional anguish, public ridicule, or __BLANK__.', answers: ['humiliation'], options: ['humiliation', 'promotion', 'custody', 'education'] }
+    ]
+  };
+  </script>
+  <script src="../../../assets/js/gas-quiz-engine.js"></script>
+</body>
+</html>

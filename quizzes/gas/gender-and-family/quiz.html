@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gender and Family Quiz - Gender and Society Lesson 4</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../assets/css/gas-pages.css" />
+</head>
+<body>
+  <header class="page-header">
+    <a href="../../../" class="page-header__back" onclick="sessionStorage.setItem('spa-redirect','quiz')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Quizzes
+    </a>
+    <span class="page-header__title">Gender and Family Quiz</span>
+    <span class="page-header__tag">GAS - L4</span>
+  </header>
+
+  <main class="wrap">
+    <section class="screen screen--active" id="screenMode">
+      <div class="hero">
+        <p class="hero__label">Gender and Society - Lesson 4</p>
+        <h1 class="hero__title">Gender and Family Quiz</h1>
+        <p class="hero__desc">Choose a mode. Both modes cover gender socialization, Filipino family roles, inequalities, changing dynamics, and equality efforts.</p>
+        <div class="mode-grid">
+          <button class="mode-card" data-mode="mc"><span class="mode-card__code">MC</span><span class="mode-card__title">Multiple Choice</span><span class="mode-card__desc">Definitions, examples, and key statements.</span></button>
+          <button class="mode-card" data-mode="fill"><span class="mode-card__code">FIB</span><span class="mode-card__title">Fill in the Blanks</span><span class="mode-card__desc">Complete source-based sentences.</span></button>
+        </div>
+        <div class="btn-row"><a href="lesson.html" class="btn-secondary">Review Lesson</a></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screenStart">
+      <div class="hero">
+        <p class="hero__label" id="modeCode">MC</p>
+        <h1 class="hero__title" id="startTitle">Knowledge Quiz</h1>
+        <p class="hero__desc" id="startDesc"></p>
+        <div class="btn-row">
+          <button class="btn-primary" id="startBtn">Start Quiz</button>
+          <button class="btn-secondary" id="modeBackBtn">Change Mode</button>
+          <a href="lesson.html" class="btn-secondary">Review Lesson</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="screenQuiz">
+      <div class="panel">
+        <div class="progress-top"><span id="progressLabel">Question 1 of 1</span><span id="scoreLabel">Score: 0</span></div>
+        <div class="progress-bar"><div class="progress-bar__fill" id="progressFill"></div></div>
+        <p class="question-card__num" id="questionNum">Question 1</p>
+        <p class="question-card__text" id="questionText"></p>
+        <ul class="options-list" id="optionsList"></ul>
+        <div class="fill-wrap" id="fillWrap">
+          <div class="fill-sentence" id="fillSentence"></div>
+          <div class="fill-bank" id="fillBank"></div>
+          <button class="btn-secondary" id="fillCheckBtn" disabled>Check Answer</button>
+        </div>
+        <div class="feedback" id="feedback"><span class="feedback__label" id="feedbackLabel"></span><span class="feedback__text" id="feedbackText"></span></div>
+        <div class="quiz-nav"><button class="btn-secondary" id="backBtn">Back to Quizzes</button><button class="btn-primary" id="nextBtn" style="display:none;">Next</button></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screenResults">
+      <div class="results-card">
+        <div class="score-ring" id="scoreRing" style="--pct:0%;"><div class="score-ring__inner" id="scorePct">0%</div></div>
+        <h2 class="results-title" id="resultsTitle">Results</h2>
+        <p class="results-sub" id="resultsSub"></p>
+        <div class="btn-row" style="justify-content:center;"><button class="btn-primary" id="retryBtn">Retry Mode</button><button class="btn-secondary" id="changeModeBtn">Change Mode</button><a href="lesson.html" class="btn-secondary">Review Lesson</a></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  window.GAS_QUIZ_DATA = {
+    mc: [
+      { q: 'What is the first environment where gender is learned, practiced, and reinforced?', choices: ['The family', 'The workplace', 'The court', 'The media industry'], answer: 0 },
+      { q: 'What is the process of teaching children what is considered appropriate for boys and girls called?', choices: ['Gender socialization', 'Domestic partnership', 'Shared custody', 'Economic abuse'], answer: 0 },
+      { q: 'Which example is given for boys in early family socialization?', choices: ['Encouraged to be assertive, independent, and active', 'Expected to be nurturing, obedient, and modest', 'Expected to be homemakers', 'Required to assist in household chores only'], answer: 0 },
+      { q: 'Which traditional role is associated with men in the family table?', choices: ['Breadwinner, protector, decision-maker', 'Caregiver, homemaker, nurturer', 'Primary housekeeper only', 'Modesty and domesticity'], answer: 0 },
+      { q: 'What can traditional gender roles reinforce?', choices: ['Gender inequality', 'Equal opportunity', 'Flexible roles', 'Gender partnership'], answer: 0 },
+      { q: 'Which method of gender socialization involves children imitating parents and siblings?', choices: ['Observation', 'Instruction', 'Division of labor', 'Legal framework'], answer: 0 },
+      { q: 'What can early gender learning influence in adulthood?', choices: ['Personality, career aspirations, relationships, and perceptions of equality', 'Only physical traits', 'Only legal identity', 'Only religious affiliation'], answer: 0 },
+      { q: 'Which is listed as an example of gender inequality in families?', choices: ['Women doing the majority of unpaid care and housework', 'Shared parenting by couples', 'Domestic partnership rights', 'Paternity leave'], answer: 0 },
+      { q: 'What do same-sex couples and non-traditional families highlight?', choices: ['Love and responsibility are not determined by gender', 'Gender roles are biological necessities', 'Only fathers can nurture', 'Only mothers can provide income'], answer: 0 },
+      { q: 'What does the Philippine Constitution recognize as the foundation of the nation?', choices: ['The family', 'The workplace', 'The barangay', 'The school'], answer: 0 },
+      { q: 'In the traditional Filipino household, fathers are expected to be what?', choices: ['Providers and heads of the family', 'Primary caregivers only', 'Household chore assistants only', 'The sole religious influence'], answer: 0 },
+      { q: 'What has reshaped Filipino gender dynamics?', choices: ['Globalization, education, and migration', 'Only colonial history', 'Only household chores', 'Only rural communities'], answer: 0 },
+      { q: 'What role reversal is mentioned among OFW families?', choices: ['Mothers work abroad while fathers take caregiving roles', 'Children become legal decision-makers', 'Daughters take only outdoor work', 'Fathers never join domestic work'], answer: 0 },
+      { q: 'What is the double burden described in the lesson?', choices: ['Women doing most household and caregiving tasks even when employed', 'Men becoming involved in domestic responsibilities', 'Children learning respect for elders', 'LGUs implementing GAD programs'], answer: 0 },
+      { q: 'Which law promotes gender equality and women’s empowerment?', choices: ['RA 9710 - Magna Carta of Women', 'RA 8187 - Paternity Leave Act', 'RA 9262 - Anti-VAWC Act', 'RA 7877 - Anti-Sexual Harassment Act'], answer: 0 },
+      { q: 'Which law encourages male participation in family care?', choices: ['RA 8187 - Paternity Leave Act', 'RA 9710 - Magna Carta of Women', 'RA 9262 - Anti-VAWC Act', 'RA 11930'], answer: 0 },
+      { q: 'What do modern Filipino families slowly embrace?', choices: ['Gender partnership', 'Rigid stereotypes', 'Male dominance only', 'Conditional tolerance only'], answer: 0 },
+      { q: 'The conclusion says families serve as the first school of what?', choices: ['Gender', 'Law', 'Migration', 'Finance'], answer: 0 }
+    ],
+    fill: [
+      { sentence: 'The __BLANK__ is the first environment where gender is learned, practiced, and reinforced.', answers: ['family'], options: ['family', 'workplace', 'court', 'school'] },
+      { sentence: 'This process is known as __BLANK__.', answers: ['gender socialization'], options: ['gender socialization', 'shared custody', 'domestic partnership', 'paternity leave'] },
+      { sentence: 'Traditional male roles include breadwinner, protector, and __BLANK__.', answers: ['decision-maker'], options: ['decision-maker', 'homemaker', 'nurturer', 'caregiver'] },
+      { sentence: 'Traditional female roles include caregiver, homemaker, and __BLANK__.', answers: ['nurturer'], options: ['nurturer', 'protector', 'decision-maker', 'provider'] },
+      { sentence: 'Families teach gender through observation, instruction, division of labor, and __BLANK__.', answers: ['media influence'], options: ['media influence', 'legal custody', 'economic abuse', 'migration'] },
+      { sentence: 'Women still perform most household and caregiving tasks, even when __BLANK__.', answers: ['employed'], options: ['employed', 'abroad', 'single', 'young'] },
+      { sentence: 'The Philippine Constitution recognizes the family as the foundation of the __BLANK__.', answers: ['nation'], options: ['nation', 'workplace', 'school', 'church'] },
+      { sentence: 'Globalization, education, and __BLANK__ have reshaped Filipino gender dynamics.', answers: ['migration'], options: ['migration', 'patriarchy', 'modesty', 'obedience'] },
+      { sentence: 'RA 9710 promotes gender equality and women’s __BLANK__.', answers: ['empowerment'], options: ['empowerment', 'custody', 'violence', 'stereotyping'] },
+      { sentence: 'Achieving gender equality within Filipino families values partnership over __BLANK__.', answers: ['patriarchy'], options: ['patriarchy', 'respect', 'cooperation', 'equality'] }
+    ]
+  };
+  </script>
+  <script src="../../../assets/js/gas-quiz-engine.js"></script>
+</body>
+</html>

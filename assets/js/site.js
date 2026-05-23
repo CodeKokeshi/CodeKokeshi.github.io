@@ -198,6 +198,30 @@ const genderSocietyQuizzes = [
     lessonUrl: 'quizzes/gas/sex-and-gender/lesson.html',
     quizUrl: 'quizzes/gas/sex-and-gender/quiz.html',
   },
+  {
+    id: 104,
+    image: 'assets/images/quizzes/lesson_4-gender-and-family.png',
+    title: 'Gender and Family Quiz',
+    description: 'Lesson 4 of Gender and Society about gender roles, family dynamics, and Filipino families.',
+    lessonUrl: 'quizzes/gas/gender-and-family/lesson.html',
+    quizUrl: 'quizzes/gas/gender-and-family/quiz.html',
+  },
+  {
+    id: 105,
+    image: 'assets/images/quizzes/lesson_5-ra-9262.png',
+    title: 'RA 9262 Quiz',
+    description: 'Lesson 5 of Gender and Society about the Anti-Violence Against Women and Their Children Act.',
+    lessonUrl: 'quizzes/gas/ra-9262/lesson.html',
+    quizUrl: 'quizzes/gas/ra-9262/quiz.html',
+  },
+  {
+    id: 106,
+    image: 'assets/images/quizzes/lesson_6-ra-7877.png',
+    title: 'RA 7877 Quiz',
+    description: 'Lesson 6 of Gender and Society about the Anti-Sexual Harassment Act in work, education, and training.',
+    lessonUrl: 'quizzes/gas/ra-7877/lesson.html',
+    quizUrl: 'quizzes/gas/ra-7877/quiz.html',
+  },
 ];
 
 const mods = [
