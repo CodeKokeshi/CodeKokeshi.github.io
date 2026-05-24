@@ -270,6 +270,14 @@ const genderSocietyQuizzes = [
     lessonUrl: 'quizzes/gas/ra-11930/lesson.html',
     quizUrl: 'quizzes/gas/ra-11930/quiz.html',
   },
+  {
+    id: 111,
+    image: 'assets/images/quizzes/lesson_7-ra-11313.png',
+    title: 'RA Comparison Quiz',
+    description: 'Final independent Gender and Society quiz comparing RA 11313 with other RAs.',
+    lessonUrl: 'quizzes/gas/ra-comparison-final/lesson.html',
+    quizUrl: 'quizzes/gas/ra-comparison-final/quiz.html',
+  },
 ];
 
 const mods = [
