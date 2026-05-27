@@ -401,6 +401,14 @@ const softwareProjects = [
     tags: ['Python', 'PyQt6', 'Pygame'],
     overview: 'A lightweight DAW designed for composing 8-bit and 16-bit retro game music. Instead of using generative AI, it utilizes algorithmic, rule-based music theory to procedurally generate themes (towns, caves, dungeons) and automatically correct user compositions.',
   },
+  {
+    id: 4,
+    image: 'assets/images/software_web/Water Meter Digit Extractor.jpg',
+    title: 'METEREAD',
+    tags: ['Android', 'LeNet-5 CNN'],
+    overview: 'An Android-Based Analog Water Meter Reading Application Using LeNet-5 CNN for Carmona Water District Customers',
+    link: 'software/meteread.html',
+  },
 ];
 
 const toolColors = {
@@ -410,6 +418,8 @@ const toolColors = {
   'Python': '#fbbf24',
   'PyQt6': '#38bdf8',
   'Pygame': '#86efac',
+  'Android': '#3ddc84',
+  'LeNet-5 CNN': '#22d3ee',
 };
 
 // ============================================================================
@@ -733,15 +743,21 @@ function renderSoftware() {
         }).join('') +
       '</div>';
     }
-    return '<div class="mod-card">' +
-      '<div class="mod-card__image">' +
+    var cardInner = '<div class="mod-card__image">' +
         '<img src="' + encodeURI(sw.image) + '" alt="' + escapeHtml(sw.title) + '" loading="lazy" />' +
       '</div>' +
       '<div class="mod-card__content">' +
         '<h3 class="mod-card__title">' + escapeHtml(sw.title) + '</h3>' +
         tagsHTML +
         '<p class="mod-card__overview">' + escapeHtml(sw.overview) + '</p>' +
-      '</div>' +
+      '</div>';
+
+    if (sw.link) {
+      return '<a class="mod-card mod-card__link" href="' + escapeHtml(sw.link) + '">' + cardInner + '</a>';
+    }
+
+    return '<div class="mod-card">' +
+      cardInner +
     '</div>';
   }).join('');
 }
