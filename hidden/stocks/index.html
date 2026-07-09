@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="84641eae-f0c5-468b-8b48-f9226d664d2f"></script>
+  <title>Available Stocks Catalogue | CodeKokeshi</title>
+  <meta name="description" content="Hidden available stocks catalogue for Defend Ur Base units." />
+  <meta name="author" content="CodeKokeshi" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../../assets/css/site.css" />
+  <style>
+    .stocks-page {
+      padding-top: 16px;
+    }
+
+    .stocks-hero {
+      margin-bottom: 32px;
+    }
+
+    .stocks-eyebrow {
+      margin-bottom: 8px;
+      color: #a78bfa;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .stocks-title {
+      margin-bottom: 10px;
+      color: #fff;
+      font-size: clamp(34px, 6vw, 64px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .stocks-summary {
+      max-width: 720px;
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 15px;
+    }
+
+    .mutation-section {
+      margin-top: 34px;
+    }
+
+    .mutation-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+    }
+
+    .mutation-title {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .mutation-count {
+      color: rgba(255, 255, 255, 0.48);
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .stock-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .stock-card {
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .stock-card__image {
+      aspect-ratio: 16 / 11;
+      background: rgba(0, 0, 0, 0.28);
+    }
+
+    .stock-card__image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .stock-card__body {
+      padding: 14px;
+    }
+
+    .stock-card__name {
+      margin-bottom: 8px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .stock-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .stock-tag {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      padding: 4px 8px;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .stock-tag--trait {
+      border-color: rgba(167, 139, 250, 0.36);
+      color: #c4b5fd;
+    }
+
+    .stock-card__stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .stock-stat {
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.26);
+      padding: 10px;
+    }
+
+    .stock-stat__label {
+      display: block;
+      margin-bottom: 3px;
+      color: rgba(255, 255, 255, 0.46);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .stock-stat__value {
+      display: block;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    @media (max-width: 767px) {
+      .stocks-page {
+        padding-top: 0;
+      }
+
+      .stocks-title {
+        font-size: 40px;
+      }
+
+      .mutation-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .stock-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <header class="header" id="header">
+      <a href="/" class="logo">
+        <div class="logo__icon">CK</div>
+        <div class="logo__text">
+          <span class="logo__name">CodeKokeshi</span>
+          <span class="logo__sub"></span>
+        </div>
+      </a>
+    </header>
+
+    <main class="main stocks-page">
+      <div class="container">
+        <section class="stocks-hero" aria-labelledby="stocks-title">
+          <p class="stocks-eyebrow">Defend Ur Base</p>
+          <h1 class="stocks-title" id="stocks-title">Available Stocks Catalogue</h1>
+          <p class="stocks-summary">A link-only reference catalogue for current character stocks, grouped by mutation and sorted by highest DPS.</p>
+        </section>
+
+        <section class="mutation-section" aria-labelledby="mutation-arrancar">
+          <div class="mutation-heading">
+            <h2 class="mutation-title" id="mutation-arrancar">Arrancar</h2>
+            <span class="mutation-count">6 stocks</span>
+          </div>
+          <div class="stock-grid">
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Arrancar/Beerus%20LV1%20Corrupted.png" alt="Beerus with Arrancar mutation and Corrupted trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Beerus</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Arrancar</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">446K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$22.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Arrancar/Ultra%20Instinct%20Goku%20LV1%20Corrupted.png" alt="Ultra Instinct Goku with Arrancar mutation and Corrupted trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Ultra Instinct Goku</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Arrancar</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">370K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$19.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Arrancar/Sukuna%20(Final)%20LV1%20Omnipotent.png" alt="Sukuna Final with Arrancar mutation and Omnipotent trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Sukuna (Final)</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Arrancar</span>
+                  <span class="stock-tag stock-tag--trait">Omnipotent</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">297K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$14.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Arrancar/Lelouch%20LV2%20Corrupted.png" alt="Lelouch with Arrancar mutation and Corrupted trait at level 2" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Lelouch</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 2</span>
+                  <span class="stock-tag">Arrancar</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">277K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$14.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Arrancar/Hashirama%20(Sage)%20LV1%20Corrupted.png" alt="Hashirama Sage with Arrancar mutation and Corrupted trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Hashirama (Sage)</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Arrancar</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">246K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$13.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Arrancar/Lelouch%20LV1%20Corrupted.png" alt="Lelouch with Arrancar mutation and Corrupted trait at level 1" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Lelouch</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Arrancar</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">222K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$12.99</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="mutation-section" aria-labelledby="mutation-nen">
+          <div class="mutation-heading">
+            <h2 class="mutation-title" id="mutation-nen">Nen</h2>
+            <span class="mutation-count">6 stocks</span>
+          </div>
+          <div class="stock-grid">
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Nen/Igris%20LV1%20Corrupted.png" alt="Igris with Nen mutation and Corrupted trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Igris</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Nen</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">549K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$22.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Nen/Julius%20LV1%20Corrupted.png" alt="Julius with Nen mutation and Corrupted trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Julius</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Nen</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">523K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$22.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Nen/Ultra%20Instinct%20Goku%20LV1%20Corrupted.png" alt="Ultra Instinct Goku with Nen mutation and Corrupted trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Ultra Instinct Goku</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Nen</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">444K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$22.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Nen/Orange%20Piccolo%20LV1%20Corrupted.png" alt="Orange Piccolo with Nen mutation and Corrupted trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Orange Piccolo</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Nen</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">345K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$17.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Nen/Lelouch%20LV1%20Omni.png" alt="Lelouch with Nen mutation and Omnipotent trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Lelouch</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Nen</span>
+                  <span class="stock-tag stock-tag--trait">Omnipotent</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">293K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$14.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Nen/Yami%20LV1%20Corrupted.png" alt="Yami with Nen mutation and Corrupted trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Yami</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Nen</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">241K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$13.99</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="mutation-section" aria-labelledby="mutation-no-mutation">
+          <div class="mutation-heading">
+            <h2 class="mutation-title" id="mutation-no-mutation">No Mutation</h2>
+            <span class="mutation-count">1 stock</span>
+          </div>
+          <div class="stock-grid">
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/No%20Mutation/Gon%20Adult%20LV1%20Corrupted.png" alt="Gon Adult with no mutation and Corrupted trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Gon Adult</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">No Mutation</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">74K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$9.99</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="mutation-section" aria-labelledby="mutation-super-shenron">
+          <div class="mutation-heading">
+            <h2 class="mutation-title" id="mutation-super-shenron">Super Shenron</h2>
+            <span class="mutation-count">8 stocks</span>
+          </div>
+          <div class="stock-grid">
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/SS/Yami%20LV7%20Omni.png" alt="Yami with Super Shenron mutation and Omnipotent trait at level 7" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Yami</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 7</span>
+                  <span class="stock-tag">Super Shenron</span>
+                  <span class="stock-tag stock-tag--trait">Omnipotent</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">1.2M</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$35.00</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/SS/Kaido%20LV5%20Corrupted.png" alt="Kaido with Super Shenron mutation and Corrupted trait at level 5" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Kaido</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 5</span>
+                  <span class="stock-tag">Super Shenron</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">1M</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$35.00</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/SS/Beerus%20LV1%20Omnipotent.png" alt="Beerus with Super Shenron mutation and Omnipotent trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Beerus</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Super Shenron</span>
+                  <span class="stock-tag stock-tag--trait">Omnipotent</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">670K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$24.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/SS/Julius%20LV1%20Omni.png" alt="Julius with Super Shenron mutation and Omnipotent trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Julius</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Super Shenron</span>
+                  <span class="stock-tag stock-tag--trait">Omnipotent</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">655K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$24.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/SS/Ultra%20Instinct%20Goku%20LV1%20Omni.png" alt="Ultra Instinct Goku with Super Shenron mutation and Omnipotent trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Ultra Instinct Goku</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Super Shenron</span>
+                  <span class="stock-tag stock-tag--trait">Omnipotent</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">555K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$24.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/SS/Igris%20LV1%20Doombringer.png" alt="Igris with Super Shenron mutation and Doombringer trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Igris</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Super Shenron</span>
+                  <span class="stock-tag stock-tag--trait">Doombringer</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">550K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$24.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/SS/Orange%20Piccolo%20LV1%20Corrupted.png" alt="Orange Piccolo with Super Shenron mutation and Corrupted trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Orange Piccolo</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Super Shenron</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">392K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$19.99</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/SS/Lelouch%20LV1%20Doombringer.png" alt="Lelouch with Super Shenron mutation and Doombringer trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Lelouch</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Super Shenron</span>
+                  <span class="stock-tag stock-tag--trait">Doombringer</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">267K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$14.99</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="mutation-section" aria-labelledby="mutation-titan">
+          <div class="mutation-heading">
+            <h2 class="mutation-title" id="mutation-titan">Titan</h2>
+            <span class="mutation-count">1 stock</span>
+          </div>
+          <div class="stock-grid">
+            <article class="stock-card">
+              <div class="stock-card__image">
+                <img src="../../defend-ur-base/Titan/Kaido%20LV1%20Corrupted.png" alt="Kaido with Titan mutation and Corrupted trait" loading="lazy" />
+              </div>
+              <div class="stock-card__body">
+                <h3 class="stock-card__name">Kaido</h3>
+                <div class="stock-card__tags">
+                  <span class="stock-tag">Level 1</span>
+                  <span class="stock-tag">Titan</span>
+                  <span class="stock-tag stock-tag--trait">Corrupted</span>
+                </div>
+                <div class="stock-card__stats">
+                  <div class="stock-stat"><span class="stock-stat__label">DPS</span><span class="stock-stat__value">340K</span></div>
+                  <div class="stock-stat"><span class="stock-stat__label">Price</span><span class="stock-stat__value">$17.99</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; <span id="year"></span> CodeKokeshi</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
