@@ -126,12 +126,8 @@
   }
   </script>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-  <link rel="stylesheet" href="assets/css/site.css?v=20260523-gas23" />
+  <link rel="stylesheet" href="assets/css/site.css?v=20260928" />
+  <link rel="stylesheet" href="assets/css/portfolio.css?v=20260928" />
 </head>
 <body>
   <div class="app">
@@ -139,7 +135,7 @@
     <!-- ====== HEADER ====== -->
     <header class="header" id="header">
       <a href="/" class="logo">
-        <div class="logo__icon">CK</div>
+        <div class="logo__icon" aria-hidden="true">CK</div>
         <div class="logo__text">
           <span class="logo__name">CodeKokeshi</span>
           <span class="logo__sub">Portfolio</span>
@@ -148,57 +144,34 @@
 
       <!-- Desktop Navigation -->
       <nav class="header__nav" id="desktopNav">
-        <button class="header__nav-btn header__nav-btn--active" data-section="games" title="Games">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="6" width="20" height="12" rx="2" />
-            <path d="M6 12h4M8 10v4" />
-            <circle cx="17" cy="10" r="1" />
-            <circle cx="15" cy="14" r="1" />
-          </svg>
-        </button>
-        <button class="header__nav-btn" data-section="arts" title="Arts">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 19l7-7 3 3-7 7-3-3z" />
-            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
-            <path d="M2 2l7.586 7.586" />
-            <circle cx="11" cy="11" r="2" />
-          </svg>
-        </button>
-        <button class="header__nav-btn" data-section="software" title="Software &amp; Web">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="16 18 22 12 16 6" />
-            <polyline points="8 6 2 12 8 18" />
-          </svg>
-        </button>
-        <button class="header__nav-btn" data-section="mods" title="Mods">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24" />
-          </svg>
-        </button>
-        <button class="header__nav-btn" data-section="quiz" title="Quiz">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
-            <rect x="9" y="3" width="6" height="4" rx="1" />
-            <path d="M9 12h6M9 16h4" />
-          </svg>
-        </button>
-        <button class="header__nav-btn" data-section="about" title="About">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
-        </button>
+        <button class="header__nav-btn header__nav-btn--active" data-section="games" title="Games">Games</button>
+        <button class="header__nav-btn" data-section="arts" title="Arts">Art</button>
+        <button class="header__nav-btn" data-section="software" title="Software &amp; Web">Software</button>
+        <button class="header__nav-btn" data-section="mods" title="Mods">Mods</button>
+        <button class="header__nav-btn" data-section="quiz" title="Quiz">Quizzes</button>
+        <button class="header__nav-btn" data-section="about" title="About">About</button>
       </nav>
     </header>
 
     <!-- ====== MAIN CONTENT ====== -->
     <main class="main">
       <div class="container">
+        <div class="portfolio-intro">
+          <p class="portfolio-intro__eyebrow">Independent games / tools / illustration</p>
+          <h1>CodeKokeshi</h1>
+          <p class="portfolio-intro__summary">I make games in Godot, useful mods for Stardew Valley, small desktop tools, and the art that goes with them. This is a record of finished work and experiments in progress.</p>
+          <div class="portfolio-intro__links">
+            <a href="games/Trapped-In-A-Nightmare/trapped-in-a-nightmare.html">Play Trapped in a Nightmare</a>
+            <a href="https://github.com/CodeKokeshi" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://codekokeshi.itch.io/" target="_blank" rel="noopener noreferrer">itch.io</a>
+          </div>
+        </div>
 
         <!-- ============================================================ -->
         <!-- GAMES SECTION                                                -->
         <!-- ============================================================ -->
         <div class="section-panel" id="section-games">
+          <div class="panel-heading"><p>01 / Games</p><h2>Games and prototypes</h2><span>Playable releases and development footage from Godot, Unity, and RPG Maker.</span></div>
 
           <!-- MOBILE CAROUSEL (hidden on desktop) -->
           <div class="carousel" id="carousel">
@@ -212,13 +185,13 @@
 
             <div class="carousel__controls">
               <button class="carousel__btn carousel__btn--prev" id="prevBtn" aria-label="Previous video">&#8249;</button>
-              <div class="carousel__counter" id="carouselCounter">1 / 15</div>
+              <div class="carousel__counter" id="carouselCounter">1 / 14</div>
               <button class="carousel__btn carousel__btn--next" id="nextBtn" aria-label="Next video">&#8250;</button>
             </div>
 
             <a href="timeline.html" class="timeline-link">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              View Timeline
+              Game development timeline
             </a>
           </div>
 
@@ -244,7 +217,7 @@
 
             <a href="timeline.html" class="timeline-link">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              View Timeline
+              Game development timeline
             </a>
           </div>
         </div>
@@ -253,6 +226,7 @@
         <!-- ARTS SECTION                                                 -->
         <!-- ============================================================ -->
         <div class="section-panel" id="section-arts" style="display:none;">
+          <div class="panel-heading"><p>02 / Art</p><h2>Illustration and animation</h2><span>Selected digital work, including character art and animated studies.</span></div>
           <div class="masonry" id="artworkGrid">
             <!-- Filled by JS -->
           </div>
@@ -262,6 +236,7 @@
         <!-- SOFTWARE SECTION                                             -->
         <!-- ============================================================ -->
         <div class="section-panel" id="section-software" style="display:none;">
+          <div class="panel-heading"><p>03 / Software</p><h2>Tools I built</h2><span>Desktop applications and web projects with working demonstrations.</span></div>
           <div class="mods-masonry" id="softwareGrid">
             <!-- Filled by JS -->
           </div>
@@ -271,6 +246,7 @@
         <!-- MODS SECTION                                                 -->
         <!-- ============================================================ -->
         <div class="section-panel" id="section-mods" style="display:none;">
+          <div class="panel-heading"><p>04 / Mods</p><h2>Mods and plugins</h2><span>Quality of life additions for Stardew Valley and systems for RPG Maker MZ.</span></div>
           <div class="mods-cat-selector">
             <button class="mods-cat-btn mods-cat-btn--active" data-cat="stardew">Stardew Valley Mods</button>
             <button class="mods-cat-btn" data-cat="rpgmaker">RPG Maker MZ Plugins</button>
@@ -284,6 +260,7 @@
         <!-- QUIZ SECTION                                                 -->
         <!-- ============================================================ -->
         <div class="section-panel" id="section-quiz" style="display:none;">
+          <div class="panel-heading"><p>05 / Learning tools</p><h2>Quizzes and lessons</h2><span>Study material I made for coursework.</span></div>
           <div class="section quiz-category">
             <h2 class="section__title">Contemporary World</h2>
             <div class="mods-masonry" id="quizGrid">
@@ -315,11 +292,11 @@
             <div class="about-section__links">
               <a href="timeline.html" class="timeline-link timeline-link--about">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                View My Game Dev Timeline
+                Game development timeline
               </a>
               <a href="https://www.nexusmods.com/profile/CodeKokeshi" target="_blank" rel="noopener noreferrer" class="timeline-link timeline-link--about">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                View My NexusMods Profile
+                NexusMods profile
               </a>
             </div>
           </div>
@@ -405,7 +382,6 @@
     </div>
   </div>
 
-  <script src="assets/js/site.js?v=20260523-gas23"></script>
+  <script src="assets/js/site.js?v=20260928b"></script>
 </body>
 </html>
-

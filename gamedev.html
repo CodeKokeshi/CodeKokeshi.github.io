@@ -4,46 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script defer src="https://cloud.umami.is/script.js" data-website-id="84641eae-f0c5-468b-8b48-f9226d664d2f"></script>
-    <title>Game Dev Portfolio | CodeKokeshi</title>
+    <title>Games and prototypes | CodeKokeshi</title>
   <meta name="description" content="Game development portfolio by CodeKokeshi. Playable games including Trapped in a Nightmare (Godot) and Neon Highway Survival (HTML5). Game clips from Godot, Unity, and RPG Maker projects." />
     <meta name="keywords" content="CodeKokeshi games, Trapped in a Nightmare, Neon Highway Survival, Godot games, Unity games, RPG Maker games, indie game developer, top-down shooter, metroidvania, Chrono Plasmorph, game dev portfolio" />
     <meta name="author" content="CodeKokeshi" />
     <link rel="canonical" href="https://codekokeshi.github.io/gamedev.html" />
-    <meta name="theme-color" content="#0f1116" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Press+Start+2P&family=Orbitron:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/site.css" data-cache-bust="true" />
+    <meta name="theme-color" content="#e9e7de" />
+  <link rel="stylesheet" href="assets/css/legacy.css?v=20260928" />
   </head>
   <body>
-    <canvas id="particle-canvas"></canvas>
+
     <div class="page-shell">
       <header class="top-bar">
-        <a class="brand" href="index.html">Code Kokeshi</a>
+        <a class="brand" href="index.html">CodeKokeshi <small>Portfolio</small></a>
         <nav class="nav-links" aria-label="Pages">
           <a class="nav-link" href="gamedev.html" aria-current="page">Game Dev</a>
           <a class="nav-link" href="art.html">Art</a>
           <a class="nav-link" href="projects.html">Projects</a>
           <a class="nav-link" href="reviewers.html">Reviewers</a>
-          <a class="nav-link" href="thesis_section/index.html">Thesis</a>
+          <a class="nav-link" href="timeline.html">Timeline</a>
         </nav>
-        <div class="theme-switcher" role="group" aria-label="Theme selector">
-          <span class="theme-label">Theme</span>
-          <button type="button" class="theme-button" data-theme-option="dark" aria-pressed="false">Dark</button>
-          <button type="button" class="theme-button" data-theme-option="light" aria-pressed="false">Light</button>
-          <button type="button" class="theme-button" data-theme-option="wood" aria-pressed="false">Retro</button>
-          <button type="button" class="theme-button" data-theme-option="cyberpunk" aria-pressed="false">Cyberpunk</button>
-        </div>
       </header>
 
       <main>
         <section class="page-section hero-simple">
-          <h1 class="section-title">Game Dev Portfolio</h1>
-          <p class="lead">Games made in Godot and Unity. Watch the builds below.</p>
+          <h1 class="section-title">Games and prototypes</h1>
+          <p class="lead">Playable releases and development clips from Godot and Unity.</p>
           <div class="link-row">
             <a class="btn" href="https://codekokeshi.itch.io/" target="_blank" rel="noopener">Visit my Itch.io</a>
           </div>
@@ -71,34 +57,27 @@
               </div>
               <p>Fast-paced top-down survival shooter with neon aesthetics. Drive vehicles, shoot enemies, level up with powerful upgrades, and survive as long as possible in this action-packed game.</p>
               <div class="card-links">
-                <a href="games/Neon-Highway-Survival/neon-highway-survival.html">Play Game</a>
+                <a href="games/Neon-Highway-Survival/index.html">Play Game</a>
               </div>
             </article>
 
-            <article class="portfolio-card coming-soon">
-              <div class="portfolio-card__header">
-                <h3>More Games Coming Soon</h3>
-                <span class="pill">TBA</span>
-              </div>
-              <p>Future game projects will appear here. Stay tuned!</p>
-            </article>
+
           </div>
         </section>
 
         <section class="page-section">
-          <h2 class="section-title">Game Clips</h2>
-          <div id="game-video-slideshow" class="video-slideshow-container"></div>
+          <h2 class="section-title">Development footage</h2>
+          <p class="lead">Recorded builds from completed and earlier projects.</p>
+          <div class="demo-grid">
+            <figure class="demo"><video src="assets/videos/games/008%20Godot%20-%202D%20Top%20Down%20-%20The%20only%20game%20I%20finished%20(returning%20to%20Game%20Dev%20after%20six%20months%20of%20quitting%20from%20Unity)%20-%20Trapped%20in%20a%20Nightmare.mp4" controls preload="metadata" playsinline aria-label="Trapped in a Nightmare gameplay"></video><figcaption>Trapped in a Nightmare <span>Godot</span></figcaption></figure>
+            <figure class="demo"><video src="assets/videos/games/004%20Unity%20-%202D%20Platformer%20(Obstacle%20Course)%20-%20A%20Graphic%20Overhaul%20of%20Chrono%20Plasmorph%20Beta.mp4" controls preload="metadata" playsinline aria-label="Chrono Plasmorph gameplay"></video><figcaption>Chrono Plasmorph <span>Unity</span></figcaption></figure>
+          </div>
         </section>
       </main>
 
       <footer class="site-footer">© <span id="year"></span> CodeKokeshi.</footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script defer src="assets/js/animations.js"></script>
-    <script defer src="assets/js/site.js"></script>
-    <script defer src="assets/js/video-slideshow.js"></script>
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>

@@ -9,41 +9,27 @@
     <meta name="keywords" content="CodeKokeshi art, digital art, pixel art, SVG art, IbisPaint, Aseprite, animation, fan art, character design, game art" />
     <meta name="author" content="CodeKokeshi" />
     <link rel="canonical" href="https://codekokeshi.github.io/art.html" />
-    <meta name="theme-color" content="#0f1116" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&family=Press+Start+2P&family=Orbitron:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/site.css" data-cache-bust="true" />
+    <meta name="theme-color" content="#e9e7de" />
+  <link rel="stylesheet" href="assets/css/legacy.css?v=20260928" />
   </head>
   <body>
-    <canvas id="particle-canvas"></canvas>
+
     <div class="page-shell">
       <header class="top-bar">
-        <a class="brand" href="index.html">Code Kokeshi</a>
+        <a class="brand" href="index.html">CodeKokeshi <small>Portfolio</small></a>
         <nav class="nav-links" aria-label="Pages">
           <a class="nav-link" href="gamedev.html">Game Dev</a>
           <a class="nav-link" href="art.html" aria-current="page">Art</a>
           <a class="nav-link" href="projects.html">Projects</a>
           <a class="nav-link" href="reviewers.html">Reviewers</a>
-          <a class="nav-link" href="thesis_section/index.html">Thesis</a>
+          <a class="nav-link" href="timeline.html">Timeline</a>
         </nav>
-        <div class="theme-switcher" role="group" aria-label="Theme selector">
-          <span class="theme-label">Theme</span>
-          <button type="button" class="theme-button" data-theme-option="dark" aria-pressed="false">Dark</button>
-          <button type="button" class="theme-button" data-theme-option="light" aria-pressed="false">Light</button>
-          <button type="button" class="theme-button" data-theme-option="wood" aria-pressed="false">Retro</button>
-          <button type="button" class="theme-button" data-theme-option="cyberpunk" aria-pressed="false">Cyberpunk</button>
-        </div>
       </header>
 
       <main>
         <section class="page-section hero-simple">
           <h1 class="section-title">Art &amp; Illustration</h1>
-          <p class="lead">Art made in IbisPaint. Check these links for more animations and pixel sets.</p>
+          <p class="lead">Digital illustration, character studies, and short animations.</p>
           <div class="link-row">
             <a class="btn" href="https://www.deviantart.com/codekokeshi" target="_blank" rel="noopener">DeviantArt</a>
             <a class="btn outline" href="https://www.pixiv.net/en/users/85447343" target="_blank" rel="noopener">Pixiv</a>
@@ -52,79 +38,15 @@
 
         <section class="page-section">
           <h2 class="section-title">Recent Highlights</h2>
-          <div class="gallery-grid has-carousel">
-            <figure class="gallery-card gallery-card--xl">
-              <img src="DigitalArtPortfolio/Mahiro1.jpg" alt="Mahiro illustration 1" loading="lazy" />
-            </figure>
-            <figure class="gallery-card gallery-card--wide">
-              <img src="DigitalArtPortfolio/Mahiro2.jpg" alt="Mahiro illustration 2" loading="lazy" />
-            </figure>
-            <figure class="gallery-card">
-              <img src="DigitalArtPortfolio/Mahiro3.jpg" alt="Mahiro illustration 3" loading="lazy" />
-            </figure>
-            <figure class="gallery-card gallery-card--tall">
-              <img src="DigitalArtPortfolio/Angela.jpg" alt="Angela illustration" loading="lazy" />
-            </figure>
-            <figure class="gallery-card gallery-card--wide">
-              <img src="DigitalArtPortfolio/Marnie.jpg" alt="Marnie illustration" loading="lazy" />
-            </figure>
-            <figure class="gallery-card">
-              <img src="DigitalArtPortfolio/Gaomon.jpg" alt="Gaomon illustration" loading="lazy" />
-            </figure>
-            <figure class="gallery-card">
-              <img src="DigitalArtPortfolio/117313274_p0_master1200.jpg" alt="117313274 artwork" loading="lazy" />
-            </figure>
-            <figure class="gallery-card gallery-card--tall">
-              <img src="DigitalArtPortfolio/104943736-f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg" alt="104943736 artwork" loading="lazy" />
-            </figure>
-          </div>
-          
-          <!-- Mobile Carousel -->
-          <div id="artCarousel" class="carousel slide mobile-carousel" data-bs-ride="false">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="0" class="active"></button>
-              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="1"></button>
-              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="2"></button>
-              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="3"></button>
-              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="4"></button>
-              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="5"></button>
-              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="6"></button>
-              <button type="button" data-bs-target="#artCarousel" data-bs-slide-to="7"></button>
-            </div>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="DigitalArtPortfolio/Mahiro1.jpg" alt="Mahiro illustration 1" class="d-block w-100">
-              </div>
-              <div class="carousel-item">
-                <img src="DigitalArtPortfolio/Mahiro2.jpg" alt="Mahiro illustration 2" class="d-block w-100">
-              </div>
-              <div class="carousel-item">
-                <img src="DigitalArtPortfolio/Mahiro3.jpg" alt="Mahiro illustration 3" class="d-block w-100">
-              </div>
-              <div class="carousel-item">
-                <img src="DigitalArtPortfolio/Angela.jpg" alt="Angela illustration" class="d-block w-100">
-              </div>
-              <div class="carousel-item">
-                <img src="DigitalArtPortfolio/Marnie.jpg" alt="Marnie illustration" class="d-block w-100">
-              </div>
-              <div class="carousel-item">
-                <img src="DigitalArtPortfolio/Gaomon.jpg" alt="Gaomon illustration" class="d-block w-100">
-              </div>
-              <div class="carousel-item">
-                <img src="DigitalArtPortfolio/117313274_p0_master1200.jpg" alt="117313274 artwork" class="d-block w-100">
-              </div>
-              <div class="carousel-item">
-                <img src="DigitalArtPortfolio/104943736-f3e130fa02dc6590a5fb05513e0ce962_p1_master1200.jpg" alt="104943736 artwork" class="d-block w-100">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#artCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#artCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+          <div class="gallery-grid">
+            <figure class="gallery-card"><img src="assets/images/artworks/oyama_mahiro_recolored_by_codekokeshi_dk10mfz-375w-2x.jpg" alt="Mahiro character illustration" loading="lazy" /></figure>
+            <figure class="gallery-card"><img src="assets/images/artworks/Mahiro2.jpg-375w-2x.jpg" alt="Mahiro illustration" loading="lazy" /></figure>
+            <figure class="gallery-card"><img src="assets/images/artworks/angela_from_mobile_legends_by_codekokeshi_dk10mpu-414w-2x.jpg" alt="Angela fan art" loading="lazy" /></figure>
+            <figure class="gallery-card"><img src="assets/images/artworks/marnie_by_codekokeshi_dk10n2n-fullview.jpg" alt="Marnie illustration" loading="lazy" /></figure>
+            <figure class="gallery-card"><img src="assets/images/artworks/gaomon_contest_submission_by_codekokeshi_dk10mw3-375w-2x.jpg" alt="Gaomon contest submission" loading="lazy" /></figure>
+            <figure class="gallery-card"><img src="assets/images/artworks/takahama_reiko_fully_colorized_by_codekokeshi_dk10lby-pre.jpg" alt="Reiko color study" loading="lazy" /></figure>
+            <figure class="gallery-card"><img src="assets/images/artworks/dk10p2j-fb4f8030-7fa9-49c2-ae12-dc6b6a7ac79d.gif" alt="Animated artwork" loading="lazy" /></figure>
+            <figure class="gallery-card"><img src="assets/images/artworks/dlany1o-d686d2b3-3b63-4ddf-abba-8f507f144845.gif" alt="Animated character artwork" loading="lazy" /></figure>
           </div>
         </section>
       </main>
@@ -132,13 +54,8 @@
       <footer class="site-footer">© <span id="year"></span> CodeKokeshi.</footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script defer src="assets/js/animations.js"></script>
-    <script defer src="assets/js/site.js"></script>
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>
   </body>
 </html>
-

@@ -28,7 +28,7 @@ const currentProjects = [
     tool: 'Godot',
     title: 'Metroidvania Project',
     description: 'An attempt to create a metroidvania inspired by Adventure Island',
-    story: "This isn't the classic Adventure Island - it's a full metroidvania. The only Adventure Island elements are the MC having a cap, being naked with green shorts, and fighting a giant snail. But our metroidvania has lightning powers, portals, fireballs, and so much more. This project evolved from the Chrono Plasmorph Remake.",
+    story: "A metroidvania that grew out of the Chrono Plasmorph remake. It borrows a few visual cues from Adventure Island, then adds lightning powers, portals, fireballs, and a larger connected world.",
   },
   {
     id: 9,
@@ -460,7 +460,7 @@ function createCardHTML(video, isCarousel) {
 
 function createStoryHTML(video) {
   return '<div class="gallery__story">' +
-    '<h3>The Story Behind This Project</h3>' +
+    '<h3>Project notes</h3>' +
     '<p>' + escapeHtml(video.story) + '</p>' +
   '</div>';
 }
@@ -479,32 +479,12 @@ function renderDesktopGallery() {
   Object.keys(grids).forEach(function(gridId) {
     var container = document.getElementById(gridId);
     if (!container) return;
-    container.innerHTML = grids[gridId].map(function(v) { return createCardHTML(v, false); }).join('');
+    container.innerHTML = grids[gridId].map(function(v) {
+      return '<article class="project-entry">' + createCardHTML(v, false) +
+        '<div class="project-caption"><div><h3>' + escapeHtml(v.title) + '</h3><p>' + escapeHtml(v.description) + '</p></div><span>' + escapeHtml(v.tool) + '</span></div>' +
+      '</article>';
+    }).join('');
   });
-}
-
-// ============================================================================
-// DESKTOP HOVER EFFECTS
-// ============================================================================
-
-function setupDesktopHover() {
-  document.addEventListener('mouseenter', function(e) {
-    var card = e.target.closest('.card');
-    if (!card || isMobile()) return;
-    var overlay = card.querySelector('.card__overlay');
-    var info = card.querySelector('.card__info');
-    if (overlay) overlay.classList.add('card__overlay--visible');
-    if (info) info.classList.add('card__info--visible');
-  }, true);
-
-  document.addEventListener('mouseleave', function(e) {
-    var card = e.target.closest('.card');
-    if (!card || isMobile()) return;
-    var overlay = card.querySelector('.card__overlay');
-    var info = card.querySelector('.card__info');
-    if (overlay) overlay.classList.remove('card__overlay--visible');
-    if (info) info.classList.remove('card__info--visible');
-  }, true);
 }
 
 // ============================================================================
@@ -609,6 +589,7 @@ function renderCarousel() {
   }
 
   info.innerHTML =
+    '<h3 class="carousel__title">' + escapeHtml(video.title) + '</h3>' +
     '<div class="carousel__tool-tag" style="background-color:' + color + '22;color:' + color + ';border-color:' + color + '44">' +
       escapeHtml(video.tool) +
     '</div>' +
@@ -888,7 +869,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Setup interactions
   setupNavigation();
-  setupDesktopHover();
   setupDesktopClick();
   setupDesktopVideoObserver();
   setupCarousel();

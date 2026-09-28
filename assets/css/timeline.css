@@ -693,3 +693,40 @@ video::-ms-media-controls { display: none !important; }
     display: none;
   }
 }
+/* Visual language shared with the portfolio index. */
+body, .timeline-page { background: #e9e7de; color: #252b25; font-family: Georgia, 'Times New Roman', serif; }
+::selection { background: #c7d0b7; color: #252b25; }
+.timeline-header { max-width: 1224px; margin: 0 auto; padding: 40px 28px 24px; text-align: left; border-bottom: 1px solid #252b25; }
+.timeline-back { position: static; display: inline-block; transform: none; margin-bottom: 28px; color: #944d32; font: 12px Arial, sans-serif; }
+.timeline-back:hover { color: #252b25; }
+.timeline-header h1 { color: #252b25; background: none; -webkit-text-fill-color: #252b25; font: 400 clamp(42px, 6vw, 76px)/1 Georgia, serif; letter-spacing: -.05em; }
+.timeline-subtitle { color: #626a61; font: 14px/1.5 Arial, sans-serif; }
+.timeline-legend { justify-content: flex-start; max-width: 1224px; margin: 0 auto; padding: 20px 28px; gap: 18px; }
+.legend-item { color: #626a61; font: 11px/1.3 Arial, sans-serif; }
+.legend-dot { width: 8px; height: 8px; border-radius: 0; }
+.timeline-container::-webkit-scrollbar-track { background: #e9e7de; }
+.timeline-container::-webkit-scrollbar-thumb { background: #929b8c; border-radius: 0; }
+.timeline-line { background: #929b8c; height: 1px; border-radius: 0; }
+.timeline-item, .timeline-item:hover, .timeline-item--selected { transform: none; transition: none; }
+.timeline-item__dot, .timeline-item:hover .timeline-item__dot { border: 3px solid #e9e7de; box-shadow: 0 0 0 1px #252b25; transform: none; transition: none; }
+.timeline-item--milestone .timeline-item__dot, .timeline-item--milestone:hover .timeline-item__dot { transform: rotate(45deg); }
+.timeline-item__year { color: #944d32; background: #e9e7de; border: 0; border-radius: 0; font: 700 11px Arial, sans-serif; }
+.timeline-item__card, .timeline-item--selected .timeline-item__card { background: #f2f0e8; border: 1px solid #babfb2; border-radius: 0; transition: none; }
+.timeline-item:hover .timeline-item__card { border-color: #252b25; box-shadow: none; }
+.timeline-item__card h3 { color: #252b25; font: 400 16px/1.2 Georgia, serif; }
+.timeline-item__card p { color: #626a61; font: 11px/1.4 Arial, sans-serif; }
+.timeline-detail { backdrop-filter: none; animation: none; }
+.timeline-detail__content { background: #e9e7de; border: 1px solid #252b25; border-radius: 0; animation: none; }
+.timeline-detail__story { color: #252b25; }
+.timeline-detail__video, .timeline-detail__embed { border-radius: 0; }
+.timeline-vertical__line { background: #929b8c; }
+.timeline-vertical__dot { border-color: #e9e7de; box-shadow: 0 0 0 1px #252b25; }
+.timeline-vertical__content { background: #f2f0e8; border: 1px solid #babfb2; border-radius: 0; transition: none; }
+.timeline-vertical__item:active .timeline-vertical__content { background: #f2f0e8; border-color: #252b25; }
+.timeline-vertical__year { color: #944d32; font: 700 11px/1.3 Arial, sans-serif; }
+.timeline-vertical__content h3 { color: #252b25; font: 400 20px/1.2 Georgia, serif; }
+.timeline-vertical__content p { color: #626a61; font: 12px/1.5 Arial, sans-serif; }
+.timeline-detail--mobile, .timeline-detail--mobile .timeline-detail__info { background: #e9e7de; }
+@media (max-width: 768px) { .timeline-header { padding: 30px 18px 20px; } .timeline-legend { padding: 16px 18px; } .timeline-vertical { padding: 10px 18px 40px; } }
+
+.timeline-detail__year, .timeline-detail--mobile .timeline-detail__year { color: #944d32 !important; }
