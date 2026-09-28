@@ -60,13 +60,10 @@ button:focus-visible, a:focus-visible, .card:focus-visible { outline: 2px solid 
 .panel-heading span { display: block; margin-top: 12px; color: var(--muted); font: 14px/1.5 Arial, sans-serif; }
 .masonry { padding-top: 10px; }
 .masonry__item, .mod-card__image { border-radius: 0; background: #d6d8d0; }
-.masonry__item, .mod-card__link, .mod-card__image, .mod-card__title-link, .quiz-card__title { transition: none; }
 .masonry__item:hover, .mod-card__link:hover, .mod-card__link:focus-visible, .mod-card__image:hover { transform: none; box-shadow: none; }
 .masonry__gif-badge { border-radius: 0; }
 .mods-masonry { gap: 34px 24px; }
 .mod-card__content { padding: 13px 0 0; border-top: 1px solid var(--ink); margin-top: 2px; }
-.mod-card__title, .mod-card__title-link, .quiz-card__title { color: var(--ink); font: 400 23px/1.15 Georgia, serif; letter-spacing: -.025em; }
-.mod-card__title-link:hover, .quiz-card__title:hover { color: var(--accent); }
 .mod-card__overview { color: var(--muted); font: 13px/1.55 Arial, sans-serif; }
 .card__tag { border: 0 !important; border-radius: 0; background: transparent !important; color: var(--accent) !important; padding: 0; font: 700 10px/1.4 Arial, sans-serif; letter-spacing: .1em; }
 .mods-cat-selector { gap: 0; border-bottom: 1px solid var(--rule); margin-bottom: 14px; }
@@ -79,12 +76,6 @@ button:focus-visible, a:focus-visible, .card:focus-visible { outline: 2px solid 
 .about-section__links { justify-content: flex-start; }
 .footer { border-top: 1px solid var(--rule); text-align: left; padding: 25px max(28px, calc((100vw - 1224px) / 2)); }
 .footer p { color: var(--muted); font: 12px/1.4 Arial, sans-serif; }
-.quiz-modal__backdrop { backdrop-filter: none; }
-.quiz-modal__box { background: var(--paper); border: 1px solid var(--ink); border-radius: 0; box-shadow: none; }
-.quiz-modal__title { color: var(--ink); font-family: Georgia, serif; font-weight: 400; }
-.quiz-modal__subtitle, .quiz-modal__close { color: var(--muted); }
-.quiz-modal__btn, .quiz-modal__btn:hover, .quiz-modal__btn--lesson, .quiz-modal__btn--quiz, .quiz-modal__btn--lesson:hover, .quiz-modal__btn--quiz:hover { border-radius: 0; border: 1px solid var(--ink); background: none; color: var(--ink); box-shadow: none; transform: none; }
-.quiz-modal__btn--quiz { background: var(--ink) !important; color: var(--paper) !important; }
 @media (min-width: 768px) {
   .section__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
   .mods-masonry { grid-template-columns: repeat(2, minmax(0, 1fr)); }

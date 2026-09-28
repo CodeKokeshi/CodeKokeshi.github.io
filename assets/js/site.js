@@ -138,148 +138,6 @@ const artworks = [
   { id: 10, src: 'assets/images/artworks/takahama_reiko_fully_colorized_by_codekokeshi_dk10lby-pre.jpg', isGif: false },
 ];
 
-const quizzes = [
-  {
-    id: 1,
-    image: 'assets/images/quizzes/lesson_3-market-integration.webp',
-    title: 'Market Integration Quiz',
-    description: 'Lesson 3 of GNED07 discussing about Market Integration.',
-    lessonUrl: 'quizzes/gned07/market-integration/lesson.html',
-    quizUrl: 'quizzes/gned07/market-integration/quiz.html',
-  },
-  {
-    id: 2,
-    image: 'assets/images/quizzes/lesson_1-globalization.png',
-    title: 'Globalization Quiz',
-    description: 'Lesson 1 of GNED07 introducing the study of Globalization.',
-    lessonUrl: 'quizzes/gned07/globalization/lesson.html',
-    quizUrl: 'quizzes/gned07/globalization/quiz.html',
-  },
-  {
-    id: 3,
-    image: 'assets/images/quizzes/lesson_4-global-governance.png',
-    title: 'Global Governance Quiz',
-    description: 'Lesson 4 of GNED07 about the contemporary global governance.',
-    lessonUrl: 'quizzes/gned07/global-governance/lesson.html',
-    quizUrl: 'quizzes/gned07/global-governance/quiz.html',
-  },
-  {
-    id: 4,
-    image: 'assets/images/quizzes/lesson_5-global-divde.webp',
-    title: 'Global Divide Quiz',
-    description: 'Lesson 5 of GNED07 about the Global North and Global South divide.',
-    lessonUrl: 'quizzes/gned07/global-divide/lesson.html',
-    quizUrl: 'quizzes/gned07/global-divide/quiz.html',
-  },
-  {
-    id: 5,
-    image: 'assets/images/quizzes/lesson_6-asian-regionalism.webp',
-    title: 'Asian Regionalism Quiz',
-    description: 'Lesson 6 of GNED07 discussing Asian regionalism and ASEAN integration.',
-    lessonUrl: 'quizzes/gned07/asian-regionalism/lesson.html',
-    quizUrl: 'quizzes/gned07/asian-regionalism/quiz.html',
-  },
-  {
-    id: 6,
-    image: 'assets/images/quizzes/lesson_7-global-media-cultures.webp',
-    title: 'Global Media Cultures Quiz',
-    description: 'Lesson 7 of GNED07 covering media types, media evolution, and global media culture.',
-    lessonUrl: 'quizzes/gned07/global-media-cultures/lesson.html',
-    quizUrl: 'quizzes/gned07/global-media-cultures/quiz.html',
-  },
-];
-
-const genderSocietyQuizzes = [
-  {
-    id: 101,
-    image: 'assets/images/quizzes/lesson_1-sex-and-gender.png',
-    title: 'Sex and Gender Quiz',
-    description: 'Lesson 1 of Gender and Society about the difference between sex and gender.',
-    lessonUrl: 'quizzes/gas/sex-and-gender/lesson.html',
-    quizUrl: 'quizzes/gas/sex-and-gender/quiz.html',
-  },
-  {
-    id: 102,
-    image: 'assets/images/quizzes/lesson_2-sogiesc.png',
-    title: 'Understanding SOGIESC Quiz',
-    description: 'Lesson 2 of Gender and Society about sexual orientation, gender identity, gender expression, and sex characteristics.',
-    lessonUrl: 'quizzes/gas/sogiesc/lesson.html',
-    quizUrl: 'quizzes/gas/sogiesc/quiz.html',
-  },
-  {
-    id: 103,
-    image: 'assets/images/quizzes/lesson_3-gender-and-social-construct.png',
-    title: 'Gender and Social Construct Quiz',
-    description: 'Lesson 3 of Gender and Society about social construction, gender theories, roles, and stereotypes.',
-    lessonUrl: 'quizzes/gas/gender-and-social-construct/lesson.html',
-    quizUrl: 'quizzes/gas/gender-and-social-construct/quiz.html',
-  },
-  {
-    id: 104,
-    image: 'assets/images/quizzes/lesson_4-gender-and-family.png',
-    title: 'Gender and Family Quiz',
-    description: 'Lesson 4 of Gender and Society about gender roles, family dynamics, and Filipino families.',
-    lessonUrl: 'quizzes/gas/gender-and-family/lesson.html',
-    quizUrl: 'quizzes/gas/gender-and-family/quiz.html',
-  },
-  {
-    id: 105,
-    image: 'assets/images/quizzes/lesson_5-ra-9262.png',
-    title: 'RA 9262 Quiz',
-    description: 'Lesson 5 of Gender and Society about the Anti-Violence Against Women and Their Children Act.',
-    lessonUrl: 'quizzes/gas/ra-9262/lesson.html',
-    quizUrl: 'quizzes/gas/ra-9262/quiz.html',
-  },
-  {
-    id: 106,
-    image: 'assets/images/quizzes/lesson_6-ra-7877.png',
-    title: 'RA 7877 Quiz',
-    description: 'Lesson 6 of Gender and Society about the Anti-Sexual Harassment Act in work, education, and training.',
-    lessonUrl: 'quizzes/gas/ra-7877/lesson.html',
-    quizUrl: 'quizzes/gas/ra-7877/quiz.html',
-  },
-  {
-    id: 107,
-    image: 'assets/images/quizzes/lesson_7-ra-11313.png',
-    title: 'RA 11313 Quiz',
-    description: 'Lesson 7 of Gender and Society about the Safe Spaces Act.',
-    lessonUrl: 'quizzes/gas/ra-11313/lesson.html',
-    quizUrl: 'quizzes/gas/ra-11313/quiz.html',
-  },
-  {
-    id: 108,
-    image: 'assets/images/quizzes/lesson_8-ra-8353.png',
-    title: 'RA 8353 Quiz',
-    description: 'Lesson 8 of Gender and Society about the Anti-Rape Law.',
-    lessonUrl: 'quizzes/gas/ra-8353/lesson.html',
-    quizUrl: 'quizzes/gas/ra-8353/quiz.html',
-  },
-  {
-    id: 109,
-    image: 'assets/images/quizzes/lesson_9-ra-11648.png',
-    title: 'RA 11648 Quiz',
-    description: 'Lesson 9 of Gender and Society about stronger protection against rape, sexual exploitation, and abuse.',
-    lessonUrl: 'quizzes/gas/ra-11648/lesson.html',
-    quizUrl: 'quizzes/gas/ra-11648/quiz.html',
-  },
-  {
-    id: 110,
-    image: 'assets/images/quizzes/lesson_10-ra-11930.png',
-    title: 'RA 11930 Quiz',
-    description: 'Lesson 10 of Gender and Society about OSAEC and child sexual abuse or exploitation materials.',
-    lessonUrl: 'quizzes/gas/ra-11930/lesson.html',
-    quizUrl: 'quizzes/gas/ra-11930/quiz.html',
-  },
-  {
-    id: 111,
-    image: 'assets/images/quizzes/lesson_7-ra-11313.png',
-    title: 'RA Comparison Quiz',
-    description: 'Final independent Gender and Society quiz comparing RA 11313 with other RAs.',
-    lessonUrl: 'quizzes/gas/ra-comparison-final/lesson.html',
-    quizUrl: 'quizzes/gas/ra-comparison-final/quiz.html',
-  },
-];
-
 const mods = [
   {
     id: 1,
@@ -627,71 +485,6 @@ function setupCarousel() {
 // ARTWORKS GRID
 // ============================================================================
 
-// ============================================================================
-// QUIZ GRID & MODAL
-// ============================================================================
-
-function renderQuizzes() {
-  function renderQuizGrid(gridId, quizItems) {
-    var grid = document.getElementById(gridId);
-    if (!grid) return;
-
-    grid.innerHTML = quizItems.map(function(q) {
-      return '<div class="mod-card">' +
-        '<div class="mod-card__image">' +
-          '<img src="' + encodeURI(q.image) + '" alt="' + escapeHtml(q.title) + '" loading="lazy" />' +
-        '</div>' +
-        '<div class="mod-card__content">' +
-          '<h3 class="quiz-card__title" data-quiz-id="' + q.id + '">' + escapeHtml(q.title) + '</h3>' +
-          '<p class="mod-card__overview">' + escapeHtml(q.description) + '</p>' +
-        '</div>' +
-      '</div>';
-    }).join('');
-  }
-
-  renderQuizGrid('quizGrid', quizzes);
-  renderQuizGrid('gasQuizGrid', genderSocietyQuizzes);
-}
-
-function getAllQuizzes() {
-  return quizzes.concat(genderSocietyQuizzes);
-}
-
-function openQuizModal(quizId) {
-  var q = getAllQuizzes().find(function(x) { return x.id === quizId; });
-  if (!q) return;
-  document.getElementById('quizModalTitle').textContent = q.title;
-  document.getElementById('quizModalSubtitle').textContent = q.description;
-  document.getElementById('quizModalLesson').href = q.lessonUrl;
-  document.getElementById('quizModalQuiz').href = q.quizUrl;
-  var modal = document.getElementById('quizModal');
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-
-function closeQuizModal() {
-  document.getElementById('quizModal').style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-function setupQuizModal() {
-  // Open on title click (delegated)
-  document.getElementById('section-quiz').addEventListener('click', function(e) {
-    var title = e.target.closest('.quiz-card__title');
-    if (!title) return;
-    openQuizModal(parseInt(title.getAttribute('data-quiz-id'), 10));
-  });
-
-  // Close on X or backdrop
-  document.getElementById('quizModalClose').addEventListener('click', closeQuizModal);
-  document.getElementById('quizModalBackdrop').addEventListener('click', closeQuizModal);
-
-  // Close on Escape
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeQuizModal();
-  });
-}
-
 function renderArtworks() {
   var grid = document.getElementById('artworkGrid');
   if (!grid) return;
@@ -783,7 +576,7 @@ function setupModsCategory() {
 // ============================================================================
 
 var activeSection = null;
-var knownSections = ['games', 'arts', 'software', 'mods', 'quiz', 'about'];
+var knownSections = ['games', 'arts', 'software', 'mods', 'about'];
 
 function _applySection(sectionId) {
   // Hide all panels, show the target
@@ -865,19 +658,18 @@ document.addEventListener('DOMContentLoaded', function() {
   renderArtworks();
   renderSoftware();
   renderMods();
-  renderQuizzes();
 
   // Setup interactions
   setupNavigation();
   setupDesktopClick();
   setupDesktopVideoObserver();
   setupCarousel();
-  setupQuizModal();
   setupModsCategory();
 
   // Determine initial section from URL path
   var rawPath = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');
   var initialSection = (knownSections.indexOf(rawPath) !== -1) ? rawPath : 'games';
+  if (rawPath === 'quiz') history.replaceState(null, '', '/');
 
   // Stamp the history entry with the section so popstate works on first back
   history.replaceState({ section: initialSection }, '', window.location.pathname);
