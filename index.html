@@ -126,213 +126,127 @@
   }
   </script>
 
-  <link rel="stylesheet" href="assets/css/site.css?v=20260928" />
-  <link rel="stylesheet" href="assets/css/portfolio.css?v=20260928" />
+    <link rel="preload" href="assets/fonts/BarlowCondensed-Bold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="assets/css/portfolio.css?v=20260930" />
+  <meta name="theme-color" content="#111925" />
 </head>
 <body>
   <div class="app">
-
-    <!-- ====== HEADER ====== -->
-    <header class="header" id="header">
-      <a href="/" class="logo">
-        <div class="logo__icon" aria-hidden="true">CK</div>
-        <div class="logo__text">
-          <span class="logo__name">CodeKokeshi</span>
-          <span class="logo__sub">Portfolio</span>
-        </div>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="CodeKokeshi home">
+        <span class="brand__mark" aria-hidden="true">CK</span>
+        <span class="brand__word">CodeKokeshi</span>
       </a>
-
-      <!-- Desktop Navigation -->
-      <nav class="header__nav" id="desktopNav">
-        <button class="header__nav-btn header__nav-btn--active" data-section="games" title="Games">Games</button>
-        <button class="header__nav-btn" data-section="arts" title="Arts">Art</button>
-        <button class="header__nav-btn" data-section="software" title="Software &amp; Web">Software</button>
-        <button class="header__nav-btn" data-section="mods" title="Mods">Mods</button>
-        <button class="header__nav-btn" data-section="about" title="About">About</button>
+      <nav class="site-nav" aria-label="Portfolio sections">
+        <a href="/" data-section="games" aria-current="page">Games</a>
+        <a href="/arts" data-section="arts">Art</a>
+        <a href="/software" data-section="software">Software</a>
+        <a href="/mods" data-section="mods">Mods</a>
+        <a href="/about" data-section="about">About</a>
       </nav>
+      <a class="site-header__external" href="https://github.com/CodeKokeshi" target="_blank" rel="noopener noreferrer" aria-label="CodeKokeshi on GitHub">GitHub <span class="icon" aria-hidden="true"></span></a>
     </header>
 
-    <!-- ====== MAIN CONTENT ====== -->
-    <main class="main">
-      <div class="container">
-        <div class="portfolio-intro">
-          <p class="portfolio-intro__eyebrow">Independent games / tools / illustration</p>
-          <h1>CodeKokeshi</h1>
-          <p class="portfolio-intro__summary">I make games in Godot, useful mods for Stardew Valley, small desktop tools, and the art that goes with them. This is a record of finished work and experiments in progress.</p>
-          <div class="portfolio-intro__links">
-            <a href="games/Trapped-In-A-Nightmare/trapped-in-a-nightmare.html">Play Trapped in a Nightmare</a>
-            <a href="https://github.com/CodeKokeshi" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://codekokeshi.itch.io/" target="_blank" rel="noopener noreferrer">itch.io</a>
-          </div>
+    <main id="main-content">
+      <section class="panel panel--games" id="section-games">
+        <div class="opening">
+          <h1>I make things<br>to play with<span class="opening__period">.</span></h1>
+          <p>Mostly games. Sometimes the tools, mods, and art that happen along the way.</p>
         </div>
 
-        <!-- ============================================================ -->
-        <!-- GAMES SECTION                                                -->
-        <!-- ============================================================ -->
-        <div class="section-panel" id="section-games">
-          <div class="panel-heading"><p>01 / Games</p><h2>Games and prototypes</h2><span>Playable releases and development footage from Godot, Unity, and RPG Maker.</span></div>
+        <div class="stage-shell">
+          <aside class="game-route" aria-label="Game and experiment previews">
+            <div class="route-heading"><h2>Pick a build</h2><span id="gameCount"></span></div>
+            <div class="game-selector" id="gameSelector"></div>
+          </aside>
 
-          <!-- MOBILE CAROUSEL (hidden on desktop) -->
-          <div class="carousel" id="carousel">
-            <div class="carousel__content" id="carouselContent">
-              <!-- Filled by JS -->
+          <div class="stage-main">
+            <div class="stage-screen">
+              <video id="featuredVideo" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Selected project preview"></video>
+              <div class="stage-screen__bar">
+                <span class="preview-label"><span class="preview-label__dot" aria-hidden="true"></span> Preview</span>
+                <button type="button" id="togglePreview" class="preview-toggle" aria-label="Pause preview">Pause</button>
+              </div>
+              <a id="featuredPlay" class="action-link action-link--primary stage-screen__play" href="games/Trapped-In-A-Nightmare/trapped-in-a-nightmare.html">Play the game <span class="icon" aria-hidden="true"></span></a>
             </div>
-
-            <div class="carousel__info" id="carouselInfo">
-              <!-- Filled by JS -->
+            <div class="stage-details">
+              <div class="stage-details__head">
+                <div>
+                  <p class="stage-details__meta" id="featuredMeta"></p>
+                  <h2 id="featuredTitle"></h2>
+                </div>
+                <span class="stage-details__index" id="featuredIndex" aria-hidden="true"></span>
+              </div>
+              <p class="stage-details__description" id="featuredDescription"></p>
+              <div class="stage-details__actions">
+                <button id="featuredMore" class="action-link action-link--quiet" type="button" aria-expanded="false" aria-controls="featuredStory">Read project notes <span class="icon icon--down" aria-hidden="true"></span></button>
+              </div>
+              <div class="stage-details__story" id="featuredStory" hidden></div>
             </div>
-
-            <div class="carousel__controls">
-              <button class="carousel__btn carousel__btn--prev" id="prevBtn" aria-label="Previous video">&#8249;</button>
-              <div class="carousel__counter" id="carouselCounter">1 / 14</div>
-              <button class="carousel__btn carousel__btn--next" id="nextBtn" aria-label="Next video">&#8250;</button>
-            </div>
-
-            <a href="timeline.html" class="timeline-link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Game development timeline
-            </a>
-          </div>
-
-          <!-- DESKTOP GALLERY (hidden on mobile) -->
-          <div class="gallery" id="gallery">
-            <!-- Completed Section -->
-            <div class="section">
-              <h2 class="section__title">Completed</h2>
-              <div class="section__grid" id="grid-completed"></div>
-            </div>
-
-            <!-- Current Projects Section -->
-            <div class="section">
-              <h2 class="section__title">Current Projects</h2>
-              <div class="section__grid" id="grid-current"></div>
-            </div>
-
-            <!-- Other Projects Section -->
-            <div class="section">
-              <h2 class="section__title">Other Projects</h2>
-              <div class="section__grid" id="grid-other"></div>
-            </div>
-
-            <a href="timeline.html" class="timeline-link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Game development timeline
-            </a>
-          </div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- ARTS SECTION                                                 -->
-        <!-- ============================================================ -->
-        <div class="section-panel" id="section-arts" style="display:none;">
-          <div class="panel-heading"><p>02 / Art</p><h2>Illustration and animation</h2><span>Selected digital work, including character art and animated studies.</span></div>
-          <div class="masonry" id="artworkGrid">
-            <!-- Filled by JS -->
-          </div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- SOFTWARE SECTION                                             -->
-        <!-- ============================================================ -->
-        <div class="section-panel" id="section-software" style="display:none;">
-          <div class="panel-heading"><p>03 / Software</p><h2>Tools I built</h2><span>Desktop applications and web projects with working demonstrations.</span></div>
-          <div class="mods-masonry" id="softwareGrid">
-            <!-- Filled by JS -->
-          </div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- MODS SECTION                                                 -->
-        <!-- ============================================================ -->
-        <div class="section-panel" id="section-mods" style="display:none;">
-          <div class="panel-heading"><p>04 / Mods</p><h2>Mods and plugins</h2><span>Quality of life additions for Stardew Valley and systems for RPG Maker MZ.</span></div>
-          <div class="mods-cat-selector">
-            <button class="mods-cat-btn mods-cat-btn--active" data-cat="stardew">Stardew Valley Mods</button>
-            <button class="mods-cat-btn" data-cat="rpgmaker">RPG Maker MZ Plugins</button>
-          </div>
-          <div class="mods-masonry" id="modsGrid">
-            <!-- Filled by JS -->
-          </div>
-        </div>
-        <!-- ============================================================ -->
-        <!-- ABOUT SECTION                                                -->
-        <!-- ============================================================ -->
-        <div class="section-panel" id="section-about" style="display:none;">
-          <div class="about-section">
-            <h2 class="about-section__title">About Me</h2>
-            <div class="about-section__text">
-              <p>Hi! I'm CodeKokeshi, a game developer, programmer, artist, and mod creator.</p>
-              <p>I started my journey in game development with RPG Maker, moved to Unity, and eventually found my home in Godot.</p>
-              <p>As a programmer, I work on web development and software development, specializing in Lenet-5 CNN and machine learning applications.</p>
-              <p>My artistic skills span SVG art, pixel art, and digital art, with animation capabilities across all these mediums.</p>
-              <p>I'm also an active mod maker, focusing primarily on creating quality-of-life mods for Stardew Valley.</p>
-            </div>
-            <h3 class="about-section__links-title">Links</h3>
-            <div class="about-section__links">
-              <a href="timeline.html" class="timeline-link timeline-link--about">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                Game development timeline
-              </a>
-              <a href="https://www.nexusmods.com/profile/CodeKokeshi" target="_blank" rel="noopener noreferrer" class="timeline-link timeline-link--about">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                NexusMods profile
-              </a>
+            <div class="stage-stepper">
+              <button type="button" id="prevProject" aria-label="Previous project"><span class="icon icon--left" aria-hidden="true"></span> Previous</button>
+              <span id="stepperCount" aria-live="polite"></span>
+              <button type="button" id="nextProject" aria-label="Next project">Next <span class="icon icon--right" aria-hidden="true"></span></button>
             </div>
           </div>
         </div>
 
-      </div>
+        <div class="game-elsewhere">
+          <a href="games/Neon-Highway-Survival/index.html"><strong>Neon Highway Survival</strong><span class="icon" aria-hidden="true"></span></a>
+          <a href="timeline.html"><strong>Game development timeline</strong><span class="icon" aria-hidden="true"></span></a>
+        </div>
+        <a class="archive-link" href="gamedev.html">More playable games and development footage <span class="icon" aria-hidden="true"></span></a>
+      </section>
+
+      <section class="panel panel--art" id="section-arts" hidden>
+        <div class="section-opening section-opening--art">
+          <h1>Art that found its way here.</h1>
+          <p>Illustration, character studies, and a few things that move.</p>
+        </div>
+        <div class="art-wall" id="artworkGrid"></div>
+        <div class="section-end"><a href="https://www.deviantart.com/codekokeshi" target="_blank" rel="noopener noreferrer">More on DeviantArt <span class="icon" aria-hidden="true"></span></a><a href="https://www.pixiv.net/en/users/85447343" target="_blank" rel="noopener noreferrer">Pixiv <span class="icon" aria-hidden="true"></span></a></div>
+      </section>
+
+      <section class="panel panel--software" id="section-software" hidden>
+        <div class="section-opening section-opening--software">
+          <h1>Tools I wanted to exist.</h1>
+          <p>Small apps for making art, music, and useful things from data.</p>
+        </div>
+        <div class="software-showcase" id="softwareGrid"></div>
+        <div class="section-end"><a href="projects.html">More projects and tools <span class="icon" aria-hidden="true"></span></a></div>
+      </section>
+
+      <section class="panel panel--mods" id="section-mods" hidden>
+        <div class="section-opening section-opening--mods">
+          <h1>Little things that make games better.</h1>
+          <p>Stardew Valley mods and RPG Maker MZ plugins I made because I wanted them.</p>
+        </div>
+        <div class="mods-cat-selector" role="group" aria-label="Mod collection">
+          <button class="mods-cat-btn mods-cat-btn--active" type="button" data-cat="stardew" aria-pressed="true">Stardew Valley</button>
+          <button class="mods-cat-btn" type="button" data-cat="rpgmaker" aria-pressed="false">RPG Maker MZ</button>
+        </div>
+        <div class="mod-list" id="modsGrid"></div>
+      </section>
+
+      <section class="panel panel--about" id="section-about" hidden>
+        <div class="about-layout">
+          <div class="about-visual"><img src="Profile.png" alt="CodeKokeshi avatar illustration" /></div>
+          <div class="about-copy">
+            <h1>Hey, I'm CodeKokeshi.</h1>
+            <p>I started making games in RPG Maker, tried Unity, and found my way to Godot. Somewhere along that route I picked up pixel art, animation, modding, and a habit of building my own tools.</p>
+            <p>This place is a mix of finished projects and experiments. I like showing the attempts, too.</p>
+            <div class="about-links">
+              <a href="timeline.html">My game dev timeline <span class="icon" aria-hidden="true"></span></a>
+              <a href="https://github.com/CodeKokeshi" target="_blank" rel="noopener noreferrer">GitHub <span class="icon" aria-hidden="true"></span></a>
+              <a href="https://codekokeshi.itch.io/" target="_blank" rel="noopener noreferrer">itch.io <span class="icon" aria-hidden="true"></span></a>
+              <a href="https://www.nexusmods.com/profile/CodeKokeshi" target="_blank" rel="noopener noreferrer">Nexus Mods <span class="icon" aria-hidden="true"></span></a>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <!-- ====== MOBILE BOTTOM NAVIGATION ====== -->
-    <nav class="bottom-nav" id="bottomNav">
-      <button class="bottom-nav__btn bottom-nav__btn--active" data-section="games">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="6" width="20" height="12" rx="2" />
-          <path d="M6 12h4M8 10v4" />
-          <circle cx="17" cy="10" r="1" />
-          <circle cx="15" cy="14" r="1" />
-        </svg>
-        <span>Games</span>
-      </button>
-      <button class="bottom-nav__btn" data-section="arts">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 19l7-7 3 3-7 7-3-3z" />
-          <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
-          <path d="M2 2l7.586 7.586" />
-          <circle cx="11" cy="11" r="2" />
-        </svg>
-        <span>Arts</span>
-      </button>
-      <button class="bottom-nav__btn" data-section="software">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="16 18 22 12 16 6" />
-          <polyline points="8 6 2 12 8 18" />
-        </svg>
-        <span>Software</span>
-      </button>
-      <button class="bottom-nav__btn" data-section="mods">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24" />
-        </svg>
-        <span>Mods</span>
-      </button>
-      <button class="bottom-nav__btn" data-section="about">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
-        <span>About</span>
-      </button>
-    </nav>
-
-    <!-- ====== FOOTER (Desktop only, hidden on mobile via CSS) ====== -->
-    <footer class="footer" id="footer">
-      <p>&copy; <span id="year"></span> CodeKokeshi</p>
-    </footer>
-
+    <footer class="site-footer"><span>CodeKokeshi</span><span>Made, unfinished, revisited, and made again.</span><span>© <span id="year"></span></span></footer>
   </div>
-
-  <script src="assets/js/site.js?v=20260928c"></script>
+  <script src="assets/js/site.js?v=20260930"></script>
 </body>
-</html>

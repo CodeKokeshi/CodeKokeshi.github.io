@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-30T00:29:42.007Z",
+  "title": "Design System: CodeKokeshi Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "Ground",
+        "canonical": "#111925",
+        "tonalRamp": [
+          "hsl(216 37% 15%)",
+          "hsl(216 37% 25%)",
+          "hsl(216 37% 35%)",
+          "hsl(216 37% 45%)",
+          "hsl(216 37% 55%)",
+          "hsl(216 37% 65%)",
+          "hsl(216 37% 80%)",
+          "hsl(216 37% 95%)"
+        ]
+      },
+      "ground-raised": {
+        "role": "neutral",
+        "displayName": "Raised Ground",
+        "canonical": "#172433",
+        "tonalRamp": [
+          "hsl(212 38% 15%)",
+          "hsl(212 38% 25%)",
+          "hsl(212 38% 35%)",
+          "hsl(212 38% 45%)",
+          "hsl(212 38% 55%)",
+          "hsl(212 38% 65%)",
+          "hsl(212 38% 80%)",
+          "hsl(212 38% 95%)"
+        ]
+      },
+      "stage": {
+        "role": "neutral",
+        "displayName": "Stage Slate",
+        "canonical": "#223244",
+        "tonalRamp": [
+          "hsl(212 33% 15%)",
+          "hsl(212 33% 25%)",
+          "hsl(212 33% 35%)",
+          "hsl(212 33% 45%)",
+          "hsl(212 33% 55%)",
+          "hsl(212 33% 65%)",
+          "hsl(212 33% 80%)",
+          "hsl(212 33% 95%)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line Slate",
+        "canonical": "#435367",
+        "tonalRamp": [
+          "hsl(213 21% 15%)",
+          "hsl(213 21% 25%)",
+          "hsl(213 21% 35%)",
+          "hsl(213 21% 45%)",
+          "hsl(213 21% 55%)",
+          "hsl(213 21% 65%)",
+          "hsl(213 21% 80%)",
+          "hsl(213 21% 95%)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Warm White",
+        "canonical": "#f4f5ed",
+        "tonalRamp": [
+          "hsl(68 29% 15%)",
+          "hsl(68 29% 25%)",
+          "hsl(68 29% 35%)",
+          "hsl(68 29% 45%)",
+          "hsl(68 29% 55%)",
+          "hsl(68 29% 65%)",
+          "hsl(68 29% 80%)",
+          "hsl(68 29% 95%)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Blue Gray",
+        "canonical": "#bfcbcf",
+        "tonalRamp": [
+          "hsl(195 14% 15%)",
+          "hsl(195 14% 25%)",
+          "hsl(195 14% 35%)",
+          "hsl(195 14% 45%)",
+          "hsl(195 14% 55%)",
+          "hsl(195 14% 65%)",
+          "hsl(195 14% 80%)",
+          "hsl(195 14% 95%)"
+        ]
+      },
+      "cobalt": {
+        "role": "primary",
+        "displayName": "Selected Cobalt",
+        "canonical": "#586ef4",
+        "tonalRamp": [
+          "hsl(232 88% 15%)",
+          "hsl(232 88% 25%)",
+          "hsl(232 88% 35%)",
+          "hsl(232 88% 45%)",
+          "hsl(232 88% 55%)",
+          "hsl(232 88% 65%)",
+          "hsl(232 88% 80%)",
+          "hsl(232 88% 95%)"
+        ]
+      },
+      "cobalt-deep": {
+        "role": "primary",
+        "displayName": "Deep Cobalt",
+        "canonical": "#3549bd",
+        "tonalRamp": [
+          "hsl(231 56% 15%)",
+          "hsl(231 56% 25%)",
+          "hsl(231 56% 35%)",
+          "hsl(231 56% 45%)",
+          "hsl(231 56% 55%)",
+          "hsl(231 56% 65%)",
+          "hsl(231 56% 80%)",
+          "hsl(231 56% 95%)"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Action Amber",
+        "canonical": "#ffc247",
+        "tonalRamp": [
+          "hsl(40 100% 15%)",
+          "hsl(40 100% 25%)",
+          "hsl(40 100% 35%)",
+          "hsl(40 100% 45%)",
+          "hsl(40 100% 55%)",
+          "hsl(40 100% 65%)",
+          "hsl(40 100% 80%)",
+          "hsl(40 100% 95%)"
+        ]
+      },
+      "light": {
+        "role": "neutral",
+        "displayName": "Detail Plate",
+        "canonical": "#e8edf0",
+        "tonalRamp": [
+          "hsl(202 21% 15%)",
+          "hsl(202 21% 25%)",
+          "hsl(202 21% 35%)",
+          "hsl(202 21% 45%)",
+          "hsl(202 21% 55%)",
+          "hsl(202 21% 65%)",
+          "hsl(202 21% 80%)",
+          "hsl(202 21% 95%)"
+        ]
+      },
+      "light-ink": {
+        "role": "neutral",
+        "displayName": "Detail Ink",
+        "canonical": "#182332",
+        "tonalRamp": [
+          "hsl(215 35% 15%)",
+          "hsl(215 35% 25%)",
+          "hsl(215 35% 35%)",
+          "hsl(215 35% 45%)",
+          "hsl(215 35% 55%)",
+          "hsl(215 35% 65%)",
+          "hsl(215 35% 80%)",
+          "hsl(215 35% 95%)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Large uppercase section and selected project headings."
+      },
+      "title": {
+        "displayName": "Project title",
+        "purpose": "Selected game and project names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Descriptions and personal copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Controls, metadata, and navigation details."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "media-hover",
+        "value": "0.45s cubic-bezier(.2,.8,.2,1)",
+        "purpose": "Subtle artwork enlargement on hover; reduced-motion disables it."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-to-compact",
+        "value": "1050px"
+      },
+      {
+        "name": "mobile",
+        "value": "760px"
+      },
+      {
+        "name": "small-phone",
+        "value": "420px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action",
+      "kind": "button",
+      "refersTo": "primary-action",
+      "description": "Amber square action for playing the selected project.",
+      "html": "<button class=\"ds-primary-action\">Play the game</button>",
+      "css": ".ds-primary-action{min-height:43px;padding:10px 14px;border:1px solid #ffc247;border-radius:0;background:#ffc247;color:#182332;font:600 13px/1.2 Barlow,Arial,sans-serif;cursor:pointer}.ds-primary-action:hover{background:#f4b526}.ds-primary-action:focus-visible{outline:3px solid #ffc247;outline-offset:4px}"
+    },
+    {
+      "name": "Selected Route",
+      "kind": "button",
+      "refersTo": "selected-route",
+      "description": "Numbered game choice with cobalt selection and amber marker.",
+      "html": "<button class=\"ds-route-choice\" aria-pressed=\"true\"><span class=\"ds-route-marker\">01</span><span>Trapped in a Nightmare</span></button>",
+      "css": ".ds-route-choice{display:flex;align-items:center;gap:10px;min-height:65px;width:270px;padding:13px 16px 12px;border:0;border-radius:0;background:#586ef4;color:#f4f5ed;text-align:left;font:600 14px/1.2 Barlow,Arial,sans-serif;cursor:pointer}.ds-route-marker{display:grid;place-items:center;flex:none;width:28px;height:28px;border:1px solid #ffc247;background:#ffc247;color:#111925;font-size:11px}.ds-route-choice:hover{background:#3549bd}.ds-route-choice:focus-visible{outline:3px solid #ffc247;outline-offset:4px}"
+    },
+    {
+      "name": "Main Navigation",
+      "kind": "nav",
+      "description": "Compact section rail with an amber active underline.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-active\" href=\"#games\">Games</a><a href=\"#arts\">Art</a><a href=\"#software\">Software</a></nav>",
+      "css": ".ds-nav{display:flex;gap:26px;min-height:53px;background:#111925}.ds-nav a{position:relative;display:inline-flex;align-items:center;color:#bfcbcf;text-decoration:none;font:600 14px/1.2 Barlow,Arial,sans-serif}.ds-nav a:hover,.ds-nav .ds-nav-active{color:#f4f5ed}.ds-nav .ds-nav-active::after{content:\"\";position:absolute;right:0;bottom:0;left:0;height:4px;background:#ffc247}.ds-nav a:focus-visible{outline:3px solid #ffc247;outline-offset:4px}"
+    },
+    {
+      "name": "Technical Tag",
+      "kind": "chip",
+      "description": "Quiet outlined tool or platform label.",
+      "html": "<span class=\"ds-tech-tag\">Godot</span>",
+      "css": ".ds-tech-tag{display:inline-block;padding:3px 8px;border:1px solid #435367;border-radius:0;background:transparent;color:#bfcbcf;font:600 11px/1.2 Barlow,Arial,sans-serif}"
+    },
+    {
+      "name": "Detail Plate",
+      "kind": "custom",
+      "description": "Light inverse surface for the currently selected game.",
+      "html": "<article class=\"ds-detail\"><h2>Trapped in a Nightmare</h2><p>A top-down adventure and puzzle game.</p></article>",
+      "css": ".ds-detail{max-width:540px;padding:25px 40px 27px;border-radius:0;background:#e8edf0;color:#182332}.ds-detail h2{margin:0;font:700 48px/.95 \"Barlow Condensed\",\"Arial Narrow\",sans-serif;text-transform:uppercase}.ds-detail p{margin:12px 0 0;color:#374859;font:400 15px/1.45 Barlow,Arial,sans-serif}"
+    }
+  ],
+  "narrative": {
+    "northStar": "World Select",
+    "overview": "The portfolio treats each project as something to enter and explore. Real footage, artwork, and screenshots carry the visual weight; the interface frames them with a compact route, a selected state, and short, candid copy. The site is personal and informal, with no presentation-style pitch.\n\nThe dark field resembles a quiet game selection screen without inventing a game world around the work. Art, software, mods, the older archive pages, and the timeline use the same type, colors, square edges, and focus treatment while giving their media different layouts.",
+    "keyCharacteristics": [
+      "Real project media leads each view.",
+      "Cobalt identifies the current selection; amber marks actions and navigation.",
+      "Flat slate surfaces and thin borders define depth without shadows.",
+      "Short labels and varied media layouts keep the site from reading like an article."
+    ],
+    "rules": [
+      {
+        "name": "The Selection and Action Rule",
+        "body": "Use cobalt for the chosen item and amber for action or wayfinding; they have different jobs.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Condensed display type names the work; Barlow body type explains it. Avoid a third decorative face.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Stage Rule",
+        "body": "Reserve borders for boundaries and focus; do not add shadowed cards around media.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do lead with the real game, artwork, or product screenshot for each view.",
+      "Do keep cobalt selection, amber action, square edges, and the Barlow pairing consistent across new pages.",
+      "Do keep desktop and phone compositions distinct while preserving the same project order and controls."
+    ],
+    "donts": [
+      "Don't repeat identical image-text cards for every kind of work.",
+      "Don't put decorative introductory labels above project headings.",
+      "Don't replace the real media with generic illustrations, gradients, or invented claims."
+    ]
+  }
+}

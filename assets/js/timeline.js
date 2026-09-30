@@ -174,20 +174,20 @@ var timelineData = [
 
 // Era colors
 var eraColors = {
-  '2017': '#944d32',
-  '2018': '#944d32',
-  '2022': '#a07a4c',
-  '2023': '#737b70',
-  'Nov 2023': '#737b70',
-  'Dec 2023': '#737b70',
-  'Jan 2024': '#737b70',
-  'Feb 2024': '#737b70',
-  'Apr 2025': '#52695f',
-  'May 2025': '#52695f',
-  'Jun 2025': '#52695f',
-  'Jul 2025': '#52695f',
-  '2025': '#52695f',
-  'Current': '#252b25',
+  '2017': '#ffc247',
+  '2018': '#ffc247',
+  '2022': '#d99bff',
+  '2023': '#8bcadf',
+  'Nov 2023': '#8bcadf',
+  'Dec 2023': '#8bcadf',
+  'Jan 2024': '#8bcadf',
+  'Feb 2024': '#8bcadf',
+  'Apr 2025': '#8393ff',
+  'May 2025': '#8393ff',
+  'Jun 2025': '#8393ff',
+  'Jul 2025': '#8393ff',
+  '2025': '#8393ff',
+  'Current': '#f4f5ed',
 };
 
 // ============================================================================
@@ -216,15 +216,15 @@ function renderDesktopTimeline() {
     var color = eraColors[item.year] || '#888';
     var cardPos = index % 2 === 0 ? 'top' : 'bottom';
 
-    html += '<div class="timeline-item timeline-item--' + item.type + '" ' +
+    html += '<button type="button" class="timeline-item timeline-item--' + item.type + '" ' +
       'style="--item-color:' + color + '" data-id="' + item.id + '">' +
-      '<div class="timeline-item__dot"></div>' +
-      '<div class="timeline-item__year">' + escapeHtml(item.year) + '</div>' +
-      '<div class="timeline-item__card timeline-item__card--' + cardPos + '">' +
-        '<h3>' + escapeHtml(item.title) + '</h3>' +
-        '<p>' + escapeHtml(item.description) + '</p>' +
-      '</div>' +
-    '</div>';
+      '<span class="timeline-item__dot"></span>' +
+      '<span class="timeline-item__year">' + escapeHtml(item.year) + '</span>' +
+      '<span class="timeline-item__card timeline-item__card--' + cardPos + '">' +
+        '<span class="timeline-item__title">' + escapeHtml(item.title) + '</span>' +
+        '<span class="timeline-item__desc">' + escapeHtml(item.description) + '</span>' +
+      '</span>' +
+    '</button>';
   });
 
   track.innerHTML = html;
@@ -241,16 +241,16 @@ function renderVerticalTimeline() {
   timelineData.forEach(function(item) {
     var color = eraColors[item.year] || '#888';
 
-    html += '<div class="timeline-vertical__item timeline-vertical__item--' + item.type + '" ' +
+    html += '<button type="button" class="timeline-vertical__item timeline-vertical__item--' + item.type + '" ' +
       'style="--item-color:' + color + '" data-id="' + item.id + '">' +
-      '<div class="timeline-vertical__line"></div>' +
-      '<div class="timeline-vertical__dot"></div>' +
-      '<div class="timeline-vertical__content">' +
+      '<span class="timeline-vertical__line"></span>' +
+      '<span class="timeline-vertical__dot"></span>' +
+      '<span class="timeline-vertical__content">' +
         '<span class="timeline-vertical__year">' + escapeHtml(item.year) + '</span>' +
-        '<h3>' + escapeHtml(item.title) + '</h3>' +
-        '<p>' + escapeHtml(item.description) + '</p>' +
-      '</div>' +
-    '</div>';
+        '<span class="timeline-vertical__title">' + escapeHtml(item.title) + '</span>' +
+        '<span class="timeline-vertical__desc">' + escapeHtml(item.description) + '</span>' +
+      '</span>' +
+    '</button>';
   });
 
   container.innerHTML = html;
@@ -261,8 +261,10 @@ function renderVerticalTimeline() {
 // ============================================================================
 
 var selectedItem = null;
+var previousFocus = null;
 
 function openDetail(item) {
+  previousFocus = document.activeElement;
   selectedItem = item;
   var panel = document.getElementById('detailPanel');
   var content = document.getElementById('detailContent');
@@ -271,10 +273,10 @@ function openDetail(item) {
 
   // Close button
   var closeBtn = mobile
-    ? '<button class="timeline-detail__close" id="detailClose">' +
+    ? '<button class="timeline-detail__close" id="detailClose" aria-label="Close details">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>' +
       '</button>'
-    : '<button class="timeline-detail__close" id="detailClose">&times;</button>';
+    : '<button class="timeline-detail__close" id="detailClose" aria-label="Close details">&times;</button>';
 
   // Video
   var videoHtml = '';
@@ -319,6 +321,7 @@ function openDetail(item) {
 
   // Close handlers
   document.getElementById('detailClose').addEventListener('click', closeDetail);
+  document.getElementById('detailClose').focus();
 }
 
 function closeDetail() {
@@ -330,6 +333,8 @@ function closeDetail() {
   document.querySelectorAll('.timeline-item--selected').forEach(function(el) {
     el.classList.remove('timeline-item--selected');
   });
+  if (previousFocus && previousFocus.isConnected) previousFocus.focus();
+  previousFocus = null;
 }
 
 function findItemById(id) {

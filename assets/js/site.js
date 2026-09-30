@@ -281,400 +281,225 @@ const toolColors = {
 };
 
 // ============================================================================
-// HELPERS
+// PORTFOLIO INTERACTIONS
 // ============================================================================
 
-function isMobile() {
-  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
-}
-
-function escapeHtml(str) {
+function escapeHtml(value) {
   var div = document.createElement('div');
-  div.textContent = str;
+  div.textContent = String(value);
   return div.innerHTML;
 }
 
-// ============================================================================
-// VIDEO CARD BUILDER
-// ============================================================================
+var activeVideoIndex = 0;
+var previewPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var activeModsCat = 'stardew';
+var knownSections = ['games', 'arts', 'software', 'mods', 'about'];
 
-function createCardHTML(video, isCarousel) {
-  var color = toolColors[video.tool] || '#888';
-  return '<div class="card" data-video-id="' + video.id + '">' +
-    '<video class="card__video" src="' + video.src + '" muted loop playsinline ' +
-    'preload="' + (isCarousel ? 'auto' : 'none') + '" ' +
-    'disablepictureinpicture></video>' +
-    '<div class="card__overlay"></div>' +
-    '<div class="card__info">' +
-      '<div class="card__tags">' +
-        '<span class="card__tag" style="background-color:' + color + '22;color:' + color + ';border-color:' + color + '44">' +
-          escapeHtml(video.tool) +
-        '</span>' +
-      '</div>' +
-      '<p class="card__overview">' + escapeHtml(video.description) + '</p>' +
-    '</div>' +
-  '</div>';
+function gameStatus(video) {
+  if (completedGames.indexOf(video) !== -1) return 'Completed game';
+  if (currentProjects.indexOf(video) !== -1) return 'Current build';
+  return 'Experiment';
 }
 
-function createStoryHTML(video) {
-  return '<div class="gallery__story">' +
-    '<h3>Project notes</h3>' +
-    '<p>' + escapeHtml(video.story) + '</p>' +
-  '</div>';
+function padNumber(number) {
+  return String(number).padStart(2, '0');
 }
 
-// ============================================================================
-// DESKTOP GALLERY
-// ============================================================================
+function updatePreviewControl() {
+  var button = document.getElementById('togglePreview');
+  button.textContent = previewPaused ? 'Play' : 'Pause';
+  button.setAttribute('aria-label', previewPaused ? 'Play preview' : 'Pause preview');
+}
 
-function renderDesktopGallery() {
-  var grids = {
-    'grid-completed': completedGames,
-    'grid-current': currentProjects,
-    'grid-other': otherProjects,
+function selectGame(index, focusChoice, revealPreview) {
+  activeVideoIndex = (index + allVideos.length) % allVideos.length;
+  var video = allVideos[activeVideoIndex];
+  var preview = document.getElementById('featuredVideo');
+  var choices = document.querySelectorAll('.game-choice');
+
+  choices.forEach(function(choice, choiceIndex) {
+    var selected = choiceIndex === activeVideoIndex;
+    choice.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    if (selected) {
+      choice.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      if (focusChoice) choice.focus();
+    }
+  });
+
+  preview.pause();
+  preview.poster = 'assets/images/game-posters/' + video.id + '.webp';
+  preview.src = video.src;
+  preview.setAttribute('aria-label', video.title + ' preview');
+  preview.onloadedmetadata = function() {
+    if (video.id === 8 && preview.duration > 21) preview.currentTime = 20;
+    if (!previewPaused) {
+      preview.play().catch(function() {
+        previewPaused = true;
+        updatePreviewControl();
+      });
+    }
   };
+  preview.load();
 
-  Object.keys(grids).forEach(function(gridId) {
-    var container = document.getElementById(gridId);
-    if (!container) return;
-    container.innerHTML = grids[gridId].map(function(v) {
-      return '<article class="project-entry">' + createCardHTML(v, false) +
-        '<div class="project-caption"><div><h3>' + escapeHtml(v.title) + '</h3><p>' + escapeHtml(v.description) + '</p></div><span>' + escapeHtml(v.tool) + '</span></div>' +
-      '</article>';
-    }).join('');
-  });
-}
+  document.getElementById('featuredMeta').textContent = gameStatus(video) + '  /  ' + video.tool;
+  document.getElementById('featuredTitle').textContent = video.title;
+  document.getElementById('featuredDescription').textContent = video.description;
+  document.getElementById('featuredIndex').textContent = padNumber(activeVideoIndex + 1);
+  document.getElementById('stepperCount').textContent = padNumber(activeVideoIndex + 1) + ' / ' + padNumber(allVideos.length);
 
-// ============================================================================
-// DESKTOP EXPAND/STORY ON CLICK
-// ============================================================================
+  var playLink = document.getElementById('featuredPlay');
+  playLink.hidden = video.id !== 8;
 
-var expandedVideoId = null;
-
-function setupDesktopClick() {
-  document.getElementById('gallery').addEventListener('click', function(e) {
-    var card = e.target.closest('.card');
-    if (!card || isMobile()) return;
-
-    var videoId = parseInt(card.getAttribute('data-video-id'), 10);
-
-    // Remove old expanded state
-    var oldExpanded = document.querySelector('.card--expanded');
-    if (oldExpanded) oldExpanded.classList.remove('card--expanded');
-    var oldStory = document.querySelector('.gallery__story');
-    if (oldStory) oldStory.remove();
-
-    // Toggle
-    if (expandedVideoId === videoId) {
-      expandedVideoId = null;
-      return;
-    }
-
-    expandedVideoId = videoId;
-    card.classList.add('card--expanded');
-
-    // Find video data
-    var video = allVideos.find(function(v) { return v.id === videoId; });
-    if (video && video.story) {
-      card.insertAdjacentHTML('afterend', createStoryHTML(video));
-    }
-
-    setTimeout(function() {
-      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 100);
-  });
-}
-
-// ============================================================================
-// DESKTOP VIDEO AUTOPLAY (IntersectionObserver)
-// ============================================================================
-
-function setupDesktopVideoObserver() {
-  if (isMobile()) return;
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      var vid = entry.target;
-      if (entry.isIntersecting && entry.intersectionRatio > 0.9) {
-        vid.play().catch(function() {});
-      } else {
-        vid.pause();
-      }
-    });
-  }, { threshold: [0, 0.9] });
-
-  function observeAll() {
-    document.querySelectorAll('.gallery .card__video').forEach(function(vid) {
-      observer.observe(vid);
+  var moreButton = document.getElementById('featuredMore');
+  var story = document.getElementById('featuredStory');
+  story.textContent = video.story || '';
+  story.hidden = true;
+  moreButton.setAttribute('aria-expanded', 'false');
+  moreButton.hidden = !video.story;
+  updatePreviewControl();
+  if (revealPreview && window.matchMedia('(max-width: 760px)').matches) {
+    document.querySelector('.stage-screen').scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      block: 'start'
     });
   }
-
-  // Re-observe when section switches
-  observeAll();
-  window._desktopVideoObserve = observeAll;
 }
 
-// ============================================================================
-// MOBILE CAROUSEL
-// ============================================================================
+function setupGames() {
+  var selector = document.getElementById('gameSelector');
+  document.getElementById('gameCount').textContent = allVideos.length + ' builds';
+  selector.innerHTML = allVideos.map(function(video, index) {
+    return '<button type="button" class="game-choice" data-game-index="' + index + '" aria-pressed="false">' +
+      '<span class="game-choice__number">' + padNumber(index + 1) + '</span>' +
+      '<span><span class="game-choice__name">' + escapeHtml(video.title) + '</span>' +
+      '<span class="game-choice__tool">' + escapeHtml(video.tool) + '</span></span></button>';
+  }).join('');
 
-var currentIndex = 0;
-var showStory = false;
+  selector.addEventListener('click', function(event) {
+    var choice = event.target.closest('.game-choice');
+    if (choice) selectGame(Number(choice.dataset.gameIndex), false, true);
+  });
+  selector.addEventListener('keydown', function(event) {
+    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp' && event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+    var choice = event.target.closest('.game-choice');
+    if (!choice) return;
+    event.preventDefault();
+    var step = (event.key === 'ArrowDown' || event.key === 'ArrowRight') ? 1 : -1;
+    selectGame(Number(choice.dataset.gameIndex) + step, true, false);
+  });
 
-function renderCarousel() {
-  var video = allVideos[currentIndex];
-  var color = toolColors[video.tool] || '#888';
-  var content = document.getElementById('carouselContent');
-  var info = document.getElementById('carouselInfo');
-  var counter = document.getElementById('carouselCounter');
+  document.getElementById('prevProject').addEventListener('click', function() { selectGame(activeVideoIndex - 1, false, true); });
+  document.getElementById('nextProject').addEventListener('click', function() { selectGame(activeVideoIndex + 1, false, true); });
+  document.getElementById('togglePreview').addEventListener('click', function() {
+    var preview = document.getElementById('featuredVideo');
+    previewPaused = !previewPaused;
+    if (previewPaused) preview.pause();
+    else preview.play().catch(function() { previewPaused = true; updatePreviewControl(); });
+    updatePreviewControl();
+  });
+  document.getElementById('featuredMore').addEventListener('click', function() {
+    var story = document.getElementById('featuredStory');
+    story.hidden = !story.hidden;
+    this.setAttribute('aria-expanded', story.hidden ? 'false' : 'true');
+  });
 
-  // Video card
-  content.innerHTML = createCardHTML(video, true);
-
-  // Play the video
-  var vid = content.querySelector('.card__video');
-  if (vid) vid.play().catch(function() {});
-
-  // Info
-  var storyHTML = '';
-  if (video.story) {
-    storyHTML = '<span class="carousel__read-more" id="readMoreBtn">' +
-      (showStory ? 'Read less' : 'Read more...') +
-    '</span>';
-    if (showStory) {
-      storyHTML += '<div class="carousel__story">' + escapeHtml(video.story) + '</div>';
-    }
-  }
-
-  info.innerHTML =
-    '<h3 class="carousel__title">' + escapeHtml(video.title) + '</h3>' +
-    '<div class="carousel__tool-tag" style="background-color:' + color + '22;color:' + color + ';border-color:' + color + '44">' +
-      escapeHtml(video.tool) +
-    '</div>' +
-    '<p class="carousel__description">' + escapeHtml(video.description) + '</p>' +
-    storyHTML;
-
-  counter.textContent = (currentIndex + 1) + ' / ' + allVideos.length;
+  selectGame(0, false);
 }
 
-function setupCarousel() {
-  document.getElementById('prevBtn').addEventListener('click', function() {
-    currentIndex = currentIndex === 0 ? allVideos.length - 1 : currentIndex - 1;
-    showStory = false;
-    renderCarousel();
-  });
-
-  document.getElementById('nextBtn').addEventListener('click', function() {
-    currentIndex = currentIndex === allVideos.length - 1 ? 0 : currentIndex + 1;
-    showStory = false;
-    renderCarousel();
-  });
-
-  // Read more / less (delegated)
-  document.getElementById('carouselInfo').addEventListener('click', function(e) {
-    if (e.target.id === 'readMoreBtn') {
-      showStory = !showStory;
-      renderCarousel();
-    }
-  });
-
-  renderCarousel();
-}
-
-// ============================================================================
-// ARTWORKS GRID
-// ============================================================================
+var artworkLabels = [
+  'Digital character illustration', 'Angela character illustration', 'Animated character study',
+  'Animated artwork', 'Gaomon contest illustration', 'Mahiro character illustration',
+  'Marnie character illustration', 'Mahiro recolor', 'Suyarisu and Kaymin illustration',
+  'Reiko color study'
+];
 
 function renderArtworks() {
-  var grid = document.getElementById('artworkGrid');
-  if (!grid) return;
-
-  grid.innerHTML = artworks.map(function(art) {
-    return '<div class="masonry__item">' +
-      '<img src="' + art.src + '" alt="" loading="lazy" />' +
-      (art.isGif ? '<div class="masonry__gif-badge">GIF</div>' : '') +
-    '</div>';
+  document.getElementById('artworkGrid').innerHTML = artworks.map(function(art, index) {
+    var label = artworkLabels[index] || 'Artwork';
+    return '<figure class="art-piece"><a href="' + encodeURI(art.src) + '" target="_blank" rel="noopener noreferrer" aria-label="Open ' + escapeHtml(label) + '">' +
+      '<img src="' + encodeURI(art.src) + '" alt="' + escapeHtml(label) + '" loading="eager"></a>' +
+      (art.isGif ? '<span class="art-piece__motion">Animation</span>' : '') +
+      '<figcaption>' + escapeHtml(label) + '</figcaption></figure>';
   }).join('');
 }
 
-// ============================================================================
-// MODS GRID
-// ============================================================================
-
 function renderSoftware() {
-  var grid = document.getElementById('softwareGrid');
-  if (!grid) return;
-
-  grid.innerHTML = softwareProjects.map(function(sw) {
-    var tagsHTML = '';
-    if (sw.tags && sw.tags.length) {
-      tagsHTML = '<div class="mod-card__tags">' +
-        sw.tags.map(function(tag) {
-          var color = toolColors[tag] || '#888';
-          return '<span class="card__tag" style="background-color:' + color + '22;color:' + color + ';border-color:' + color + '44">' +
-            escapeHtml(tag) +
-          '</span>';
-        }).join('') +
-      '</div>';
-    }
-    var cardInner = '<div class="mod-card__image">' +
-        '<img src="' + encodeURI(sw.image) + '" alt="' + escapeHtml(sw.title) + '" loading="lazy" />' +
-      '</div>' +
-      '<div class="mod-card__content">' +
-        '<h3 class="mod-card__title">' + escapeHtml(sw.title) + '</h3>' +
-        tagsHTML +
-        '<p class="mod-card__overview">' + escapeHtml(sw.overview) + '</p>' +
-      '</div>';
-
-    if (sw.link) {
-      return '<a class="mod-card mod-card__link" href="' + escapeHtml(sw.link) + '">' + cardInner + '</a>';
-    }
-
-    return '<div class="mod-card">' +
-      cardInner +
-    '</div>';
+  document.getElementById('softwareGrid').innerHTML = softwareProjects.map(function(project, index) {
+    var textOnly = project.title === 'METEREAD';
+    var tags = (project.tags || []).map(function(tag) { return '<span>' + escapeHtml(tag) + '</span>'; }).join('');
+    return '<article class="software-item' + (textOnly ? ' software-item--text' : '') + '">' +
+      (textOnly ? '' : '<div class="software-item__image"><img src="' + encodeURI(project.image) + '" alt="' + escapeHtml(project.title) + ' screenshot" loading="lazy"></div>') +
+      '<div class="software-item__copy"><h2>' + escapeHtml(project.title) + '</h2><p>' + escapeHtml(project.overview) + '</p>' +
+      '<div class="software-item__tags">' + tags + '</div>' +
+      (project.link ? '<a class="software-item__link" href="' + escapeHtml(project.link) + '">Open project <span class="icon" aria-hidden="true"></span></a>' : '') +
+      '</div></article>';
   }).join('');
 }
 
 function renderMods() {
-  var grid = document.getElementById('modsGrid');
-  if (!grid) return;
-
-  var items = (activeModsCat === 'rpgmaker') ? rpgMakerPlugins : mods;
-
-  grid.innerHTML = items.map(function(mod) {
-    return '<div class="mod-card">' +
-      '<div class="mod-card__image">' +
-        '<img src="' + encodeURI(mod.image) + '" alt="' + escapeHtml(mod.title) + '" loading="lazy" />' +
-      '</div>' +
-      '<div class="mod-card__content">' +
-        '<h3 class="mod-card__title"><a href="' + escapeHtml(mod.link) + '" target="_blank" rel="noopener noreferrer" class="mod-card__title-link">' + escapeHtml(mod.title) + '</a></h3>' +
-        '<p class="mod-card__overview">' + escapeHtml(mod.overview) + '</p>' +
-      '</div>' +
-    '</div>';
+  var items = activeModsCat === 'rpgmaker' ? rpgMakerPlugins : mods;
+  document.getElementById('modsGrid').innerHTML = items.map(function(mod) {
+    return '<article class="mod-item">' +
+      '<a class="mod-item__image" href="' + escapeHtml(mod.link) + '" target="_blank" rel="noopener noreferrer" aria-label="Open ' + escapeHtml(mod.title) + '">' +
+      '<img src="' + encodeURI(mod.image) + '" alt="' + escapeHtml(mod.title) + ' preview" loading="lazy"></a>' +
+      '<div class="mod-item__copy"><h2><a href="' + escapeHtml(mod.link) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(mod.title) + '</a></h2>' +
+      '<p>' + escapeHtml(mod.overview) + '</p></div></article>';
   }).join('');
 }
 
-function setupModsCategory() {
-  var modsPanel = document.getElementById('section-mods');
-  if (!modsPanel) return;
-  modsPanel.addEventListener('click', function(e) {
-    var btn = e.target.closest('.mods-cat-btn');
-    if (!btn) return;
-    var cat = btn.getAttribute('data-cat');
-    if (cat === activeModsCat) return;
-    activeModsCat = cat;
-    modsPanel.querySelectorAll('.mods-cat-btn').forEach(function(b) {
-      b.classList.toggle('mods-cat-btn--active', b === btn);
+function setupMods() {
+  document.querySelectorAll('.mods-cat-btn').forEach(function(button) {
+    button.addEventListener('click', function() {
+      activeModsCat = button.dataset.cat;
+      document.querySelectorAll('.mods-cat-btn').forEach(function(item) {
+        var selected = item === button;
+        item.classList.toggle('mods-cat-btn--active', selected);
+        item.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      renderMods();
     });
-    renderMods();
   });
 }
 
-// ============================================================================
-// NAVIGATION
-// ============================================================================
-
-var activeSection = null;
-var knownSections = ['games', 'arts', 'software', 'mods', 'about'];
-
-function _applySection(sectionId) {
-  // Hide all panels, show the target
-  document.querySelectorAll('.section-panel').forEach(function(panel) {
-    panel.style.display = 'none';
-  });
-  var target = document.getElementById('section-' + sectionId);
-  if (target) target.style.display = 'block';
-
-  // Update desktop nav
-  document.querySelectorAll('.header__nav-btn').forEach(function(btn) {
-    btn.classList.toggle('header__nav-btn--active', btn.getAttribute('data-section') === sectionId);
-  });
-
-  // Update bottom nav
-  document.querySelectorAll('.bottom-nav__btn').forEach(function(btn) {
-    btn.classList.toggle('bottom-nav__btn--active', btn.getAttribute('data-section') === sectionId);
-  });
-
-  // Re-observe videos if switching to games on desktop
-  if (sectionId === 'games' && !isMobile() && window._desktopVideoObserve) {
-    setTimeout(window._desktopVideoObserve, 100);
-  }
-
-  // Pause all videos when leaving games section
-  if (sectionId !== 'games') {
-    document.querySelectorAll('video').forEach(function(v) { v.pause(); });
-  }
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+function sectionFromPath() {
+  var path = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');
+  if ((path === 'index.html' || path === '') && knownSections.indexOf(window.location.hash.slice(1)) !== -1) return window.location.hash.slice(1);
+  return knownSections.indexOf(path) !== -1 ? path : 'games';
 }
 
-function switchSection(sectionId) {
-  if (sectionId === activeSection) return;
-  activeSection = sectionId;
-
-  // Update URL
-  var url = (sectionId === 'games') ? '/' : '/' + sectionId;
-  history.pushState({ section: sectionId }, '', url);
-
-  _applySection(sectionId);
+function showSection(section, pushHistory) {
+  if (knownSections.indexOf(section) === -1) section = 'games';
+  document.querySelectorAll('.panel').forEach(function(panel) { panel.hidden = panel.id !== 'section-' + section; });
+  document.querySelectorAll('.site-nav a').forEach(function(link) {
+    if (link.dataset.section === section) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+  if (pushHistory) history.pushState({ section: section }, '', section === 'games' ? '/' : '/' + section);
+  var preview = document.getElementById('featuredVideo');
+  if (section !== 'games') preview.pause();
+  else if (!previewPaused) preview.play().catch(function() {});
+  window.scrollTo(0, 0);
 }
 
 function setupNavigation() {
-  // Desktop nav
-  document.querySelectorAll('.header__nav-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      switchSection(this.getAttribute('data-section'));
+  document.querySelectorAll('.site-nav a').forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      showSection(link.dataset.section, true);
     });
   });
-
-  // Mobile bottom nav
-  document.querySelectorAll('.bottom-nav__btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      switchSection(this.getAttribute('data-section'));
-    });
-  });
-
-  // Browser back/forward
-  window.addEventListener('popstate', function(e) {
-    var section = (e.state && e.state.section) || 'games';
-    if (section === activeSection) return;
-    activeSection = section;
-    _applySection(section);
-  });
+  window.addEventListener('popstate', function() { showSection(sectionFromPath(), false); });
+  var initialSection = sectionFromPath();
+  history.replaceState({ section: initialSection }, '', window.location.pathname);
+  showSection(initialSection, false);
 }
 
-// ============================================================================
-// INIT
-// ============================================================================
-
 document.addEventListener('DOMContentLoaded', function() {
-  // Set year
-  var yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // Render all sections
-  renderDesktopGallery();
+  document.getElementById('year').textContent = new Date().getFullYear();
+  setupGames();
   renderArtworks();
   renderSoftware();
   renderMods();
-
-  // Setup interactions
+  setupMods();
   setupNavigation();
-  setupDesktopClick();
-  setupDesktopVideoObserver();
-  setupCarousel();
-  setupModsCategory();
-
-  // Determine initial section from URL path
-  var rawPath = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');
-  var initialSection = (knownSections.indexOf(rawPath) !== -1) ? rawPath : 'games';
-  if (rawPath === 'quiz') history.replaceState(null, '', '/');
-
-  // Stamp the history entry with the section so popstate works on first back
-  history.replaceState({ section: initialSection }, '', window.location.pathname);
-
-  // Show the correct section
-  activeSection = initialSection;
-  _applySection(initialSection);
 });

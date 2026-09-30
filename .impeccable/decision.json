@@ -1,0 +1,166 @@
+{
+  "title": "Choose the portfolio's visual world",
+  "question": "I can build this as a project-select world or take one of these alternate directions. Pick the one that feels most like your work.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "World Select",
+      "kicker": "THE ROLL",
+      "lineage": "RPG world maps and level-select screens",
+      "thesis": "The portfolio opens like choosing what to explore next.",
+      "palette": ["#111925", "#edf4ff", "#5268f4", "#ffbb39"],
+      "materials": ["live project footage", "route markers", "selected stage"],
+      "viewport": "A large game preview fills the stage; a connected project route and short personal introduction frame it.",
+      "risk": "A literal game menu could turn the projects into a gimmick if the work stops leading.",
+      "raised": [
+        {"from": "Riso print", "raise": "A limited, committed palette carries whole regions instead of scattering accents."},
+        {"from": "Drum machine", "raise": "The selected project has an unmistakable, keyboard-accessible state."},
+        {"from": "Versailles vistas", "raise": "The path through projects has a deliberate focal point and clear next stop."},
+        {"from": "Forged metal", "raise": "One project owns the opening viewport with real impact."},
+        {"from": "Character sheet", "raise": "Small drawn marks can reflect the creator without becoming a mascot theme."}
+      ],
+      "wireframe": {"cols": 12, "rows": 8, "regions": [
+        {"label": "navigation", "x": 0, "y": 0, "w": 12, "h": 1},
+        {"label": "project route", "x": 0, "y": 1, "w": 3, "h": 6, "accent": true},
+        {"label": "live game stage", "x": 3, "y": 1, "w": 9, "h": 5, "accent": true},
+        {"label": "project details and play", "x": 3, "y": 6, "w": 9, "h": 2}
+      ]},
+      "comp": ".impeccable/mocks/decision/assigned.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "Indie Game Library",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "personal game shelves and launcher libraries",
+      "thesis": "A small, honest library of things made and things still being tried.",
+      "palette": ["#171d20", "#f3eee2", "#e97351", "#d7d553"],
+      "materials": ["project covers", "shelf labels", "full-bleed media"],
+      "viewport": "One featured game sits beside a tighter shelf of experiments, with its playable link immediately visible.",
+      "risk": "This is familiar portfolio territory and needs strong project imagery to feel personal.",
+      "wireframe": {"cols": 12, "rows": 8, "regions": [
+        {"label": "navigation", "x": 0, "y": 0, "w": 12, "h": 1},
+        {"label": "featured game", "x": 0, "y": 1, "w": 8, "h": 6, "accent": true},
+        {"label": "experiment shelf", "x": 8, "y": 1, "w": 4, "h": 6},
+        {"label": "project action", "x": 0, "y": 7, "w": 12, "h": 1}
+      ]},
+      "comp": ".impeccable/mocks/decision/model-pick.webp"
+    },
+    {
+      "id": "challenger-blue-note",
+      "label": "Project Sleeves",
+      "verdict": "competitive",
+      "lineage": "Blue Note session sleeves translated to game and art covers",
+      "thesis": "Each project arrives as a bold cover made from its own imagery.",
+      "palette": ["#ef8b3a", "#111d26", "#f2e9da", "#4d7fb4"],
+      "materials": ["hard-cropped game frames", "flat color bands", "tight display type"],
+      "viewport": "A sharply cropped game frame cuts into a full-width color field; project titles become the navigation.",
+      "case": "Creative work reads strongly as a collection of authored covers, though the jazz reference is farther from game making.",
+      "risk": "The cover grammar must stay flexible across games, software screenshots, mods, and art.",
+      "wireframe": {"cols": 12, "rows": 8, "regions": [
+        {"label": "title navigation", "x": 0, "y": 0, "w": 12, "h": 1},
+        {"label": "flat color field", "x": 0, "y": 1, "w": 12, "h": 6, "accent": true},
+        {"label": "cropped game media", "x": 0, "y": 2, "w": 6, "h": 5},
+        {"label": "large project title", "x": 6, "y": 2, "w": 6, "h": 4}
+      ]},
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-blue-note-session-sleeve-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/posters-covers-sleeves-blue-note-session-sleeve.webp",
+      "comp": ".impeccable/mocks/decision/challenger-blue-note.webp"
+    },
+    {
+      "id": "challenger-riso",
+      "label": "Riso Studio",
+      "verdict": "competitive",
+      "lineage": "two-ink risograph prints",
+      "thesis": "The site feels like a personal stack of printed work in progress.",
+      "palette": ["#eee8d6", "#ed4f83", "#1949a0", "#f5ca51"],
+      "materials": ["spot inks", "grain", "imperfect registration"],
+      "viewport": "Game frames interrupt large printed color shapes, with the active project pulled to the front.",
+      "case": "The personal, experimental tone fits; paper and text could pull the result back toward the article feel you dislike.",
+      "risk": "It needs restrained copy and strong project imagery to remain a portfolio.",
+      "wireframe": {"cols": 12, "rows": 8, "regions": [
+        {"label": "color navigation", "x": 0, "y": 0, "w": 12, "h": 1},
+        {"label": "project image", "x": 1, "y": 1, "w": 7, "h": 6, "accent": true},
+        {"label": "print title", "x": 8, "y": 2, "w": 4, "h": 3},
+        {"label": "other work", "x": 8, "y": 5, "w": 4, "h": 2}
+      ]},
+      "hero": "https://impeccable.style/worlds/cards/risograph-web-system-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/risograph-web-system.webp",
+      "comp": ".impeccable/mocks/decision/challenger-riso.webp"
+    },
+    {
+      "id": "challenger-drum",
+      "label": "Step Sequencer",
+      "verdict": "declined",
+      "lineage": "early-80s drum machine",
+      "thesis": "Projects become steps in a loop.",
+      "palette": ["#202225", "#ee6a48", "#eebd56", "#f0efe8"],
+      "materials": ["instrument panel", "step keys"],
+      "viewport": "A row of selectable project steps below a game preview.",
+      "case": "Its control grammar is precise, but a music instrument does not explain this collection of work.",
+      "risk": "The portfolio could look like an unrelated tool.",
+      "kept": "A clear selected state and keyboard interaction.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-drum-machine-step-row-hero.webp"
+    },
+    {
+      "id": "challenger-versailles",
+      "label": "Garden Vistas",
+      "verdict": "declined",
+      "lineage": "choreographed garden axes",
+      "thesis": "Projects unfold as a series of vistas.",
+      "palette": ["#2c5037", "#d9d1b2", "#c4a465", "#f5f4e8"],
+      "materials": ["path geometry", "viewpoint frames"],
+      "viewport": "A central path leads from one project view to another.",
+      "case": "The visual reference is too remote from the work to identify the creator quickly.",
+      "risk": "Visitors may have to learn the metaphor before finding projects.",
+      "kept": "A deliberate focal point and next stop.",
+      "hero": "https://impeccable.style/worlds/cards/architecture-inhabitable-space-versailles-bosquet-vistas-hero.webp"
+    },
+    {
+      "id": "challenger-forge",
+      "label": "Forged Metal",
+      "verdict": "declined",
+      "lineage": "power hammer and hot iron",
+      "thesis": "Each project lands like one strike.",
+      "palette": ["#15191b", "#585f60", "#ee743a", "#f3dfb4"],
+      "materials": ["steel", "heat", "impact"],
+      "viewport": "A full-width project reveal occupies the screen.",
+      "case": "Its force is useful, but the industrial world obscures this maker's range.",
+      "risk": "The form would overpower the projects.",
+      "kept": "Let one real project own the opening viewport.",
+      "hero": "https://impeccable.style/worlds/cards/metal-forging-patina-blacksmith-scale-shower-hero.webp"
+    },
+    {
+      "id": "challenger-character",
+      "label": "Character Sheet",
+      "verdict": "declined",
+      "lineage": "pastel mascot sheets",
+      "thesis": "A drawn character introduces each kind of work.",
+      "palette": ["#ff9cc3", "#a7ead2", "#17171d", "#ffffff"],
+      "materials": ["character art", "heavy outlines"],
+      "viewport": "A central illustrated mascot sits above project variants.",
+      "case": "The creator's actual projects deserve the central position more than a new character.",
+      "risk": "It could imply a mascot identity that is not established.",
+      "kept": "Allow small personal marks without hiding the work.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-menhera-pastel-grimness-hero.webp"
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code", "toggle": true},
+  "canon": true,
+  "canonCard": {
+    "label": "Classic Portfolio",
+    "thesis": "A polished grid of projects with simple section navigation.",
+    "palette": ["#f5f5f2", "#17191c", "#5474c6"],
+    "materials": ["clean grid", "project photography"],
+    "viewport": "A brief introduction above a featured project and regular gallery.",
+    "risk": "It is easy to understand but less individual.",
+    "wireframe": {"cols": 12, "rows": 8, "regions": [
+      {"label": "navigation", "x": 0, "y": 0, "w": 12, "h": 1},
+      {"label": "introduction", "x": 0, "y": 1, "w": 12, "h": 2},
+      {"label": "featured project", "x": 0, "y": 3, "w": 8, "h": 4},
+      {"label": "project grid", "x": 8, "y": 3, "w": 4, "h": 4}
+    ]},
+    "comp": ".impeccable/mocks/decision/canon.webp"
+  },
+  "steer": true
+}
